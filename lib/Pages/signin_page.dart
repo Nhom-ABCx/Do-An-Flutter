@@ -114,7 +114,7 @@ class _SignInPageState extends State<SignInPage> {
                       "VIEW AS GUES",
                       style: TextStyle(fontSize: 17, color: Colors.amber),
                     ),
-                    onPressed: () {},
+                    onPressed: () => Navigator.pushNamed(context, '/Home'),
                   ),
                 ],
               )),
