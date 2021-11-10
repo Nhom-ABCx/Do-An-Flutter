@@ -9,8 +9,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  //cai nay la khai bao' de chon Muc o phia' bottomNavi
   int _selectedBottomNavigation = 0;
-  //cac bien' de dung`
+  //Danh sach' SanPham
+  final List<SanPham> _dssanpham = [
+    SanPham(
+        TenSanPham: 'SanPham 1', HinhAnh: 'images/product-image/DT/DT_1.jpg'),
+    SanPham(
+        TenSanPham: 'SanPham 2', HinhAnh: 'images/product-image/DT/DT_2.jpg'),
+    SanPham(
+        TenSanPham: 'SanPham 3', HinhAnh: 'images/product-image/DT/DT_3.jpg'),
+    SanPham(
+        TenSanPham: 'SanPham 44', HinhAnh: 'images/product-image/DT/DT_4.jpg'),
+  ];
+  //cac bien' de dung`, de? tam
   final txtTimKiem = TextEditingController();
 
   @override
@@ -20,23 +32,22 @@ class _HomePageState extends State<HomePage> {
         child: Scaffold(
           //TopHeader
           appBar: AppBar(
-            title: Align(
-              child: SizedBox(
-                width: 250,
-                child: TextField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: "Enter your keyword",
-                    prefixIcon: Icon(Icons.search),
-                  ),
-                  controller: txtTimKiem, //gan gia tri cua text vao bien'
-                  textInputAction: TextInputAction.search,
-                  inputFormatters: <TextInputFormatter>[
-                    LengthLimitingTextInputFormatter(50), //gioi han do dai`
-                  ],
+            title: SizedBox(
+              width: 250,
+              child: TextField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: "Enter your keyword",
+                  prefixIcon: Icon(Icons.search),
                 ),
+                controller: txtTimKiem, //gan gia tri cua text vao bien'
+                textInputAction: TextInputAction.search,
+                inputFormatters: <TextInputFormatter>[
+                  LengthLimitingTextInputFormatter(50), //gioi han do dai`
+                ],
               ),
             ),
+            centerTitle: true,
             actions: [
               IconButton(
                   onPressed: () {}, icon: const Icon(Icons.notifications))
@@ -106,112 +117,20 @@ class _HomePageState extends State<HomePage> {
           //Body
           body: SingleChildScrollView(
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-              padding: const EdgeInsets.only(top: 100),
               child: Column(
                 children: [
-                  const FlutterLogo(
-                    size: 100,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 20,
-                      top: 10,
-                      right: 20,
-                      bottom: 10,
-                    ),
-                    child: TextField(
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: "Username",
-                        hintText: "create username",
-                        prefixIcon: Icon(Icons.supervisor_account),
-                      ),
-                      controller: txtTimKiem, //gan gia tri cua text vao bien'
-                      textInputAction: TextInputAction.next,
-                      inputFormatters: <TextInputFormatter>[
-                        LengthLimitingTextInputFormatter(
-                            255), //gioi han do dai`
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 20,
-                      top: 10,
-                      right: 20,
-                      bottom: 10,
-                    ),
-                    child: TextField(
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: "Email",
-                        hintText: "yourEmail@gmail.com",
-                        prefixIcon: Icon(Icons.email),
-                      ),
-                      controller: txtTimKiem, //gan gia tri cua text vao bien'
-                      keyboardType: TextInputType.emailAddress,
-                      textInputAction: TextInputAction.next,
-                      inputFormatters: <TextInputFormatter>[
-                        LengthLimitingTextInputFormatter(
-                            255), //gioi han do dai`
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 20,
-                      top: 10,
-                      right: 20,
-                      bottom: 10,
-                    ),
-                    child: TextField(
-                      obscureText: true, //hien * khi nhap text
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: "Password",
-                        prefixIcon: Icon(Icons.vpn_key),
-                      ),
-                      controller: txtTimKiem, //gan gia tri cua text vao bien'
-                      textInputAction: TextInputAction.go,
-                      inputFormatters: <TextInputFormatter>[
-                        LengthLimitingTextInputFormatter(
-                            255), //gioi han do dai`
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(
-                      top: 10,
-                      bottom: 10,
-                    ),
-                    decoration: const BoxDecoration(
-                      color: Colors.green,
-                      shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                    ),
-                    width: 300,
-                    child: TextButton(
-                      child: const Text('Sign Up',
-                          style: TextStyle(fontSize: 20, color: Colors.white)),
-                      onPressed: () {
-                        //Navigator.pushNamed(context, 'Sign_In');
-                      },
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text("Already have an account?"),
-                      TextButton(
-                        child: const Text(
-                          "Sign In",
-                          style: TextStyle(fontSize: 17, color: Colors.white),
-                        ),
-                        onPressed: () =>
-                            Navigator.pushNamed(context, '/Sign_In'),
-                      ),
-                    ],
-                  ),
+                  SizedBox(
+                    height: 150,
+                    child: ListView.separated(
+                        padding: const EdgeInsets.all(20),
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) =>
+                            _buildItem(_dssanpham[index]),
+                        separatorBuilder: (context, _) => const SizedBox(
+                              width: 15, //khoang cach giua cac'layout
+                            ),
+                        itemCount: _dssanpham.length),
+                  )
                 ],
               )),
           //Footer
@@ -242,4 +161,36 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       );
+}
+
+Widget _buildItem(SanPham _sp) => Container(
+      width: 150,
+      child: Column(
+        children: [
+          Expanded(
+              child: AspectRatio(
+            aspectRatio: 4 / 3, //cai nay de fix khi anh bi loi~
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image.asset(
+                _sp.HinhAnh,
+                fit: BoxFit.cover,
+              ),
+            ),
+          )),
+          Text(_sp.TenSanPham),
+        ],
+      ),
+    );
+
+//tao 1 cai Lop SanPham
+class SanPham {
+  String TenSanPham;
+  String HinhAnh;
+
+//gan` nhu phuong thuc khoi tao
+  SanPham({
+    required this.TenSanPham,
+    required this.HinhAnh,
+  });
 }
