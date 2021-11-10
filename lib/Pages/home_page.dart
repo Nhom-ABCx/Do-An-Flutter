@@ -9,6 +9,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int _selectedBottomNavigation = 0;
+  //cac bien' de dung`
   final txtTimKiem = TextEditingController();
 
   @override
@@ -16,6 +18,7 @@ class _HomePageState extends State<HomePage> {
         //huy keyboard khi bam ngoai man hinh
         onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
+          //TopHeader
           appBar: AppBar(
             title: Align(
               child: SizedBox(
@@ -39,6 +42,7 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {}, icon: const Icon(Icons.notifications))
             ],
           ),
+          //Hide
           drawer: Drawer(
             child: ListView(
               padding: EdgeInsets.zero,
@@ -99,6 +103,7 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
+          //Body
           body: SingleChildScrollView(
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
               padding: const EdgeInsets.only(top: 100),
@@ -209,6 +214,32 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               )),
+          //Footer
+          //cai phan` thanh cong cu o phia duoi'
+          bottomNavigationBar: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed, //ko cho no thu nho? mat chu~
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.support),
+                label: 'Support',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.shopping_cart),
+                label: 'Cart',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.settings),
+                label: 'Setting',
+              ),
+            ],
+            currentIndex: _selectedBottomNavigation,
+            selectedItemColor: Colors.green,
+            onTap: (index) => setState(() => _selectedBottomNavigation = index),
+          ),
         ),
       );
 }

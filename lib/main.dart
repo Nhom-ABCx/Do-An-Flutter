@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Pages/forgot_action.dart';
 import 'package:flutter_application_1/Pages/forgot_page.dart';
-import 'Pages/all.dart'; //lam` v cho no' nho? ra
+import 'Pages/all_page.dart'; //lam` v cho no' nho? ra
 
 void main() => runApp(const MyApp());
 
