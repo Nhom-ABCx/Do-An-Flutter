@@ -38,7 +38,8 @@ class _ForgotActionState extends State<ForgotAction> {
               child: TextButton(
                 child: const Text('Go home',
                     style: TextStyle(fontSize: 20, color: Colors.black)),
-                onPressed: () => Navigator.pushNamed(context, '/Sign_In'),
+                onPressed: () => Navigator.popUntil(
+                    context, ModalRoute.withName('/Sign_In')),
               ),
             ),
           ],

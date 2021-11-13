@@ -28,7 +28,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) => GestureDetector(
         //huy keyboard khi bam ngoai man hinh
-        onTap: () => FocusScope.of(context).unfocus(),
+        onTap: () {
+          //sua lai loi~ hien luon keyboard khi nhan drawer
+          final FocusScopeNode currentScope = FocusScope.of(context);
+          if (!currentScope.hasPrimaryFocus && currentScope.hasFocus) {
+            FocusManager.instance.primaryFocus!.unfocus();
+          }
+        },
         child: Scaffold(
           //TopHeader
           appBar: AppBar(

@@ -13,8 +13,8 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-    //huy keyboard khi bam ngoai man hinh
-        onTap: () => FocusScope.of(context).unfocus(), 
+        //huy keyboard khi bam ngoai man hinh
+        onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
           body: SingleChildScrollView(
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,

@@ -35,7 +35,8 @@ class _WellcomePageState extends State<WellcomePage> {
                   child: TextButton(
                     child: const Text('Sign In',
                         style: TextStyle(fontSize: 20, color: Colors.white)),
-                    onPressed: () => Navigator.pushNamed(context, '/Sign_In'),
+                    onPressed: () =>
+                        Navigator.popAndPushNamed(context, '/Sign_In'),
                   ),
                 ),
                 Container(
@@ -50,7 +51,8 @@ class _WellcomePageState extends State<WellcomePage> {
                   child: TextButton(
                     child: const Text('Sign Up',
                         style: TextStyle(fontSize: 20, color: Colors.green)),
-                    onPressed: () => Navigator.pushNamed(context, '/Sign_Up'),
+                    onPressed: () =>
+                        Navigator.popAndPushNamed(context, '/Sign_Up'),
                   ),
                 ),
                 Row(
