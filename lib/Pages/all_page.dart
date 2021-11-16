@@ -1,0 +1,12 @@
+export 'wellcome_page.dart';
+export 'signup_page.dart';
+export 'signin_page.dart';
+export 'signin_page.dart';
+export 'forgot_page.dart';
+export 'forgot_action.dart';
+export 'home_page.dart';
+export '../detail_page/detail_home.dart';
+export '../detail_page/detail_support.dart';
+export '../detail_page/detail_cart.dart';
+export '../detail_page/detail_page.dart';
+export '../detail_page/detail_setting.dart';

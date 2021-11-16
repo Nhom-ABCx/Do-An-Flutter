@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'; //text input
+import 'package:flutter/services.dart';
+import 'all_page.dart';
 
+//text input
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -9,19 +11,26 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  //tạo ds widget cho bottom
+  final List<Widget> _pages = <Widget>[];
+  @override
+  void initState() {
+    _pages.add(const Home());
+    _pages.add(const Support());
+    _pages.add(const Card());
+    _pages.add(const Pages());
+    _pages.add(const Setting());
+    super.initState();
+  }
+
   //cai nay la khai bao' de chon Muc o phia' bottomNavi
   int _selectedBottomNavigation = 0;
-  //Danh sach' SanPham
-  final List<SanPham> _dssanpham = [
-    SanPham(
-        TenSanPham: 'SanPham 1', HinhAnh: 'images/product-image/DT/DT_1.jpg'),
-    SanPham(
-        TenSanPham: 'SanPham 2', HinhAnh: 'images/product-image/DT/DT_2.jpg'),
-    SanPham(
-        TenSanPham: 'SanPham 3', HinhAnh: 'images/product-image/DT/DT_3.jpg'),
-    SanPham(
-        TenSanPham: 'SanPham 44', HinhAnh: 'images/product-image/DT/DT_4.jpg'),
-  ];
+  void _onItemTap(int index) {
+    setState(() {
+      _selectedBottomNavigation = index;
+    });
+  }
+
   //cac bien' de dung`, de? tam
   final txtTimKiem = TextEditingController();
 
@@ -121,24 +130,9 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           //Body
-          body: SingleChildScrollView(
-              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 150,
-                    child: ListView.separated(
-                        padding: const EdgeInsets.all(20),
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) =>
-                            _buildItem(_dssanpham[index]),
-                        separatorBuilder: (context, _) => const SizedBox(
-                              width: 15, //khoang cach giua cac'layout
-                            ),
-                        itemCount: _dssanpham.length),
-                  )
-                ],
-              )),
+          body: Center(
+            child: _pages.elementAt(_selectedBottomNavigation),
+          ),
           //Footer
           //cai phan` thanh cong cu o phia duoi'
           bottomNavigationBar: BottomNavigationBar(
@@ -157,46 +151,18 @@ class _HomePageState extends State<HomePage> {
                 label: 'Cart',
               ),
               BottomNavigationBarItem(
+                icon: Icon(Icons.favorite_outline),
+                label: 'Pages',
+              ),
+              BottomNavigationBarItem(
                 icon: Icon(Icons.settings),
                 label: 'Setting',
               ),
             ],
             currentIndex: _selectedBottomNavigation,
             selectedItemColor: Colors.green,
-            onTap: (index) => setState(() => _selectedBottomNavigation = index),
+            onTap: _onItemTap,
           ),
         ),
       );
-}
-
-Widget _buildItem(SanPham _sp) => Container(
-      width: 150,
-      child: Column(
-        children: [
-          Expanded(
-              child: AspectRatio(
-            aspectRatio: 4 / 3, //cai nay de fix khi anh bi loi~
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Image.asset(
-                _sp.HinhAnh,
-                fit: BoxFit.cover,
-              ),
-            ),
-          )),
-          Text(_sp.TenSanPham),
-        ],
-      ),
-    );
-
-//tao 1 cai Lop SanPham
-class SanPham {
-  String TenSanPham;
-  String HinhAnh;
-
-//gan` nhu phuong thuc khoi tao
-  SanPham({
-    required this.TenSanPham,
-    required this.HinhAnh,
-  });
 }
