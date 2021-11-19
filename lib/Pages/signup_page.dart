@@ -120,7 +120,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           style: TextStyle(fontSize: 17, color: Colors.white),
                         ),
                         onPressed: () =>
-                            Navigator.pushNamed(context, '/Sign_In'),
+                            Navigator.pushReplacementNamed(context, '/Sign_In'),
                       ),
                     ],
                   ),
