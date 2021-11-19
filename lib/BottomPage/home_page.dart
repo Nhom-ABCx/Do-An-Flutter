@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import '../Pages/all_page.dart';
 
-class IndexPage extends StatefulWidget {
-  const IndexPage({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => IndexPageState();
+  State<StatefulWidget> createState() => HomePageState();
 }
 
-class IndexPageState extends State<IndexPage> {
+class HomePageState extends State<HomePage> {
   final List<SanPham> _dssanpham = [
     SanPham(
         TenSanPham: 'SanPham 1', HinhAnh: 'images/product-image/DT/DT_1.jpg'),
@@ -203,13 +204,24 @@ class IndexPageState extends State<IndexPage> {
         )
       ],
     );
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            _listView,
-          ],
+    return GestureDetector(
+      //huy keyboard khi bam ngoai man hinh
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        //TopHeader
+        appBar: AppBarPage(),
+        //Hide
+        drawer: const NavigationDrawer(),
+        //Body
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              _listView,
+            ],
+          ),
         ),
+        //Footer
+        bottomNavigationBar: const BottomNavBar(0),
       ),
     );
   }

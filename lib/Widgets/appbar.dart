@@ -13,7 +13,7 @@ class AppBarPage extends StatelessWidget implements PreferredSizeWidget {
         child: TextField(
           decoration: const InputDecoration(
             border: OutlineInputBorder(),
-            labelText: "Enter your keyword",
+            hintText: "Enter your keyword",
             prefixIcon: Icon(Icons.search),
           ),
           controller: txtTimKiem, //gan gia tri cua text vao bien'

@@ -2,46 +2,58 @@
 
 import 'package:flutter/material.dart';
 import 'dart:async';
+import '../Pages/all_page.dart';
 
-class Pages extends StatefulWidget{
+class Pages extends StatefulWidget {
   const Pages({Key? key}) : super(key: key);
   // ignore: unused_field
-  
+
   @override
-  State<StatefulWidget> createState()=>PagesState();
-
+  State<StatefulWidget> createState() => PagesState();
 }
-class PagesState extends State<Pages>{
-  final List<String> _imageBanner=[
-       'images/banner/banner_1.png',
-       'images/banner/banner_2.png',
+
+class PagesState extends State<Pages> {
+  final List<String> _imageBanner = [
+    'images/banner/banner_1.png',
+    'images/banner/banner_2.png',
   ];
-int _pos=0;
+  int _pos = 0;
 // ignore: unused_field
-late Timer _timer;
+  late Timer _timer;
 //String sampleText ='images/banner/banner_1.jpg' ;
-@override
-  initState(){
-  _timer=new Timer(const Duration(seconds: 5),(){
-
-    setState(() {
-      _pos=(_pos+1)%_imageBanner.length;
+  @override
+  initState() {
+    _timer = new Timer(const Duration(seconds: 5), () {
+      setState(() {
+        _pos = (_pos + 1) % _imageBanner.length;
+      });
     });
-  });
-   super.initState();
-}
-
-@override
- void dispose(){
-   _timer.cancel();
-   super.dispose();
- }
-  @override 
-  Widget build(BuildContext context){
-    return new Image.asset(
-             _imageBanner[_pos],
-            );
+    super.initState();
   }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => GestureDetector(
+        //huy keyboard khi bam ngoai man hinh
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Scaffold(
+          //TopHeader
+          appBar: AppBarPage(),
+          //Hide
+          drawer: const NavigationDrawer(),
+          //Body
+          body: Center(
+              child: Image.asset(
+            _imageBanner[_pos],
+          )),
+          bottomNavigationBar: const BottomNavBar(3),
+        ),
+      );
 }
 //  Widget _banner=Container(
 //       child: Column(children: [
