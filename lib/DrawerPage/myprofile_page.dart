@@ -18,16 +18,16 @@ class MyProfileState extends State<MyProfile> {
         onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
           //TopHeader
-          appBar: AppBarPage(),
-          //Hide
-          drawer: const NavigationDrawer(),
+           appBar: AppBarPage(),
+          // //Hide
+          // drawer: const NavigationDrawer(),
           //Body
           body: SingleChildScrollView(
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                     child: Column(
                       children: [
                         Container(
@@ -172,38 +172,38 @@ class MyProfileState extends State<MyProfile> {
       );
 }
 
-Widget _buildSesion(
-    {required IconData icon, required String title, required String lable}) {
-  const color = Colors.green;
-  const colorText = Colors.black;
-  const padding = EdgeInsets.fromLTRB(0, 10, 0, 10);
-  final item1 = Row(
-    mainAxisAlignment: MainAxisAlignment.start,
-    children: [
-      Icon(
-        icon,
-        color: color,
-        size: 30,
-      ),
-      Padding(
-        padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
-        child: Text(title,
-            style: const TextStyle(
-                color: colorText, fontSize: 15, fontWeight: FontWeight.bold)),
-      )
-    ],
-  );
-  return Padding(
-    padding: padding,
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        item1,
-        Text(lable,
-            style: const TextStyle(
-              color: colorText,
-            ))
-      ],
-    ),
-  );
-}
+        Widget _buildSesion(
+            {required IconData icon, required String title, required String lable}) {
+          const color = Colors.green;
+          const colorText = Colors.black;
+          const padding = EdgeInsets.fromLTRB(0, 10, 0, 10);
+          final item1 = Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Icon(
+                icon,
+                color: color,
+                size: 30,
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
+                child: Text(title,
+                    style: const TextStyle(
+                        color: colorText, fontSize: 15, fontWeight: FontWeight.bold)),
+              )
+            ],
+          );
+          return Padding(
+            padding: padding,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                item1,
+                Text(lable,
+                    style: const TextStyle(
+                      color: colorText,
+                    ))
+              ],
+            ),
+          );
+        }

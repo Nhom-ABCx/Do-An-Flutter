@@ -66,6 +66,15 @@ class NavigationDrawer extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
+            ListTile(
+                  
+                  leading: Icon(Icons.change_circle),
+                  title: const Text('ChangePass'),
+                  onTap: (){
+                    Navigator.pushNamed(context, '/ChangePW');
+                  },
+                ),
+            const SizedBox(height: 16),
             buildItem(text: 'Settings', icon: Icons.settings),
             const SizedBox(height: 16),
             buildItem(text: 'Sign Out', icon: Icons.logout),
