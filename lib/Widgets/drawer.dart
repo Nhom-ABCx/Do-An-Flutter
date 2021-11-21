@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../Pages/all_page.dart';
 
 class NavigationDrawer extends StatelessWidget {
   final padding = const EdgeInsets.symmetric(horizontal: 5);
@@ -41,16 +42,14 @@ class NavigationDrawer extends StatelessWidget {
             buildItem(
               text: 'My Profile',
               icon: Icons.account_circle,
-              onClicked: () =>
-                  Navigator.pushReplacementNamed(context, '/MyProfile'),
+              onClicked: () => Navigator.pushNamed(context, '/MyProfile'),
             ),
             const SizedBox(height: 16),
-             buildItem(
-               text: 'Notifications',
-               icon: Icons.notifications,
-               onClicked: ()=>
-               Navigator.pushReplacementNamed(context, '/Notifications')
-               ),
+            buildItem(
+                text: 'Notifications',
+                icon: Icons.notifications,
+                onClicked: () =>
+                    Navigator.pushNamed(context, '/Notifications')),
             // ListTile(
             //   leading: const Icon(Icons.notifications),
             //   title: const Text('Notifications'),
@@ -70,13 +69,12 @@ class NavigationDrawer extends StatelessWidget {
             // ),
             const SizedBox(height: 16),
             ListTile(
-                  
-                  leading: const Icon(Icons.change_circle),
-                  title: const Text('ChangePass'),
-                  onTap: (){
-                    Navigator.pushNamed(context, '/ChangePW');
-                  },
-                ),
+              leading: const Icon(Icons.change_circle),
+              title: const Text('ChangePass'),
+              onTap: () {
+                Navigator.pushNamed(context, '/ChangePW');
+              },
+            ),
             const SizedBox(height: 16),
             buildItem(text: 'Settings', icon: Icons.settings),
             const SizedBox(height: 16),

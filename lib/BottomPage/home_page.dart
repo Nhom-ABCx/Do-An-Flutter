@@ -146,6 +146,7 @@ class HomePageState extends State<HomePage> {
     Widget _listView = Column(
       children: [
         Padding(
+<<<<<<< HEAD
             padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -168,6 +169,24 @@ class HomePageState extends State<HomePage> {
                 buildIndicator()
               ],
             )),
+=======
+          padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+          //Slider cho cai banner
+          child: CarouselSlider.builder(
+            itemCount: urlImages.length,
+            itemBuilder: (context, index, realIndex) {
+              final urlImage = urlImages[index];
+              return buildImage(urlImage, index);
+            },
+            options: CarouselOptions(
+                height: 100,
+                autoPlay: true, //tu dong chay
+                //reverse: true, //dao? nguoc chay
+                //autoPlayInterval: const Duration(seconds: 4), //mac dinh la 4
+                enlargeCenterPage: true), //lam noi bat trung tam hinh`
+          ),
+        ),
+>>>>>>> abaa406bcb0bedf8b255297c486a540824dc7279
         Container(
             margin: const EdgeInsets.only(right: 150),
             child: const Text(

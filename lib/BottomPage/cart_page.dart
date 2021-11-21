@@ -129,7 +129,7 @@ Widget _buildItems(
       ),
       SizedBox(
           width: 50,
-          height: 20,
+          height: 25,
           child: TextField(
             showCursor: true,
             controller: txtAmountController,
@@ -160,7 +160,7 @@ Widget _Secsion2 = Column(
         child: Row(
           children: [
             const SizedBox(
-              width: 250,
+              width: 270,
               height: 50,
               child: TextField(
                   decoration: InputDecoration(

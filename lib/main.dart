@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/DrawerPage/change_pass.dart';
-import 'package:flutter_application_1/DrawerPage/notifications_page.dart';
-import 'package:flutter_application_1/Pages/forgot_action.dart';
-import 'package:flutter_application_1/Pages/forgot_page.dart';
 import 'Pages/all_page.dart'; //lam` v cho no' nho? ra
 
 void main() => runApp(const MyApp());
@@ -13,6 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false, //tat cai' debug tren appbar
       title: 'DA Flutter',
       theme: ThemeData(
         brightness: Brightness.dark, //cai nen`trong
@@ -30,7 +27,7 @@ class MyApp extends StatelessWidget {
         '/Setting': (context) => const SettingPage(),
         '/Support': (context) => const SupportPage(),
         '/MyProfile': (context) => const MyProfile(),
-        '/Notifications':(context)=>const Notifications(),
+        '/Notifications': (context) => const Notifications(),
         '/ChangePW': (context) => const ChangePass(),
       },
     );
