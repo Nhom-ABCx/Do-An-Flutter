@@ -18,15 +18,14 @@ class MyProfileState extends State<MyProfile> {
         onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
           //TopHeader
-           appBar: AppBarPage(),
+          appBar: AppBarPage(),
           // //Hide
           // drawer: const NavigationDrawer(),
           //Body
           body: SingleChildScrollView(
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-              child: Column(
-                children: [
-                  Padding(
+              child: Column(children: [
+                Padding(
                     padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                     child: Column(
                       children: [
@@ -77,133 +76,135 @@ class MyProfileState extends State<MyProfile> {
                         ),
                         ColoredBox(
                           color: Colors.white70,
-                          child: Column(children: [
-                            _buildSesion(
-                                icon: Icons.account_circle_sharp,
-                                title: 'Username',
-                                lable: '@desiging-world'),
-                            _buildSesion(
-                                icon: Icons.account_circle_sharp,
-                                title: 'Full Name',
-                                lable: 'SUHA JANNAT'),
-                            _buildSesion(
-                                icon: Icons.phone,
-                                title: 'Phone',
-                                lable: '+880 000 111 222'),
-                            _buildSesion(
-                                icon: Icons.email,
-                                title: 'Email Address',
-                                lable: 'care@exmple.com'),
-                            _buildSesion(
-                                icon: Icons.gps_fixed,
-                                title: 'Shipping',
-                                lable: '28/C Green Road,BD'),
-                            Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(children: const [
-                                    Icon(
-                                      Icons.star,
-                                      size: 30,
-                                      color: Colors.green,
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                                      child: Text(
-                                        'My Oder',
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 15,
-                                        ),
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                            child: Column(children: [
+                              _buildSesion(
+                                  icon: Icons.account_circle_sharp,
+                                  title: 'Username',
+                                  lable: '@desiging-world'),
+                              _buildSesion(
+                                  icon: Icons.account_circle_sharp,
+                                  title: 'Full Name',
+                                  lable: 'SUHA JANNAT'),
+                              _buildSesion(
+                                  icon: Icons.phone,
+                                  title: 'Phone',
+                                  lable: '+880 000 111 222'),
+                              _buildSesion(
+                                  icon: Icons.email,
+                                  title: 'Email Address',
+                                  lable: 'care@exmple.com'),
+                              _buildSesion(
+                                  icon: Icons.gps_fixed,
+                                  title: 'Shipping',
+                                  lable: '28/C Green Road,BD'),
+                              Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(children: const [
+                                      Icon(
+                                        Icons.star,
+                                        size: 30,
+                                        color: Colors.green,
                                       ),
-                                    )
-                                  ]),
-                                  TextButton(
-                                    onPressed: () {},
-                                    child: Container(
-                                        decoration: const BoxDecoration(
-                                            color: Colors.red,
-                                            shape: BoxShape.rectangle,
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(8))),
-                                        width: 60,
-                                        height: 40,
-                                        child: const Padding(
-                                          padding: EdgeInsets.all(10),
-                                          child: Text(
-                                            'View',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold),
-                                            textAlign: TextAlign.center,
+                                      Padding(
+                                        padding:
+                                            EdgeInsets.fromLTRB(5, 0, 0, 0),
+                                        child: Text(
+                                          'My Oder',
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15,
                                           ),
-                                        )),
+                                        ),
+                                      )
+                                    ]),
+                                    TextButton(
+                                      onPressed: () {},
+                                      child: Container(
+                                          decoration: const BoxDecoration(
+                                              color: Colors.red,
+                                              shape: BoxShape.rectangle,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(8))),
+                                          width: 60,
+                                          height: 40,
+                                          child: const Padding(
+                                            padding: EdgeInsets.all(10),
+                                            child: Text(
+                                              'View',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          )),
+                                    ),
+                                  ]),
+                              SizedBox(
+                                //tu dong canh le`tu thiet bi
+                                width: MediaQuery.of(context).size.width,
+                                child: ElevatedButton.icon(
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                    Icons.edit,
+                                    color: Colors.white,
                                   ),
-                                ]),
-                            SizedBox(
-                              //tu dong canh le`tu thiet bi
-                              width: MediaQuery.of(context).size.width,
-                              child: ElevatedButton.icon(
-                                onPressed: () {},
-                                icon: const Icon(
-                                  Icons.edit,
-                                  color: Colors.white,
-                                ),
-                                label: const Text(
-                                  'Edit Profile',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
+                                  label: const Text(
+                                    'Edit Profile',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ]),
-                        ),
+                            ]),
+                          ),
+                        )
                       ],
-                    ),
-                  )
-                ],
-              )),
+                    ))
+              ])),
           bottomNavigationBar: const BottomNavBar(0),
         ),
       );
 }
 
-        Widget _buildSesion(
-            {required IconData icon, required String title, required String lable}) {
-          const color = Colors.green;
-          const colorText = Colors.black;
-          const padding = EdgeInsets.fromLTRB(0, 10, 0, 10);
-          final item1 = Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Icon(
-                icon,
-                color: color,
-                size: 30,
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
-                child: Text(title,
-                    style: const TextStyle(
-                        color: colorText, fontSize: 15, fontWeight: FontWeight.bold)),
-              )
-            ],
-          );
-          return Padding(
-            padding: padding,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                item1,
-                Text(lable,
-                    style: const TextStyle(
-                      color: colorText,
-                    ))
-              ],
-            ),
-          );
-        }
+Widget _buildSesion(
+    {required IconData icon, required String title, required String lable}) {
+  const color = Colors.green;
+  const colorText = Colors.black;
+  const padding = EdgeInsets.fromLTRB(0, 10, 0, 10);
+  final item1 = Row(
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: [
+      Icon(
+        icon,
+        color: color,
+        size: 30,
+      ),
+      Padding(
+        padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
+        child: Text(title,
+            style: const TextStyle(
+                color: colorText, fontSize: 15, fontWeight: FontWeight.bold)),
+      )
+    ],
+  );
+  return Padding(
+    padding: padding,
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        item1,
+        Text(lable,
+            style: const TextStyle(
+              color: colorText,
+            ))
+      ],
+    ),
+  );
+}

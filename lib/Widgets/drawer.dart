@@ -45,30 +45,33 @@ class NavigationDrawer extends StatelessWidget {
                   Navigator.pushReplacementNamed(context, '/MyProfile'),
             ),
             const SizedBox(height: 16),
-            //  buildItem(
-            //    text: 'Notifications',
-            //    icon: Icons.notifications),
-            ListTile(
-              leading: const Icon(Icons.notifications),
-              title: const Text('Notifications'),
-              trailing: Container(
-                decoration: const BoxDecoration(
-                  color: Colors.orange,
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
-                ),
-                width: 25,
-                child: const Text(
-                  "3",
-                  style: TextStyle(fontSize: 20, color: Colors.black),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
+             buildItem(
+               text: 'Notifications',
+               icon: Icons.notifications,
+               onClicked: ()=>
+               Navigator.pushReplacementNamed(context, '/Notifications')
+               ),
+            // ListTile(
+            //   leading: const Icon(Icons.notifications),
+            //   title: const Text('Notifications'),
+            //   trailing: Container(
+            //     decoration: const BoxDecoration(
+            //       color: Colors.orange,
+            //       shape: BoxShape.rectangle,
+            //       borderRadius: BorderRadius.all(Radius.circular(8)),
+            //     ),
+            //     width: 25,
+            //     child: const Text(
+            //       "3",
+            //       style: TextStyle(fontSize: 20, color: Colors.black),
+            //       textAlign: TextAlign.center,
+            //     ),
+            //   ),
+            // ),
             const SizedBox(height: 16),
             ListTile(
                   
-                  leading: Icon(Icons.change_circle),
+                  leading: const Icon(Icons.change_circle),
                   title: const Text('ChangePass'),
                   onTap: (){
                     Navigator.pushNamed(context, '/ChangePW');

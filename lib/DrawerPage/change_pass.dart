@@ -18,7 +18,7 @@ class ChangePassState extends State<ChangePass> {
         onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
           //TopHeader
-           appBar: AppBarPage(),
+          appBar: AppBarPage(),
           // //Hide
           // drawer: const NavigationDrawer(),
           //Body
@@ -82,59 +82,59 @@ class ChangePassState extends State<ChangePass> {
                                 icon: Icons.vpn_key,
                                 title: 'Old PassWord',
                                 lable: ''),
-                              const Padding(padding: 
-                              EdgeInsets.all(4),
+                            const Padding(
+                              padding: EdgeInsets.all(4),
                               child: TextField(
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(),
                                 ),
-                                ),),
-                                _buildSesion(
+                              ),
+                            ),
+                            _buildSesion(
                                 icon: Icons.vpn_key,
                                 title: 'New PassWord',
                                 lable: ''),
-                              const Padding(
+                            const Padding(
                               padding: EdgeInsets.all(0),
                               child: TextField(
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(),
                                 ),
-                                ),),
-                                _buildSesion(
+                              ),
+                            ),
+                            _buildSesion(
                                 icon: Icons.vpn_key,
                                 title: 'Reapeat New PassWord',
                                 lable: ''),
-                              const Padding(padding: 
-                              EdgeInsets.all(4),
+                            const Padding(
+                              padding: EdgeInsets.all(4),
                               child: TextField(
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(),
                                 ),
-                                ),),
-                            
-                            
-                            SizedBox(
-                              //tu dong canh le`tu thiet bi
-                              width: MediaQuery.of(context).size.width,
-                              child: 
-                              ElevatedButton(
-                                onPressed: () {}, 
-                                child: Text('Update PassWord'),
-                                )
-                              // ElevatedButton.icon(
-                              //   onPressed: () {},
-                              //   icon: const Icon(
-                              //     Icons.edit,
-                              //     color: Colors.white,
-                              //   ),
-                              //   label: const Text(
-                              //     'Update New PassWord',
-                              //     style: TextStyle(
-                              //         color: Colors.white,
-                              //         fontWeight: FontWeight.bold),
-                              //   ),
-                              // ),
+                              ),
                             ),
+                            SizedBox(
+                                //tu dong canh le`tu thiet bi
+                                width: MediaQuery.of(context).size.width,
+                                child: ElevatedButton(
+                                  onPressed: () {},
+                                  child: const Text('Update PassWord'),
+                                )
+                                // ElevatedButton.icon(
+                                //   onPressed: () {},
+                                //   icon: const Icon(
+                                //     Icons.edit,
+                                //     color: Colors.white,
+                                //   ),
+                                //   label: const Text(
+                                //     'Update New PassWord',
+                                //     style: TextStyle(
+                                //         color: Colors.white,
+                                //         fontWeight: FontWeight.bold),
+                                //   ),
+                                // ),
+                                ),
                           ]),
                         ),
                       ],
@@ -147,38 +147,38 @@ class ChangePassState extends State<ChangePass> {
       );
 }
 
-        Widget _buildSesion(
-            {required IconData icon, required String title, required String lable}) {
-          const color = Colors.green;
-          const colorText = Colors.black;
-          const padding = EdgeInsets.fromLTRB(0, 10, 0, 10);
-          final item1 = Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Icon(
-                icon,
-                color: color,
-                size: 30,
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
-                child: Text(title,
-                    style: const TextStyle(
-                        color: colorText, fontSize: 15, fontWeight: FontWeight.bold)),
-              )
-            ],
-          );
-          return Padding(
-            padding: padding,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                item1,
-                Text(lable,
-                    style: const TextStyle(
-                      color: colorText,
-                    ))
-              ],
-            ),
-          );
-        }
+Widget _buildSesion(
+    {required IconData icon, required String title, required String lable}) {
+  const color = Colors.green;
+  const colorText = Colors.black;
+  const padding = EdgeInsets.fromLTRB(0, 10, 0, 10);
+  final item1 = Row(
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: [
+      Icon(
+        icon,
+        color: color,
+        size: 30,
+      ),
+      Padding(
+        padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
+        child: Text(title,
+            style: const TextStyle(
+                color: colorText, fontSize: 15, fontWeight: FontWeight.bold)),
+      )
+    ],
+  );
+  return Padding(
+    padding: padding,
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        item1,
+        Text(lable,
+            style: const TextStyle(
+              color: colorText,
+            ))
+      ],
+    ),
+  );
+}

@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import '../Pages/all_page.dart';
 
@@ -9,6 +10,13 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
+  //tao ds hinh anh cho banner
+  final urlImages = [
+    'images/banner/banner_1.png',
+    'images/banner/banner_2.png',
+    'images/banner/banner_3.png',
+    'images/banner/banner_4.png'
+  ];
   final List<SanPham> _dssanpham = [
     SanPham(
         TenSanPham: 'SanPham 1', HinhAnh: 'images/product-image/DT/DT_1.jpg'),
@@ -82,6 +90,7 @@ class HomePageState extends State<HomePage> {
         ),
       ],
     );
+    //Widget _sanPham=GridView.builder(gridDelegate: gridDelegate, itemBuilder: itemBuilder)
     Widget _row1 = Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [_buildColumn1, _buildColumn2, _buildColumn3],
@@ -134,8 +143,20 @@ class HomePageState extends State<HomePage> {
     Widget _listView = Column(
       children: [
         Padding(
-            padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-            child: Image.asset('images/banner/banner_1.png')),
+          padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+          child: CarouselSlider.builder(
+            itemCount: urlImages.length,
+            itemBuilder: (context, index, realIndex) {
+              final urlImage = urlImages[index];
+              return buildImage(urlImage, index);
+            },
+            options: CarouselOptions(
+                height: 100,
+                autoPlay: true, //reverse: true,
+                autoPlayInterval: const Duration(seconds: 4),
+                enlargeCenterPage: true),
+          ),
+        ),
         Container(
             margin: const EdgeInsets.only(right: 150),
             child: const Text(
@@ -241,3 +262,13 @@ class SanPham {
     required this.HinhAnh,
   });
 }
+
+Widget buildImage(String _urlImage, int index) => Container(
+      //margin: const EdgeInsets.symmetric(horizontal: 24),
+      color: Colors.grey,
+      child: Image.asset(
+        _urlImage,
+        width: 360,
+        fit: BoxFit.cover,
+      ),
+    );
