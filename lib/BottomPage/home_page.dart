@@ -144,6 +144,7 @@ class HomePageState extends State<HomePage> {
       children: [
         Padding(
           padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+          //Slider cho cai banner
           child: CarouselSlider.builder(
             itemCount: urlImages.length,
             itemBuilder: (context, index, realIndex) {
@@ -152,9 +153,10 @@ class HomePageState extends State<HomePage> {
             },
             options: CarouselOptions(
                 height: 100,
-                autoPlay: true, //reverse: true,
-                autoPlayInterval: const Duration(seconds: 4),
-                enlargeCenterPage: true),
+                autoPlay: true, //tu dong chay
+                //reverse: true, //dao? nguoc chay
+                //autoPlayInterval: const Duration(seconds: 4), //mac dinh la 4
+                enlargeCenterPage: true), //lam noi bat trung tam hinh`
           ),
         ),
         Container(

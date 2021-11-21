@@ -14,5 +14,7 @@ export '../DrawerPage/myprofile_page.dart';
 export '../Widgets/drawer.dart';
 export '../Widgets/appbar.dart';
 export '../Widgets/bottombar.dart';
+export '../DrawerPage/change_pass.dart';
+export '../DrawerPage/notifications_page.dart';
 
 //export '../header_page/drawer_page.dart';
