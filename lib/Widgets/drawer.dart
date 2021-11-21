@@ -39,34 +39,17 @@ class NavigationDrawer extends StatelessWidget {
                   ],
                 )),
             const SizedBox(height: 16),
-            buildItem(
+            buildItemListTitle(
               text: 'My Profile',
               icon: Icons.account_circle,
               onClicked: () => Navigator.pushNamed(context, '/MyProfile'),
             ),
             const SizedBox(height: 16),
-            buildItem(
+            buildItemListTitle(
                 text: 'Notifications',
                 icon: Icons.notifications,
                 onClicked: () =>
                     Navigator.pushNamed(context, '/Notifications')),
-            // ListTile(
-            //   leading: const Icon(Icons.notifications),
-            //   title: const Text('Notifications'),
-            //   trailing: Container(
-            //     decoration: const BoxDecoration(
-            //       color: Colors.orange,
-            //       shape: BoxShape.rectangle,
-            //       borderRadius: BorderRadius.all(Radius.circular(8)),
-            //     ),
-            //     width: 25,
-            //     child: const Text(
-            //       "3",
-            //       style: TextStyle(fontSize: 20, color: Colors.black),
-            //       textAlign: TextAlign.center,
-            //     ),
-            //   ),
-            // ),
             const SizedBox(height: 16),
             ListTile(
               leading: const Icon(Icons.change_circle),
@@ -76,30 +59,12 @@ class NavigationDrawer extends StatelessWidget {
               },
             ),
             const SizedBox(height: 16),
-            buildItem(text: 'Settings', icon: Icons.settings),
+            buildItemListTitle(text: 'Settings', icon: Icons.settings),
             const SizedBox(height: 16),
-            buildItem(text: 'Sign Out', icon: Icons.logout),
+            buildItemListTitle(text: 'Sign Out', icon: Icons.logout),
           ],
         ),
       ),
     );
   }
-}
-
-Widget buildItem({
-  required String text,
-  required IconData icon,
-  VoidCallback? onClicked,
-}) {
-  const color = Colors.white;
-  final hoverColor = Colors.white70;
-  return ListTile(
-    leading: Icon(icon, color: color),
-    title: Text(
-      text,
-      style: const TextStyle(color: color),
-    ),
-    hoverColor: hoverColor,
-    onTap: onClicked,
-  );
 }

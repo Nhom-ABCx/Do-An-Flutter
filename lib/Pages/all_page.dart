@@ -16,5 +16,7 @@ export '../Widgets/appbar.dart';
 export '../Widgets/bottombar.dart';
 export '../DrawerPage/change_pass.dart';
 export '../DrawerPage/notifications_page.dart';
+export '../Widgets/build_widgets.dart';
+export '../Modals/class.dart';
 
 //export '../header_page/drawer_page.dart';
