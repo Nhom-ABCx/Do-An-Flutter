@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../Pages/all_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,6 +11,8 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
+  //bien xac dinh hinh
+  int activeIndex = 0;
   //tao ds hinh anh cho banner
   final urlImages = [
     'images/banner/banner_1.png',
@@ -143,20 +146,28 @@ class HomePageState extends State<HomePage> {
     Widget _listView = Column(
       children: [
         Padding(
-          padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-          child: CarouselSlider.builder(
-            itemCount: urlImages.length,
-            itemBuilder: (context, index, realIndex) {
-              final urlImage = urlImages[index];
-              return buildImage(urlImage, index);
-            },
-            options: CarouselOptions(
-                height: 100,
-                autoPlay: true, //reverse: true,
-                autoPlayInterval: const Duration(seconds: 4),
-                enlargeCenterPage: true),
-          ),
-        ),
+            padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CarouselSlider.builder(
+                  itemCount: urlImages.length,
+                  itemBuilder: (context, index, realIndex) {
+                    final urlImage = urlImages[index];
+                    return buildImage(urlImage, index);
+                  },
+                  options: CarouselOptions(
+                      height: 100,
+                      autoPlay: true, //reverse: true,
+                      autoPlayInterval: const Duration(seconds: 4),
+                      enlargeCenterPage: true,
+                      onPageChanged: (index, reason) =>
+                          setState(() => activeIndex = index)),
+                ),
+                const SizedBox(height: 10.0,),
+                buildIndicator()
+              ],
+            )),
         Container(
             margin: const EdgeInsets.only(right: 150),
             child: const Text(
@@ -246,6 +257,16 @@ class HomePageState extends State<HomePage> {
       ),
     );
   }
+  Widget buildIndicator()=>AnimatedSmoothIndicator(
+  activeIndex: activeIndex, 
+  count: urlImages.length,
+  effect: const SlideEffect(
+    dotWidth: 10.0,
+    dotHeight: 10.0,
+    activeDotColor: Colors.red,
+    dotColor: Colors.indigoAccent
+  ),
+  );
 }
 
 class SanPham {
