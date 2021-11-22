@@ -70,7 +70,6 @@ class HomePageState extends State<HomePage> {
                       onPageChanged: (index, reason) =>
                           setState(() => activeIndex = index)),
                 )
-                
               ],
             )),
         const Align(
