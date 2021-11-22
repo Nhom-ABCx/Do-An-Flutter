@@ -54,7 +54,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           ),
         ],
         currentIndex: widget.currentIndex,
-        selectedItemColor: Colors.green,
+        selectedItemColor: Colors.indigo,
       );
 }
 

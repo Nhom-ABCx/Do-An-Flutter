@@ -13,6 +13,7 @@ class _WellcomePageState extends State<WellcomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF0d3bd1),
       body: Stack(
         children: <Widget>[
           Align(
@@ -22,7 +23,10 @@ class _WellcomePageState extends State<WellcomePage> {
               children: <Widget>[
                 const Text(
                   'Welcome!',
-                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 32, bottom: 16),
@@ -49,8 +53,9 @@ class _WellcomePageState extends State<WellcomePage> {
                   ),
                   width: 250,
                   child: TextButton(
-                    child: const Text('Sign Up',
-                        style: TextStyle(fontSize: 20, color: Colors.green)),
+                    child: Text('Sign Up',
+                        style:
+                            TextStyle(fontSize: 20, color: Colors.green[100])),
                     onPressed: () =>
                         Navigator.pushReplacementNamed(context, '/Sign_Up'),
                   ),
@@ -62,7 +67,10 @@ class _WellcomePageState extends State<WellcomePage> {
                     const Text(
                       'Language : ',
                       style: TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.normal),
+                        fontSize: 18,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.white,
+                      ),
                     ),
                     const SizedBox(
                       width: 8,
@@ -72,7 +80,9 @@ class _WellcomePageState extends State<WellcomePage> {
                       child: const Text(
                         'English',
                         style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.amber),
                       ),
                     ),
                   ],

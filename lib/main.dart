@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_const
+
 import 'package:flutter/material.dart';
 import 'Pages/all_page.dart'; //lam` v cho no' nho? ra
 
@@ -12,8 +14,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false, //tat cai' debug tren appbar
       title: 'DA Flutter',
       theme: ThemeData(
-        brightness: Brightness.dark, //cai nen`trong
-        primarySwatch: Colors.green, //cai nen`cua title ngoai`
+        //brightness: Brightness.dark, //che'do toi' hay sang'
+        primarySwatch: Colors.indigo, //cai nen`cua title ngoai`
+        appBarTheme: const AppBarTheme(color: Colors.white),
+        //0xFF
+        scaffoldBackgroundColor: const Color(0xFFe5e8ff),
       ),
       home: const WellcomePage(),
       routes: {

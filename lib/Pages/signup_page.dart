@@ -16,13 +16,16 @@ class _SignUpPageState extends State<SignUpPage> {
         //huy keyboard khi bam ngoai man hinh
         onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
+          backgroundColor: const Color(0xFF0d3bd1),
           body: SingleChildScrollView(
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
               padding: const EdgeInsets.only(top: 100),
               child: Column(
                 children: [
-                  const FlutterLogo(
-                    size: 100,
+                  Image.asset(
+                    'images/logo/logo-white.png',
+                    width: 80,
+                    fit: BoxFit.cover,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
@@ -33,10 +36,16 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     child: TextField(
                       decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
+                        //border: OutlineInputBorder(),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey),
+                        ),
                         labelText: "Username",
                         hintText: "create username",
-                        prefixIcon: Icon(Icons.supervisor_account),
+                        labelStyle: TextStyle(color: Colors.white),
+                        hintStyle: TextStyle(color: Colors.grey),
+                        prefixIcon:
+                            Icon(Icons.supervisor_account, color: Colors.white),
                       ),
                       controller: input1, //gan gia tri cua text vao bien'
                       textInputAction: TextInputAction.next,
@@ -55,10 +64,15 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     child: TextField(
                       decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
+                        //border: OutlineInputBorder(),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey),
+                        ),
                         labelText: "Email",
                         hintText: "yourEmail@gmail.com",
-                        prefixIcon: Icon(Icons.email),
+                        labelStyle: TextStyle(color: Colors.white),
+                        hintStyle: TextStyle(color: Colors.grey),
+                        prefixIcon: Icon(Icons.email, color: Colors.white),
                       ),
                       controller: input1, //gan gia tri cua text vao bien'
                       keyboardType: TextInputType.emailAddress,
@@ -79,9 +93,16 @@ class _SignUpPageState extends State<SignUpPage> {
                     child: TextField(
                       obscureText: true, //hien * khi nhap text
                       decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
+                        //border: OutlineInputBorder(),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey),
+                        ),
                         labelText: "Password",
-                        prefixIcon: Icon(Icons.vpn_key),
+                        labelStyle: TextStyle(color: Colors.white),
+                        prefixIcon: Icon(
+                          Icons.vpn_key,
+                          color: Colors.white,
+                        ),
                       ),
                       controller: input1, //gan gia tri cua text vao bien'
                       textInputAction: TextInputAction.go,
@@ -113,7 +134,10 @@ class _SignUpPageState extends State<SignUpPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text("Already have an account?"),
+                      Text(
+                        "Already have an account?",
+                        style: TextStyle(fontSize: 15, color: Colors.grey[300]),
+                      ),
                       TextButton(
                         child: const Text(
                           "Sign In",

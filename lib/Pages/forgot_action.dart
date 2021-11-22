@@ -10,13 +10,15 @@ class ForgotAction extends StatefulWidget {
 class _ForgotActionState extends State<ForgotAction> {
   @override
   Widget build(BuildContext context) => Scaffold(
-          body: Align(
+      backgroundColor: const Color(0xFF0d3bd1),
+      body: Align(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Icon(
               Icons.sentiment_satisfied_alt,
               size: 75,
+              color: Colors.white,
             ),
             const Padding(
               padding: EdgeInsets.all(30),
@@ -25,6 +27,7 @@ class _ForgotActionState extends State<ForgotAction> {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 17,
+                  color: Colors.white,
                 ),
               ),
             ),

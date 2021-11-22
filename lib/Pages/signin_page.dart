@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_const
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; //text input
 
@@ -16,27 +18,38 @@ class _SignInPageState extends State<SignInPage> {
         //huy keyboard khi bam ngoai man hinh
         onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
+          backgroundColor: const Color(0xFF0d3bd1),
           body: SingleChildScrollView(
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
               padding: const EdgeInsets.only(top: 100),
               child: Column(
                 children: [
-                  const FlutterLogo(
-                    size: 100,
+                  Image.asset(
+                    'images/logo/logo-white.png',
+                    width: 80,
+                    fit: BoxFit.cover,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
                       left: 20,
-                      top: 10,
+                      top: 30,
                       right: 20,
                       bottom: 10,
                     ),
                     child: TextField(
                       decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
+                        //border: const OutlineInputBorder(),
+                        enabledBorder: const OutlineInputBorder(
+                          borderSide: const BorderSide(color: Colors.grey),
+                        ),
                         labelText: "Email or Username",
                         hintText: "info@example.com",
-                        prefixIcon: Icon(Icons.supervisor_account),
+                        prefixIcon: Icon(
+                          Icons.supervisor_account,
+                          color: Colors.white,
+                        ),
+                        labelStyle: TextStyle(color: Colors.white),
+                        hintStyle: TextStyle(color: Colors.grey),
                       ),
                       controller: input1, //gan gia tri cua text vao bien'
                       keyboardType: TextInputType.emailAddress,
@@ -57,9 +70,17 @@ class _SignInPageState extends State<SignInPage> {
                     child: TextField(
                       obscureText: true, //hien * khi nhap text
                       decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
+                        //border: OutlineInputBorder(),
+                        enabledBorder: const OutlineInputBorder(
+                          borderSide: const BorderSide(color: Colors.grey),
+                        ),
                         labelText: "Password",
-                        prefixIcon: Icon(Icons.vpn_key),
+                        prefixIcon: Icon(
+                          Icons.vpn_key,
+                          color: Colors.white,
+                        ),
+                        labelStyle: TextStyle(color: Colors.white),
+                        hintStyle: TextStyle(color: Colors.grey),
                       ),
                       controller: input1, //gan gia tri cua text vao bien'
                       textInputAction: TextInputAction.go,
@@ -98,7 +119,10 @@ class _SignInPageState extends State<SignInPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text("Didn't have an account?"),
+                      Text(
+                        "Didn't have an account?",
+                        style: TextStyle(fontSize: 15, color: Colors.grey[300]),
+                      ),
                       TextButton(
                         child: const Text(
                           "Register Now",

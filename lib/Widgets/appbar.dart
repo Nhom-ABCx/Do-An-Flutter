@@ -8,6 +8,7 @@ class AppBarPage extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      iconTheme: const IconThemeData(color: Colors.indigo),
       title: SizedBox(
         width: 250,
         child: TextField(
