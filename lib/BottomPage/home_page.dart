@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+//import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../Pages/all_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -72,13 +72,16 @@ class HomePageState extends State<HomePage> {
                 )
               ],
             )),
-        const Align(
+        Align(
           alignment: Alignment.topLeft,
-          child: Text(
-            'Product Categories',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
+          child: Container(
+            margin: const EdgeInsets.only(left: 30),
+            child: const Text(
+              'Product Categories',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),
@@ -107,13 +110,14 @@ class HomePageState extends State<HomePage> {
                 '56d 19h 29m 24s',
                 style: TextStyle(
                   color: Colors.red,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
           ],
         ),
         SizedBox(
-          height: 150,
+          height: 250,
           child: ListView.separated(
               padding: const EdgeInsets.all(20),
               scrollDirection: Axis.horizontal,
@@ -124,7 +128,7 @@ class HomePageState extends State<HomePage> {
               itemCount: _dssanpham.length),
         ),
         SizedBox(
-          height: 150,
+          height: 250,
           child: ListView.separated(
               padding: const EdgeInsets.all(20),
               scrollDirection: Axis.horizontal,
@@ -135,7 +139,7 @@ class HomePageState extends State<HomePage> {
               itemCount: _dssanpham.length),
         ),
         SizedBox(
-          height: 150,
+          height: 250,
           child: ListView.separated(
               padding: const EdgeInsets.all(20),
               scrollDirection: Axis.horizontal,
@@ -172,28 +176,39 @@ class HomePageState extends State<HomePage> {
 
 //ko tach duoc thang nay sang buildWidget, cha biet tai sao
 Widget _buildItem(SanPham _sp) {
-  return SizedBox(
-    width: 150,
-    child: Column(
-      children: [
-        Expanded(
-          child: Align(
-              child: AspectRatio(
-            aspectRatio: 4 / 3, //cai nay de fix khi anh bi loi~
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Image.asset(
-                _sp.HinhAnh,
-                fit: BoxFit.cover,
+  return ClipRRect(
+    borderRadius: BorderRadius.circular(15),
+    child: Container(
+      width: 150,
+      padding: const EdgeInsets.all(5),
+      color: Colors.white,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Align(
+                child: AspectRatio(
+              aspectRatio: 4 / 3, //cai nay de fix khi anh bi loi~
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.asset(
+                  _sp.HinhAnh,
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-          )),
-        ),
-        Text(
-          _sp.TenSanPham,
-          style: const TextStyle(fontWeight: FontWeight.bold),
-        )
-      ],
+            )),
+          ),
+          Text(
+            _sp.TenSanPham,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+          const Text("10000 VNĐ",
+              style: TextStyle(fontWeight: FontWeight.bold)),
+          const Text("20000 VNĐ",
+              style: TextStyle(decoration: TextDecoration.lineThrough)),
+          const Text("Sale 99%"),
+        ],
+      ),
     ),
   );
 }
