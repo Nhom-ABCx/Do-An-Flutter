@@ -69,11 +69,8 @@ class HomePageState extends State<HomePage> {
                       enlargeCenterPage: true, //lam noi bat trung tam hinh`
                       onPageChanged: (index, reason) =>
                           setState(() => activeIndex = index)),
-                ),
-                const SizedBox(
-                  height: 10.0,
-                ),
-                buildIndicator()
+                )
+                
               ],
             )),
         const Align(
@@ -172,16 +169,6 @@ class HomePageState extends State<HomePage> {
       ),
     );
   }
-
-  Widget buildIndicator() => AnimatedSmoothIndicator(
-        activeIndex: activeIndex,
-        count: urlImages.length,
-        effect: const SlideEffect(
-            dotWidth: 10.0,
-            dotHeight: 10.0,
-            activeDotColor: Colors.red,
-            dotColor: Colors.indigoAccent),
-      );
 }
 
 //ko tach duoc thang nay sang buildWidget, cha biet tai sao
