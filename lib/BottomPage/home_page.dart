@@ -22,13 +22,13 @@ class HomePageState extends State<HomePage> {
   ];
   final List<SanPham> _dssanpham = [
     SanPham(
-        TenSanPham: 'SanPham 1', HinhAnh: 'images/product-image/DT/DT_1.jpg'),
+        TenSanPham: 'SanPham 1', HinhAnh: 'images/product-image/DT/DT_1.png'),
     SanPham(
-        TenSanPham: 'SanPham 2', HinhAnh: 'images/product-image/DT/DT_2.jpg'),
+        TenSanPham: 'SanPham 2', HinhAnh: 'images/product-image/DT/DT_2.png'),
     SanPham(
-        TenSanPham: 'SanPham 3', HinhAnh: 'images/product-image/DT/DT_3.jpg'),
+        TenSanPham: 'SanPham 3', HinhAnh: 'images/product-image/DT/DT_3.png'),
     SanPham(
-        TenSanPham: 'SanPham 44', HinhAnh: 'images/product-image/DT/DT_4.jpg'),
+        TenSanPham: 'SanPham 44', HinhAnh: 'images/product-image/DT/DT_4.png'),
   ];
   @override
   Widget build(BuildContext context) {
