@@ -72,13 +72,16 @@ class HomePageState extends State<HomePage> {
                 )
               ],
             )),
-        const Align(
+        Align(
           alignment: Alignment.topLeft,
-          child: Text(
-            'Product Categories',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
+          child: Container(
+            margin: const EdgeInsets.only(left: 30),
+            child: const Text(
+              'Product Categories',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),
@@ -107,6 +110,7 @@ class HomePageState extends State<HomePage> {
                 '56d 19h 29m 24s',
                 style: TextStyle(
                   color: Colors.red,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),

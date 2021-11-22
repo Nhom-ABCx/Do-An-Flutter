@@ -13,7 +13,7 @@ class NavigationDrawer extends StatelessWidget {
         children: [
           DrawerHeader(
               decoration: const BoxDecoration(
-                color: Colors.blue,
+                color: Colors.indigo,
               ),
               child: Column(
                 children: [
@@ -30,8 +30,11 @@ class NavigationDrawer extends StatelessWidget {
                     padding: EdgeInsets.only(top: 10),
                     child: Text(
                       ' In the VietNam',
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
                     ),
                   )
                 ],
@@ -48,13 +51,10 @@ class NavigationDrawer extends StatelessWidget {
               icon: Icons.notifications,
               onClicked: () => Navigator.pushNamed(context, '/Notifications')),
           const SizedBox(height: 16),
-          ListTile(
-            leading: const Icon(Icons.change_circle),
-            title: const Text('ChangePass'),
-            onTap: () {
-              Navigator.pushNamed(context, '/ChangePW');
-            },
-          ),
+          buildItemListTitle(
+              text: 'ChangePass',
+              icon: Icons.change_circle,
+              onClicked: () => Navigator.pushNamed(context, '/ChangePW')),
           const SizedBox(height: 16),
           buildItemListTitle(text: 'Settings', icon: Icons.settings),
           const SizedBox(height: 16),

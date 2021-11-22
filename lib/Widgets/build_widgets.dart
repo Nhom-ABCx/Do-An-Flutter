@@ -4,23 +4,26 @@ import 'package:flutter/material.dart';
 Widget buildIconButton(IconData iconItem, Color? colorItem, String? textItem) =>
     Padding(
       padding: const EdgeInsets.all(10),
-      child: Container(
-        width: 100,
-        height: 80,
-        color: Colors.grey[700],
-        child: Column(
-          children: [
-            IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  iconItem,
-                  size: 30.0,
-                  color: colorItem,
-                )),
-            Text(
-              textItem!,
-            ),
-          ],
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(15),
+        child: Container(
+          width: 100,
+          height: 80,
+          color: Colors.white,
+          child: Column(
+            children: [
+              IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    iconItem,
+                    size: 30.0,
+                    color: colorItem,
+                  )),
+              Text(
+                textItem!,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -40,7 +43,7 @@ Widget buildItemListTitle({
   required IconData icon,
   VoidCallback? onClicked,
 }) {
-  const color = Colors.white;
+  const color = Colors.black;
   const hoverColor = Colors.white70;
   return ListTile(
     leading: Icon(icon, color: color),
