@@ -43,7 +43,7 @@ Widget buildItemListTitle({
   required IconData icon,
   VoidCallback? onClicked,
 }) {
-  const color = Colors.black;
+  const color = Colors.white;
   const hoverColor = Colors.white70;
   return ListTile(
     leading: Icon(icon, color: color),

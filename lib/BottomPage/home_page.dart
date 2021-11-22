@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+//import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../Pages/all_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -22,13 +22,13 @@ class HomePageState extends State<HomePage> {
   ];
   final List<SanPham> _dssanpham = [
     SanPham(
-        TenSanPham: 'SanPham 1', HinhAnh: 'images/product-image/DT/DT_1.jpg'),
+        TenSanPham: 'SanPham 1', HinhAnh: 'images/product-image/DT/DT_1.png'),
     SanPham(
-        TenSanPham: 'SanPham 2', HinhAnh: 'images/product-image/DT/DT_2.jpg'),
+        TenSanPham: 'SanPham 2', HinhAnh: 'images/product-image/DT/DT_2.png'),
     SanPham(
-        TenSanPham: 'SanPham 3', HinhAnh: 'images/product-image/DT/DT_3.jpg'),
+        TenSanPham: 'SanPham 3', HinhAnh: 'images/product-image/DT/DT_3.png'),
     SanPham(
-        TenSanPham: 'SanPham 44', HinhAnh: 'images/product-image/DT/DT_4.jpg'),
+        TenSanPham: 'SanPham 44', HinhAnh: 'images/product-image/DT/DT_4.png'),
   ];
   @override
   Widget build(BuildContext context) {
@@ -117,7 +117,7 @@ class HomePageState extends State<HomePage> {
           ],
         ),
         SizedBox(
-          height: 150,
+          height: 250,
           child: ListView.separated(
               padding: const EdgeInsets.all(20),
               scrollDirection: Axis.horizontal,
@@ -128,7 +128,7 @@ class HomePageState extends State<HomePage> {
               itemCount: _dssanpham.length),
         ),
         SizedBox(
-          height: 150,
+          height: 250,
           child: ListView.separated(
               padding: const EdgeInsets.all(20),
               scrollDirection: Axis.horizontal,
@@ -139,7 +139,7 @@ class HomePageState extends State<HomePage> {
               itemCount: _dssanpham.length),
         ),
         SizedBox(
-          height: 150,
+          height: 250,
           child: ListView.separated(
               padding: const EdgeInsets.all(20),
               scrollDirection: Axis.horizontal,
@@ -176,28 +176,39 @@ class HomePageState extends State<HomePage> {
 
 //ko tach duoc thang nay sang buildWidget, cha biet tai sao
 Widget _buildItem(SanPham _sp) {
-  return SizedBox(
-    width: 150,
-    child: Column(
-      children: [
-        Expanded(
-          child: Align(
-              child: AspectRatio(
-            aspectRatio: 4 / 3, //cai nay de fix khi anh bi loi~
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Image.asset(
-                _sp.HinhAnh,
-                fit: BoxFit.cover,
+  return ClipRRect(
+    borderRadius: BorderRadius.circular(15),
+    child: Container(
+      width: 150,
+      padding: const EdgeInsets.all(5),
+      color: Colors.white,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Align(
+                child: AspectRatio(
+              aspectRatio: 4 / 3, //cai nay de fix khi anh bi loi~
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.asset(
+                  _sp.HinhAnh,
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-          )),
-        ),
-        Text(
-          _sp.TenSanPham,
-          style: const TextStyle(fontWeight: FontWeight.bold),
-        )
-      ],
+            )),
+          ),
+          Text(
+            _sp.TenSanPham,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+          const Text("10000 VNĐ",
+              style: TextStyle(fontWeight: FontWeight.bold)),
+          const Text("20000 VNĐ",
+              style: TextStyle(decoration: TextDecoration.lineThrough)),
+          const Text("Sale 99%"),
+        ],
+      ),
     ),
   );
 }
