@@ -78,7 +78,7 @@ class ChangePassState extends State<ChangePass> {
                         ColoredBox(
                           color: Colors.white70,
                           child: Column(children: [
-                            _buildSesion(
+                            buildSesion(
                                 icon: Icons.vpn_key,
                                 title: 'Old PassWord',
                                 lable: ''),
@@ -90,7 +90,7 @@ class ChangePassState extends State<ChangePass> {
                                 ),
                               ),
                             ),
-                            _buildSesion(
+                            buildSesion(
                                 icon: Icons.vpn_key,
                                 title: 'New PassWord',
                                 lable: ''),
@@ -102,7 +102,7 @@ class ChangePassState extends State<ChangePass> {
                                 ),
                               ),
                             ),
-                            _buildSesion(
+                            buildSesion(
                                 icon: Icons.vpn_key,
                                 title: 'Reapeat New PassWord',
                                 lable: ''),
@@ -145,42 +145,4 @@ class ChangePassState extends State<ChangePass> {
           bottomNavigationBar: const BottomNavBar(0),
         ),
       );
-}
-
-//ko tach duoc thang nay sang buildWidget, cha biet tai sao
-Widget _buildSesion(
-    {required IconData icon, required String title, required String lable}) {
-  const color = Colors.green;
-  const colorText = Colors.black;
-  const padding = EdgeInsets.fromLTRB(0, 10, 0, 10);
-  return Padding(
-    padding: padding,
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Icon(
-              icon,
-              color: color,
-              size: 30,
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
-              child: Text(title,
-                  style: const TextStyle(
-                      color: colorText,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold)),
-            )
-          ],
-        ),
-        Text(lable,
-            style: const TextStyle(
-              color: colorText,
-            ))
-      ],
-    ),
-  );
 }

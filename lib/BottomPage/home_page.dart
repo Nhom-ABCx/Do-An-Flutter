@@ -121,7 +121,7 @@ class HomePageState extends State<HomePage> {
           child: ListView.separated(
               padding: const EdgeInsets.all(20),
               scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) => _buildItem(_dssanpham[index]),
+              itemBuilder: (context, index) => buildItem(_dssanpham[index]),
               separatorBuilder: (context, _) => const SizedBox(
                     width: 15, //khoang cach giua cac'layout
                   ),
@@ -132,7 +132,7 @@ class HomePageState extends State<HomePage> {
           child: ListView.separated(
               padding: const EdgeInsets.all(20),
               scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) => _buildItem(_dssanpham[index]),
+              itemBuilder: (context, index) => buildItem(_dssanpham[index]),
               separatorBuilder: (context, _) => const SizedBox(
                     width: 15, //khoang cach giua cac'layout
                   ),
@@ -143,7 +143,7 @@ class HomePageState extends State<HomePage> {
           child: ListView.separated(
               padding: const EdgeInsets.all(20),
               scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) => _buildItem(_dssanpham[index]),
+              itemBuilder: (context, index) => buildItem(_dssanpham[index]),
               separatorBuilder: (context, _) => const SizedBox(
                     width: 15, //khoang cach giua cac'layout
                   ),
@@ -174,41 +174,3 @@ class HomePageState extends State<HomePage> {
   }
 }
 
-//ko tach duoc thang nay sang buildWidget, cha biet tai sao
-Widget _buildItem(SanPham _sp) {
-  return ClipRRect(
-    borderRadius: BorderRadius.circular(15),
-    child: Container(
-      width: 150,
-      padding: const EdgeInsets.all(5),
-      color: Colors.white,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Align(
-                child: AspectRatio(
-              aspectRatio: 4 / 3, //cai nay de fix khi anh bi loi~
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Image.asset(
-                  _sp.HinhAnh,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            )),
-          ),
-          Text(
-            _sp.TenSanPham,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          const Text("10000 VNĐ",
-              style: TextStyle(fontWeight: FontWeight.bold)),
-          const Text("20000 VNĐ",
-              style: TextStyle(decoration: TextDecoration.lineThrough)),
-          const Text("Sale 99%"),
-        ],
-      ),
-    ),
-  );
-}

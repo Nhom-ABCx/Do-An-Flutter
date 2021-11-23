@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../Pages/all_page.dart';
+
 class MyProfile extends StatefulWidget {
   const MyProfile({Key? key}) : super(key: key);
 
@@ -78,23 +79,23 @@ class MyProfileState extends State<MyProfile> {
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                             child: Column(children: [
-                              _buildSesion(
+                              buildSesion(
                                   icon: Icons.account_circle_sharp,
                                   title: 'Username',
                                   lable: '@desiging-world'),
-                              _buildSesion(
+                              buildSesion(
                                   icon: Icons.account_circle_sharp,
                                   title: 'Full Name',
                                   lable: 'SUHA JANNAT'),
-                              _buildSesion(
+                              buildSesion(
                                   icon: Icons.phone,
                                   title: 'Phone',
                                   lable: '+880 000 111 222'),
-                              _buildSesion(
+                              buildSesion(
                                   icon: Icons.email,
                                   title: 'Email Address',
                                   lable: 'care@exmple.com'),
-                              _buildSesion(
+                              buildSesion(
                                   icon: Icons.gps_fixed,
                                   title: 'Shipping',
                                   lable: '28/C Green Road,BD'),
@@ -170,42 +171,4 @@ class MyProfileState extends State<MyProfile> {
           bottomNavigationBar: const BottomNavBar(0),
         ),
       );
-}
-
-//ko tach duoc thang nay sang buildWidget, cha biet tai sao
-Widget _buildSesion(
-    {required IconData icon, required String title, required String lable}) {
-  const color = Colors.green;
-  const colorText = Colors.black;
-  const padding = EdgeInsets.fromLTRB(0, 10, 0, 10);
-  return Padding(
-    padding: padding,
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Icon(
-              icon,
-              color: color,
-              size: 30,
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
-              child: Text(title,
-                  style: const TextStyle(
-                      color: colorText,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold)),
-            )
-          ],
-        ),
-        Text(lable,
-            style: const TextStyle(
-              color: colorText,
-            ))
-      ],
-    ),
-  );
 }

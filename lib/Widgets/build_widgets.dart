@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-//import '../Pages/all_page.dart';
+import '../Pages/all_page.dart';
 
 Widget buildIconButton(IconData iconItem, Color? colorItem, String? textItem) =>
     Padding(
@@ -66,5 +66,81 @@ Widget buildItemListTitle({
     //     textAlign: TextAlign.center,
     //   ),
     // ),
+  );
+}
+
+//ko tach duoc thang nay sang buildWidget, cha biet tai sao
+Widget buildItem(SanPham _sp) {
+  return ClipRRect(
+    borderRadius: BorderRadius.circular(15),
+    child: Container(
+      width: 150,
+      padding: const EdgeInsets.all(5),
+      color: Colors.white,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Align(
+                child: AspectRatio(
+              aspectRatio: 4 / 3, //cai nay de fix khi anh bi loi~
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.asset(
+                  _sp.HinhAnh,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            )),
+          ),
+          Text(
+            _sp.TenSanPham,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+          const Text("10000 VNĐ",
+              style: TextStyle(fontWeight: FontWeight.bold)),
+          const Text("20000 VNĐ",
+              style: TextStyle(decoration: TextDecoration.lineThrough)),
+          const Text("Sale 99%"),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget buildSesion(
+    {required IconData icon, required String title, required String lable}) {
+  const color = Colors.green;
+  const colorText = Colors.black;
+  const padding = EdgeInsets.fromLTRB(0, 10, 0, 10);
+  return Padding(
+    padding: padding,
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Icon(
+              icon,
+              color: color,
+              size: 30,
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
+              child: Text(title,
+                  style: const TextStyle(
+                      color: colorText,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold)),
+            )
+          ],
+        ),
+        Text(lable,
+            style: const TextStyle(
+              color: colorText,
+            ))
+      ],
+    ),
   );
 }
