@@ -67,7 +67,7 @@ Widget _Secsion1 = Column(
   children: [
     const SizedBox(height: 10),
     _buildItems(
-        image: 'images/product-image/DT/DT_5.jpg',
+        image: 'images/product-image/DT/DT_5.png',
         txtNameProduct: 'Ciramic Pot Set',
         txtTotal: "12.10x1",
         amount: '1'),
@@ -77,7 +77,7 @@ Widget _Secsion1 = Column(
     ),
     const SizedBox(height: 10),
     _buildItems(
-        image: 'images/product-image/DT/DT_2.jpg',
+        image: 'images/product-image/DT/DT_2.png',
         txtNameProduct: 'Bluetooth Speaker',
         txtTotal: "9.87x2",
         amount: '2'),
@@ -87,7 +87,7 @@ Widget _Secsion1 = Column(
     ),
     const SizedBox(height: 10),
     _buildItems(
-        image: 'images/product-image/DT/DT_3.jpg',
+        image: 'images/product-image/DT/DT_3.png',
         txtNameProduct: 'Modern Gray Tops',
         txtTotal: "7x1",
         amount: '1'),
