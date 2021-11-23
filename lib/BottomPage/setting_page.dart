@@ -81,22 +81,22 @@ class SettingPageState extends State<SettingPage> {
                 ),
               ),
               const SizedBox(height: 10.0),
-              _buildSessionCutoms(
+              buildSessionCutoms(
                   icons: Icons.language_outlined,
                   text: 'Language',
                   textCustoms: 'English'),
               const SizedBox(height: 10.0),
-              _buildSessionCutoms(
+              buildSessionCutoms(
                   icons: Icons.help_outline,
                   text: 'Support',
                   textCustoms: 'Get Help'),
               const SizedBox(height: 10.0),
-              _buildSessionCutoms(
+              buildSessionCutoms(
                   icons: Icons.verified_user_outlined,
                   text: 'Privacy Policy',
                   textCustoms: 'View'),
               const SizedBox(height: 10.0),
-              _buildSessionCutoms(
+              buildSessionCutoms(
                   icons: Icons.lock_outline_rounded,
                   text: 'Password',
                   textCustoms: 'Change'),
@@ -105,40 +105,4 @@ class SettingPageState extends State<SettingPage> {
           bottomNavigationBar: const BottomNavBar(4),
         ),
       );
-
-  Widget _buildSessionCutoms(
-      {required IconData icons,
-      required String text,
-      required String textCustoms}) {
-    const icon = Icons.chevron_right;
-    Color clr = Colors.blue;
-    Row object_1 = Row(
-      children: [
-        Icon(icons, color: Colors.brown, size: 27),
-        Padding(
-            padding: const EdgeInsets.fromLTRB(28, 0, 0, 0), child: Text(text,style:const  TextStyle(fontSize: 17),))
-      ],
-    );
-    return ColoredBox(
-        color: Colors.white,
-        child: Padding(
-            padding: const EdgeInsets.fromLTRB(18, 0, 10, 0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                object_1,
-                TextButton(
-                    onPressed: () {},
-                    child: Row(
-                      children: [
-                        Text(textCustoms, style: TextStyle(color: clr)),
-                        const Icon(
-                          icon,
-                          color: Colors.blue,
-                        )
-                      ],
-                    ))
-              ],
-            )));
-  }
 }
