@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         '/Forgot_action': (context) => const ForgotAction(),
         '/Home': (context) => const HomePage(),
         '/Cart': (context) => const CartPage(),
-        '/Pages': (context) => const Pages(),
+        '/Pages': (context) => const Loder(),
         '/Setting': (context) => const SettingPage(),
         '/Support': (context) => const SupportPage(),
         '/MyProfile': (context) => const MyProfile(),

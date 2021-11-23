@@ -1,94 +1,61 @@
-// ignore_for_file: unnecessary_new
-
 import 'package:flutter/material.dart';
-import 'dart:async';
-import '../Pages/all_page.dart';
+import 'dart:math';
 
-class Pages extends StatefulWidget {
-  const Pages({Key? key}) : super(key: key);
-  // ignore: unused_field
+class Loder extends StatefulWidget {
+  const Loder({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => PagesState();
+  _LoderState createState() => _LoderState();
 }
 
-class PagesState extends State<Pages> {
-  final List<String> _imageBanner = [
-    'images/banner/banner_1.png',
-    'images/banner/banner_2.png',
-  ];
-  int _pos = 0;
-// ignore: unused_field
-  late Timer _timer;
-//String sampleText ='images/banner/banner_1.jpg' ;
+class _LoderState extends State<Loder> with SingleTickerProviderStateMixin {
+  late AnimationController animationController;
+  late Animation<double> animation_rotation;
+  late final double initRadius = 30.0;
+  double radius = 0.0;
   @override
-  initState() {
-    _timer = new Timer(const Duration(seconds: 5), () {
+  void initState() {
+    super.initState();
+    animationController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 8));
+   
+    animation_rotation= Tween<double>(begin: 0.0, end: 1.0).animate(
+        CurvedAnimation(
+            parent: animationController,
+            curve: const Interval(0.0, 0.25, curve: Curves.elasticOut)));
+
+    animationController.addListener(() {
       setState(() {
-        _pos = (_pos + 1) % _imageBanner.length;
+        if (animationController.value >= 0.75 &&
+            animationController.value <= 1.0) {
+          radius = animationController.value * initRadius;
+        } else if (animationController.value >= 0.0 &&
+            animationController.value <= 0.25) {
+          radius = animationController.value * initRadius;
+        }
       });
     });
-    super.initState();
+    animationController.repeat();
   }
 
   @override
-  void dispose() {
-    _timer.cancel();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) => GestureDetector(
-        //huy keyboard khi bam ngoai man hinh
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: Scaffold(
-          //TopHeader
-          appBar: AppBarPage(),
-          //Hide
-          drawer: const NavigationDrawer(),
-          //Body
-          body: Center(
-              child: Image.asset(
-            _imageBanner[_pos],
-          )),
-          bottomNavigationBar: const BottomNavBar(3),
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0x0ff32a00),
+      body: SizedBox(
+        width: 100.0,
+        height: 100.0,
+        child: Center(
+          child: RotationTransition(
+            turns: animation_rotation,
+            child: Stack(
+              children: [
+                 Image.asset('images/logo/logo-white.png'),
+              ],
+            ),
+          ),
         ),
-      );
+      ),
+    );
+  }
 }
-//  Widget _banner=Container(
-//       child: Column(children: [
-//         Stack(
-//           children: [
-//             Image.asset('images/banner/banner_2.png'),
-//             Positioned(
-//               top: 25,
-//               right: 20,
-//               child: Container(
-//                   // height: 100,  
-//                   // width: 150,
-//                   child: IconButton(onPressed: (){
-//                     Image.asset(_imageBanner[_pos]);
-//                   },
-//                    icon: const Icon(Icons.arrow_right_outlined,
-//                    color: Colors.greenAccent,
-//                    size: 50.0))
-//               ),
-//             ),
-//               Positioned(
-//               top: 25,
-//               left: 20,
-//               child: Container(
-//                   // width: 150,
-//                   // height: 100,  
-//                   child: IconButton(onPressed: (){
-//                     Image.asset(_imageBanner[_pos]);
-//                   },
-//                    icon: const Icon(Icons.arrow_left_outlined,
-//                    color: Colors.greenAccent,
-//                    size: 50.0))
-//               ),
-//             )
-//           ],
-//         ),
-//       ],),
-//     );

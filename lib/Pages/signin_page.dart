@@ -1,7 +1,8 @@
 // ignore_for_file: unnecessary_const
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'; //text input
+import 'package:flutter/services.dart';
+import 'package:flutter_application_1/BottomPage/pagess_page.dart'; //text input
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -10,8 +11,34 @@ class SignInPage extends StatefulWidget {
   _SignInPageState createState() => _SignInPageState();
 }
 
-class _SignInPageState extends State<SignInPage> {
+class _SignInPageState extends State<SignInPage>
+    with SingleTickerProviderStateMixin {
   final input1 = TextEditingController();
+
+  //animation logo
+  late AnimationController animationController;
+  // ignore: non_constant_identifier_names
+  late Animation<double> animation_rotation;
+  // ignore: non_constant_identifier_names
+  late Animation<double> animation_rotation_out;
+  @override
+  void initState() {
+    super.initState();
+    animationController = AnimationController(
+        vsync: this,
+        duration: const Duration(seconds: 6)); //cu sau 4s la thuc hien hieu ung
+
+    animation_rotation = Tween<double>(begin: 0.0, end: 2.0).animate(
+        CurvedAnimation(
+            parent: animationController,
+            curve: const Interval(0.0, 1.0, curve: Curves.elasticOut)));
+    animation_rotation_out = Tween<double>(begin: 1.0, end: 2.0).animate(
+        CurvedAnimation(
+            parent: animationController,
+            curve: const Interval(1.25, 1.75, curve: Curves.linear)));
+    //cho hieu ung lap lai
+    animationController.repeat();
+  }
 
   @override
   Widget build(BuildContext context) => GestureDetector(
@@ -24,10 +51,13 @@ class _SignInPageState extends State<SignInPage> {
               padding: const EdgeInsets.only(top: 100),
               child: Column(
                 children: [
-                  Image.asset(
-                    'images/logo/logo-white.png',
-                    width: 80,
-                    fit: BoxFit.cover,
+                  RotationTransition(
+                    turns: animation_rotation,
+                    child: Stack(
+                      children: [
+                        Image.asset('images/logo/logo-white.png'),
+                      ],
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
