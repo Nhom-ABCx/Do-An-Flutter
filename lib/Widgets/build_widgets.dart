@@ -87,14 +87,14 @@ Widget buildItem(SanPham _sp) {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Image.asset(
-                  _sp.HinhAnh,
+                  "images/product-image/DT/" + _sp.hinhanh!,
                   fit: BoxFit.cover,
                 ),
               ),
             )),
           ),
           Text(
-            _sp.TenSanPham,
+            _sp.tensanpham,
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           const Text("10000 VNĐ",

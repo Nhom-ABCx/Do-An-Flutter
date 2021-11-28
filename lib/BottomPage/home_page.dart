@@ -20,16 +20,23 @@ class HomePageState extends State<HomePage> {
     'images/banner/banner_3.png',
     'images/banner/banner_4.png'
   ];
-  final List<SanPham> _dssanpham = [
-    SanPham(
-        TenSanPham: 'SanPham 1', HinhAnh: 'images/product-image/DT/DT_1.png'),
-    SanPham(
-        TenSanPham: 'SanPham 2', HinhAnh: 'images/product-image/DT/DT_2.png'),
-    SanPham(
-        TenSanPham: 'SanPham 3', HinhAnh: 'images/product-image/DT/DT_3.png'),
-    SanPham(
-        TenSanPham: 'SanPham 44', HinhAnh: 'images/product-image/DT/DT_4.png'),
-  ];
+  final Future<List<SanPham>> _dssanpham = fetchSanPham();
+  // final List<SanPham> _dssanpham = [
+  //   SanPham(
+  //       tensanpham: 'SanPham 1', hinhanh: 'images/product-image/DT/DT_1.png'),
+  //   SanPham(
+  //       tensanpham: 'SanPham 2', hinhanh: 'images/product-image/DT/DT_2.png'),
+  //   SanPham(
+  //       tensanpham: 'SanPham 3', hinhanh: 'images/product-image/DT/DT_3.png'),
+  //   SanPham(
+  //       tensanpham: 'SanPham 44', hinhanh: 'images/product-image/DT/DT_4.png'),
+  // ];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     Container _flashsale = Container(
@@ -116,39 +123,47 @@ class HomePageState extends State<HomePage> {
             ),
           ],
         ),
+        //loi~ ko hien thi duoc hinh` la` do database dung dot giua .jpg.png
+        //tren android studio ko biet nhu nao` ma` no bi loi~ lay du lieu API
         SizedBox(
           height: 250,
-          child: ListView.separated(
-              padding: const EdgeInsets.all(20),
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) => buildItem(_dssanpham[index]),
-              separatorBuilder: (context, _) => const SizedBox(
-                    width: 15, //khoang cach giua cac'layout
-                  ),
-              itemCount: _dssanpham.length),
+          //la 1 danh sach san pham o tuong lai khi lay ve duoc du lieu
+          child: FutureBuilder<List<SanPham>>(
+            future: _dssanpham, //danh sach san pham tu` tuong lai
+            builder: (context, snapshot) {
+              //cai phan nay la tu google
+              if (snapshot.hasError) {
+                //neu no'co' bat' ki` loi~ thi inh ra
+                // ignore: avoid_print
+                print(snapshot.error);
+              }
+              return snapshot.hasData //neu' co' du~ lieu thi xay dung ListView
+                  ? ListView.separated(
+                      padding: const EdgeInsets.all(20),
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) =>
+                          buildItem(snapshot.data![index]),
+                      separatorBuilder: (context, _) => const SizedBox(
+                            width: 15, //khoang cach giua cac'layout
+                          ),
+                      //tra ve so luong phan tu trong danh sach
+                      itemCount: snapshot.data!.length)
+                  //ko co' du~ lieu thi`cho icon xoay long` vong`
+                  : const Center(child: CircularProgressIndicator());
+            },
+          ),
         ),
-        SizedBox(
-          height: 250,
-          child: ListView.separated(
-              padding: const EdgeInsets.all(20),
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) => buildItem(_dssanpham[index]),
-              separatorBuilder: (context, _) => const SizedBox(
-                    width: 15, //khoang cach giua cac'layout
-                  ),
-              itemCount: _dssanpham.length),
-        ),
-        SizedBox(
-          height: 250,
-          child: ListView.separated(
-              padding: const EdgeInsets.all(20),
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) => buildItem(_dssanpham[index]),
-              separatorBuilder: (context, _) => const SizedBox(
-                    width: 15, //khoang cach giua cac'layout
-                  ),
-              itemCount: _dssanpham.length),
-        )
+        // SizedBox(
+        //   height: 250,
+        //   child: ListView.separated(
+        //       padding: const EdgeInsets.all(20),
+        //       scrollDirection: Axis.horizontal,
+        //       itemBuilder: (context, index) => buildItem(_dssanpham[index]),
+        //       separatorBuilder: (context, _) => const SizedBox(
+        //             width: 15, //khoang cach giua cac'layout
+        //           ),
+        //       itemCount: _dssanpham.length),
+        // ),
       ],
     );
     return GestureDetector(
@@ -173,4 +188,3 @@ class HomePageState extends State<HomePage> {
     );
   }
 }
-
