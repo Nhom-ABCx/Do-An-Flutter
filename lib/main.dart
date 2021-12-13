@@ -1,7 +1,7 @@
 // ignore_for_file: unnecessary_const
 
 import 'package:flutter/material.dart';
-import 'Pages/all_page.dart'; //lam` v cho no' nho? ra
+import 'all_page.dart'; //lam` v cho no' nho? ra
 
 void main() => runApp(const MyApp());
 

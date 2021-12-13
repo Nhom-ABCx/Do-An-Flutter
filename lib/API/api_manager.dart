@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import '../Pages/all_page.dart';
+import '../all_page.dart';
 
 Future<List<SanPham>> fetchSanPham() async {
   List<SanPham> lstSanPham = [];

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'all_page.dart';
+import '/all_page.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class SupportPage extends StatefulWidget {
+  const SupportPage({Key? key}) : super(key: key);
+
   @override
-  _HomeState createState() => _HomeState();
+  State<StatefulWidget> createState() => SupportPageState();
 }
 
-//trang nay la layout de copy custom, ko co xai`
-class _HomeState extends State<Home> {
+class SupportPageState extends State<SupportPage> {
   @override
   Widget build(BuildContext context) => GestureDetector(
         //huy keyboard khi bam ngoai man hinh
@@ -19,9 +19,10 @@ class _HomeState extends State<Home> {
           //Hide
           drawer: const NavigationDrawer(),
           //Body
-          body: Container(),
-          //nho' thay doi? lai con so' truyen du~ lieu
-          bottomNavigationBar: const BottomNavBar(0),
+          body: const Center(
+            child: Text("Trang SUPPORT ne"),
+          ),
+          bottomNavigationBar: const BottomNavBar(1),
         ),
       );
 }

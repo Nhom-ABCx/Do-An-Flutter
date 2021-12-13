@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import '../Pages/all_page.dart';
+import '/all_page.dart';
 
-class Notifications extends StatefulWidget {
-  const Notifications({Key? key}) : super(key: key);
-
+class Home extends StatefulWidget {
+  const Home({Key? key}) : super(key: key);
   @override
-  State<StatefulWidget> createState() => NotificationsState();
+  _HomeState createState() => _HomeState();
 }
 
-class NotificationsState extends State<Notifications> {
+//trang nay la layout de copy custom, ko co xai`
+class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) => GestureDetector(
         //huy keyboard khi bam ngoai man hinh
@@ -19,9 +19,7 @@ class NotificationsState extends State<Notifications> {
           //Hide
           drawer: const NavigationDrawer(),
           //Body
-          body: const Center(
-            child: Text("ListTitle Thong bao'"),
-          ),
+          body: Container(),
           //nho' thay doi? lai con so' truyen du~ lieu
           bottomNavigationBar: const BottomNavBar(0),
         ),

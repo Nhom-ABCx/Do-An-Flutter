@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../Pages/all_page.dart';
+import '../all_page.dart';
 
 Widget buildIconButton(IconData iconItem, Color? colorItem, String? textItem) => Padding(
       padding: const EdgeInsets.all(10),
