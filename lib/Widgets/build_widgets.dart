@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import '../Pages/all_page.dart';
 
-Widget buildIconButton(IconData iconItem, Color? colorItem, String? textItem) =>
-    Padding(
+Widget buildIconButton(IconData iconItem, Color? colorItem, String? textItem) => Padding(
       padding: const EdgeInsets.all(10),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(15),
@@ -87,20 +86,18 @@ Widget buildItem(SanPham _sp) {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Image.asset(
-                  "images/product-image/DT/" + _sp.hinhanh!,
+                  "images/product-image/DT/" + _sp.hinhAnh!,
                   fit: BoxFit.cover,
                 ),
               ),
             )),
           ),
           Text(
-            _sp.tensanpham,
+            _sp.tenSanPham,
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
-          const Text("10000 VNĐ",
-              style: TextStyle(fontWeight: FontWeight.bold)),
-          const Text("20000 VNĐ",
-              style: TextStyle(decoration: TextDecoration.lineThrough)),
+          const Text("10000 VNĐ", style: TextStyle(fontWeight: FontWeight.bold)),
+          const Text("20000 VNĐ", style: TextStyle(decoration: TextDecoration.lineThrough)),
           const Text("Sale 99%"),
         ],
       ),
@@ -108,8 +105,7 @@ Widget buildItem(SanPham _sp) {
   );
 }
 
-Widget buildSesion(
-    {required IconData icon, required String title, required String lable}) {
+Widget buildSesion({required IconData icon, required String title, required String lable}) {
   const color = Colors.green;
   const colorText = Colors.black;
   const padding = EdgeInsets.fromLTRB(0, 10, 0, 10);
@@ -128,11 +124,7 @@ Widget buildSesion(
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
-              child: Text(title,
-                  style: const TextStyle(
-                      color: colorText,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold)),
+              child: Text(title, style: const TextStyle(color: colorText, fontSize: 15, fontWeight: FontWeight.bold)),
             )
           ],
         ),
@@ -145,10 +137,7 @@ Widget buildSesion(
   );
 }
 
-Widget buildSessionCutoms(
-    {required IconData icons,
-    required String text,
-    required String textCustoms}) {
+Widget buildSessionCutoms({required IconData icons, required String text, required String textCustoms}) {
   const icon = Icons.chevron_right;
   Color clr = Colors.blue;
   Row object_1 = Row(

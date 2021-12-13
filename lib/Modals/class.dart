@@ -1,55 +1,39 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'class.g.dart';
+
+//Chạy câu lệnh flutter pub run build_runner watch trong terminal khi part 'user.g.dart' bị lỗi đỏ
+@JsonSerializable(explicitToJson: true) // Nếu không có explicitToJson: true thì ko in được lớp ở trong.
 class SanPham {
   int? id;
-  String tensanpham;
-  String? mota;
-  int? soluongton;
-  double? dongia;
-  String? hinhanh;
-  int? luotmua;
-  int? nhacungcapid;
-  int? loaisanphamid;
-  DateTime? ngaynhap;
-  DateTime? ngaycapnhat;
-  DateTime? ngayxoa;
+  String tenSanPham;
+  String? moTa;
+  int? soLuongTon;
+  int? giaNhap;
+  int? giaBan;
+  String? hinhAnh;
+  int? luotMua;
+  int? hangSanXuatId;
+  int? loaiSanPhamId;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  DateTime? deletedAt;
 
-//gan` nhu phuong thuc khoi tao
   SanPham({
     this.id,
-    required this.tensanpham,
-    this.mota,
-    this.soluongton,
-    this.dongia,
-    this.hinhanh,
-    this.luotmua,
-    this.nhacungcapid,
-    this.loaisanphamid,
-    this.ngaynhap,
-    this.ngaycapnhat,
-    this.ngayxoa,
+    required this.tenSanPham,
+    this.moTa,
+    this.soLuongTon,
+    this.giaNhap,
+    this.giaBan,
+    this.hinhAnh,
+    this.luotMua,
+    this.hangSanXuatId,
+    this.loaiSanPhamId,
+    this.createdAt,
+    this.updatedAt,
+    this.deletedAt,
   });
-  factory SanPham.fromJson(Map<String, dynamic> json) {
-    return SanPham(
-      id: json["id"],
-      tensanpham: json["TenSanPham"],
-      mota: json["MoTa"],
-      soluongton: json["SoLuongTon"],
-      dongia: json["DonGia"],
-      hinhanh: json["HinhAnh"],
-      luotmua: json["LuotMua"],
-      nhacungcapid: json["NhacungCapId"],
-      loaisanphamid: json["LoaiSanPhamId"],
-      ngaynhap: json["created_at"],
-      ngaycapnhat: json["updated_at"],
-    );
-  }
-
-  // SanPham.fromJson(Map<String, dynamic> json)
-  //     : id = json['Id'],
-  //       tensanpham = json['TenSanPham'],
-  //       mota = json['MoTa'];
-  // Map<String, dynamic> toJson() => {
-  //       'Id': id,
-  //       'TenSanPham': tensanpham,
-  //       'MoTa': mota,
-  //     };
+  factory SanPham.fromJson(dynamic json) => _$SanPhamFromJson(json);
+  Map<String, dynamic> toJson() => _$SanPhamToJson(this);
 }
