@@ -68,7 +68,6 @@ Widget buildItemListTitle({
   );
 }
 
-//ko tach duoc thang nay sang buildWidget, cha biet tai sao
 Widget buildItem(SanPham _sp) {
   return ClipRRect(
     borderRadius: BorderRadius.circular(15),
@@ -86,7 +85,7 @@ Widget buildItem(SanPham _sp) {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Image.asset(
-                  "images/product-image/DT/" + _sp.hinhAnh!,
+                  "images/product-image/" + _sp.hinhAnh!,
                   fit: BoxFit.cover,
                 ),
               ),

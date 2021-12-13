@@ -8,7 +8,7 @@ Future<List<SanPham>> fetchSanPham() async {
   List<SanPham> lstSanPham = [];
 
   try {
-    final response = await http.get(Uri.parse("http://localhost:8000/api/SanPham"));
+    final response = await http.get(Uri.parse("http://10.0.2.2:8000/api/SanPham"));
     if (response.statusCode == 200) {
       //nay` von' dang o dang List, ep kieu no' thanh List de co them phuong thuc'
       List jsonRaw = json.decode(response.body);

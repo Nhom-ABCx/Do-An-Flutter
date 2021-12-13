@@ -14,23 +14,8 @@ class HomePageState extends State<HomePage> {
   //bien xac dinh hinh
   int activeIndex = 0;
   //tao ds hinh anh cho banner
-  final urlImages = [
-    'images/banner/banner_1.png',
-    'images/banner/banner_2.png',
-    'images/banner/banner_3.png',
-    'images/banner/banner_4.png'
-  ];
+  final urlImages = ['images/banner/banner_1.png', 'images/banner/banner_2.png', 'images/banner/banner_3.png', 'images/banner/banner_4.png'];
   final Future<List<SanPham>> _dssanpham = fetchSanPham();
-  // final List<SanPham> _dssanpham = [
-  //   SanPham(
-  //       tensanpham: 'SanPham 1', hinhanh: 'images/product-image/DT/DT_1.png'),
-  //   SanPham(
-  //       tensanpham: 'SanPham 2', hinhanh: 'images/product-image/DT/DT_2.png'),
-  //   SanPham(
-  //       tensanpham: 'SanPham 3', hinhanh: 'images/product-image/DT/DT_3.png'),
-  //   SanPham(
-  //       tensanpham: 'SanPham 44', hinhanh: 'images/product-image/DT/DT_4.png'),
-  // ];
   @override
   void initState() {
     // TODO: implement initState
@@ -74,8 +59,7 @@ class HomePageState extends State<HomePage> {
                       //reverse: true, //dao? nguoc chay
                       //autoPlayInterval: const Duration(seconds: 4), //mac dinh la 4
                       enlargeCenterPage: true, //lam noi bat trung tam hinh`
-                      onPageChanged: (index, reason) =>
-                          setState(() => activeIndex = index)),
+                      onPageChanged: (index, reason) => setState(() => activeIndex = index)),
                 )
               ],
             )),
@@ -96,13 +80,11 @@ class HomePageState extends State<HomePage> {
           padding: const EdgeInsets.all(15.0),
           child: Wrap(
             children: [
-              buildIconButton(
-                  Icons.favorite_border_outlined, Colors.red, "Woment's"),
+              buildIconButton(Icons.favorite_border_outlined, Colors.red, "Woment's"),
               buildIconButton(Icons.watch_later_outlined, Colors.blue, "Juice"),
               buildIconButton(Icons.fastfood_outlined, Colors.yellow, "Foods"),
               buildIconButton(Icons.sports_esports, Colors.green, "Sports"),
-              buildIconButton(
-                  Icons.headphones_battery_outlined, Colors.yellow, "Gadgets"),
+              buildIconButton(Icons.headphones_battery_outlined, Colors.yellow, "Gadgets"),
               buildIconButton(Icons.wb_sunny_outlined, Colors.cyan, "Travel"),
             ],
           ),
@@ -141,8 +123,7 @@ class HomePageState extends State<HomePage> {
                   ? ListView.separated(
                       padding: const EdgeInsets.all(20),
                       scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) =>
-                          buildItem(snapshot.data![index]),
+                      itemBuilder: (context, index) => buildItem(snapshot.data![index]),
                       separatorBuilder: (context, _) => const SizedBox(
                             width: 15, //khoang cach giua cac'layout
                           ),
@@ -153,17 +134,6 @@ class HomePageState extends State<HomePage> {
             },
           ),
         ),
-        // SizedBox(
-        //   height: 250,
-        //   child: ListView.separated(
-        //       padding: const EdgeInsets.all(20),
-        //       scrollDirection: Axis.horizontal,
-        //       itemBuilder: (context, index) => buildItem(_dssanpham[index]),
-        //       separatorBuilder: (context, _) => const SizedBox(
-        //             width: 15, //khoang cach giua cac'layout
-        //           ),
-        //       itemCount: _dssanpham.length),
-        // ),
       ],
     );
     return GestureDetector(
