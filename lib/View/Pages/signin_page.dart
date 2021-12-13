@@ -15,6 +15,7 @@ class _SignInPageState extends State<SignInPage> with SingleTickerProviderStateM
   bool notShowPassword = true;
   final txtEmail = TextEditingController();
   final txtPassword = TextEditingController();
+  final _auth = Auth();
 
   //animation logo
   late AnimationController animationController;
@@ -25,14 +26,22 @@ class _SignInPageState extends State<SignInPage> with SingleTickerProviderStateM
   @override
   void initState() {
     super.initState();
-    animationController = AnimationController(vsync: this, duration: const Duration(seconds: 6)); //cu sau 4s la thuc hien hieu ung
+    animationController = AnimationController(
+        vsync: this, duration: const Duration(seconds: 6)); //cu sau 4s la thuc hien hieu ung
 
-    animation_rotation = Tween<double>(begin: 0.0, end: 2.0)
-        .animate(CurvedAnimation(parent: animationController, curve: const Interval(0.0, 1.0, curve: Curves.elasticOut)));
-    animation_rotation_out = Tween<double>(begin: 1.0, end: 2.0)
-        .animate(CurvedAnimation(parent: animationController, curve: const Interval(1.25, 1.75, curve: Curves.linear)));
+    animation_rotation = Tween<double>(begin: 0.0, end: 2.0).animate(CurvedAnimation(
+        parent: animationController, curve: const Interval(0.0, 1.0, curve: Curves.elasticOut)));
+    animation_rotation_out = Tween<double>(begin: 1.0, end: 2.0).animate(CurvedAnimation(
+        parent: animationController, curve: const Interval(1.25, 1.75, curve: Curves.linear)));
     //cho hieu ung lap lai
     animationController.repeat();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _auth.dispose();
   }
 
   @override
@@ -67,28 +76,31 @@ class _SignInPageState extends State<SignInPage> with SingleTickerProviderStateM
                         right: 20,
                         bottom: 10,
                       ),
-                      child: TextField(
-                        decoration: const InputDecoration(
-                          //border: const OutlineInputBorder(),
-                          enabledBorder: const OutlineInputBorder(
-                            borderSide: const BorderSide(color: Colors.grey),
-                          ),
-                          labelText: "Email or Username",
-                          hintText: "info@example.com",
-                          prefixIcon: Icon(
-                            Icons.supervisor_account,
-                            color: Colors.white,
-                          ),
-                          labelStyle: TextStyle(color: Colors.white),
-                          hintStyle: TextStyle(color: Colors.grey),
-                        ),
-                        controller: txtEmail, //gan gia tri cua text vao bien'
-                        keyboardType: TextInputType.emailAddress,
-                        textInputAction: TextInputAction.next,
-                        inputFormatters: <TextInputFormatter>[
-                          LengthLimitingTextInputFormatter(255), //gioi han do dai`
-                        ],
-                      ),
+                      child: StreamBuilder(
+                          stream: _auth.emailController.stream,
+                          builder: (context, snapshot) => TextField(
+                                decoration: InputDecoration(
+                                  //border: const OutlineInputBorder(),
+                                  enabledBorder: const OutlineInputBorder(
+                                    borderSide: const BorderSide(color: Colors.grey),
+                                  ),
+                                  labelText: "Email or Username",
+                                  hintText: "info@example.com",
+                                  errorText: snapshot.hasError ? snapshot.error.toString() : null,
+                                  prefixIcon: const Icon(
+                                    Icons.supervisor_account,
+                                    color: Colors.white,
+                                  ),
+                                  labelStyle: const TextStyle(color: Colors.white),
+                                  hintStyle: const TextStyle(color: Colors.grey),
+                                ),
+                                controller: txtEmail, //gan gia tri cua text vao bien'
+                                keyboardType: TextInputType.emailAddress,
+                                textInputAction: TextInputAction.next,
+                                inputFormatters: <TextInputFormatter>[
+                                  LengthLimitingTextInputFormatter(255), //gioi han do dai`
+                                ],
+                              )),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
@@ -97,38 +109,42 @@ class _SignInPageState extends State<SignInPage> with SingleTickerProviderStateM
                         right: 20,
                         bottom: 10,
                       ),
-                      child: Stack(
-                        alignment: AlignmentDirectional.centerEnd,
-                        children: [
-                          TextField(
-                            obscureText: notShowPassword, //hien * khi nhap text
-                            decoration: const InputDecoration(
-                              //border: OutlineInputBorder(),
-                              enabledBorder: const OutlineInputBorder(
-                                borderSide: const BorderSide(color: Colors.grey),
+                      child: StreamBuilder(
+                        stream: _auth.passController.stream,
+                        builder: (context, snapshot) => Stack(
+                          alignment: AlignmentDirectional.centerEnd,
+                          children: [
+                            TextField(
+                              obscureText: notShowPassword, //hien * khi nhap text
+                              decoration: InputDecoration(
+                                //border: OutlineInputBorder(),
+                                enabledBorder: const OutlineInputBorder(
+                                  borderSide: const BorderSide(color: Colors.grey),
+                                ),
+                                labelText: "Password",
+                                errorText: snapshot.hasError ? snapshot.error.toString() : null,
+                                prefixIcon: const Icon(
+                                  Icons.vpn_key,
+                                  color: Colors.white,
+                                ),
+                                labelStyle: const TextStyle(color: Colors.white),
+                                hintStyle: const TextStyle(color: Colors.grey),
                               ),
-                              labelText: "Password",
-                              prefixIcon: Icon(
-                                Icons.vpn_key,
-                                color: Colors.white,
+                              controller: txtPassword, //gan gia tri cua text vao bien'
+                              textInputAction: TextInputAction.go,
+                              inputFormatters: <TextInputFormatter>[
+                                LengthLimitingTextInputFormatter(255), //gioi han do dai`
+                              ],
+                            ),
+                            GestureDetector(
+                              onTap: () => setState(() => notShowPassword = !notShowPassword),
+                              child: Text(
+                                notShowPassword ? "SHOW" : "HIDE",
+                                style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                               ),
-                              labelStyle: TextStyle(color: Colors.white),
-                              hintStyle: TextStyle(color: Colors.grey),
                             ),
-                            controller: txtPassword, //gan gia tri cua text vao bien'
-                            textInputAction: TextInputAction.go,
-                            inputFormatters: <TextInputFormatter>[
-                              LengthLimitingTextInputFormatter(255), //gioi han do dai`
-                            ],
-                          ),
-                          GestureDetector(
-                            onTap: () => setState(() => notShowPassword = !notShowPassword),
-                            child: Text(
-                              notShowPassword ? "SHOW" : "HIDE",
-                              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                     Container(
@@ -143,9 +159,12 @@ class _SignInPageState extends State<SignInPage> with SingleTickerProviderStateM
                       ),
                       width: 300,
                       child: TextButton(
-                        child: const Text('Log In', style: TextStyle(fontSize: 20, color: Colors.white)),
+                        child: const Text('Log In',
+                            style: TextStyle(fontSize: 20, color: Colors.white)),
                         onPressed: () {
-                          //Navigator.pushNamed(context, 'Sign_In');
+                          (_auth.ktDangNhap(txtEmail.text, txtPassword.text))
+                              ? Navigator.pushReplacementNamed(context, '/Home')
+                              : null;
                         },
                       ),
                     ),

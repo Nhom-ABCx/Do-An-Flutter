@@ -19,3 +19,5 @@ export 'View/DrawerPage/notifications_page.dart';
 export 'Widgets/build_widgets.dart';
 export 'Modals/class.dart';
 export 'API/api_manager.dart';
+
+export 'Controller/auth.dart';
