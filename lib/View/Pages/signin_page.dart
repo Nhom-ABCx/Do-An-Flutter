@@ -13,8 +13,8 @@ class SignInPage extends StatefulWidget {
 
 class _SignInPageState extends State<SignInPage> with SingleTickerProviderStateMixin {
   bool notShowPassword = true;
-  final txtEmail = TextEditingController();
-  final txtPassword = TextEditingController();
+  final txtEmail = TextEditingController(text: "Khach01@gmail.com");
+  final txtPassword = TextEditingController(text: "passwordKH01");
   final _auth = Auth();
 
   //animation logo
@@ -161,10 +161,13 @@ class _SignInPageState extends State<SignInPage> with SingleTickerProviderStateM
                       child: TextButton(
                         child: const Text('Log In',
                             style: TextStyle(fontSize: 20, color: Colors.white)),
-                        onPressed: () {
-                          (_auth.ktDangNhap(txtEmail.text, txtPassword.text))
+                        onPressed: () async {
+                          await (_auth.ktDangNhap(txtEmail.text, txtPassword.text))
                               ? Navigator.pushReplacementNamed(context, '/Home')
-                              : null;
+                              : (ScaffoldMessenger.of(context)
+                                ..removeCurrentSnackBar()
+                                ..showSnackBar(
+                                    SnackBar(content: Text('Sai Username hoac MatKhau'))));
                         },
                       ),
                     ),

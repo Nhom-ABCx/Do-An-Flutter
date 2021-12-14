@@ -17,7 +17,10 @@ export 'Widgets/bottombar.dart';
 export 'View/DrawerPage/change_pass.dart';
 export 'View/DrawerPage/notifications_page.dart';
 export 'Widgets/build_widgets.dart';
+
 export 'Modals/class.dart';
+export 'Modals/khach_hang.dart';
+
 export 'API/api_manager.dart';
 
 export 'Controller/auth.dart';
