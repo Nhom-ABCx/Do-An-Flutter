@@ -34,6 +34,8 @@ class MyApp extends StatelessWidget {
         '/MyProfile': (context) => const MyProfile(),
         '/Notifications': (context) => const Notifications(),
         '/ChangePW': (context) => const ChangePass(),
+        '/PhonePage':(context)=>const PhonePage(),
+        '/LapTopPage':(context)=>const LapTopPage(),
       },
     );
   }

@@ -1,7 +1,46 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+
 import '../all_page.dart';
 
-Widget buildIconButton(IconData iconItem, Color? colorItem, String? textItem) => Padding(
+// class PhoneScreen extends StatefulWidget {
+//   const PhoneScreen({Key? key}) : super(key: key);
+
+//   @override
+//   _PhonePageState createState() => _PhonePageState();
+// }
+
+// class _PhonePageState extends State<PhoneScreen> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Padding(padding: const EdgeInsets.all(10.0),
+//       child: ClipRRect(
+//         borderRadius: BorderRadius.circular(15),
+//         child: Container(
+//           width: 100,
+//           height: 80,
+//           color: Colors.white,
+//           child: Column(
+//             children: [
+//               IconButton(
+//                   onPressed: () {
+//                    Navigator.push(context,MaterialPageRoute(builder: (context)=>const PhonePage()));
+//                   },
+//                   icon: const Icon(
+//                    Icons.phone_android_rounded,
+//                     size: 30.0,
+//                     color:  Colors.red,
+//                   )),
+//               const Text("Phone"),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+Widget buildIconButton(BuildContext context,IconData iconItem, Color? colorItem, String? textItem,String routeting) => Padding(
       padding: const EdgeInsets.all(10),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(15),
@@ -12,7 +51,9 @@ Widget buildIconButton(IconData iconItem, Color? colorItem, String? textItem) =>
           child: Column(
             children: [
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context,routeting);
+                  },
                   icon: Icon(
                     iconItem,
                     size: 30.0,
@@ -68,40 +109,30 @@ Widget buildItemListTitle({
   );
 }
 
-Widget buildItem(SanPham _sp) {
-  return ClipRRect(
+Widget buildItem(BuildContext context,SanPham _sp) {
+  return Padding(padding: const EdgeInsets.all(5.0),
+  child: ClipRRect(
     borderRadius: BorderRadius.circular(15),
-    child: Container(
-      width: 150,
-      padding: const EdgeInsets.all(5),
-      color: Colors.white,
+    child: GestureDetector(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
-            child: Align(
-                child: AspectRatio(
-              aspectRatio: 4 / 3, //cai nay de fix khi anh bi loi~
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Image.asset(
-                  "images/product-image/" + _sp.hinhAnh!,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            )),
-          ),
-          Text(
-            _sp.tenSanPham,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          const Text("10000 VNĐ", style: TextStyle(fontWeight: FontWeight.bold)),
-          const Text("20000 VNĐ", style: TextStyle(decoration: TextDecoration.lineThrough)),
-          const Text("Sale 99%"),
+          InkWell(
+            child: Image.asset("images/product-image/" + _sp.hinhAnh!,
+           width: 100,height: 150,),
+           onTap: (){
+              Navigator.push(context, 
+               MaterialPageRoute(builder: (context)=>  ProductDetail(sanPham: _sp)));
+           },
+           ),
+            
+          Text(_sp.tenSanPham,style: const TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
+          Text(_sp.giaBan.toString(),style: const TextStyle(fontWeight:FontWeight.bold,fontSize: 15 ),)
         ],
       ),
     ),
+  ),
   );
+  
 }
 
 Widget buildSesion({required IconData icon, required String title, required String lable}) {
@@ -172,3 +203,28 @@ Widget buildSessionCutoms({required IconData icons, required String text, requir
             ],
           )));
 }
+// class _MainScreenState extends State<MainScreen> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('Main Screen'),
+//       ),
+//       body: GestureDetector(
+//         child: Hero(
+//             tag: 'imageHero',
+//             child: CachedNetworkImage(
+//               imageUrl:
+//                   'https://raw.githubusercontent.com/flutter/website/master/src/_includes/code/layout/lakes/images/lake.jpg',
+//               placeholder: new CircularProgressIndicator(),
+//               errorWidget: new Icon(Icons.error),
+//             )),
+//         onTap: () {
+//           Navigator.push(context, MaterialPageRoute(builder: (_) {
+//             return DetailScreen();
+//           }));
+//         },
+//       ),
+//     );
+//   }
+// }

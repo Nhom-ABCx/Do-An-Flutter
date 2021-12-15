@@ -16,6 +16,11 @@ export 'Widgets/appbar.dart';
 export 'Widgets/bottombar.dart';
 export 'View/DrawerPage/change_pass.dart';
 export 'View/DrawerPage/notifications_page.dart';
+export 'View/ProductCategories/phone_page.dart';
+export 'View/ProductDetail/product_page_detail.dart';
+export 'View/ProductCategories/laptop_page.dart';
+
+
 export 'Widgets/build_widgets.dart';
 export 'Modals/class.dart';
 export 'API/api_manager.dart';

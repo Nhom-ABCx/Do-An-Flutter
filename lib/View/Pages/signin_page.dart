@@ -11,31 +11,31 @@ class SignInPage extends StatefulWidget {
   _SignInPageState createState() => _SignInPageState();
 }
 
-class _SignInPageState extends State<SignInPage> with SingleTickerProviderStateMixin {
+class _SignInPageState extends State<SignInPage>  {
   bool notShowPassword = true;
   final txtEmail = TextEditingController();
   final txtPassword = TextEditingController();
   final _auth = Auth();
 
   //animation logo
-  late AnimationController animationController;
+ // late AnimationController animationController;
   // ignore: non_constant_identifier_names
-  late Animation<double> animation_rotation;
+  //late Animation<double> animation_rotation;
   // ignore: non_constant_identifier_names
-  late Animation<double> animation_rotation_out;
-  @override
-  void initState() {
-    super.initState();
-    animationController = AnimationController(
-        vsync: this, duration: const Duration(seconds: 6)); //cu sau 4s la thuc hien hieu ung
+  //late Animation<double> animation_rotation_out;
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   animationController = AnimationController(
+  //       vsync: this, duration: const Duration(seconds: 6)); //cu sau 4s la thuc hien hieu ung
 
-    animation_rotation = Tween<double>(begin: 0.0, end: 2.0).animate(CurvedAnimation(
-        parent: animationController, curve: const Interval(0.0, 1.0, curve: Curves.elasticOut)));
-    animation_rotation_out = Tween<double>(begin: 1.0, end: 2.0).animate(CurvedAnimation(
-        parent: animationController, curve: const Interval(1.25, 1.75, curve: Curves.linear)));
-    //cho hieu ung lap lai
-    animationController.repeat();
-  }
+  //   animation_rotation = Tween<double>(begin: 0.0, end: 2.0).animate(CurvedAnimation(
+  //       parent: animationController, curve: const Interval(0.0, 1.0, curve: Curves.elasticOut)));
+  //   animation_rotation_out = Tween<double>(begin: 1.0, end: 2.0).animate(CurvedAnimation(
+  //       parent: animationController, curve: const Interval(1.25, 1.75, curve: Curves.linear)));
+  //   //cho hieu ung lap lai
+  //   animationController.repeat();
+  // }
 
   @override
   void dispose() {
@@ -61,14 +61,14 @@ class _SignInPageState extends State<SignInPage> with SingleTickerProviderStateM
                 padding: const EdgeInsets.only(top: 100),
                 child: Column(
                   children: [
-                    RotationTransition(
-                      turns: animation_rotation,
-                      child: Stack(
-                        children: [
-                          Image.asset('images/logo/logo-white.png'),
-                        ],
-                      ),
-                    ),
+                    // RotationTransition(
+                    //   turns: animation_rotation,
+                    //   child: Stack(
+                    //     children: [
+                    //       Image.asset('images/logo/logo-white.png'),
+                    //     ],
+                    //   ),
+                    // ),
                     Padding(
                       padding: const EdgeInsets.only(
                         left: 20,
