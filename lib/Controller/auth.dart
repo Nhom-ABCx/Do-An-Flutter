@@ -11,7 +11,7 @@ class Auth {
 
   Future<bool> ktDangNhap(String email, String pass) async {
     if (email.isEmpty) {
-      emailController.sink.addError("Nhập email");
+      emailController.sink.addError("Nhập username hoặc email");
       return false;
     }
     //emailController.sink.add("");
