@@ -42,3 +42,24 @@ Future<KhachHang> api_DangNhap(String email, String matkhau) async {
 
   return khachHang;
 }
+
+Future<dynamic> api_DangKy(String username, String email, String matkhau) async {
+  var khachHang = KhachHang(hoTen: "");
+
+  try {
+    final response = await http.post(Uri.parse(urlBaseAPI + "DangKy"),
+        body: {"Username": "$username", "Email": "$email", "MatKhau": "$matkhau"});
+    if (response.statusCode == 200) {
+      //nay` von' dang o dang List, ep kieu no' thanh List de co them phuong thuc'
+      final jsonRaw = json.decode(response.body);
+      //print(jsonRaw[0]['TenSanPham']); //truy xuat no' bang cach nhu nay`
+      khachHang = KhachHang.fromJson(jsonRaw);
+    } else if (response.statusCode == 400) {
+      return json.decode(response.body);
+    } else {
+      throw Exception("Something get wrong! Status code ${response.statusCode}");
+    }
+  } catch (e) {}
+
+  return khachHang;
+}
