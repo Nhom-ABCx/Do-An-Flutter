@@ -40,7 +40,9 @@ import '../all_page.dart';
 //     );
 //   }
 // }
-Widget buildIconButton(BuildContext context,IconData iconItem, Color? colorItem, String? textItem,String routeting) => Padding(
+Widget buildIconButton(BuildContext context, IconData iconItem, Color? colorItem, String? textItem,
+        String routeting) =>
+    Padding(
       padding: const EdgeInsets.all(10),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(15),
@@ -52,7 +54,7 @@ Widget buildIconButton(BuildContext context,IconData iconItem, Color? colorItem,
             children: [
               IconButton(
                   onPressed: () {
-                    Navigator.pushNamed(context,routeting);
+                    Navigator.pushNamed(context, routeting);
                   },
                   icon: Icon(
                     iconItem,
@@ -109,30 +111,38 @@ Widget buildItemListTitle({
   );
 }
 
-Widget buildItem(BuildContext context,SanPham _sp) {
-  return Padding(padding: const EdgeInsets.all(5.0),
-  child: ClipRRect(
-    borderRadius: BorderRadius.circular(15),
-    child: GestureDetector(
-      child: Column(
-        children: [
-          InkWell(
-            child: Image.asset("images/product-image/" + _sp.hinhAnh!,
-           width: 100,height: 150,),
-           onTap: (){
-              Navigator.push(context, 
-               MaterialPageRoute(builder: (context)=>  ProductDetail(sanPham: _sp)));
-           },
-           ),
-            
-          Text(_sp.tenSanPham,style: const TextStyle(fontSize: 15,fontWeight:FontWeight.bold),),
-          Text(_sp.giaBan.toString(),style: const TextStyle(fontWeight:FontWeight.bold,fontSize: 15 ),)
-        ],
+Widget buildItem(BuildContext context, SanPham _sp) {
+  return Padding(
+    padding: const EdgeInsets.all(5.0),
+    child: ClipRRect(
+      borderRadius: BorderRadius.circular(15),
+      child: GestureDetector(
+        child: Column(
+          children: [
+            InkWell(
+              child: Image.asset(
+                "images/product-image/" + _sp.hinhAnh!,
+                width: 100,
+                height: 150,
+              ),
+              onTap: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => ProductDetail(sanPham: _sp)));
+              },
+            ),
+            Text(
+              _sp.tenSanPham,
+              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+            ),
+            Text(
+              _sp.giaBan.toString(),
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+            )
+          ],
+        ),
       ),
     ),
-  ),
   );
-  
 }
 
 Widget buildSesion({required IconData icon, required String title, required String lable}) {
@@ -154,7 +164,9 @@ Widget buildSesion({required IconData icon, required String title, required Stri
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
-              child: Text(title, style: const TextStyle(color: colorText, fontSize: 15, fontWeight: FontWeight.bold)),
+              child: Text(title,
+                  style:
+                      const TextStyle(color: colorText, fontSize: 15, fontWeight: FontWeight.bold)),
             )
           ],
         ),
@@ -167,7 +179,8 @@ Widget buildSesion({required IconData icon, required String title, required Stri
   );
 }
 
-Widget buildSessionCutoms({required IconData icons, required String text, required String textCustoms}) {
+Widget buildSessionCutoms(
+    {required IconData icons, required String text, required String textCustoms}) {
   const icon = Icons.chevron_right;
   Color clr = Colors.blue;
   Row object_1 = Row(

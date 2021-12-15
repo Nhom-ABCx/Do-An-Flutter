@@ -14,7 +14,12 @@ class HomePageState extends State<HomePage> {
   //bien xac dinh hinh
   int activeIndex = 0;
   //tao ds hinh anh cho banner
-  final urlImages = ['images/banner/banner_1.png', 'images/banner/banner_2.png', 'images/banner/banner_3.png', 'images/banner/banner_4.png'];
+  final urlImages = [
+    'images/banner/banner_1.png',
+    'images/banner/banner_2.png',
+    'images/banner/banner_3.png',
+    'images/banner/banner_4.png'
+  ];
   final Future<List<SanPham>> _dssanpham = fetchSanPham();
   @override
   void initState() {
@@ -80,8 +85,10 @@ class HomePageState extends State<HomePage> {
           padding: const EdgeInsets.all(15.0),
           child: Wrap(
             children: [
-              buildIconButton(context,Icons.phone_android_rounded, Colors.red, "Phone","/PhonePage"),
-               buildIconButton(context,Icons.watch_later_outlined, Colors.blue, "LapTop","/LapTopPage"),
+              buildIconButton(
+                  context, Icons.phone_android_rounded, Colors.red, "Phone", "/PhonePage"),
+              buildIconButton(
+                  context, Icons.watch_later_outlined, Colors.blue, "LapTop", "/LapTopPage"),
               // buildIconButton(Icons.fastfood_outlined, Colors.yellow, "Foods"),
               // buildIconButton(Icons.sports_esports, Colors.green, "Sports"),
               // buildIconButton(Icons.headphones_battery_outlined, Colors.yellow, "Gadgets"),
@@ -123,7 +130,7 @@ class HomePageState extends State<HomePage> {
                   ? ListView.separated(
                       padding: const EdgeInsets.all(20),
                       scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) => buildItem(context,snapshot.data![index]),
+                      itemBuilder: (context, index) => buildItem(context, snapshot.data![index]),
                       separatorBuilder: (context, _) => const SizedBox(
                             width: 15, //khoang cach giua cac'layout
                           ),
