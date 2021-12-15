@@ -80,12 +80,12 @@ class HomePageState extends State<HomePage> {
           padding: const EdgeInsets.all(15.0),
           child: Wrap(
             children: [
-              buildIconButton(Icons.favorite_border_outlined, Colors.red, "Woment's"),
-              buildIconButton(Icons.watch_later_outlined, Colors.blue, "Juice"),
-              buildIconButton(Icons.fastfood_outlined, Colors.yellow, "Foods"),
-              buildIconButton(Icons.sports_esports, Colors.green, "Sports"),
-              buildIconButton(Icons.headphones_battery_outlined, Colors.yellow, "Gadgets"),
-              buildIconButton(Icons.wb_sunny_outlined, Colors.cyan, "Travel"),
+              buildIconButton(context,Icons.phone_android_rounded, Colors.red, "Phone","/PhonePage"),
+               buildIconButton(context,Icons.watch_later_outlined, Colors.blue, "LapTop","/LapTopPage"),
+              // buildIconButton(Icons.fastfood_outlined, Colors.yellow, "Foods"),
+              // buildIconButton(Icons.sports_esports, Colors.green, "Sports"),
+              // buildIconButton(Icons.headphones_battery_outlined, Colors.yellow, "Gadgets"),
+              // buildIconButton(Icons.wb_sunny_outlined, Colors.cyan, "Travel"),
             ],
           ),
         ),
@@ -123,7 +123,7 @@ class HomePageState extends State<HomePage> {
                   ? ListView.separated(
                       padding: const EdgeInsets.all(20),
                       scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) => buildItem(snapshot.data![index]),
+                      itemBuilder: (context, index) => buildItem(context,snapshot.data![index]),
                       separatorBuilder: (context, _) => const SizedBox(
                             width: 15, //khoang cach giua cac'layout
                           ),
