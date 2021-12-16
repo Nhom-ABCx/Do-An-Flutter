@@ -25,17 +25,21 @@ class NavigationDrawer extends StatelessWidget {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(100),
                       child: Image.asset(
-                        'images/avt.jpg',
+                        (Auth.khachHang.hinhAnh!.isEmpty)
+                            ? "images/gallery/user2.png"
+                            : "images/gallery/" + Auth.khachHang.hinhAnh!,
                         width: 100,
                         height: 100,
                         fit: BoxFit.cover,
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 10),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10),
                       child: Text(
-                        "I'm number ONEEEEEEE",
-                        style: TextStyle(
+                        (Auth.khachHang.hoTen.isEmpty)
+                            ? Auth.khachHang.username!
+                            : Auth.khachHang.hoTen,
+                        style: const TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
@@ -54,8 +58,7 @@ class NavigationDrawer extends StatelessWidget {
             buildItemListTitle(
                 text: 'Notifications',
                 icon: Icons.notifications,
-                onClicked: () =>
-                    Navigator.pushNamed(context, '/Notifications')),
+                onClicked: () => Navigator.pushNamed(context, '/Notifications')),
             const SizedBox(height: 16),
             buildItemListTitle(
                 text: 'ChangePass',
@@ -64,7 +67,14 @@ class NavigationDrawer extends StatelessWidget {
             const SizedBox(height: 16),
             buildItemListTitle(text: 'Settings', icon: Icons.settings),
             const SizedBox(height: 16),
-            buildItemListTitle(text: 'Sign Out', icon: Icons.logout),
+            buildItemListTitle(
+              text: 'Sign Out',
+              icon: Icons.logout,
+              onClicked: () {
+                Auth.khachHang.LogOut();
+                Navigator.pushNamedAndRemoveUntil(context, "/Wellcome", (route) => false);
+              },
+            ),
           ],
         ),
       ),

@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
       ),
       home: const WellcomePage(),
       routes: {
+        '/Wellcome': (context) => const WellcomePage(),
         '/Sign_In': (context) => const SignInPage(),
         '/Sign_Up': (context) => const SignUpPage(),
         '/Forgot': (context) => const ForgotPage(),
@@ -34,8 +35,8 @@ class MyApp extends StatelessWidget {
         '/MyProfile': (context) => const MyProfile(),
         '/Notifications': (context) => const Notifications(),
         '/ChangePW': (context) => const ChangePass(),
-        '/PhonePage':(context)=>const PhonePage(),
-        '/LapTopPage':(context)=>const LapTopPage(),
+        '/PhonePage': (context) => const PhonePage(),
+        '/LapTopPage': (context) => const LapTopPage(),
       },
     );
   }

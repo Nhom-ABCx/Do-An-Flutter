@@ -51,7 +51,7 @@ Future<List<SanPham>> fetchProductData(String id) async {
 }
 
 Future<KhachHang> api_DangNhap(String email, String matkhau) async {
-  var khachHang = KhachHang(hoTen: "");
+  var khachHang = KhachHang.empty();
 
   try {
     final response = await http.post(Uri.parse(urlBaseAPI + "DangNhap"),
@@ -70,7 +70,7 @@ Future<KhachHang> api_DangNhap(String email, String matkhau) async {
 }
 
 Future<dynamic> api_DangKy(String username, String email, String matkhau) async {
-  var khachHang = KhachHang(hoTen: "");
+  var khachHang = KhachHang.empty();
 
   try {
     final response = await http.post(Uri.parse(urlBaseAPI + "DangKy"),

@@ -1,3 +1,4 @@
+import 'package:flutter_application_1/all_page.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'khach_hang.g.dart';
@@ -11,7 +12,7 @@ class KhachHang {
   String? email;
   String? phone;
   String? matKhau;
-  String hoTen;
+  late String hoTen;
   DateTime? ngaySinh;
   int? gioiTinh;
   String? diaChi;
@@ -36,4 +37,36 @@ class KhachHang {
       this.deletedAt});
   factory KhachHang.fromJson(dynamic json) => _$KhachHangFromJson(json);
   Map<String, dynamic> toJson() => _$KhachHangToJson(this);
+
+  KhachHang.empty() {
+    id = -1;
+    username = "";
+    email = "";
+    phone = "";
+    matKhau = "";
+    hoTen = "";
+    ngaySinh = DateTime.now();
+    gioiTinh = 0;
+    diaChi = "";
+    hinhAnh = "";
+    createdAt = DateTime.now();
+    updatedAt = DateTime.now();
+    deletedAt = DateTime.now();
+  }
+  // ignore: non_constant_identifier_names
+  void LogOut() {
+    id = -1;
+    username = "";
+    email = "";
+    phone = "";
+    matKhau = "";
+    hoTen = "";
+    ngaySinh = DateTime.now();
+    gioiTinh = 0;
+    diaChi = "";
+    hinhAnh = "";
+    createdAt = DateTime.now();
+    updatedAt = DateTime.now();
+    deletedAt = DateTime.now();
+  }
 }

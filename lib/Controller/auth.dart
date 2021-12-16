@@ -1,9 +1,9 @@
 import 'dart:async';
-
+import 'dart:io';
 import 'package:flutter_application_1/all_page.dart';
 
 class Auth {
-  static KhachHang khachHang = KhachHang(hoTen: "");
+  static KhachHang khachHang = KhachHang.empty();
   final nameController = StreamController();
   final emailController = StreamController();
   final passController = StreamController();
