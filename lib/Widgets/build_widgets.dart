@@ -40,8 +40,8 @@ import '../all_page.dart';
 //     );
 //   }
 // }
-Widget buildIconButton(BuildContext context, IconData iconItem, Color? colorItem, String? textItem,
-        String routeting) =>
+Widget buildIconButton(BuildContext context, IconData iconItem,
+        Color? colorItem, String? textItem, String routeting) =>
     Padding(
       padding: const EdgeInsets.all(10),
       child: ClipRRect(
@@ -112,40 +112,89 @@ Widget buildItemListTitle({
 }
 
 Widget buildItem(BuildContext context, SanPham _sp) {
-  return Padding(
-    padding: const EdgeInsets.all(5.0),
-    child: ClipRRect(
-      borderRadius: BorderRadius.circular(15),
-      child: GestureDetector(
-        child: Column(
-          children: [
-            InkWell(
-              child: Image.asset(
-                "images/product-image/" + _sp.hinhAnh!,
-                width: 100,
-                height: 150,
-              ),
-              onTap: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => ProductDetail(sanPham: _sp)));
-              },
+  return Container(
+    width: 200,
+    height: 580,
+    //color: Colors.indigo,
+    decoration: BoxDecoration(
+      border: Border.all(color: Colors.white),
+      borderRadius: BorderRadius.circular(8.0),
+      color: Colors.white,
+    ),
+
+    child: Stack(
+      children: [
+        Align(
+          alignment: Alignment.topCenter,
+          child: InkWell(
+            child: Image.asset(
+              "images/product-image/" + _sp.hinhAnh!,
+              width: 100,
+              height: 130,
             ),
-            Text(
-              _sp.tenSanPham,
-              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-            ),
-            Text(
-              _sp.giaBan.toString(),
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-            )
-          ],
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ProductDetail(sanPham: _sp)));
+            },
+          ),
         ),
-      ),
+        Positioned(
+            top: 125.0,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(4.0, 0, 0, 0),
+              child: Text(
+                _sp.tenSanPham,
+                style:
+                    const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              ),
+            )),
+        Positioned(
+          top: 150.0,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(4.0, 0, 0, 0),
+            child: Text(
+              _sp.giaBan.toString(),
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                  color: Colors.blueAccent),
+            ),
+          ),
+        ),
+        Positioned(
+            top: 170.0,
+            child: Padding(
+                padding: const EdgeInsets.fromLTRB(4.0, 0, 0, 0),
+                child: Text(
+                  'Còn:' + _sp.soLuongTon.toString(),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                      color: Colors.red),
+                ))),
+        Positioned(
+          left: 140.0,
+          top: 146.0,
+          child: Align(
+              alignment: const Alignment(3, 0),
+              child: IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.add_circle,
+                  color: Colors.green,
+                  size: 40.0,
+                ),
+              )),
+        )
+      ],
     ),
   );
 }
 
-Widget buildSesion({required IconData icon, required String title, required String lable}) {
+Widget buildSesion(
+    {required IconData icon, required String title, required String lable}) {
   const color = Colors.green;
   const colorText = Colors.black;
   const padding = EdgeInsets.fromLTRB(0, 10, 0, 10);
@@ -165,8 +214,10 @@ Widget buildSesion({required IconData icon, required String title, required Stri
             Padding(
               padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
               child: Text(title,
-                  style:
-                      const TextStyle(color: colorText, fontSize: 15, fontWeight: FontWeight.bold)),
+                  style: const TextStyle(
+                      color: colorText,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold)),
             )
           ],
         ),
@@ -180,7 +231,9 @@ Widget buildSesion({required IconData icon, required String title, required Stri
 }
 
 Widget buildSessionCutoms(
-    {required IconData icons, required String text, required String textCustoms}) {
+    {required IconData icons,
+    required String text,
+    required String textCustoms}) {
   const icon = Icons.chevron_right;
   Color clr = Colors.blue;
   Row object_1 = Row(

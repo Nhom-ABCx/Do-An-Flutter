@@ -1,66 +1,229 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../../all_page.dart';
 
 // ignore: must_be_immutable
 class ProductDetail extends StatelessWidget {
-    ProductDetail({Key? key, required this.sanPham}) : super(key: key);
+  ProductDetail({Key? key, required this.sanPham}) : super(key: key);
   // ignore: prefer_typing_uninitialized_variables
   SanPham sanPham;
+
+  _sanPhamImg(SanPham sanPham) {
+    return SizedBox(
+      child: Image(
+          height: 200,
+          image: AssetImage('images/product-image/' + sanPham.hinhAnh!)),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    double width, height;
+    height = MediaQuery.of(context).size.height;
+    width = MediaQuery.of(context).size.width;
     return GestureDetector(
-      //huy keyboard khi bam ngoai man hinh
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: Scaffold(
-          //TopHeader
-          appBar: AppBarPage(),
-          //Hide
-          drawer: const NavigationDrawer(),
-          body: FutureBuilder(
-            future: fetchProductData(sanPham.id.toString()),
-            builder: (context,snapshot){
-              if (snapshot.hasError) {
-                // ignore: avoid_print
-                print(snapshot.error);
-              }
-              return snapshot.hasData?
-              buildProductData(sanPham):
-              const CircularProgressIndicator();
-            }),
-           //Footer
-          bottomNavigationBar: const BottomNavBar(0)
-      ),
-     
-      );
+        //huy keyboard khi bam ngoai man hinh
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Scaffold(
+            //TopHeader
+            appBar: AppBarPage(),
+            //Hide
+            drawer: const NavigationDrawer(),
+            body: Stack(
+              children: [
+                ListView(
+                  children: [
+                    Container(
+                      height: 250,
+                      decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                            bottomRight: Radius.circular(90),
+                          )),
+                      child: FutureBuilder(
+                          future: fetchProductData(sanPham.id.toString()),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasError) {
+                              // ignore: avoid_print
+                              print(snapshot.error);
+                            }
+                            return snapshot.hasData
+                                ? _sanPhamImg(sanPham)
+                                : const CircularProgressIndicator();
+                          }),
+                    ),
+                    Container(
+                      decoration: const BoxDecoration(color: Colors.white),
+                      child: Container(
+                        height: 130,
+                        decoration: const BoxDecoration(
+                            color: Colors.blueGrey,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(50))),
+                        child: Padding(
+                            padding:
+                                const EdgeInsets.fromLTRB(30.0, 10.0, 0, 5.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                buildProductData(sanPham),
+                               
+                              ],
+                            )),
+                      ),
+                    ),
+                    buildTimeSale(),
+                    const SizedBox(height: 10.0,),
+                    buildStockProduct(),
+                    
+                  ],
+                 
+                ),
+              ],
+            ),bottomNavigationBar: const BottomNavBar(0),
+            ),
+             
+    );
   }
 }
 
-Widget buildProductData(SanPham sanPham){
+Widget buildImageSanPham(SanPham sanPham) {
+  return Image.asset(
+    'images/product-image/' + sanPham.hinhAnh!,
+    height: 280.0,
+    width: 280.0,
+  );
+}
+
+Widget buildProductData(SanPham sanPham) {
+  return  Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            sanPham.tenSanPham,
+            style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 5),
+          Text(
+            'Giá: ' + sanPham.giaBan.toString(),
+            style: TextStyle(
+                fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.red),
+          ),
+          const SizedBox(height: 5),
+          Text(
+            sanPham.moTa.toString(),
+            style: TextStyle(
+              color: Colors.black87,
+              fontSize: 16.0,
+            ),
+          ),
+          const SizedBox(height: 5),
+          Text(
+            "còn: " + sanPham.soLuongTon.toString(),
+            style: TextStyle(
+              color: Colors.red,
+              fontSize: 16.0,
+            ),
+          ),
+        ],
+      );
+}
+
+Widget buildTimeSale() {
   return Container(
-    color: Colors.white70,
-    child: ListView(
+    margin: EdgeInsets.only(top: 15.0, bottom: 15.0),
+    height: 50,
+    decoration: BoxDecoration(color: Colors.white),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
-          width: 250,
-          height: 300,
-          child:Padding(padding: const EdgeInsets.all(10.0),
-          child:Image.asset('images/product-image/'+sanPham.hinhAnh!,
-        width: 200,
-        height: 280,
-        fit: BoxFit.contain,), 
-          ) 
-          
+        Row(
+          children: const [
+            Icon(Icons.bolt_outlined),
+            Text('Flash sale end in')
+          ],
         ),
-       
-        Text(sanPham.tenSanPham,style:const TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.bold
-        ),),
-         Text(sanPham.giaBan.toString(),style:const TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.bold
-        ),)
+        Padding(padding: const EdgeInsets.only(left: 8.0 ),
+        child: Text(
+            "15d 22h 53m 23s",
+            style: TextStyle(color: Colors.red),
+          ),)
+        
       ],
     ),
   );
 }
+
+
+Widget buildStockProduct(){
+  Row stock=Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Padding(padding: const EdgeInsets.only(left: 8.0,right: 5.0),
+      child:
+      ElevatedButton(
+        onPressed: (){},
+        child: Text("-",style: TextStyle(fontSize: 20.0),),),
+      ),
+      Padding(padding: const EdgeInsets.only(right: 5.0),
+      child:
+      Text('4'),
+      ),
+       Padding(padding: const EdgeInsets.only(right: 40.0),
+      child:
+       ElevatedButton(
+         
+        onPressed: (){},
+        clipBehavior: Clip.antiAlias,
+        child: Text("+",
+            style: TextStyle(fontSize: 20.0),
+          ),),
+       )
+    ],
+  );
+  return Container(
+    height: 50,
+    decoration: BoxDecoration(
+      color: Colors.white
+    ),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children:[
+        stock,
+        // ignore: deprecated_member_use
+        FlatButton(
+          textColor: Colors.white,
+          color: Colors.red,
+          onPressed: (){}, 
+        child: Text('Add to card',style: TextStyle(
+          
+        ),))
+      ]
+    ),
+  );
+}
+// Widget buildSanPhamLienQuan() {
+//   return Container(
+//     height: 200,
+//     child: FutureBuilder<List<SanPham>>(
+//         future: fetchSanPhamDienThoai(),
+//         builder: (context, snapshot) {
+//           if (snapshot.hasError) {
+//             // ignore: avoid_print
+//             print(snapshot.error);
+//           }
+//           return snapshot.hasData
+//               ? GridView.builder(
+//                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+//                     crossAxisCount: 2,
+//                   ),
+//                   itemCount: snapshot.data!.length,
+//                   itemBuilder: (context, index) =>
+//                       buildItem(context, snapshot.data![index]),
+//                 )
+//               : const CircularProgressIndicator();
+//         }),
+//   );
+// }

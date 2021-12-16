@@ -24,6 +24,7 @@ Future<List<SanPham>> fetchSanPham() async {
   return lstSanPham;
 }
 
+//Điện thoại
 Future<List<SanPham>> fetchSanPhamDienThoai() async {
   List<SanPham> lstSanPhamDienThoai = [];
   try {
@@ -36,7 +37,20 @@ Future<List<SanPham>> fetchSanPhamDienThoai() async {
   } catch (e) {}
   return lstSanPhamDienThoai;
 }
-
+//Laptop
+Future<List<SanPham>> fetchSanPhamLapTop() async {
+  List<SanPham> lstSanPhamLapTop = [];
+  try {
+    final response = await http.get(Uri.parse(urlBaseAPI + 'get-all-latop'));
+    if (response.statusCode == 200) {
+      List jsonlst = [];
+      jsonlst = json.decode(response.body);
+      lstSanPhamLapTop =
+          jsonlst.map((data) => SanPham.fromJson(data)).toList();
+    }
+  } catch (e) {}
+  return lstSanPhamLapTop;
+}
 Future<List<SanPham>> fetchProductData(String id) async {
   final url = urlBaseAPI + 'san-pham/$id';
   List<SanPham> sanPhamChiTiet = [];
