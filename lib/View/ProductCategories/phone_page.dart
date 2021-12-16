@@ -9,14 +9,11 @@ class PhonePage extends StatefulWidget {
 }
 
 class _PhonePageState extends State<PhonePage> {
-
-
-  
-   @override
+  @override
   void initState() {
-   
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     Widget _lstView = Column(
@@ -25,22 +22,26 @@ class _PhonePageState extends State<PhonePage> {
           height: 350,
           child: FutureBuilder<List<SanPham>>(
               future: fetchSanPhamDienThoai(),
-              builder: (context,snapshot) {
+              builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   // ignore: avoid_print
                   print(snapshot.error);
                 }
-                return snapshot.hasData 
-                ? GridView.builder(
-                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                 ),
-                  itemCount: snapshot.data!.length,
-                  itemBuilder: (context, index) => buildItem(context,snapshot.data![index]),
-                 )
-                :const CircularProgressIndicator();
-              }
-              ),
+                return snapshot.hasData
+                    ?  GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                          ),
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, index) =>Container(
+                        margin: const EdgeInsets.all(5.0),
+                        child: buildItem(context, snapshot.data![index]),
+                          )
+                        
+                      )
+                    : const CircularProgressIndicator();
+              }),
         ),
       ],
     );
@@ -56,18 +57,14 @@ class _PhonePageState extends State<PhonePage> {
           body: Column(
             children: [
               BannerPagePhone(),
-              Padding(padding: const EdgeInsets.fromLTRB(5.0, 8.0, 5.0, 5.0),
-              child: _lstView,
-              )
+              _lstView,
             ],
           ),
-           //Footer
-           bottomNavigationBar: const BottomNavBar(0)),
-            
+          //Footer
+          bottomNavigationBar: const BottomNavBar(0)),
     );
   }
 }
-
 
 // ignore: non_constant_identifier_names
 Widget BannerPagePhone() => Padding(
