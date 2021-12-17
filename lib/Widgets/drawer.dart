@@ -27,9 +27,7 @@ class NavigationDrawer extends StatelessWidget {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(100),
                       child: Image.asset(
-                        (Auth.khachHang.hinhAnh!.isEmpty)
-                            ? "images/gallery/user2.png"
-                            : "images/gallery/" + Auth.khachHang.hinhAnh!,
+                        avtImageAsset(),
                         width: 100,
                         height: 100,
                         fit: BoxFit.cover,

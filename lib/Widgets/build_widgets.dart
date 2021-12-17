@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 import '../all_page.dart';
@@ -291,19 +290,19 @@ List<Widget> hienThiDanhMucDrawer(BuildContext context) {
       icon: Icons.account_circle,
       onClicked: () => Navigator.pushNamed(context, '/MyProfile'),
     ),
-    const SizedBox(height: 16),
+    //const SizedBox(height: 16),
     buildItemListTitle(
         text: 'Notifications',
         icon: Icons.notifications,
         onClicked: () => Navigator.pushNamed(context, '/Notifications')),
-    const SizedBox(height: 16),
+    //const SizedBox(height: 16),
     buildItemListTitle(
         text: 'ChangePass',
         icon: Icons.change_circle,
         onClicked: () => Navigator.pushNamed(context, '/ChangePW')),
-    const SizedBox(height: 16),
+    //const SizedBox(height: 16),
     buildItemListTitle(text: 'Settings', icon: Icons.settings),
-    const SizedBox(height: 16),
+    //const SizedBox(height: 16),
     buildItemListTitle(
       text: 'Sign Out',
       icon: Icons.logout,
@@ -314,3 +313,22 @@ List<Widget> hienThiDanhMucDrawer(BuildContext context) {
     ),
   ];
 }
+
+String avtImageAsset() {
+  return (Auth.khachHang.hinhAnh!.isEmpty)
+      ? "images/gallery/user2.png"
+      : "images/gallery/" + Auth.khachHang.hinhAnh!;
+}
+
+Widget buildCircle({
+  required Widget child,
+  required double all,
+  required Color color,
+}) =>
+    ClipOval(
+      child: Container(
+        padding: EdgeInsets.all(all),
+        color: color,
+        child: child,
+      ),
+    );

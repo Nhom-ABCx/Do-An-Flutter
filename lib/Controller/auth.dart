@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:flutter_application_1/all_page.dart';
 
 class Auth {
@@ -23,7 +22,7 @@ class Auth {
 
     khachHang = await api_DangNhap(email, pass);
 
-    return (khachHang.username!.isNotEmpty) ? true : false;
+    return (khachHang.username.isNotEmpty) ? true : false;
   }
 
   Future<bool> ktDangKy(String username, String email, String pass) async {
@@ -67,7 +66,7 @@ class Auth {
     }
 
     khachHang = validate;
-    return (khachHang.username!.isNotEmpty) ? true : false;
+    return (khachHang.username.isNotEmpty) ? true : false;
     // if (khachHang.hoTen.isNotEmpty) return true;
     // return false;
   }
