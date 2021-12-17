@@ -21,9 +21,9 @@ class Auth {
     }
     passController.sink.add("");
 
-    khachHang = await api_DangNhap(email, pass) as KhachHang;
+    khachHang = await api_DangNhap(email, pass);
 
-    return (khachHang.hoTen.isNotEmpty) ? true : false;
+    return (khachHang.username!.isNotEmpty) ? true : false;
   }
 
   Future<bool> ktDangKy(String username, String email, String pass) async {

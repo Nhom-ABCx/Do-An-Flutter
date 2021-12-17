@@ -40,8 +40,8 @@ import '../all_page.dart';
 //     );
 //   }
 // }
-Widget buildIconButton(BuildContext context, IconData iconItem,
-        Color? colorItem, String? textItem, String routeting) =>
+Widget buildIconButton(BuildContext context, IconData iconItem, Color? colorItem, String? textItem,
+        String routeting) =>
     Padding(
       padding: const EdgeInsets.all(10),
       child: ClipRRect(
@@ -134,9 +134,7 @@ Widget buildItem(BuildContext context, SanPham _sp) {
             ),
             onTap: () {
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ProductDetail(sanPham: _sp)));
+                  context, MaterialPageRoute(builder: (context) => ProductDetail(sanPham: _sp)));
             },
           ),
         ),
@@ -146,8 +144,7 @@ Widget buildItem(BuildContext context, SanPham _sp) {
               padding: const EdgeInsets.fromLTRB(4.0, 0, 0, 0),
               child: Text(
                 _sp.tenSanPham,
-                style:
-                    const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
               ),
             )),
         Positioned(
@@ -157,9 +154,7 @@ Widget buildItem(BuildContext context, SanPham _sp) {
             child: Text(
               _sp.giaBan.toString(),
               style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
-                  color: Colors.blueAccent),
+                  fontWeight: FontWeight.bold, fontSize: 15, color: Colors.blueAccent),
             ),
           ),
         ),
@@ -169,10 +164,8 @@ Widget buildItem(BuildContext context, SanPham _sp) {
                 padding: const EdgeInsets.fromLTRB(4.0, 0, 0, 0),
                 child: Text(
                   'Còn:' + _sp.soLuongTon.toString(),
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                      color: Colors.red),
+                  style:
+                      const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.red),
                 ))),
         Positioned(
           left: 140.0,
@@ -193,8 +186,7 @@ Widget buildItem(BuildContext context, SanPham _sp) {
   );
 }
 
-Widget buildSesion(
-    {required IconData icon, required String title, required String lable}) {
+Widget buildSesion({required IconData icon, required String title, required String lable}) {
   const color = Colors.green;
   const colorText = Colors.black;
   const padding = EdgeInsets.fromLTRB(0, 10, 0, 10);
@@ -214,10 +206,8 @@ Widget buildSesion(
             Padding(
               padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
               child: Text(title,
-                  style: const TextStyle(
-                      color: colorText,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold)),
+                  style:
+                      const TextStyle(color: colorText, fontSize: 15, fontWeight: FontWeight.bold)),
             )
           ],
         ),
@@ -231,9 +221,7 @@ Widget buildSesion(
 }
 
 Widget buildSessionCutoms(
-    {required IconData icons,
-    required String text,
-    required String textCustoms}) {
+    {required IconData icons, required String text, required String textCustoms}) {
   const icon = Icons.chevron_right;
   Color clr = Colors.blue;
   Row object_1 = Row(
@@ -294,3 +282,35 @@ Widget buildSessionCutoms(
 //     );
 //   }
 // }
+
+List<Widget> hienThiDanhMucDrawer(BuildContext context) {
+  return [
+    const SizedBox(height: 16),
+    buildItemListTitle(
+      text: 'My Profile',
+      icon: Icons.account_circle,
+      onClicked: () => Navigator.pushNamed(context, '/MyProfile'),
+    ),
+    const SizedBox(height: 16),
+    buildItemListTitle(
+        text: 'Notifications',
+        icon: Icons.notifications,
+        onClicked: () => Navigator.pushNamed(context, '/Notifications')),
+    const SizedBox(height: 16),
+    buildItemListTitle(
+        text: 'ChangePass',
+        icon: Icons.change_circle,
+        onClicked: () => Navigator.pushNamed(context, '/ChangePW')),
+    const SizedBox(height: 16),
+    buildItemListTitle(text: 'Settings', icon: Icons.settings),
+    const SizedBox(height: 16),
+    buildItemListTitle(
+      text: 'Sign Out',
+      icon: Icons.logout,
+      onClicked: () {
+        Auth.khachHang.LogOut();
+        Navigator.pushNamedAndRemoveUntil(context, "/Home", (route) => false);
+      },
+    ),
+  ];
+}

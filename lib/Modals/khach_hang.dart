@@ -8,11 +8,11 @@ part 'khach_hang.g.dart';
     explicitToJson: true) // Nếu không có explicitToJson: true thì ko in được lớp ở trong.
 class KhachHang {
   int? id;
-  String? username;
+  late String username;
   String? email;
   String? phone;
   String? matKhau;
-  late String hoTen;
+  String? hoTen;
   DateTime? ngaySinh;
   int? gioiTinh;
   String? diaChi;
@@ -23,11 +23,11 @@ class KhachHang {
 
   KhachHang(
       {this.id,
-      this.username,
+      required this.username,
       this.email,
       this.phone,
       this.matKhau,
-      required this.hoTen,
+      this.hoTen,
       this.ngaySinh,
       this.gioiTinh,
       this.diaChi,
