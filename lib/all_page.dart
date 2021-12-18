@@ -29,3 +29,4 @@ export 'Modals/khach_hang.dart';
 export 'API/api_manager.dart';
 
 export 'Controller/auth.dart';
+export 'Controller/edit_myprofile_controller.dart';

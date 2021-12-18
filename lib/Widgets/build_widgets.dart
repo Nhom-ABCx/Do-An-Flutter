@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-
+import 'package:flutter/services.dart'; //text input
 import '../all_page.dart';
 
 // class PhoneScreen extends StatefulWidget {
@@ -185,7 +185,7 @@ Widget buildItem(BuildContext context, SanPham _sp) {
   );
 }
 
-Widget buildSesion({required IconData icon, required String title, required String lable}) {
+Widget buildTextMyProfile({required IconData icon, required String title, required String lable}) {
   const color = Colors.green;
   const colorText = Colors.black;
   const padding = EdgeInsets.fromLTRB(0, 10, 0, 10);
@@ -214,6 +214,57 @@ Widget buildSesion({required IconData icon, required String title, required Stri
             style: const TextStyle(
               color: colorText,
             ))
+      ],
+    ),
+  );
+}
+
+Widget buildInputTextMyProfile(AsyncSnapshot<Object?> snapshot,
+    {required IconData icon,
+    required String title,
+    required TextEditingController txtController,
+    TextInputType? txtInputType = TextInputType.text,
+    bool? inputNumberOnly = false}) {
+  const color = Colors.green;
+  const colorText = Colors.black;
+  const padding = EdgeInsets.fromLTRB(0, 10, 0, 10);
+  return Padding(
+    padding: padding,
+    child: Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Icon(
+              icon,
+              color: color,
+              size: 30,
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
+              child: Text(title,
+                  style:
+                      const TextStyle(color: colorText, fontSize: 15, fontWeight: FontWeight.bold)),
+            )
+          ],
+        ),
+        TextField(
+          decoration: InputDecoration(
+            errorText: snapshot.hasError ? snapshot.error.toString() : null,
+            enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.grey),
+            ),
+          ),
+          controller: txtController, //gan gia tri cua text vao bien'
+          keyboardType: txtInputType,
+          textInputAction: TextInputAction.done,
+          inputFormatters: inputNumberOnly!
+              ? <TextInputFormatter>[
+                  //only number
+                  FilteringTextInputFormatter.digitsOnly
+                ]
+              : null,
+        )
       ],
     ),
   );

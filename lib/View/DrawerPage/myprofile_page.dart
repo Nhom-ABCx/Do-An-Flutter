@@ -75,23 +75,23 @@ class MyProfileState extends State<MyProfile> {
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                             child: Column(children: [
-                              buildSesion(
+                              buildTextMyProfile(
                                   icon: Icons.account_circle_sharp,
                                   title: 'Username',
                                   lable: '@' + Auth.khachHang.username),
-                              buildSesion(
+                              buildTextMyProfile(
                                   icon: Icons.account_circle_sharp,
                                   title: 'Full Name',
                                   lable: Auth.khachHang.hoTen!),
-                              buildSesion(
+                              buildTextMyProfile(
                                   icon: Icons.phone,
                                   title: 'Phone',
                                   lable: '+' + Auth.khachHang.phone!),
-                              buildSesion(
+                              buildTextMyProfile(
                                   icon: Icons.email,
                                   title: 'Email Address',
                                   lable: Auth.khachHang.email!),
-                              buildSesion(
+                              buildTextMyProfile(
                                   icon: Icons.gps_fixed,
                                   title: 'Address',
                                   lable: Auth.khachHang.diaChi!),

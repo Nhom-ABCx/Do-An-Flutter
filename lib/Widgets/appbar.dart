@@ -25,9 +25,7 @@ class AppBarPage extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       centerTitle: true,
-      actions: [
-        IconButton(onPressed: () {}, icon: const Icon(Icons.notifications))
-      ],
+      actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.notifications))],
     );
   }
 

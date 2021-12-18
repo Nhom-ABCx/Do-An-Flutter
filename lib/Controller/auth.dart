@@ -48,7 +48,7 @@ class Auth {
     passController.sink.add("");
 
     //lay' du lieu API dang ky'
-    var validate = await api_DangKy(username, email, pass);
+    final validate = await api_DangKy(username, email, pass);
     //neu' no' tra ve ko phai la class KhachHang thi` kiem tra no' tra? ve` loi~ nao` de hien thi
     if (!(validate is KhachHang)) {
       if (validate["Username"].toString() != "null") {
@@ -65,13 +65,13 @@ class Auth {
       }
     }
 
-    khachHang = validate;
+    if (validate is KhachHang) khachHang = validate; //kt lai 1 lan nua cho no chac chan'
     return (khachHang.username.isNotEmpty) ? true : false;
     // if (khachHang.hoTen.isNotEmpty) return true;
     // return false;
   }
 
-  bool isValidEmail(String email) {
+  static bool isValidEmail(String email) {
     return RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
         .hasMatch(email);
   }

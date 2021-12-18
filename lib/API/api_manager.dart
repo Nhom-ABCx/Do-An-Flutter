@@ -37,6 +37,7 @@ Future<List<SanPham>> fetchSanPhamDienThoai() async {
   } catch (e) {}
   return lstSanPhamDienThoai;
 }
+
 //Laptop
 Future<List<SanPham>> fetchSanPhamLapTop() async {
   List<SanPham> lstSanPhamLapTop = [];
@@ -45,12 +46,12 @@ Future<List<SanPham>> fetchSanPhamLapTop() async {
     if (response.statusCode == 200) {
       List jsonlst = [];
       jsonlst = json.decode(response.body);
-      lstSanPhamLapTop =
-          jsonlst.map((data) => SanPham.fromJson(data)).toList();
+      lstSanPhamLapTop = jsonlst.map((data) => SanPham.fromJson(data)).toList();
     }
   } catch (e) {}
   return lstSanPhamLapTop;
 }
+
 Future<List<SanPham>> fetchProductData(String id) async {
   final url = urlBaseAPI + 'san-pham/$id';
   List<SanPham> sanPhamChiTiet = [];
@@ -102,4 +103,29 @@ Future<dynamic> api_DangKy(String username, String email, String matkhau) async 
   } catch (e) {}
 
   return khachHang;
+}
+
+Future<dynamic> api_Update_KhachHang(KhachHang khachHang) async {
+  var _khachHang = KhachHang.empty();
+
+  try {
+    //final _pushBody = json.encode(khachHang);
+    final _pushBody = json.encode(khachHang.toJson());
+    final response = await http.post(
+      Uri.parse(urlBaseAPI + "KhachHang/" + "${khachHang.id}?_method=PUT"),
+      body: _pushBody,
+      headers: {"accept": "application/json", "content-type": "application/json"},
+    );
+    if (response.statusCode == 200) {
+      //nay` von' dang o dang List, ep kieu no' thanh List de co them phuong thuc'
+      final jsonRaw = json.decode(response.body);
+      _khachHang = KhachHang.fromJson(jsonRaw);
+    } else if (response.statusCode == 400) {
+      return json.decode(response.body);
+    } else {
+      throw Exception("Something get wrong! Status code ${response.statusCode}");
+    }
+  } catch (e) {}
+
+  return _khachHang;
 }

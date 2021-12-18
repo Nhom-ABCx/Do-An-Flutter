@@ -4,6 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
+//datetime picker
+import 'package:intl/intl.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import '/all_page.dart';
 
 class EditMyProfile extends StatefulWidget {
@@ -15,7 +18,13 @@ class EditMyProfile extends StatefulWidget {
 
 class EditMyProfileState extends State<EditMyProfile> {
   //cac bien' de dung`, de? tam
-  final txtTimKiem = TextEditingController();
+  final _editMyController = EditMyProfileController();
+  final txtUsername = TextEditingController(text: Auth.khachHang.username);
+  final txtHoTen = TextEditingController(text: Auth.khachHang.hoTen!);
+  final txtPhone = TextEditingController(text: Auth.khachHang.phone!);
+  final txtEmail = TextEditingController(text: Auth.khachHang.email!);
+  final txtDiaChi = TextEditingController(text: Auth.khachHang.diaChi!);
+
   File? image;
   Future<void> pickImage() async {
     try {
@@ -65,7 +74,7 @@ class EditMyProfileState extends State<EditMyProfile> {
                     children: const [Icon(Icons.camera_enhance), Text("Camera")],
                   )),
               TextButton(
-                  onPressed: () {},
+                  onPressed: () => pickImage(),
                   child: Row(
                     children: const [Icon(Icons.image), Text("Gallery")],
                   )),
@@ -170,72 +179,85 @@ class EditMyProfileState extends State<EditMyProfile> {
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                           child: Column(children: [
-                            buildSesion(
-                                icon: Icons.account_circle_sharp,
-                                title: 'Username',
-                                lable: '@' + Auth.khachHang.username),
-                            buildSesion(
-                                icon: Icons.account_circle_sharp,
-                                title: 'Full Name',
-                                lable: Auth.khachHang.hoTen!),
-                            buildSesion(
-                                icon: Icons.phone,
-                                title: 'Phone',
-                                lable: '+' + Auth.khachHang.phone!),
-                            buildSesion(
-                                icon: Icons.email,
-                                title: 'Email Address',
-                                lable: Auth.khachHang.email!),
-                            buildSesion(
-                                icon: Icons.gps_fixed,
-                                title: 'Address',
-                                lable: Auth.khachHang.diaChi!),
-                            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                              Row(children: const [
-                                Icon(
-                                  Icons.star,
-                                  size: 30,
-                                  color: Colors.green,
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                                  child: Text(
-                                    'My Oder',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15,
+                            StreamBuilder(
+                                stream: _editMyController.usernameController.stream,
+                                builder: (context, snapshot) => buildInputTextMyProfile(snapshot,
+                                    icon: Icons.account_circle_sharp,
+                                    title: 'Username',
+                                    txtController: txtUsername)),
+                            StreamBuilder(
+                                stream: _editMyController.hotenController.stream,
+                                builder: (context, snapshot) => buildInputTextMyProfile(snapshot,
+                                    icon: Icons.account_circle_sharp,
+                                    title: 'Full Name',
+                                    txtController: txtHoTen)),
+                            StreamBuilder(
+                                stream: _editMyController.phoneController.stream,
+                                builder: (context, snapshot) => buildInputTextMyProfile(snapshot,
+                                    icon: Icons.phone,
+                                    title: 'Phone',
+                                    txtController: txtPhone,
+                                    txtInputType: TextInputType.number,
+                                    inputNumberOnly: true)),
+                            StreamBuilder(
+                                stream: _editMyController.emailController.stream,
+                                builder: (context, snapshot) => buildInputTextMyProfile(snapshot,
+                                    txtInputType: TextInputType.emailAddress,
+                                    icon: Icons.email,
+                                    title: 'Email Address',
+                                    txtController: txtEmail)),
+                            StreamBuilder(
+                                stream: _editMyController.diachiController.stream,
+                                builder: (context, snapshot) => buildInputTextMyProfile(snapshot,
+                                    icon: Icons.gps_fixed,
+                                    title: 'Address',
+                                    txtController: txtDiaChi)),
+                            Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: const [
+                                    Icon(
+                                      Icons.date_range,
+                                      color: Colors.green,
+                                      size: 30,
                                     ),
-                                  ),
-                                )
-                              ]),
-                              TextButton(
-                                onPressed: () {},
-                                child: Container(
-                                    decoration: const BoxDecoration(
-                                        color: Colors.red,
-                                        shape: BoxShape.rectangle,
-                                        borderRadius: BorderRadius.all(Radius.circular(8))),
-                                    width: 60,
-                                    height: 40,
-                                    child: const Padding(
-                                      padding: EdgeInsets.all(10),
-                                      child: Text(
-                                        'View',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    )),
-                              ),
-                            ]),
+                                    Padding(
+                                      padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                                      child: Text("Birthday",
+                                          style:
+                                              TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+                                    )
+                                  ],
+                                ),
+                                DateTimeField(
+                                  format: DateFormat("yyyy-MM-dd"),
+                                  onShowPicker: (context, currentValue) {
+                                    return showDatePicker(
+                                        context: context,
+                                        firstDate: DateTime(1900),
+                                        initialDate: currentValue ?? DateTime.now(),
+                                        lastDate: DateTime(2100));
+                                  },
+                                ),
+                              ],
+                            ),
                             SizedBox(
                               //tu dong canh le`tu thiet bi
                               width: MediaQuery.of(context).size.width,
                               child: ElevatedButton.icon(
-                                onPressed: () {},
+                                onPressed: () async {
+                                  final _khachHang = Auth.khachHang;
+                                  _khachHang.username = txtUsername.text;
+                                  _khachHang.hoTen = txtHoTen.text;
+                                  _khachHang.phone = txtPhone.text;
+                                  _khachHang.email = txtEmail.text;
+                                  _khachHang.diaChi = txtDiaChi.text;
+
+                                  (await _editMyController.ktUpdateKhachHang(_khachHang))
+                                      ? thongBao(context, "Update successful")
+                                      : thongBao(context, "Update Fails");
+                                },
                                 icon: const Icon(
                                   Icons.edit,
                                   color: Colors.white,
@@ -257,4 +279,10 @@ class EditMyProfileState extends State<EditMyProfile> {
       ),
     );
   }
+}
+
+void thongBao(BuildContext context, String text) {
+  ScaffoldMessenger.of(context)
+    ..removeCurrentSnackBar()
+    ..showSnackBar(SnackBar(content: Text(text)));
 }
