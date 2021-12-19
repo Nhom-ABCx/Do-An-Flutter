@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'dart:io';
+import 'package:path/path.dart';
+import 'package:async/async.dart';
 import '../all_page.dart';
 
 String urlBaseAPI = "http://10.0.2.2:8000/api/";
@@ -129,3 +131,24 @@ Future<dynamic> api_Update_KhachHang(KhachHang khachHang) async {
 
   return _khachHang;
 }
+
+// Future<dynamic> UploadFile(File imageFile) async {
+//   //ham nay la lay tu google
+//   // ignore: deprecated_member_use
+//   var stream = http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
+//   var length = await imageFile.length();
+
+//   var uri = Uri.parse("uploadURL");
+
+//   var request = http.MultipartRequest("POST", uri);
+//   var multipartFile =
+//       http.MultipartFile('file', stream, length, filename: basename(imageFile.path));
+//   //contentType: new MediaType('image', 'png'));
+
+//   request.files.add(multipartFile);
+//   var response = await request.send();
+//   print(response.statusCode);
+//   response.stream.transform(utf8.decoder).listen((value) {
+//     print(value);
+//   });
+// }

@@ -164,10 +164,7 @@ class _SignInPageState extends State<SignInPage> {
                         onPressed: () async {
                           await (_auth.ktDangNhap(txtEmail.text, txtPassword.text))
                               ? Navigator.pushReplacementNamed(context, '/Home')
-                              : (ScaffoldMessenger.of(context)
-                                ..removeCurrentSnackBar()
-                                ..showSnackBar(
-                                    SnackBar(content: Text('Sai Username hoac MatKhau'))));
+                              : (thongBaoScaffoldMessenger(context, "Wrong Username or Password"));
                         },
                       ),
                     ),

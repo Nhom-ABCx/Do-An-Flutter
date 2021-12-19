@@ -50,7 +50,7 @@ class Auth {
     //lay' du lieu API dang ky'
     final validate = await api_DangKy(username, email, pass);
     //neu' no' tra ve ko phai la class KhachHang thi` kiem tra no' tra? ve` loi~ nao` de hien thi
-    if (!(validate is KhachHang)) {
+    if (validate is! KhachHang) {
       if (validate["Username"].toString() != "null") {
         nameController.sink.addError(validate["Username"]);
         return false;

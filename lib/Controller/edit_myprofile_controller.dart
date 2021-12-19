@@ -34,7 +34,7 @@ class EditMyProfileController {
     //lay du lieu tu SV, neu co loi~ thi` validate
     final validate = await api_Update_KhachHang(Auth.khachHang);
     //neu' no' tra ve ko phai la class thi` kiem tra no' tra? ve` loi~ nao` de hien thi
-    if (!(validate is KhachHang)) {
+    if (validate is! KhachHang) {
       if (validate["Username"].toString() != "null") {
         usernameController.sink.addError(validate["Username"]);
         return false;
@@ -57,6 +57,7 @@ class EditMyProfileController {
       }
     }
 
+    //xac dinh lại lần nữa cho chắc
     if (validate is KhachHang) Auth.khachHang = validate;
     return (Auth.khachHang.username.isNotEmpty) ? true : false;
   }

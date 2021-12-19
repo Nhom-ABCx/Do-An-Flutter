@@ -25,14 +25,13 @@ class NavigationDrawer extends StatelessWidget {
                 child: Column(
                   children: [
                     ClipRRect(
-                      borderRadius: BorderRadius.circular(100),
-                      child: Image.asset(
-                        avtImageAsset(),
-                        width: 100,
-                        height: 100,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                        borderRadius: BorderRadius.circular(100),
+                        child: Image.network(
+                          avtImageFix(),
+                          width: 100,
+                          height: 100,
+                          fit: BoxFit.cover,
+                        )),
                     Padding(
                       padding: const EdgeInsets.only(top: 10),
                       child: Text(

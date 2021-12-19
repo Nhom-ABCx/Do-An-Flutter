@@ -69,7 +69,7 @@ Widget buildIconButton(BuildContext context, IconData iconItem, Color? colorItem
       ),
     );
 
-Widget buildImage(String _urlImage, int index) => Container(
+Widget buildImageBanner(String _urlImage, int index) => Container(
       //margin: const EdgeInsets.symmetric(horizontal: 24),
       color: Colors.grey,
       child: Image.asset(
@@ -126,8 +126,8 @@ Widget buildItem(BuildContext context, SanPham _sp) {
         Align(
           alignment: Alignment.topCenter,
           child: InkWell(
-            child: Image.asset(
-              "images/product-image/" + _sp.hinhAnh!,
+            child: Image.network(
+              "http://10.0.2.2:8000/storage/assets/images/product-image/" + _sp.hinhAnh!,
               width: 100,
               height: 130,
             ),
@@ -233,7 +233,6 @@ Widget buildInputTextMyProfile(AsyncSnapshot<Object?> snapshot,
     child: Column(
       children: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Icon(
               icon,
@@ -365,10 +364,10 @@ List<Widget> hienThiDanhMucDrawer(BuildContext context) {
   ];
 }
 
-String avtImageAsset() {
+String avtImageFix() {
   return (Auth.khachHang.hinhAnh!.isEmpty)
-      ? "images/gallery/user2.png"
-      : "images/gallery/" + Auth.khachHang.hinhAnh!;
+      ? "http://10.0.2.2:8000/storage/assets/avatars/user2.png"
+      : "http://10.0.2.2:8000/storage/assets/avatars/" + Auth.khachHang.hinhAnh!;
 }
 
 Widget buildCircle({
@@ -383,3 +382,9 @@ Widget buildCircle({
         child: child,
       ),
     );
+
+void thongBaoScaffoldMessenger(BuildContext context, String text) {
+  ScaffoldMessenger.of(context)
+    ..removeCurrentSnackBar()
+    ..showSnackBar(SnackBar(content: Text(text)));
+}

@@ -56,7 +56,7 @@ class HomePageState extends State<HomePage> {
                   itemCount: urlImages.length,
                   itemBuilder: (context, index, realIndex) {
                     final urlImage = urlImages[index];
-                    return buildImage(urlImage, index);
+                    return buildImageBanner(urlImage, index);
                   },
                   options: CarouselOptions(
                       height: 100,

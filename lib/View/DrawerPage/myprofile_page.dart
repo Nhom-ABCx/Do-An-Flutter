@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart'; //format datetime
 import '/all_page.dart';
 
 class MyProfile extends StatefulWidget {
@@ -42,8 +43,8 @@ class MyProfileState extends State<MyProfile> {
                               padding: const EdgeInsets.fromLTRB(20, 20, 10, 20),
                               child: ClipRRect(
                                   borderRadius: BorderRadius.circular(100),
-                                  child: Image.asset(
-                                    avtImageAsset(),
+                                  child: Image.network(
+                                    avtImageFix(),
                                     width: 100,
                                     height: 100,
                                     fit: BoxFit.cover,
@@ -80,7 +81,7 @@ class MyProfileState extends State<MyProfile> {
                                   title: 'Username',
                                   lable: '@' + Auth.khachHang.username),
                               buildTextMyProfile(
-                                  icon: Icons.account_circle_sharp,
+                                  icon: Icons.contact_page,
                                   title: 'Full Name',
                                   lable: Auth.khachHang.hoTen!),
                               buildTextMyProfile(
@@ -95,6 +96,14 @@ class MyProfileState extends State<MyProfile> {
                                   icon: Icons.gps_fixed,
                                   title: 'Address',
                                   lable: Auth.khachHang.diaChi!),
+                              buildTextMyProfile(
+                                  icon: Icons.date_range,
+                                  title: 'Birthday',
+                                  lable: DateFormat('yyyy-MM-dd').format(Auth.khachHang.ngaySinh!)),
+                              buildTextMyProfile(
+                                  icon: Auth.khachHang.gioiTinh!.isOdd ? Icons.male : Icons.female,
+                                  title: 'Gender',
+                                  lable: Auth.khachHang.gioiTinh!.isOdd ? "Male" : "Female"),
                               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                                 Row(children: const [
                                   Icon(

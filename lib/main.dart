@@ -1,9 +1,12 @@
 // ignore_for_file: unnecessary_const
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'all_page.dart'; //lam` v cho no' nho? ra
 
 void main() => runApp(const MyApp());
+// SystemChrome.setSystemUIOverlayStyle(
+//     const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);

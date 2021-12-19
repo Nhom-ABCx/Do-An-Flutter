@@ -1,9 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:path/path.dart';
 //datetime picker
 import 'package:intl/intl.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
@@ -24,6 +21,8 @@ class EditMyProfileState extends State<EditMyProfile> {
   final txtPhone = TextEditingController(text: Auth.khachHang.phone!);
   final txtEmail = TextEditingController(text: Auth.khachHang.email!);
   final txtDiaChi = TextEditingController(text: Auth.khachHang.diaChi!);
+  DateTime txtNgaySinh = Auth.khachHang.ngaySinh!;
+  bool txtGioiTinh = Auth.khachHang.gioiTinh!.isOdd;
 
   File? image;
   Future<void> pickImage() async {
@@ -32,21 +31,11 @@ class EditMyProfileState extends State<EditMyProfile> {
       if (imageeee == null) return;
 
       final imgtemp = File(imageeee.path);
-      //final imgtemp = await saveImage(imageeee.path);
       setState(() => image = imgtemp);
     } catch (e) {
       print("Failed to pick image: $e");
     }
   }
-
-  // Future<File> saveImage(String imagePath) async {
-  //   //thu muc goc
-  //   final directory = await getApplicationDocumentsDirectory();
-  //   //lay ra cai ten cua thu muc, ro` vo la no co vi du
-  //   final name = basename(imagePath);
-  //   final urlImage = File('${directory.path}/$name');
-  //   return File(imagePath).copy(urlImage.path);
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -126,8 +115,8 @@ class EditMyProfileState extends State<EditMyProfile> {
                                               height: 125,
                                               fit: BoxFit.cover,
                                             )
-                                          : Image.asset(
-                                              avtImageAsset(),
+                                          : Image.network(
+                                              avtImageFix(),
                                               width: 125,
                                               height: 125,
                                               fit: BoxFit.cover,
@@ -188,7 +177,7 @@ class EditMyProfileState extends State<EditMyProfile> {
                             StreamBuilder(
                                 stream: _editMyController.hotenController.stream,
                                 builder: (context, snapshot) => buildInputTextMyProfile(snapshot,
-                                    icon: Icons.account_circle_sharp,
+                                    icon: Icons.contact_page,
                                     title: 'Full Name',
                                     txtController: txtHoTen)),
                             StreamBuilder(
@@ -215,7 +204,6 @@ class EditMyProfileState extends State<EditMyProfile> {
                             Column(
                               children: [
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: const [
                                     Icon(
                                       Icons.date_range,
@@ -231,15 +219,51 @@ class EditMyProfileState extends State<EditMyProfile> {
                                   ],
                                 ),
                                 DateTimeField(
+                                  initialValue: txtNgaySinh, //gia tri mac dinh
                                   format: DateFormat("yyyy-MM-dd"),
                                   onShowPicker: (context, currentValue) {
                                     return showDatePicker(
-                                        context: context,
-                                        firstDate: DateTime(1900),
-                                        initialDate: currentValue ?? DateTime.now(),
-                                        lastDate: DateTime(2100));
+                                            context: context,
+                                            firstDate: DateTime(1900),
+                                            initialDate: currentValue ?? txtNgaySinh,
+                                            lastDate: DateTime.now())
+                                        .then((value) => txtNgaySinh = value!);
                                   },
                                 ),
+                              ],
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: const [
+                                    Icon(
+                                      Icons.transgender_outlined,
+                                      color: Colors.green,
+                                      size: 30,
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                                      child: Text("Gender",
+                                          style:
+                                              TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+                                    )
+                                  ],
+                                ),
+                                SwitchListTile(
+                                    value: txtGioiTinh,
+                                    title: Text(txtGioiTinh ? "Male" : "Female"),
+                                    secondary: Icon(
+                                      txtGioiTinh ? Icons.male : Icons.female,
+                                      color: txtGioiTinh ? Colors.blue : Colors.pink,
+                                      size: 30,
+                                    ),
+                                    activeColor: Colors.blue,
+                                    inactiveThumbColor: Colors.pink,
+                                    inactiveTrackColor: Colors.pink[200],
+                                    onChanged: (value) {
+                                      setState(() => txtGioiTinh = value);
+                                    }),
                               ],
                             ),
                             SizedBox(
@@ -253,10 +277,16 @@ class EditMyProfileState extends State<EditMyProfile> {
                                   _khachHang.phone = txtPhone.text;
                                   _khachHang.email = txtEmail.text;
                                   _khachHang.diaChi = txtDiaChi.text;
+                                  _khachHang.ngaySinh = txtNgaySinh;
+                                  _khachHang.gioiTinh = txtGioiTinh ? 1 : 0;
 
-                                  (await _editMyController.ktUpdateKhachHang(_khachHang))
-                                      ? thongBao(context, "Update successful")
-                                      : thongBao(context, "Update Fails");
+                                  if (await _editMyController.ktUpdateKhachHang(_khachHang)) {
+                                    thongBaoScaffoldMessenger(context, "Update successful");
+                                    //reload page
+                                    (context as Element).reassemble();
+                                  } else {
+                                    thongBaoScaffoldMessenger(context, "Update Fails");
+                                  }
                                 },
                                 icon: const Icon(
                                   Icons.edit,
@@ -279,10 +309,4 @@ class EditMyProfileState extends State<EditMyProfile> {
       ),
     );
   }
-}
-
-void thongBao(BuildContext context, String text) {
-  ScaffoldMessenger.of(context)
-    ..removeCurrentSnackBar()
-    ..showSnackBar(SnackBar(content: Text(text)));
 }
