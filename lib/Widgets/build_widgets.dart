@@ -126,8 +126,8 @@ Widget buildItem(BuildContext context, SanPham _sp) {
         Align(
           alignment: Alignment.topCenter,
           child: InkWell(
-            child: Image.network(
-              "http://10.0.2.2:8000/storage/assets/images/product-image/" + _sp.hinhAnh!,
+            child: Image.asset(
+              "images/product-image/" + _sp.hinhAnh!,
               width: 100,
               height: 130,
             ),
@@ -366,8 +366,8 @@ List<Widget> hienThiDanhMucDrawer(BuildContext context) {
 
 String avtImageFix() {
   return (Auth.khachHang.hinhAnh!.isEmpty)
-      ? "http://10.0.2.2:8000/storage/assets/avatars/user2.png"
-      : "http://10.0.2.2:8000/storage/assets/avatars/" + Auth.khachHang.hinhAnh!;
+      ? "images/gallery/user2.png"
+      : "images/gallery/" + Auth.khachHang.hinhAnh!;
 }
 
 Widget buildCircle({

@@ -115,7 +115,7 @@ class EditMyProfileState extends State<EditMyProfile> {
                                               height: 125,
                                               fit: BoxFit.cover,
                                             )
-                                          : Image.network(
+                                          : Image.asset(
                                               avtImageFix(),
                                               width: 125,
                                               height: 125,

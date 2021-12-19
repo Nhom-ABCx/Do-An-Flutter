@@ -43,7 +43,7 @@ class MyProfileState extends State<MyProfile> {
                               padding: const EdgeInsets.fromLTRB(20, 20, 10, 20),
                               child: ClipRRect(
                                   borderRadius: BorderRadius.circular(100),
-                                  child: Image.network(
+                                  child: Image.asset(
                                     avtImageFix(),
                                     width: 100,
                                     height: 100,

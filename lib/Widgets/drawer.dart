@@ -26,7 +26,7 @@ class NavigationDrawer extends StatelessWidget {
                   children: [
                     ClipRRect(
                         borderRadius: BorderRadius.circular(100),
-                        child: Image.network(
+                        child: Image.asset(
                           avtImageFix(),
                           width: 100,
                           height: 100,
