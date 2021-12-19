@@ -132,23 +132,20 @@ Future<dynamic> api_Update_KhachHang(KhachHang khachHang) async {
   return _khachHang;
 }
 
-// Future<dynamic> UploadFile(File imageFile) async {
-//   //ham nay la lay tu google
-//   // ignore: deprecated_member_use
-//   var stream = http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
-//   var length = await imageFile.length();
+Future<bool> api_sendEmail_User_Reset(String username) async {
+  bool _guiEmailThanhCong = false;
+  try {
+    final response = await http.post(Uri.parse(urlBaseAPI + "sendEmail-User-Reset"),
+        body: {"Email": "$username", "Username": "$username"});
+    if (response.statusCode == 200) {
+      //nay` von' dang o dang List, ep kieu no' thanh List de co them phuong thuc'
+      final jsonRaw = json.decode(response.body);
+      //print(jsonRaw[0]['TenSanPham']); //truy xuat no' bang cach nhu nay`
+      _guiEmailThanhCong = jsonRaw["Success"];
+    } else {
+      throw Exception("Something get wrong! Status code ${response.statusCode}");
+    }
+  } catch (e) {}
 
-//   var uri = Uri.parse("uploadURL");
-
-//   var request = http.MultipartRequest("POST", uri);
-//   var multipartFile =
-//       http.MultipartFile('file', stream, length, filename: basename(imageFile.path));
-//   //contentType: new MediaType('image', 'png'));
-
-//   request.files.add(multipartFile);
-//   var response = await request.send();
-//   print(response.statusCode);
-//   response.stream.transform(utf8.decoder).listen((value) {
-//     print(value);
-//   });
-// }
+  return _guiEmailThanhCong;
+}

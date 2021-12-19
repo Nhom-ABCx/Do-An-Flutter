@@ -71,6 +71,18 @@ class Auth {
     // return false;
   }
 
+  Future<bool> ktResetMK(String username) async {
+    if (username.isEmpty) {
+      emailController.sink.addError("Nhập username hoặc email");
+      return false;
+    }
+    emailController.sink.add("");
+
+    final kq = await api_sendEmail_User_Reset(username);
+
+    return kq;
+  }
+
   static bool isValidEmail(String email) {
     return RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
         .hasMatch(email);
