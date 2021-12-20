@@ -24,67 +24,67 @@ class ProductDetail extends StatelessWidget {
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
     return GestureDetector(
-        //huy keyboard khi bam ngoai man hinh
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: Scaffold(
-            //TopHeader
-            appBar: AppBarPage(),
-            //Hide
-            drawer: const NavigationDrawer(),
-            body: Stack(
+      //huy keyboard khi bam ngoai man hinh
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        //TopHeader
+        appBar: AppBarPage(),
+        //Hide
+        drawer: const NavigationDrawer(),
+        body: Stack(
+          children: [
+            ListView(
               children: [
-                ListView(
-                  children: [
-                    Container(
-                      height: 250,
-                      decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                            bottomRight: Radius.circular(90),
-                          )),
-                      child: FutureBuilder(
-                          future: fetchProductData(sanPham.id.toString()),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasError) {
-                              // ignore: avoid_print
-                              print(snapshot.error);
-                            }
-                            return snapshot.hasData
-                                ? _sanPhamImg(sanPham)
-                                : const CircularProgressIndicator();
-                          }),
-                    ),
-                    Container(
-                      decoration: const BoxDecoration(color: Colors.white),
-                      child: Container(
-                        height: 130,
-                        decoration: const BoxDecoration(
-                            color: Colors.blueGrey,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(50))),
-                        child: Padding(
-                            padding:
-                                const EdgeInsets.fromLTRB(30.0, 10.0, 0, 5.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                buildProductData(sanPham),
-                               
-                              ],
-                            )),
-                      ),
-                    ),
-                    buildTimeSale(),
-                    const SizedBox(height: 10.0,),
-                    buildStockProduct(),
-                    
-                  ],
-                 
+                Container(
+                  height: 250,
+                  decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(90),
+                      )),
+                  child: FutureBuilder(
+                      future: fetchProductData(sanPham.id.toString()),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) {
+                          // ignore: avoid_print
+                          print(snapshot.error);
+                        }
+                        return snapshot.hasData
+                            ? _sanPhamImg(sanPham)
+                            : const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                      }),
                 ),
+                Container(
+                  decoration: const BoxDecoration(color: Colors.white),
+                  child: Container(
+                    height: 130,
+                    decoration: const BoxDecoration(
+                        color: Colors.blueGrey,
+                        borderRadius:
+                            BorderRadius.only(topLeft: Radius.circular(50))),
+                    child: Padding(
+                        padding: const EdgeInsets.fromLTRB(30.0, 10.0, 0, 5.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            buildProductData(sanPham),
+                          ],
+                        )),
+                  ),
+                ),
+                buildTimeSale(),
+                const SizedBox(
+                  height: 10.0,
+                ),
+                buildStockProduct(),
               ],
-            ),bottomNavigationBar: const BottomNavBar(0),
             ),
-             
+          ],
+        ),
+        bottomNavigationBar: const BottomNavBar(0),
+      ),
     );
   }
 }
@@ -98,37 +98,37 @@ Widget buildImageSanPham(SanPham sanPham) {
 }
 
 Widget buildProductData(SanPham sanPham) {
-  return  Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            sanPham.tenSanPham,
-            style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            'Giá: ' + sanPham.giaBan.toString(),
-            style: TextStyle(
-                fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.red),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            sanPham.moTa.toString(),
-            style: TextStyle(
-              color: Colors.black87,
-              fontSize: 16.0,
-            ),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            "còn: " + sanPham.soLuongTon.toString(),
-            style: TextStyle(
-              color: Colors.red,
-              fontSize: 16.0,
-            ),
-          ),
-        ],
-      );
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        sanPham.tenSanPham,
+        style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+      ),
+      const SizedBox(height: 5),
+      Text(
+        'Giá: ' + sanPham.giaBan.toString(),
+        style: TextStyle(
+            fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.red),
+      ),
+      const SizedBox(height: 5),
+      Text(
+        sanPham.moTa.toString(),
+        style: TextStyle(
+          color: Colors.black87,
+          fontSize: 16.0,
+        ),
+      ),
+      const SizedBox(height: 5),
+      Text(
+        "còn: " + sanPham.soLuongTon.toString(),
+        style: TextStyle(
+          color: Colors.red,
+          fontSize: 16.0,
+        ),
+      ),
+    ],
+  );
 }
 
 Widget buildTimeSale() {
@@ -145,63 +145,64 @@ Widget buildTimeSale() {
             Text('Flash sale end in')
           ],
         ),
-        Padding(padding: const EdgeInsets.only(left: 8.0 ),
-        child: Text(
+        Padding(
+          padding: const EdgeInsets.only(left: 8.0),
+          child: Text(
             "15d 22h 53m 23s",
             style: TextStyle(color: Colors.red),
-          ),)
-        
+          ),
+        )
       ],
     ),
   );
 }
 
-
-Widget buildStockProduct(){
-  Row stock=Row(
+Widget buildStockProduct() {
+  Row stock = Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      Padding(padding: const EdgeInsets.only(left: 8.0,right: 5.0),
-      child:
-      ElevatedButton(
-        onPressed: (){},
-        child: Text("-",style: TextStyle(fontSize: 20.0),),),
-      ),
-      Padding(padding: const EdgeInsets.only(right: 5.0),
-      child:
-      Text('4'),
-      ),
-       Padding(padding: const EdgeInsets.only(right: 40.0),
-      child:
-       ElevatedButton(
-         
-        onPressed: (){},
-        clipBehavior: Clip.antiAlias,
-        child: Text("+",
+      Padding(
+        padding: const EdgeInsets.only(left: 8.0, right: 5.0),
+        child: ElevatedButton(
+          onPressed: () {},
+          child: Text(
+            "-",
             style: TextStyle(fontSize: 20.0),
-          ),),
-       )
+          ),
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.only(right: 5.0),
+        child: Text('4'),
+      ),
+      Padding(
+        padding: const EdgeInsets.only(right: 40.0),
+        child: ElevatedButton(
+          onPressed: () {},
+          clipBehavior: Clip.antiAlias,
+          child: Text(
+            "+",
+            style: TextStyle(fontSize: 20.0),
+          ),
+        ),
+      )
     ],
   );
   return Container(
     height: 50,
-    decoration: BoxDecoration(
-      color: Colors.white
-    ),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children:[
-        stock,
-        // ignore: deprecated_member_use
-        FlatButton(
+    decoration: BoxDecoration(color: Colors.white),
+    child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+      stock,
+      // ignore: deprecated_member_use
+      FlatButton(
           textColor: Colors.white,
           color: Colors.red,
-          onPressed: (){}, 
-        child: Text('Add to card',style: TextStyle(
-          
-        ),))
-      ]
-    ),
+          onPressed: () {},
+          child: Text(
+            'Add to card',
+            style: TextStyle(),
+          ))
+    ]),
   );
 }
 // Widget buildSanPhamLienQuan() {

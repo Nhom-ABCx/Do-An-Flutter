@@ -42,6 +42,8 @@ dependencies:
 
   #dots indicator
   smooth_page_indicator: ^0.3.0-nullsafety.0
+  # prodiver
+  provider: ^6.0.1
 
 
 dev_dependencies:
