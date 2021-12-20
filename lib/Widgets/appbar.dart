@@ -26,6 +26,7 @@ class AppBarPage extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       centerTitle: true,
+<<<<<<< HEAD
       actions: [
        IconButton(onPressed:  (){
          if(txtTimKiem.text.isNotEmpty){
@@ -36,6 +37,9 @@ class AppBarPage extends StatelessWidget implements PreferredSizeWidget {
        }, icon: const Icon(Icons.search_outlined)),
         IconButton(onPressed: () {}, icon: const Icon(Icons.notifications))
       ],
+=======
+      actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.notifications))],
+>>>>>>> 9df0160887af07863e8f392035e66a77db60374a
     );
   }
 

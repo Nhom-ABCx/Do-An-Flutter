@@ -11,14 +11,14 @@ class SignInPage extends StatefulWidget {
   _SignInPageState createState() => _SignInPageState();
 }
 
-class _SignInPageState extends State<SignInPage>  {
+class _SignInPageState extends State<SignInPage> {
   bool notShowPassword = true;
-  final txtEmail = TextEditingController(text: "Khach01@gmail.com");
-  final txtPassword = TextEditingController(text: "passwordKH01");
+  final txtEmail = TextEditingController(text: "Khach02");
+  final txtPassword = TextEditingController(text: "passwordKH02");
   final _auth = Auth();
 
   //animation logo
- // late AnimationController animationController;
+  // late AnimationController animationController;
   // ignore: non_constant_identifier_names
   //late Animation<double> animation_rotation;
   // ignore: non_constant_identifier_names
@@ -164,10 +164,7 @@ class _SignInPageState extends State<SignInPage>  {
                         onPressed: () async {
                           await (_auth.ktDangNhap(txtEmail.text, txtPassword.text))
                               ? Navigator.pushReplacementNamed(context, '/Home')
-                              : (ScaffoldMessenger.of(context)
-                                ..removeCurrentSnackBar()
-                                ..showSnackBar(
-                                    SnackBar(content: Text('Sai Username hoac MatKhau'))));
+                              : (thongBaoScaffoldMessenger(context, "Wrong Username or Password"));
                         },
                       ),
                     ),

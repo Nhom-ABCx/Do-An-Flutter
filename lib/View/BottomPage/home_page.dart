@@ -33,11 +33,69 @@ class HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     Widget _listView = Column(children: [
       Padding(
           padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+=======
+    Container _flashsale = Container(
+      margin: const EdgeInsets.only(left: 10),
+      child: Row(
+        children: const [
+          Icon(Icons.bolt_outlined),
+          Padding(
+              padding: EdgeInsets.all(10),
+              child: Text(
+                'Flash sale',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              )),
+        ],
+      ),
+    );
+
+    Widget _listView = Column(
+      children: [
+        Padding(
+            padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                //Slider cho cai banner
+                CarouselSlider.builder(
+                  itemCount: urlImages.length,
+                  itemBuilder: (context, index, realIndex) {
+                    final urlImage = urlImages[index];
+                    return buildImageBanner(urlImage, index);
+                  },
+                  options: CarouselOptions(
+                      height: 100,
+                      autoPlay: true, //tu dong chay
+                      //reverse: true, //dao? nguoc chay
+                      //autoPlayInterval: const Duration(seconds: 4), //mac dinh la 4
+                      enlargeCenterPage: true, //lam noi bat trung tam hinh`
+                      onPageChanged: (index, reason) => setState(() => activeIndex = index)),
+                )
+              ],
+            )),
+        Align(
+          alignment: Alignment.topLeft,
+          child: Container(
+            margin: const EdgeInsets.only(left: 30),
+            child: const Text(
+              'Product Categories',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Wrap(
+>>>>>>> 9df0160887af07863e8f392035e66a77db60374a
             children: [
               //Slider cho cai banner
               CarouselSlider.builder(

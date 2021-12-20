@@ -19,7 +19,11 @@ export 'View/DrawerPage/notifications_page.dart';
 export 'View/ProductCategories/phone_page.dart';
 export 'View/ProductDetail/product_page_detail.dart';
 export 'View/ProductCategories/laptop_page.dart';
+<<<<<<< HEAD
 export 'View/SearchPage/search_page.dart';
+=======
+export 'View/DrawerPage/edit_myprofile_page.dart';
+>>>>>>> 9df0160887af07863e8f392035e66a77db60374a
 
 export 'Widgets/build_widgets.dart';
 
@@ -29,3 +33,4 @@ export 'Modals/khach_hang.dart';
 export 'API/api_manager.dart';
 
 export 'Controller/auth.dart';
+export 'Controller/edit_myprofile_controller.dart';

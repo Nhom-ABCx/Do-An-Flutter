@@ -170,9 +170,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         onPressed: () async {
                           await (_auth.ktDangKy(txtUsername.text, txtEmail.text, txtPassword.text))
                               ? Navigator.pushReplacementNamed(context, '/Home')
-                              : (ScaffoldMessenger.of(context)
-                                ..removeCurrentSnackBar()
-                                ..showSnackBar(SnackBar(content: Text('Tạo thất bại !'))));
+                              : (thongBaoScaffoldMessenger(context, "Create account Fails !"));
                         },
                       ),
                     ),

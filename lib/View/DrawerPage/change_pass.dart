@@ -78,7 +78,7 @@ class ChangePassState extends State<ChangePass> {
                         ColoredBox(
                           color: Colors.white70,
                           child: Column(children: [
-                            buildSesion(
+                            buildTextMyProfile(
                                 icon: Icons.vpn_key,
                                 title: 'Old PassWord',
                                 lable: ''),
@@ -90,7 +90,7 @@ class ChangePassState extends State<ChangePass> {
                                 ),
                               ),
                             ),
-                            buildSesion(
+                            buildTextMyProfile(
                                 icon: Icons.vpn_key,
                                 title: 'New PassWord',
                                 lable: ''),
@@ -102,7 +102,7 @@ class ChangePassState extends State<ChangePass> {
                                 ),
                               ),
                             ),
-                            buildSesion(
+                            buildTextMyProfile(
                                 icon: Icons.vpn_key,
                                 title: 'Reapeat New PassWord',
                                 lable: ''),

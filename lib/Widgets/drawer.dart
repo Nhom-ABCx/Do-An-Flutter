@@ -8,6 +8,8 @@ class NavigationDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool _chuaDangNhap = (Auth.khachHang.id! < 0);
+
     return Theme(
       data: Theme.of(context).copyWith(
         //cai thang nay la config lai giao dien cua toan bo
@@ -23,19 +25,22 @@ class NavigationDrawer extends StatelessWidget {
                 child: Column(
                   children: [
                     ClipRRect(
-                      borderRadius: BorderRadius.circular(100),
-                      child: Image.asset(
-                        'images/avt.jpg',
-                        width: 100,
-                        height: 100,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 10),
+                        borderRadius: BorderRadius.circular(100),
+                        child: Image.asset(
+                          avtImageFix(),
+                          width: 100,
+                          height: 100,
+                          fit: BoxFit.cover,
+                        )),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10),
                       child: Text(
-                        "I'm number ONEEEEEEE",
-                        style: TextStyle(
+                        _chuaDangNhap
+                            ? "You are not login"
+                            : ((Auth.khachHang.username.isEmpty)
+                                ? Auth.khachHang.hoTen!
+                                : Auth.khachHang.username),
+                        style: const TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
@@ -44,27 +49,17 @@ class NavigationDrawer extends StatelessWidget {
                     )
                   ],
                 )),
-            const SizedBox(height: 16),
-            buildItemListTitle(
-              text: 'My Profile',
-              icon: Icons.account_circle,
-              onClicked: () => Navigator.pushNamed(context, '/MyProfile'),
-            ),
-            const SizedBox(height: 16),
-            buildItemListTitle(
-                text: 'Notifications',
-                icon: Icons.notifications,
-                onClicked: () =>
-                    Navigator.pushNamed(context, '/Notifications')),
-            const SizedBox(height: 16),
-            buildItemListTitle(
-                text: 'ChangePass',
-                icon: Icons.change_circle,
-                onClicked: () => Navigator.pushNamed(context, '/ChangePW')),
-            const SizedBox(height: 16),
-            buildItemListTitle(text: 'Settings', icon: Icons.settings),
-            const SizedBox(height: 16),
-            buildItemListTitle(text: 'Sign Out', icon: Icons.logout),
+            if (_chuaDangNhap)
+              buildItemListTitle(
+                text: 'Loggin Now',
+                icon: Icons.login_outlined,
+                onClicked: () {
+                  Auth.khachHang.LogOut();
+                  Navigator.pushNamedAndRemoveUntil(context, "/Sign_In", (route) => false);
+                },
+              )
+            else
+              ...hienThiDanhMucDrawer(context),
           ],
         ),
       ),

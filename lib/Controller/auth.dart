@@ -1,9 +1,8 @@
 import 'dart:async';
-
 import 'package:flutter_application_1/all_page.dart';
 
 class Auth {
-  static KhachHang khachHang = KhachHang(hoTen: "");
+  static KhachHang khachHang = KhachHang.empty();
   final nameController = StreamController();
   final emailController = StreamController();
   final passController = StreamController();
@@ -21,9 +20,9 @@ class Auth {
     }
     passController.sink.add("");
 
-    khachHang = await api_DangNhap(email, pass) as KhachHang;
+    khachHang = await api_DangNhap(email, pass);
 
-    return (khachHang.hoTen.isNotEmpty) ? true : false;
+    return (khachHang.username.isNotEmpty) ? true : false;
   }
 
   Future<bool> ktDangKy(String username, String email, String pass) async {
@@ -49,9 +48,9 @@ class Auth {
     passController.sink.add("");
 
     //lay' du lieu API dang ky'
-    var validate = await api_DangKy(username, email, pass);
+    final validate = await api_DangKy(username, email, pass);
     //neu' no' tra ve ko phai la class KhachHang thi` kiem tra no' tra? ve` loi~ nao` de hien thi
-    if (!(validate is KhachHang)) {
+    if (validate is! KhachHang) {
       if (validate["Username"].toString() != "null") {
         nameController.sink.addError(validate["Username"]);
         return false;
@@ -66,13 +65,25 @@ class Auth {
       }
     }
 
-    khachHang = validate;
-    return (khachHang.username!.isNotEmpty) ? true : false;
+    if (validate is KhachHang) khachHang = validate; //kt lai 1 lan nua cho no chac chan'
+    return (khachHang.username.isNotEmpty) ? true : false;
     // if (khachHang.hoTen.isNotEmpty) return true;
     // return false;
   }
 
-  bool isValidEmail(String email) {
+  Future<bool> ktResetMK(String username) async {
+    if (username.isEmpty) {
+      emailController.sink.addError("Nhập username hoặc email");
+      return false;
+    }
+    emailController.sink.add("");
+
+    final kq = await api_sendEmail_User_Reset(username);
+
+    return kq;
+  }
+
+  static bool isValidEmail(String email) {
     return RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
         .hasMatch(email);
   }
