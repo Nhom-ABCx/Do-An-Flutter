@@ -1,14 +1,10 @@
-import 'dart:async';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-<<<<<<< HEAD
 
-=======
-import 'package:flutter/material.dart';
-import 'dart:io';
-import 'package:path/path.dart';
-import 'package:async/async.dart';
->>>>>>> 9df0160887af07863e8f392035e66a77db60374a
+import 'dart:async';
+
+
+import 'dart:convert';
+import 'dart:core';
+import 'package:http/http.dart' as http;
 import '../all_page.dart';
 
 String urlBaseAPI = "http://10.0.2.2:8000/api/";
@@ -104,10 +100,7 @@ Future<List<SanPham>> fetchSanPhamLapTop() async {
   return lstSanPhamLapTop;
 }
 
-<<<<<<< HEAD
 //Chi tiết sản phẩm
-=======
->>>>>>> 9df0160887af07863e8f392035e66a77db60374a
 Future<List<SanPham>> fetchProductData(String id) async {
   final url = urlBaseAPI + 'san-pham/$id';
   List<SanPham> sanPhamChiTiet = [];
@@ -133,6 +126,21 @@ Future<List<SanPham>> fecthSanPhamBanChay() async {
     }
   } catch (e) {}
   return sanPhamTop;
+}
+
+// San pham dang khuyen mai~
+Future<List<SanPham>> fetchSanPhamSale() async {
+  String url = urlBaseAPI + 'get-all-product-sale';
+  List<SanPham> lstSanPhamSale = [];
+  try {
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      List jsonlst = json.decode(response.body);
+      return lstSanPhamSale =
+          jsonlst.map((data) => SanPham.fromJson(data)).toList();
+    }
+  } catch (e) {}
+  return lstSanPhamSale;
 }
 
 //tiềm kiếm
@@ -179,15 +187,11 @@ Future<KhachHang> api_DangNhap(String email, String matkhau) async {
   return khachHang;
 }
 
-<<<<<<< HEAD
 // Dang ky
-Future<dynamic> api_DangKy(
-    String username, String email, String matkhau) async {
-  var khachHang = KhachHang(hoTen: "");
-=======
 Future<dynamic> api_DangKy(String username, String email, String matkhau) async {
-  var khachHang = KhachHang.empty();
->>>>>>> 9df0160887af07863e8f392035e66a77db60374a
+  var khachHang = KhachHang(hoTen: "", username: '');
+//Future<dynamic> api_DangKy(String username, String email, String matkhau) async {
+  //var khachHang = KhachHang.empty();
 
   try {
     final response = await http.post(Uri.parse(urlBaseAPI + "DangKy"), body: {
@@ -211,21 +215,7 @@ Future<dynamic> api_DangKy(String username, String email, String matkhau) async 
   return khachHang;
 }
 
-<<<<<<< HEAD
-// San pham dang khuyen mai~
-Future<List<SanPham>> fetchSanPhamSale() async {
-  String url = urlBaseAPI + 'get-all-product-sale';
-  List<SanPham> lstSanPhamSale = [];
-  try {
-    final response = await http.get(Uri.parse(url));
-    if (response.statusCode == 200) {
-      List jsonlst = json.decode(response.body);
-      return lstSanPhamSale =
-          jsonlst.map((data) => SanPham.fromJson(data)).toList();
-    }
-  } catch (e) {}
-  return lstSanPhamSale;
-=======
+
 Future<dynamic> api_Update_KhachHang(KhachHang khachHang) async {
   var _khachHang = KhachHang.empty();
 
@@ -267,5 +257,4 @@ Future<bool> api_sendEmail_User_Reset(String username) async {
   } catch (e) {}
 
   return _guiEmailThanhCong;
->>>>>>> 9df0160887af07863e8f392035e66a77db60374a
 }

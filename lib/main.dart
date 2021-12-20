@@ -1,11 +1,8 @@
 // ignore_for_file: unnecessary_const
 
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'package:provider/provider.dart';
-=======
 import 'package:flutter/services.dart';
->>>>>>> 9df0160887af07863e8f392035e66a77db60374a
 import 'all_page.dart'; //lam` v cho no' nho? ra
 
 void main() => runApp(const MyApp());
@@ -47,28 +44,6 @@ class MyApp extends StatelessWidget {
           '/LapTopPage':(context)=>const LapTopPage(),
         },
       ),
-<<<<<<< HEAD
-=======
-      home: const WellcomePage(),
-      routes: {
-        '/Wellcome': (context) => const WellcomePage(),
-        '/Sign_In': (context) => const SignInPage(),
-        '/Sign_Up': (context) => const SignUpPage(),
-        '/Forgot': (context) => const ForgotPage(),
-        '/Forgot_action': (context) => const ForgotAction(),
-        '/Home': (context) => const HomePage(),
-        '/Cart': (context) => const CartPage(),
-        '/Pages': (context) => const Loder(),
-        '/Setting': (context) => const SettingPage(),
-        '/Support': (context) => const SupportPage(),
-        '/MyProfile': (context) => const MyProfile(),
-        '/EditMyProfile': (context) => const EditMyProfile(),
-        '/Notifications': (context) => const Notifications(),
-        '/ChangePW': (context) => const ChangePass(),
-        '/PhonePage': (context) => const PhonePage(),
-        '/LapTopPage': (context) => const LapTopPage(),
-      },
->>>>>>> 9df0160887af07863e8f392035e66a77db60374a
     );
   }
 }

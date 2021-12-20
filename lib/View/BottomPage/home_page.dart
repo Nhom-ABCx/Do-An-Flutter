@@ -33,13 +33,6 @@ class HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
-    Widget _listView = Column(children: [
-      Padding(
-          padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-=======
     Container _flashsale = Container(
       margin: const EdgeInsets.only(left: 10),
       child: Row(
@@ -95,14 +88,13 @@ class HomePageState extends State<HomePage> {
         Padding(
           padding: const EdgeInsets.all(15.0),
           child: Wrap(
->>>>>>> 9df0160887af07863e8f392035e66a77db60374a
             children: [
               //Slider cho cai banner
               CarouselSlider.builder(
                 itemCount: urlImages.length,
                 itemBuilder: (context, index, realIndex) {
                   final urlImage = urlImages[index];
-                  return buildImage(urlImage, index);
+                  return buildImageBanner(urlImage, index);
                 },
                 options: CarouselOptions(
                     height: 100,
@@ -127,7 +119,7 @@ class HomePageState extends State<HomePage> {
         ),
       ),
       buildIconProductCategori(context),
-      _flashsale(),
+      _flashsale,
       // Sản phẩm flash sale
       buildSanPhamFlashsale(context),
     ]);
