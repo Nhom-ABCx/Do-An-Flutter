@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_const
+//ignore_for_file: unnecessary_const
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,15 +19,15 @@ class _SignInPageState extends State<SignInPage> {
 
   //animation logo
   // late AnimationController animationController;
-  // ignore: non_constant_identifier_names
-  //late Animation<double> animation_rotation;
-  // ignore: non_constant_identifier_names
-  //late Animation<double> animation_rotation_out;
+  // //ignore: non_constant_identifier_names
+  // late Animation<double> animation_rotation;
+  // //ignore: non_constant_identifier_names
+  // late Animation<double> animation_rotation_out;
   // @override
   // void initState() {
   //   super.initState();
-  //   animationController = AnimationController(
-  //       vsync: this, duration: const Duration(seconds: 6)); //cu sau 4s la thuc hien hieu ung
+  //   // animationController = AnimationController(
+  //   //     vsync: this, duration: const Duration(seconds: 6)); //cu sau 4s la thuc hien hieu ung
 
   //   animation_rotation = Tween<double>(begin: 0.0, end: 2.0).animate(CurvedAnimation(
   //       parent: animationController, curve: const Interval(0.0, 1.0, curve: Curves.elasticOut)));

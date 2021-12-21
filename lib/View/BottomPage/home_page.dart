@@ -68,8 +68,8 @@ class HomePageState extends State<HomePage> {
                       //reverse: true, //dao? nguoc chay
                       //autoPlayInterval: const Duration(seconds: 4), //mac dinh la 4
                       enlargeCenterPage: true, //lam noi bat trung tam hinh`
-                      onPageChanged: (index, reason) => setState(() => activeIndex = index)),
-                )
+                      //onPageChanged: (index, reason) => setState(() => activeIndex = index)),
+                )),
               ],
             )),
         Align(
@@ -85,39 +85,6 @@ class HomePageState extends State<HomePage> {
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Wrap(
-            children: [
-              //Slider cho cai banner
-              CarouselSlider.builder(
-                itemCount: urlImages.length,
-                itemBuilder: (context, index, realIndex) {
-                  final urlImage = urlImages[index];
-                  return buildImageBanner(urlImage, index);
-                },
-                options: CarouselOptions(
-                    height: 100,
-                    autoPlay: true, //tu dong chay
-                    //reverse: true, //dao? nguoc chay
-                    //autoPlayInterval: const Duration(seconds: 4), //mac dinh la 4
-                    enlargeCenterPage: true, //lam noi bat trung tam hinh`
-              ))
-            ],
-          )),
-      Align(
-        alignment: Alignment.topLeft,
-        child: Container(
-          margin: const EdgeInsets.only(left: 30),
-          child: const Text(
-            'Product Categories',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-      ),
       buildIconProductCategori(context),
       _flashsale,
       // Sản phẩm flash sale
