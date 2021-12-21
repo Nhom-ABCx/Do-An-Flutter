@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import '/all_page.dart';
+import '../../all_page.dart';
 
 class CartPage extends StatefulWidget {
-  const CartPage({Key? key}) : super(key: key);
+ const CartPage({Key? key}) : super(key: key);
+
 
   @override
   State<StatefulWidget> createState() => CartPageState();
@@ -19,7 +20,8 @@ class CartPageState extends State<CartPage> {
         {required String image,
         required String txtNameProduct,
         required String txtTotal,
-        required String amount}) {
+        required String amount}
+        ) {
       final txtAmountController = TextEditingController();
       txtAmountController.text = amount;
       var icon = IconButton(
@@ -42,6 +44,7 @@ class CartPageState extends State<CartPage> {
           ));
 
       return Row(
+        
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           icon,
@@ -80,12 +83,20 @@ class CartPageState extends State<CartPage> {
       );
     }
 
+  _sanPhamImg(SanPham sanPham)
+  {
+    return SizedBox(
+        child: Image(
+            height: 200,
+            image: AssetImage('images/product-image/' + sanPham.hinhAnh!)),
+      );
+  }
 // ignore: non_constant_identifier_names
     final Widget _Secsion1 = Row(
       children: [
-        const SizedBox(height: 10),
+         SizedBox(height: 10),
         _buildItems(
-            image: 'images/product-image/DT_5.jpg',
+            image: 'images/product-image/',
             txtNameProduct: 'Ciramic Pot Set',
             txtTotal: "12.10x1",
             amount: soluong.toString()),

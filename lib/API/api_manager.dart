@@ -258,3 +258,17 @@ Future<bool> api_sendEmail_User_Reset(String username) async {
 
   return _guiEmailThanhCong;
 }
+
+//them du lieu vao gio hang
+// Future<List<SanPham>> addCart(String id) async {
+//   final url = urlBaseAPI + 'san-pham/$id';
+//   List<SanPham> sanPhamChiTiet = [];
+//   try {
+//     final response = await http.get(Uri.parse(url));
+//     if (response.statusCode == 200) {
+//       List jSonlst = json.decode(response.body);
+//       sanPhamChiTiet = jSonlst.map((data) => SanPham.fromJson(data)).toList();
+//     }
+//   } catch (e) {}
+//   return sanPhamChiTiet;
+// }
