@@ -120,21 +120,23 @@ Widget buildItem(BuildContext context, SanPham _sp) {
       borderRadius: BorderRadius.circular(8.0),
       color: Colors.white,
     ),
-
     child: Stack(
       children: [
         Align(
           alignment: Alignment.topCenter,
-          child: InkWell(
-            child: Image.asset(
-              "images/product-image/" + _sp.hinhAnh!,
-              width: 100,
-              height: 130,
+          child: Material(
+            color: Colors.transparent,
+            child: InkWell(
+              child: Image.asset(
+                "images/product-image/" + _sp.hinhAnh!,
+                width: 100,
+                height: 130,
+              ),
+              onTap: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => ProductDetail(sanPham: _sp)));
+              },
             ),
-            onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => ProductDetail(sanPham: _sp)));
-            },
           ),
         ),
         Positioned(
@@ -150,7 +152,7 @@ Widget buildItem(BuildContext context, SanPham _sp) {
           top: 150.0,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(4.0, 0, 0, 0),
-            child: Text(
+            child: Text('Giá:'+
               _sp.giaBan.toString(),
               style: const TextStyle(
                   fontWeight: FontWeight.bold, fontSize: 15, color: Colors.blueAccent),

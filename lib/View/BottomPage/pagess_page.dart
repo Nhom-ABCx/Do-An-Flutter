@@ -10,6 +10,7 @@ class Loder extends StatefulWidget {
 
 class _LoderState extends State<Loder> with SingleTickerProviderStateMixin {
   late AnimationController animationController;
+  // ignore: non_constant_identifier_names
   late Animation<double> animation_rotation;
   late final double initRadius = 30.0;
   double radius = 0.0;
