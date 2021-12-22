@@ -34,3 +34,4 @@ export 'API/api_manager.dart';
 export 'Controller/auth.dart';
 export 'Controller/edit_myprofile_controller.dart';
 export 'Controller/sanpham_controller.dart';
+export 'Controller/file_controller.dart';

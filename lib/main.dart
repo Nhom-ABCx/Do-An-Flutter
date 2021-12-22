@@ -14,8 +14,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => ChangeLayOut(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ChangeLayOut()),
+        ChangeNotifierProvider(create: (_) => FileController())
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false, //tat cai' debug tren appbar
         title: 'DA Flutter',
