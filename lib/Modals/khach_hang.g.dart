@@ -13,13 +13,21 @@ KhachHang _$KhachHangFromJson(Map<String, dynamic> json) => KhachHang(
       phone: json['Phone'] as String?,
       matKhau: json['MatKhau'] as String?,
       hoTen: json['HoTen'] as String?,
-      ngaySinh: json['NgaySinh'] == null ? null : DateTime.parse(json['NgaySinh'] as String),
+      ngaySinh: json['NgaySinh'] == null
+          ? null
+          : DateTime.parse(json['NgaySinh'] as String),
       gioiTinh: json['GioiTinh'] as int?,
       diaChi: json['DiaChi'] as String?,
       hinhAnh: json['HinhAnh'] as String?,
-      createdAt: json['created_at'] == null ? null : DateTime.parse(json['created_at'] as String),
-      updatedAt: json['updated_at'] == null ? null : DateTime.parse(json['updated_at'] as String),
-      deletedAt: json['deleted_at'] == null ? null : DateTime.parse(json['deleted_at'] as String),
+      createdAt: json['created_at'] == null
+          ? null
+          : DateTime.parse(json['created_at'] as String),
+      updatedAt: json['updated_at'] == null
+          ? null
+          : DateTime.parse(json['updated_at'] as String),
+      deletedAt: json['deleted_at'] == null
+          ? null
+          : DateTime.parse(json['deleted_at'] as String),
     );
 
 Map<String, dynamic> _$KhachHangToJson(KhachHang instance) => <String, dynamic>{

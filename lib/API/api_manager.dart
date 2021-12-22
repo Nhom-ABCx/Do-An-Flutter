@@ -1,6 +1,4 @@
-
 import 'dart:async';
-
 
 import 'dart:convert';
 import 'dart:core';
@@ -41,11 +39,13 @@ Future<List<SanPham>> fetchSanPhamDienThoai() async {
   } catch (e) {}
   return lstSanPhamDienThoai;
 }
+
 // san pham dt 1tr-3tr
 Future<List<SanPham>> fetchSanPhamDienThoai1_3tr() async {
   List<SanPham> lstSanPhamDienThoai = [];
   try {
-    final response = await http.get(Uri.parse(urlBaseAPI + 'get-product-price-1'));
+    final response =
+        await http.get(Uri.parse(urlBaseAPI + 'get-product-price-1'));
     if (response.statusCode == 200) {
       List jsonlst = [];
       jsonlst = json.decode(response.body);
@@ -55,6 +55,7 @@ Future<List<SanPham>> fetchSanPhamDienThoai1_3tr() async {
   } catch (e) {}
   return lstSanPhamDienThoai;
 }
+
 // san pham dt 3tr-7tr
 Future<List<SanPham>> fetchSanPhamDienThoai3_7tr() async {
   List<SanPham> lstSanPhamDienThoai = [];
@@ -70,6 +71,7 @@ Future<List<SanPham>> fetchSanPhamDienThoai3_7tr() async {
   } catch (e) {}
   return lstSanPhamDienThoai;
 }
+
 // san pham dt tren 7tr
 Future<List<SanPham>> fetchSanPhamDienThoai7tr() async {
   List<SanPham> lstSanPhamDienThoai = [];
@@ -188,7 +190,8 @@ Future<KhachHang> api_DangNhap(String email, String matkhau) async {
 }
 
 // Dang ky
-Future<dynamic> api_DangKy(String username, String email, String matkhau) async {
+Future<dynamic> api_DangKy(
+    String username, String email, String matkhau) async {
   var khachHang = KhachHang(hoTen: "", username: '');
 //Future<dynamic> api_DangKy(String username, String email, String matkhau) async {
   //var khachHang = KhachHang.empty();
@@ -215,7 +218,6 @@ Future<dynamic> api_DangKy(String username, String email, String matkhau) async 
   return khachHang;
 }
 
-
 Future<dynamic> api_Update_KhachHang(KhachHang khachHang) async {
   var _khachHang = KhachHang.empty();
 
@@ -225,7 +227,10 @@ Future<dynamic> api_Update_KhachHang(KhachHang khachHang) async {
     final response = await http.post(
       Uri.parse(urlBaseAPI + "KhachHang/" + "${khachHang.id}?_method=PUT"),
       body: _pushBody,
-      headers: {"accept": "application/json", "content-type": "application/json"},
+      headers: {
+        "accept": "application/json",
+        "content-type": "application/json"
+      },
     );
     if (response.statusCode == 200) {
       //nay` von' dang o dang List, ep kieu no' thanh List de co them phuong thuc'
@@ -234,7 +239,8 @@ Future<dynamic> api_Update_KhachHang(KhachHang khachHang) async {
     } else if (response.statusCode == 400) {
       return json.decode(response.body);
     } else {
-      throw Exception("Something get wrong! Status code ${response.statusCode}");
+      throw Exception(
+          "Something get wrong! Status code ${response.statusCode}");
     }
   } catch (e) {}
 
@@ -244,7 +250,8 @@ Future<dynamic> api_Update_KhachHang(KhachHang khachHang) async {
 Future<bool> api_sendEmail_User_Reset(String username) async {
   bool _guiEmailThanhCong = false;
   try {
-    final response = await http.post(Uri.parse(urlBaseAPI + "sendEmail-User-Reset"),
+    final response = await http.post(
+        Uri.parse(urlBaseAPI + "sendEmail-User-Reset"),
         body: {"Email": "$username", "Username": "$username"});
     if (response.statusCode == 200) {
       //nay` von' dang o dang List, ep kieu no' thanh List de co them phuong thuc'
@@ -252,7 +259,8 @@ Future<bool> api_sendEmail_User_Reset(String username) async {
       //print(jsonRaw[0]['TenSanPham']); //truy xuat no' bang cach nhu nay`
       _guiEmailThanhCong = jsonRaw["Success"];
     } else {
-      throw Exception("Something get wrong! Status code ${response.statusCode}");
+      throw Exception(
+          "Something get wrong! Status code ${response.statusCode}");
     }
   } catch (e) {}
 
@@ -260,15 +268,23 @@ Future<bool> api_sendEmail_User_Reset(String username) async {
 }
 
 //them du lieu vao gio hang
-// Future<List<SanPham>> addCart(String id) async {
-//   final url = urlBaseAPI + 'san-pham/$id';
-//   List<SanPham> sanPhamChiTiet = [];
-//   try {
-//     final response = await http.get(Uri.parse(url));
-//     if (response.statusCode == 200) {
-//       List jSonlst = json.decode(response.body);
-//       sanPhamChiTiet = jSonlst.map((data) => SanPham.fromJson(data)).toList();
-//     }
-//   } catch (e) {}
-//   return sanPhamChiTiet;
-// }
+Future<List<dynamic>> addCart(
+    int khachHangId, int sanPhamId, int soLuong) async {
+  final url = urlBaseAPI + 'add-Cart';
+  List<HoaDon> hoadon = [];
+  List<CT_HoaDon> ct_hoadon = [];
+
+  try {
+    final response = await http.post(Uri.parse(url), body: {
+      "KhachHangId": "$khachHangId",
+      "SanPhamId": "$sanPhamId",
+      "SoLuong": "$soLuong",
+    });
+    if (response.statusCode == 200) {
+      List jSonlst = json.decode(response.body);
+      hoadon = jSonlst[0].map((data) => HoaDon.fromJson(data)).toList();
+      ct_hoadon = jSonlst[1].map((data) => CT_HoaDon.fromJson(data)).toList();
+    }
+  } catch (e) {}
+  return [hoadon, ct_hoadon];
+}
