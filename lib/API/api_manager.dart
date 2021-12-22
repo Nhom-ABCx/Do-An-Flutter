@@ -262,3 +262,25 @@ Future<List<dynamic>> addCart(int khachHangId, int sanPhamId, int soLuong) async
   } catch (e) {}
   return [hoadon, ct_hoadon];
 }
+
+Future<dynamic> api_Update_KhachHang_HinhAnh(KhachHang khachHang, File imageFile) async {
+  var _khachHang = KhachHang.empty();
+  final uri = Uri.parse(urlBaseAPI + "KhachHang/" + "${khachHang.id}?_method=PATCH");
+
+  try {
+    var request = http.MultipartRequest('POST', uri)
+      ..files.add(await http.MultipartFile.fromPath('HinhAnh', imageFile.path));
+    final response = await request.send();
+    final body = await response.stream.bytesToString();
+    if (response.statusCode == 200) {
+      final jsonRaw = json.decode(body);
+      _khachHang = KhachHang.fromJson(jsonRaw);
+    } else if (response.statusCode == 400) {
+      return json.decode(body);
+    } else {
+      throw Exception("Something get wrong! Status code ${response.statusCode}");
+    }
+  } catch (e) {}
+
+  return _khachHang;
+}

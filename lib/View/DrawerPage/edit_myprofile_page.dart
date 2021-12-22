@@ -118,6 +118,16 @@ class EditMyProfileState extends State<EditMyProfile> {
                                           style: const TextStyle(
                                               fontWeight: FontWeight.bold, fontSize: 20),
                                         ),
+                                        StreamBuilder(
+                                            stream: _editMyController.hinhanhController.stream,
+                                            builder: (context, snapshot) => snapshot.hasError
+                                                ? Text(
+                                                    snapshot.hasError.toString(),
+                                                    style: const TextStyle(
+                                                        fontWeight: FontWeight.bold,
+                                                        color: Colors.white),
+                                                  )
+                                                : const SizedBox()),
                                       ],
                                     ),
                                   )
@@ -247,11 +257,18 @@ class EditMyProfileState extends State<EditMyProfile> {
 
                                           if (await _editMyController
                                               .ktUpdateKhachHang(_khachHang)) {
-                                            thongBaoScaffoldMessenger(context, "Update successful");
+                                            thongBaoScaffoldMessenger(
+                                                context, "Update Profile Successful");
                                             //reload page
                                             (context as Element).reassemble();
                                           } else {
-                                            thongBaoScaffoldMessenger(context, "Update Fails");
+                                            thongBaoScaffoldMessenger(
+                                                context, "Update Profile Fails");
+                                          }
+                                          if (await _editMyController.ktUpdateKhachHang_HinhAnh(
+                                              _khachHang, fileController.image!)) {
+                                            thongBaoScaffoldMessenger(
+                                                context, "Update Image Successful");
                                           }
                                         },
                                         icon: const Icon(

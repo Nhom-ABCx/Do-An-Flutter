@@ -391,5 +391,9 @@ Widget buildCircle({
 void thongBaoScaffoldMessenger(BuildContext context, String text) {
   ScaffoldMessenger.of(context)
     ..removeCurrentSnackBar()
-    ..showSnackBar(SnackBar(content: Text(text)));
+    ..showSnackBar(SnackBar(
+        content: Text(
+      text,
+      textAlign: TextAlign.center,
+    )));
 }
