@@ -9,7 +9,7 @@ class CartModel {
   final String? productImg;
 
   CartModel({
-    required this.id,
+   this.id,
     required this.productId,
     required this.productName,
     required this.productPrice,

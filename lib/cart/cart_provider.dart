@@ -51,8 +51,6 @@ class CartProvider extends ChangeNotifier{
     _getPrefItems();
     return _totalPrice;
   }
-
-
   void addCounter(){
     _counter++;
     _setPrefItems();

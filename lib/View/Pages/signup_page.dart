@@ -144,11 +144,15 @@ class _SignUpPageState extends State<SignUpPage> {
                                   ),
                                   GestureDetector(
                                     onTap: () => setState(() => notShowPassword = !notShowPassword),
-                                    child: Text(
-                                      notShowPassword ? "SHOW" : "HIDE",
-                                      style: const TextStyle(
-                                          fontSize: 15, fontWeight: FontWeight.bold),
-                                    ),
+                                    child: notShowPassword
+                                        ? const Icon(
+                                            Icons.visibility,
+                                            color: Colors.white,
+                                          )
+                                        : const Icon(
+                                            Icons.visibility_off,
+                                            color: Colors.white,
+                                          ),
                                   ),
                                 ],
                               )),

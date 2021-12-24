@@ -26,7 +26,7 @@ class DbCart {
 
 _onCreate(Database db,int version) async{
   await db.execute(
-    'CREATE TABLE  cart (id  INTEGER PRIMARY KEY, productId VARCHAR  UNIQUE, productName TEXT, productPrice INTEGER ,quantity INTEGER, productImg TEXT )'
+    'CREATE TABLE  cart (id  INTEGER PRIMARY KEY autoincrement, productId VARCHAR  UNIQUE, productName TEXT, productPrice INTEGER ,quantity INTEGER, productImg TEXT )'
   );
 }
   Future<CartModel> insert( CartModel cart) async{
