@@ -1,11 +1,7 @@
-import 'dart:async';
-import 'package:path/path.dart';
-import 'package:async/async.dart';
 import 'dart:io';
 import 'dart:convert';
 import 'dart:core';
 import 'package:http/http.dart' as http;
-import 'package:http_parser/http_parser.dart';
 import '../all_page.dart';
 
 String urlBaseAPI = "http://10.0.2.2:8000/api/";
@@ -268,17 +264,20 @@ Future<dynamic> api_Update_KhachHang_HinhAnh(KhachHang khachHang, File imageFile
   final uri = Uri.parse(urlBaseAPI + "KhachHang/" + "${khachHang.id}?_method=PATCH");
 
   try {
+    //tao 1 request chua 1 hinh anh
     var request = http.MultipartRequest('POST', uri)
       ..files.add(await http.MultipartFile.fromPath('HinhAnh', imageFile.path));
-    final response = await request.send();
-    final body = await response.stream.bytesToString();
-    if (response.statusCode == 200) {
-      final jsonRaw = json.decode(body);
+    //gui request do len sever, sever se luu hinh anh
+    final streamedResponse = await request.send();
+    //lay ket qua json tra ve cua sever
+    final response = await http.Response.fromStream(streamedResponse);
+    if (streamedResponse.statusCode == 200) {
+      final jsonRaw = json.decode(response.body);
       _khachHang = KhachHang.fromJson(jsonRaw);
-    } else if (response.statusCode == 400) {
-      return json.decode(body);
+    } else if (streamedResponse.statusCode == 400) {
+      return json.decode(response.body);
     } else {
-      throw Exception("Something get wrong! Status code ${response.statusCode}");
+      throw Exception("Something get wrong! Status code ${streamedResponse.statusCode}");
     }
   } catch (e) {}
 

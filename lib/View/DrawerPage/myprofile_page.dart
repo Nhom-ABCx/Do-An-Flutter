@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart'; //format datetime
 import '/all_page.dart';
@@ -43,11 +44,16 @@ class MyProfileState extends State<MyProfile> {
                               padding: const EdgeInsets.fromLTRB(20, 20, 10, 20),
                               child: ClipRRect(
                                   borderRadius: BorderRadius.circular(100),
-                                  child: Image.asset(
-                                    avtImageFix(),
+                                  child: CachedNetworkImage(
+                                    imageUrl: avtImageLogOut(),
                                     width: 100,
                                     height: 100,
                                     fit: BoxFit.cover,
+                                    errorWidget: (context, url, error) => const Icon(
+                                      Icons.error,
+                                      color: Colors.red,
+                                      size: 50,
+                                    ),
                                   )),
                             ),
                             Container(

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 //datetime picker
 import 'package:intl/intl.dart';
@@ -74,11 +75,17 @@ class EditMyProfileState extends State<EditMyProfile> {
                                                       height: 125,
                                                       fit: BoxFit.cover,
                                                     )
-                                                  : Image.asset(
-                                                      avtImageFix(),
+                                                  : CachedNetworkImage(
+                                                      imageUrl: avtImageLogOut(),
                                                       width: 125,
                                                       height: 125,
                                                       fit: BoxFit.cover,
+                                                      errorWidget: (context, url, error) =>
+                                                          const Icon(
+                                                        Icons.error,
+                                                        color: Colors.red,
+                                                        size: 50,
+                                                      ),
                                                     ),
                                             ),
                                           ),

@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; //text input
 import '../all_page.dart';
@@ -72,10 +73,16 @@ Widget buildIconButton(BuildContext context, IconData iconItem, Color? colorItem
 Widget buildImageBanner(String _urlImage, int index) => Container(
       //margin: const EdgeInsets.symmetric(horizontal: 24),
       color: Colors.grey,
-      child: Image.asset(
-        _urlImage,
+      child: CachedNetworkImage(
+        imageUrl: _urlImage,
         width: 360,
         fit: BoxFit.cover,
+        placeholder: (context, url) => const Center(
+          child: CircularProgressIndicator(),
+        ),
+        errorWidget: (context, url, error) => Container(
+          color: Colors.black12,
+        ),
       ),
     );
 
@@ -127,10 +134,17 @@ Widget buildItem(BuildContext context, SanPham _sp) {
           child: Material(
             color: Colors.transparent,
             child: InkWell(
-              child: Image.asset(
-                "images/product-image/" + _sp.hinhAnh!,
+              child: CachedNetworkImage(
+                imageUrl:
+                    "http://10.0.2.2:8000/storage/assets/images/product-image/" + _sp.hinhAnh!,
                 width: 100,
                 height: 130,
+                placeholder: (context, url) => const Center(
+                  child: CircularProgressIndicator(),
+                ),
+                errorWidget: (context, url, error) => Container(
+                  color: Colors.black12,
+                ),
               ),
               onTap: () {
                 Navigator.push(
@@ -369,10 +383,11 @@ List<Widget> hienThiDanhMucDrawer(BuildContext context) {
   ];
 }
 
-String avtImageFix() {
+String avtImageLogOut() {
   return (Auth.khachHang.hinhAnh!.isEmpty)
-      ? "images/gallery/user2.png"
-      : "images/gallery/" + Auth.khachHang.hinhAnh!;
+      ? "http://10.0.2.2:8000/storage/assets/images/avatar/empty.png"
+      : "http://10.0.2.2:8000/storage/assets/images/avatar/User/${Auth.khachHang.id!}/" +
+          Auth.khachHang.hinhAnh!;
 }
 
 Widget buildCircle({
