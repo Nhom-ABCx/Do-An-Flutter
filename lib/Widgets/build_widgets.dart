@@ -1,6 +1,10 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; //text input
+import 'package:flutter_application_1/cart/cart_model.dart';
+import 'package:flutter_application_1/cart/cart_provider.dart';
+import 'package:flutter_application_1/cart/db/db_cart.dart';
+import 'package:provider/provider.dart';
 import '../all_page.dart';
 
 // class PhoneScreen extends StatefulWidget {
@@ -39,8 +43,8 @@ import '../all_page.dart';
 //     );
 //   }
 // }
-Widget buildIconButton(BuildContext context, IconData iconItem, Color? colorItem, String? textItem,
-        String routeting) =>
+Widget buildIconButton(BuildContext context, IconData iconItem,
+        Color? colorItem, String? textItem, String routeting) =>
     Padding(
       padding: const EdgeInsets.all(10),
       child: ClipRRect(
@@ -111,6 +115,9 @@ Widget buildItemListTitle({
 }
 
 Widget buildItem(BuildContext context, SanPham _sp) {
+  DbCart db = DbCart();
+  final cart = Provider.of<CartProvider>(context);
+  final _id = 0;
   return Container(
     width: 200,
     height: 580,
@@ -134,7 +141,9 @@ Widget buildItem(BuildContext context, SanPham _sp) {
               ),
               onTap: () {
                 Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => ProductDetail(sanPham: _sp)));
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ProductDetail(sanPham: _sp)));
               },
             ),
           ),
@@ -145,17 +154,20 @@ Widget buildItem(BuildContext context, SanPham _sp) {
               padding: const EdgeInsets.fromLTRB(4.0, 0, 0, 0),
               child: Text(
                 _sp.tenSanPham,
-                style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
               ),
             )),
         Positioned(
           top: 150.0,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(4.0, 0, 0, 0),
-            child: Text('Giá:'+
-              _sp.giaBan.toString(),
+            child: Text(
+              'Giá:' + _sp.giaBan.toString(),
               style: const TextStyle(
-                  fontWeight: FontWeight.bold, fontSize: 15, color: Colors.blueAccent),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                  color: Colors.blueAccent),
             ),
           ),
         ),
@@ -165,17 +177,37 @@ Widget buildItem(BuildContext context, SanPham _sp) {
                 padding: const EdgeInsets.fromLTRB(4.0, 0, 0, 0),
                 child: Text(
                   'Còn:' + _sp.soLuongTon.toString(),
-                  style:
-                      const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.red),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                      color: Colors.red),
                 ))),
         Positioned(
           left: 140.0,
           top: 146.0,
           child: Align(
               alignment: const Alignment(3, 0),
-              child: IconButton(
-                onPressed: () {},
-                icon: const Icon(
+              child: InkWell(
+                onTap: () {
+                  db
+                      .insert(CartModel(
+                        id: _id,
+                        productId: _sp.id.toString(),
+                        productName: _sp.tenSanPham,
+                        productPrice: _sp.giaBan,
+                        quantity: 1,
+                        productImg: _sp.hinhAnh,
+                      ))
+                      .then((value) {
+                        print('Product add to cart!');
+                        cart.addTotalPrice(double.parse(_sp.giaBan.toString()));
+                        cart.addCounter();
+                      })
+                      .onError((error, stackTrace) {
+                    print(error.toString());
+                  });
+                },
+                child: const Icon(
                   Icons.add_circle,
                   color: Colors.green,
                   size: 40.0,
@@ -187,7 +219,8 @@ Widget buildItem(BuildContext context, SanPham _sp) {
   );
 }
 
-Widget buildTextMyProfile({required IconData icon, required String title, required String lable}) {
+Widget buildTextMyProfile(
+    {required IconData icon, required String title, required String lable}) {
   const color = Colors.green;
   const colorText = Colors.black;
   const padding = EdgeInsets.fromLTRB(0, 10, 0, 10);
@@ -207,8 +240,10 @@ Widget buildTextMyProfile({required IconData icon, required String title, requir
             Padding(
               padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
               child: Text(title,
-                  style:
-                      const TextStyle(color: colorText, fontSize: 15, fontWeight: FontWeight.bold)),
+                  style: const TextStyle(
+                      color: colorText,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold)),
             )
           ],
         ),
@@ -244,8 +279,10 @@ Widget buildInputTextMyProfile(AsyncSnapshot<Object?> snapshot,
             Padding(
               padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
               child: Text(title,
-                  style:
-                      const TextStyle(color: colorText, fontSize: 15, fontWeight: FontWeight.bold)),
+                  style: const TextStyle(
+                      color: colorText,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold)),
             )
           ],
         ),
@@ -272,7 +309,9 @@ Widget buildInputTextMyProfile(AsyncSnapshot<Object?> snapshot,
 }
 
 Widget buildSessionCutoms(
-    {required IconData icons, required String text, required String textCustoms}) {
+    {required IconData icons,
+    required String text,
+    required String textCustoms}) {
   const icon = Icons.chevron_right;
   Color clr = Colors.blue;
   Row object_1 = Row(
