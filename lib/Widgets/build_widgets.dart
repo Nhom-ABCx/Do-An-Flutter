@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; //text input
@@ -44,8 +43,8 @@ import '../all_page.dart';
 //     );
 //   }
 // }
-Widget buildIconButton(BuildContext context, IconData iconItem,
-        Color? colorItem, String? textItem, String routeting) =>
+Widget buildIconButton(BuildContext context, IconData iconItem, Color? colorItem, String? textItem,
+        String routeting) =>
     Padding(
       padding: const EdgeInsets.all(10),
       child: ClipRRect(
@@ -155,9 +154,7 @@ Widget buildItem(BuildContext context, SanPham _sp) {
               ),
               onTap: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ProductDetail(sanPham: _sp)));
+                    context, MaterialPageRoute(builder: (context) => ProductDetail(sanPham: _sp)));
               },
             ),
           ),
@@ -168,8 +165,7 @@ Widget buildItem(BuildContext context, SanPham _sp) {
               padding: const EdgeInsets.fromLTRB(4.0, 0, 0, 0),
               child: Text(
                 _sp.tenSanPham,
-                style:
-                    const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
               ),
             )),
         Positioned(
@@ -179,9 +175,7 @@ Widget buildItem(BuildContext context, SanPham _sp) {
             child: Text(
               'Giá:' + _sp.giaBan.toString(),
               style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
-                  color: Colors.blueAccent),
+                  fontWeight: FontWeight.bold, fontSize: 15, color: Colors.blueAccent),
             ),
           ),
         ),
@@ -191,10 +185,8 @@ Widget buildItem(BuildContext context, SanPham _sp) {
                 padding: const EdgeInsets.fromLTRB(4.0, 0, 0, 0),
                 child: Text(
                   'Còn:' + _sp.soLuongTon.toString(),
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                      color: Colors.red),
+                  style:
+                      const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.red),
                 ))),
         Positioned(
           left: 140.0,
@@ -205,18 +197,17 @@ Widget buildItem(BuildContext context, SanPham _sp) {
                 onTap: () {
                   db
                       .insert(CartModel(
-                        productId: _sp.id.toString(),
-                        productName: _sp.tenSanPham,
-                        productPrice: _sp.giaBan,
-                        quantity: 1,
-                        productImg: _sp.hinhAnh,
-                      ))
+                    productId: _sp.id.toString(),
+                    productName: _sp.tenSanPham,
+                    productPrice: _sp.giaBan,
+                    quantity: 1,
+                    productImg: _sp.hinhAnh,
+                  ))
                       .then((value) {
-                        print('Product add to cart!');
-                        cart.addTotalPrice(double.parse(_sp.giaBan.toString()));
-                        cart.addCounter();
-                      })
-                      .onError((error, stackTrace) {
+                    print('Product add to cart!');
+                    cart.addTotalPrice(double.parse(_sp.giaBan.toString()));
+                    cart.addCounter();
+                  }).onError((error, stackTrace) {
                     print(error.toString());
                   });
                 },
@@ -232,8 +223,7 @@ Widget buildItem(BuildContext context, SanPham _sp) {
   );
 }
 
-Widget buildTextMyProfile(
-    {required IconData icon, required String title, required String lable}) {
+Widget buildTextMyProfile({required IconData icon, required String title, required String lable}) {
   const color = Colors.green;
   const colorText = Colors.black;
   const padding = EdgeInsets.fromLTRB(0, 10, 0, 10);
@@ -253,10 +243,8 @@ Widget buildTextMyProfile(
             Padding(
               padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
               child: Text(title,
-                  style: const TextStyle(
-                      color: colorText,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold)),
+                  style:
+                      const TextStyle(color: colorText, fontSize: 15, fontWeight: FontWeight.bold)),
             )
           ],
         ),
@@ -292,10 +280,8 @@ Widget buildInputTextMyProfile(AsyncSnapshot<Object?> snapshot,
             Padding(
               padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
               child: Text(title,
-                  style: const TextStyle(
-                      color: colorText,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold)),
+                  style:
+                      const TextStyle(color: colorText, fontSize: 15, fontWeight: FontWeight.bold)),
             )
           ],
         ),
@@ -322,9 +308,7 @@ Widget buildInputTextMyProfile(AsyncSnapshot<Object?> snapshot,
 }
 
 Widget buildSessionCutoms(
-    {required IconData icons,
-    required String text,
-    required String textCustoms}) {
+    {required IconData icons, required String text, required String textCustoms}) {
   const icon = Icons.chevron_right;
   Color clr = Colors.blue;
   Row object_1 = Row(
@@ -447,3 +431,18 @@ void thongBaoScaffoldMessenger(BuildContext context, String text) {
       textAlign: TextAlign.center,
     )));
 }
+
+Widget avtCachedNetworkImage(double _width, double _height) => CachedNetworkImage(
+      imageUrl: avtImageLogOut(),
+      width: _width,
+      height: _height,
+      fit: BoxFit.cover,
+      placeholder: (context, url) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+      errorWidget: (context, url, error) => const Icon(
+        Icons.error,
+        color: Colors.red,
+        size: 50,
+      ),
+    );

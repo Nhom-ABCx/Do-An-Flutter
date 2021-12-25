@@ -5,9 +5,10 @@ import 'package:flutter_application_1/cart/cart_provider.dart';
 import 'package:provider/provider.dart';
 import 'all_page.dart'; //lam` v cho no' nho? ra
 
-void main() { 
+void main() {
   Provider.debugCheckInvalidValueType = null;
-  runApp(const MyApp());}
+  runApp(const MyApp());
+}
 // SystemChrome.setSystemUIOverlayStyle(
 //     const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
 
@@ -16,13 +17,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return 
-    MultiProvider (
-       providers: [
-          Provider<ChangeLayOut>( create: (_) => ChangeLayOut()),
-          Provider<CartProvider>(create:(_)=>CartProvider()),
-       
-        Provider<FileController>(create: (_) => FileController())
+    return MultiProvider(
+      providers: [
+        Provider<ChangeLayOut>(create: (_) => ChangeLayOut()),
+        Provider<CartProvider>(create: (_) => CartProvider()),
+        Provider<FileController>(create: (_) => FileController()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false, //tat cai' debug tren appbar
