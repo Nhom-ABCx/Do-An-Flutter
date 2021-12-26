@@ -15,15 +15,64 @@ class NotificationsState extends State<Notifications> {
         onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
           //TopHeader
-          appBar: AppBarPage(),
+          appBar: AppBar(
+            title: Text(
+              'Notifications',
+              style: TextStyle(color: Colors.black87),
+            ),
+            centerTitle: true,
+          ),
           //Hide
           drawer: const NavigationDrawer(),
           //Body
-          body: const Center(
-            child: Text("ListTitle Thong bao'"),
+          body: ListView.separated(
+            physics: ClampingScrollPhysics(),
+            padding: EdgeInsets.zero,
+            itemCount: 35,
+            itemBuilder: (context, index) {
+              return BodyNotifications();
+            },
+            separatorBuilder: (context, index) {
+              return const Divider();
+            },
           ),
           //nho' thay doi? lai con so' truyen du~ lieu
           bottomNavigationBar: const BottomNavBar(0),
         ),
       );
+}
+
+class BodyNotifications extends StatelessWidget {
+  const BodyNotifications({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: Container(
+        height: 50.0,
+        width: 50.0,
+        decoration: const BoxDecoration(
+            image: DecorationImage(image: AssetImage(logo), fit: BoxFit.cover)),
+      ),
+      title: const Text(
+        'E-EEEE',
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 20,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+      subtitle: const Text(
+        'timeee',
+        style: TextStyle(
+          color: Colors.black45,
+          fontSize: 15,
+        ),
+      ),
+      onTap: () {},
+      enabled: true,
+    );
+  }
 }
