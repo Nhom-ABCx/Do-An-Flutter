@@ -446,3 +446,38 @@ Widget avtCachedNetworkImage(double _width, double _height) => CachedNetworkImag
         size: 50,
       ),
     );
+
+Widget OrDivider(BuildContext context) {
+  Size size = MediaQuery.of(context).size;
+  return Container(
+    margin: EdgeInsets.symmetric(vertical: size.height * 0.02),
+    width: size.width * 0.8,
+    child: Row(
+      children: <Widget>[
+        buildDivider(),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: Text(
+            "OR",
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+        buildDivider(),
+      ],
+    ),
+  );
+}
+
+Expanded buildDivider() {
+  //expanded la widget nhu khoang? cach'
+  return const Expanded(
+    //Divider la ke~ lan`
+    child: Divider(
+      color: Colors.white,
+      height: 1.5,
+    ),
+  );
+}
