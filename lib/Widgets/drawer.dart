@@ -1,5 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../all_page.dart';
 
 class NavigationDrawer extends StatelessWidget {
@@ -27,17 +27,7 @@ class NavigationDrawer extends StatelessWidget {
                   children: [
                     ClipRRect(
                         borderRadius: BorderRadius.circular(100),
-                        child: CachedNetworkImage(
-                          imageUrl: avtImageLogOut(),
-                          width: 100,
-                          height: 100,
-                          fit: BoxFit.cover,
-                          errorWidget: (context, url, error) => const Icon(
-                            Icons.error,
-                            color: Colors.red,
-                            size: 50,
-                          ),
-                        )),
+                        child: avtCachedNetworkImage(100, 100)),
                     Padding(
                       padding: const EdgeInsets.only(top: 10),
                       child: Text(

@@ -13,12 +13,38 @@ import '../../all_page.dart';
 class CartPage extends StatefulWidget {
   const CartPage({Key? key}) : super(key: key);
 
+  
   @override
   State<StatefulWidget> createState() => CartPageState();
 }
 
 class CartPageState extends State<CartPage> {
   @override
+
+  //Widget product to cart
+  Widget buildProductCart(SanPham sp ){
+    int soLuong=0;
+    return Row(
+      children:[
+          IconButton(onPressed: (){},
+           icon: const Icon(Icons.cancel_outlined,color: Colors.red,)),
+          Image(image: AssetImage("images/product-image/"+sp.hinhAnh!)),
+          Column(
+            children: [
+              Text(sp.tenSanPham),
+              Text(sp.giaBan.toString())
+            ],
+          ),
+          Row(
+            children: [
+              IconButton(onPressed: ()=>soLuong--, icon: const Icon(Icons.remove)),
+              Text(soLuong.toString()),
+              IconButton(onPressed: ()=>soLuong++, icon: const Icon(Icons.add))
+            ],
+          )
+      ]
+    );
+  }
   Widget build(BuildContext context) {
     final cart = Provider.of<CartProvider>(context);
     return GestureDetector(

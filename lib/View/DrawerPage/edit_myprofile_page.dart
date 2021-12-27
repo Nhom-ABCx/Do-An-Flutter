@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 //datetime picker
 import 'package:intl/intl.dart';
@@ -28,6 +27,7 @@ class EditMyProfileState extends State<EditMyProfile> {
   Widget build(BuildContext context) {
     //lay ra mau` chu dao cua theme
     final color = Theme.of(context).colorScheme.primary;
+    Provider.of<FileController>(context).image = null;
 
     return GestureDetector(
       //huy keyboard khi bam ngoai man hinh
@@ -75,18 +75,7 @@ class EditMyProfileState extends State<EditMyProfile> {
                                                       height: 125,
                                                       fit: BoxFit.cover,
                                                     )
-                                                  : CachedNetworkImage(
-                                                      imageUrl: avtImageLogOut(),
-                                                      width: 125,
-                                                      height: 125,
-                                                      fit: BoxFit.cover,
-                                                      errorWidget: (context, url, error) =>
-                                                          const Icon(
-                                                        Icons.error,
-                                                        color: Colors.red,
-                                                        size: 50,
-                                                      ),
-                                                    ),
+                                                  : avtCachedNetworkImage(125, 125),
                                             ),
                                           ),
                                           Positioned(

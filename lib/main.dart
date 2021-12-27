@@ -6,9 +6,10 @@ import 'package:flutter_application_1/cart/cart_provider.dart';
 import 'package:provider/provider.dart';
 import 'all_page.dart'; //lam` v cho no' nho? ra
 
-void main() { 
+void main() {
   Provider.debugCheckInvalidValueType = null;
-  runApp(const MyApp());}
+  runApp(const MyApp());
+}
 // SystemChrome.setSystemUIOverlayStyle(
 //     const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
 

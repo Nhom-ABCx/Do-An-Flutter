@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
 import 'package:flutter_application_1/all_page.dart';
 import 'dart:io';
 
@@ -39,8 +38,32 @@ class EditMyProfileController {
     final validate = await api_Update_KhachHang(Auth.khachHang);
     //neu' no' tra ve ko phai la class thi` kiem tra no' tra? ve` loi~ nao` de hien thi
     if (validate is! KhachHang) {
+      if (validate["Username"].toString() != "null") {
+        usernameController.sink.addError(validate["Username"]);
+        return false;
+      }
+      if (validate["Email"].toString() != "null") {
+        emailController.sink.addError(validate["Email"]);
+        return false;
+      }
+      if (validate["Phone"].toString() != "null") {
+        phoneController.sink.addError(validate["Phone"]);
+        return false;
+      }
+      if (validate["HoTen"].toString() != "null") {
+        hotenController.sink.addError(validate["HoTen"]);
+        return false;
+      }
+      if (validate["NgaySinh"].toString() != "null") {
+        ngaysinhController.sink.addError(validate["NgaySinh"]);
+        return false;
+      }
       if (validate["GioiTinh"].toString() != "null") {
         gioitinhController.sink.addError(validate["GioiTinh"]);
+        return false;
+      }
+      if (validate["DiaChi"].toString() != "null") {
+        gioitinhController.sink.addError(validate["DiaChi"]);
         return false;
       }
     }
