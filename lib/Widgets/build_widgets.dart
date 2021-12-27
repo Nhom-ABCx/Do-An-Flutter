@@ -124,7 +124,8 @@ Widget buildItemListTitle({
 Widget buildItem(BuildContext context, SanPham _sp) {
   DbCart db = DbCart();
   final cart = Provider.of<CartProvider>(context);
-  final _id = 0;
+  //  final id=Provider.of<CartModel>(context).id;
+  //var autoId=id++;
   return Container(
     width: 200,
     height: 580,
@@ -203,18 +204,16 @@ Widget buildItem(BuildContext context, SanPham _sp) {
               alignment: const Alignment(3, 0),
               child: InkWell(
                 onTap: () {
-                  db
-                      .insert(CartModel(
-                        productId: _sp.id.toString(),
+                  db.insert(Cart(
                         productName: _sp.tenSanPham,
-                        productPrice: _sp.giaBan,
+                        productPrice: _sp.giaBan!,
                         quantity: 1,
-                        productImg: _sp.hinhAnh,
+                        productImg: _sp.hinhAnh!,
                       ))
                       .then((value) {
                         print('Product add to cart!');
-                        cart.addTotalPrice(double.parse(_sp.giaBan.toString()));
-                        cart.addCounter();
+                        // cart.addTotalPrice(double.parse(_sp.giaBan.toString()));
+                        // cart.addCounter();
                       })
                       .onError((error, stackTrace) {
                     print(error.toString());

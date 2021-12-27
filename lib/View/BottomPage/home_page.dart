@@ -21,13 +21,13 @@ class HomePageState extends State<HomePage> {
   final urlImages = [
     "http://10.0.2.2:8000/storage/assets/images/banner/banner_1.png",
     'http://10.0.2.2:8000/storage/assets/images/banner/banner_2.png',
-    'http://10.0.2.2:8000/storage/assets/images/banner/banner_3.png',
-    'http://10.0.2.2:8000/storage/assets/images/banner/banner_4.png'
+    //'http://10.0.2.2:8000/storage/assets/images/banner/banner_3.png',
+    //'http://10.0.2.2:8000/storage/assets/images/banner/banner_4.png'
   ];
   //final Future<List<SanPham>> _dssanpham = fetchSanPham();
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
   }
 
@@ -112,7 +112,8 @@ class HomePageState extends State<HomePage> {
                   children: [
                     const Text(
                       'Top Products',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(right: 10.0),
@@ -122,7 +123,8 @@ class HomePageState extends State<HomePage> {
                         onPressed: () {},
                         child: const Text(
                           'View All',
-                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
                         ),
                         color: Colors.red,
                       ),
@@ -149,9 +151,10 @@ Widget buildIconProductCategori(BuildContext context) => Padding(
       padding: const EdgeInsets.all(15.0),
       child: Wrap(
         children: [
-          buildIconButton(context, Icons.phone_android_rounded, Colors.red, "Phone", "/PhonePage"),
-          buildIconButton(
-              context, Icons.laptop_chromebook_sharp, Colors.blue, "LapTop", "/LapTopPage"),
+          buildIconButton(context, Icons.phone_android_rounded, Colors.red,
+              "Phone", "/PhonePage"),
+          buildIconButton(context, Icons.laptop_chromebook_sharp, Colors.blue,
+              "LapTop", "/LapTopPage"),
           // buildIconButton(Icons.fastfood_outlined, Colors.yellow, "Foods"),
           // buildIconButton(Icons.sports_esports, Colors.green, "Sports"),
           // buildIconButton(Icons.headphones_battery_outlined, Colors.yellow, "Gadgets"),
@@ -211,7 +214,8 @@ Widget buildSanPhamFlashsale(BuildContext context) {
             ? ListView.separated(
                 padding: const EdgeInsets.all(20),
                 scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) => buildItem(context, snapshot.data![index]),
+                itemBuilder: (context, index) =>
+                    buildItem(context, snapshot.data![index]),
                 separatorBuilder: (context, _) => const SizedBox(
                       width: 15, //khoang cach giua cac'layout
                     ),

@@ -1,38 +1,60 @@
 
+final String tableCart='cart';
+class CartFields{
+  static String id='_id';
+  static String productName='productName';
+  static String productPrice='productPrice';
+  static String quantity='quantity';
+  static String productImg='productImg';
+}
+class Cart {
+  final int? id;
+  final String productName;
+  final int productPrice;
+  final int quantity;
+  final String productImg;
 
-class CartModel {
-  late final int? id;
-  final String? productId;
-  final String? productName;
-  final int? productPrice;
-  final int? quantity;
-  final String? productImg;
-
-  CartModel({
-   this.id,
-    required this.productId,
+  Cart({
+    this.id,
     required this.productName,
     required this.productPrice,
     required this.quantity,
     required this.productImg
   });
 
-  CartModel.fromMap(Map<dynamic,dynamic> res)
-  :id=res['id'],
-  productId=res['productId'],
-  productName=res['productName'],
-  productPrice=res['productPrice'],
-  quantity=res['quantity'],
-  productImg=res['productImg'];
+  Cart.fromMap(Map<dynamic,dynamic> json)
+   :id=json['id'],
+  productName=json['productName'],
+  productPrice=json['productPrice'],
+  quantity=json['quantity'],
+  productImg=json['productImg'];
   
   Map<String,Object?> toMap(){
     return {
         'id':id,
-        'productId':productId,
         'productName':productName,
         'productPrice': productPrice,
         'quantity':quantity,
         'productImg':productImg
     };
   }
+  Map<String, Object?> toJson()=>{
+    CartFields.id:id,
+    CartFields.productName:productName,
+    CartFields.productPrice:productPrice,
+    CartFields.quantity:quantity,
+    CartFields.productImg:productImg
+  };
+  Cart copy({
+    int? id,
+    String? productName,
+    int? productPrice,
+    int? quantity,
+    String? productImg,
+  })=>Cart(id: id?? this.id,
+    productName: productName?? this.productName,
+    productPrice: productPrice??this.productPrice,
+    quantity: quantity??this.quantity,
+    productImg: productImg??this.productImg
+  );
 }

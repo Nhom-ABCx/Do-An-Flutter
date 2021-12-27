@@ -13,10 +13,10 @@ class CartProvider extends ChangeNotifier{
   int get counter =>_counter;
   double get  totalPrice=>_totalPrice;
 
-  late Future <List<CartModel>> _cart;
-  Future<List<CartModel>> get cart=>_cart;
+  late Future <List<Cart>> _cart;
+  Future<List<Cart>> get cart=>_cart;
 
-  Future<List<CartModel>> getData () async{
+  Future<List<Cart>> getData () async{
     _cart=db.getCartList();
     return _cart;
   }
