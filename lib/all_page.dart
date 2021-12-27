@@ -26,8 +26,14 @@ export 'Widgets/build_widgets.dart';
 
 export 'Modals/class.dart';
 export 'Modals/khach_hang.dart';
+export 'Modals/hoa_don.dart';
+export 'Modals/ct_hoa_don.dart';
 
 export 'API/api_manager.dart';
 
 export 'Controller/auth.dart';
 export 'Controller/edit_myprofile_controller.dart';
+export 'Controller/sanpham_controller.dart';
+export 'Controller/file_controller.dart';
+
+const String logo = 'assets/images/thongbao.jpg';

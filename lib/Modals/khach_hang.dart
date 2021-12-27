@@ -26,7 +26,7 @@ class KhachHang {
       required this.username,
       this.email,
       this.phone,
-      this.matKhau,
+      //this.matKhau,
       this.hoTen,
       this.ngaySinh,
       this.gioiTinh,
@@ -43,7 +43,7 @@ class KhachHang {
     username = "";
     email = "";
     phone = "";
-    matKhau = "";
+    //matKhau = "";
     hoTen = "";
     ngaySinh = DateTime.now();
     gioiTinh = 0;
@@ -59,7 +59,7 @@ class KhachHang {
     username = "";
     email = "";
     phone = "";
-    matKhau = "";
+    //matKhau = "";
     hoTen = "";
     ngaySinh = DateTime.now();
     gioiTinh = 0;

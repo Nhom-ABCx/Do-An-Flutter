@@ -17,9 +17,15 @@ SanPham _$SanPhamFromJson(Map<String, dynamic> json) => SanPham(
       luotMua: json['LuotMua'] as int?,
       hangSanXuatId: json['HangSanXuatId'] as int?,
       loaiSanPhamId: json['LoaiSanPhamId'] as int?,
-      createdAt: json['created_at'] == null ? null : DateTime.parse(json['created_at'] as String),
-      updatedAt: json['updated_at'] == null ? null : DateTime.parse(json['updated_at'] as String),
-      deletedAt: json['deleted_at'] == null ? null : DateTime.parse(json['deleted_at'] as String),
+      createdAt: json['created_at'] == null
+          ? null
+          : DateTime.parse(json['created_at'] as String),
+      updatedAt: json['updated_at'] == null
+          ? null
+          : DateTime.parse(json['updated_at'] as String),
+      deletedAt: json['deleted_at'] == null
+          ? null
+          : DateTime.parse(json['deleted_at'] as String),
     );
 
 Map<String, dynamic> _$SanPhamToJson(SanPham instance) => <String, dynamic>{

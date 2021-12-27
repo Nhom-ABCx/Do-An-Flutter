@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; //text input
 import '/all_page.dart';
@@ -43,10 +44,16 @@ class _SignUpPageState extends State<SignUpPage> {
                 padding: const EdgeInsets.only(top: 100),
                 child: Column(
                   children: [
-                    Image.asset(
-                      'images/logo/logo-white.png',
+                    CachedNetworkImage(
+                      imageUrl: 'http://10.0.2.2:8000/storage/assets/images/logo/logo-white.png',
                       width: 80,
                       fit: BoxFit.cover,
+                      placeholder: (context, url) => const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                      errorWidget: (context, url, error) => Container(
+                        color: Colors.black12,
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
@@ -144,11 +151,15 @@ class _SignUpPageState extends State<SignUpPage> {
                                   ),
                                   GestureDetector(
                                     onTap: () => setState(() => notShowPassword = !notShowPassword),
-                                    child: Text(
-                                      notShowPassword ? "SHOW" : "HIDE",
-                                      style: const TextStyle(
-                                          fontSize: 15, fontWeight: FontWeight.bold),
-                                    ),
+                                    child: notShowPassword
+                                        ? const Icon(
+                                            Icons.visibility,
+                                            color: Colors.white,
+                                          )
+                                        : const Icon(
+                                            Icons.visibility_off,
+                                            color: Colors.white,
+                                          ),
                                   ),
                                 ],
                               )),

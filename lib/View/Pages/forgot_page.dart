@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_1/all_page.dart'; //text input
@@ -30,10 +31,16 @@ class _ForgotPageState extends State<ForgotPage> {
                 padding: const EdgeInsets.only(top: 100),
                 child: Column(
                   children: [
-                    Image.asset(
-                      'images/logo/logo-white.png',
+                    CachedNetworkImage(
+                      imageUrl: 'http://10.0.2.2:8000/storage/assets/images/logo/logo-white.png',
                       width: 80,
                       fit: BoxFit.cover,
+                      placeholder: (context, url) => const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                      errorWidget: (context, url, error) => Container(
+                        color: Colors.black12,
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(

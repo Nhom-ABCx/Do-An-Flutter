@@ -19,10 +19,10 @@ class HomePageState extends State<HomePage> {
   int activeIndex = 0;
   //tao ds hinh anh cho banner
   final urlImages = [
-    'images/banner/banner_1.png',
-    'images/banner/banner_2.png',
-    'images/banner/banner_3.png',
-    'images/banner/banner_4.png'
+    "http://10.0.2.2:8000/storage/assets/images/banner/banner_1.png",
+    'http://10.0.2.2:8000/storage/assets/images/banner/banner_2.png',
+    'http://10.0.2.2:8000/storage/assets/images/banner/banner_3.png',
+    'http://10.0.2.2:8000/storage/assets/images/banner/banner_4.png'
   ];
   //final Future<List<SanPham>> _dssanpham = fetchSanPham();
   @override
@@ -48,43 +48,42 @@ class HomePageState extends State<HomePage> {
       ),
     );
 
-    Widget _listView = Column(
-      children: [
-        Padding(
-            padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                //Slider cho cai banner
-                CarouselSlider.builder(
+    Widget _listView = Column(children: [
+      Padding(
+          padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              //Slider cho cai banner
+              CarouselSlider.builder(
                   itemCount: urlImages.length,
                   itemBuilder: (context, index, realIndex) {
                     final urlImage = urlImages[index];
                     return buildImageBanner(urlImage, index);
                   },
                   options: CarouselOptions(
-                      height: 100,
-                      autoPlay: true, //tu dong chay
-                      //reverse: true, //dao? nguoc chay
-                      //autoPlayInterval: const Duration(seconds: 4), //mac dinh la 4
-                      enlargeCenterPage: true, //lam noi bat trung tam hinh`
-                      //onPageChanged: (index, reason) => setState(() => activeIndex = index)),
-                )),
-              ],
-            )),
-        Align(
-          alignment: Alignment.topLeft,
-          child: Container(
-            margin: const EdgeInsets.only(left: 30),
-            child: const Text(
-              'Product Categories',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+                    height: 100,
+                    autoPlay: true, //tu dong chay
+                    //reverse: true, //dao? nguoc chay
+                    //autoPlayInterval: const Duration(seconds: 4), //mac dinh la 4
+                    enlargeCenterPage: true, //lam noi bat trung tam hinh`
+                    //onPageChanged: (index, reason) => setState(() => activeIndex = index)),
+                  )),
+            ],
+          )),
+      Align(
+        alignment: Alignment.topLeft,
+        child: Container(
+          margin: const EdgeInsets.only(left: 30),
+          child: const Text(
+            'Product Categories',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),
+      ),
       buildIconProductCategori(context),
       _flashsale,
       // Sản phẩm flash sale
@@ -113,8 +112,7 @@ class HomePageState extends State<HomePage> {
                   children: [
                     const Text(
                       'Top Products',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(right: 10.0),
@@ -124,8 +122,7 @@ class HomePageState extends State<HomePage> {
                         onPressed: () {},
                         child: const Text(
                           'View All',
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
+                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                         ),
                         color: Colors.red,
                       ),
@@ -152,10 +149,9 @@ Widget buildIconProductCategori(BuildContext context) => Padding(
       padding: const EdgeInsets.all(15.0),
       child: Wrap(
         children: [
-          buildIconButton(context, Icons.phone_android_rounded, Colors.red,
-              "Phone", "/PhonePage"),
-          buildIconButton(context, Icons.laptop_chromebook_sharp, Colors.blue,
-              "LapTop", "/LapTopPage"),
+          buildIconButton(context, Icons.phone_android_rounded, Colors.red, "Phone", "/PhonePage"),
+          buildIconButton(
+              context, Icons.laptop_chromebook_sharp, Colors.blue, "LapTop", "/LapTopPage"),
           // buildIconButton(Icons.fastfood_outlined, Colors.yellow, "Foods"),
           // buildIconButton(Icons.sports_esports, Colors.green, "Sports"),
           // buildIconButton(Icons.headphones_battery_outlined, Colors.yellow, "Gadgets"),
@@ -195,7 +191,6 @@ Widget _flashsale() => Container(
       ),
     );
 
-
 // Sản phẩm flash sale
 Widget buildSanPhamFlashsale(BuildContext context) {
   return //loi~ ko hien thi duoc hinh` la` do database dung dot giua .jpg.png
@@ -216,15 +211,14 @@ Widget buildSanPhamFlashsale(BuildContext context) {
             ? ListView.separated(
                 padding: const EdgeInsets.all(20),
                 scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) =>
-                    buildItem(context, snapshot.data![index]),
+                itemBuilder: (context, index) => buildItem(context, snapshot.data![index]),
                 separatorBuilder: (context, _) => const SizedBox(
                       width: 15, //khoang cach giua cac'layout
                     ),
                 //tra ve so luong phan tu trong danh sach
                 itemCount: snapshot.data!.length)
             //ko co' du~ lieu thi`cho icon xoay long` vong`
-            :  const Center(child: CircularProgressIndicator());
+            : const Center(child: CircularProgressIndicator());
       },
     ),
   );
@@ -243,8 +237,8 @@ Widget _builProductTop(BuildContext context) => FutureBuilder<List<SanPham>>(
               physics: const NeverScrollableScrollPhysics(),
               itemCount: snapshot.data!.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                 ),
+                crossAxisCount: 2,
+              ),
               itemBuilder: (context, index) => Container(
                     margin: const EdgeInsets.all(5.0),
                     child: buildItem(context, snapshot.data![index]),

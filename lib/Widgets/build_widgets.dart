@@ -1,6 +1,10 @@
-import 'dart:ui';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; //text input
+import 'package:flutter_application_1/cart/cart_model.dart';
+import 'package:flutter_application_1/cart/cart_provider.dart';
+import 'package:flutter_application_1/cart/db/db_cart.dart';
+import 'package:provider/provider.dart';
 import '../all_page.dart';
 
 // class PhoneScreen extends StatefulWidget {
@@ -72,10 +76,16 @@ Widget buildIconButton(BuildContext context, IconData iconItem, Color? colorItem
 Widget buildImageBanner(String _urlImage, int index) => Container(
       //margin: const EdgeInsets.symmetric(horizontal: 24),
       color: Colors.grey,
-      child: Image.asset(
-        _urlImage,
+      child: CachedNetworkImage(
+        imageUrl: _urlImage,
         width: 360,
         fit: BoxFit.cover,
+        placeholder: (context, url) => const Center(
+          child: CircularProgressIndicator(),
+        ),
+        errorWidget: (context, url, error) => Container(
+          color: Colors.black12,
+        ),
       ),
     );
 
@@ -111,6 +121,9 @@ Widget buildItemListTitle({
 }
 
 Widget buildItem(BuildContext context, SanPham _sp) {
+  DbCart db = DbCart();
+  final cart = Provider.of<CartProvider>(context);
+  final _id = 0;
   return Container(
     width: 200,
     height: 580,
@@ -127,10 +140,17 @@ Widget buildItem(BuildContext context, SanPham _sp) {
           child: Material(
             color: Colors.transparent,
             child: InkWell(
-              child: Image.asset(
-                "images/product-image/" + _sp.hinhAnh!,
+              child: CachedNetworkImage(
+                imageUrl:
+                    "http://10.0.2.2:8000/storage/assets/images/product-image/" + _sp.hinhAnh!,
                 width: 100,
                 height: 130,
+                placeholder: (context, url) => const Center(
+                  child: CircularProgressIndicator(),
+                ),
+                errorWidget: (context, url, error) => Container(
+                  color: Colors.black12,
+                ),
               ),
               onTap: () {
                 Navigator.push(
@@ -152,8 +172,8 @@ Widget buildItem(BuildContext context, SanPham _sp) {
           top: 150.0,
           child: Padding(
             padding: const EdgeInsets.fromLTRB(4.0, 0, 0, 0),
-            child: Text('Giá:'+
-              _sp.giaBan.toString(),
+            child: Text(
+              'Giá:' + _sp.giaBan.toString(),
               style: const TextStyle(
                   fontWeight: FontWeight.bold, fontSize: 15, color: Colors.blueAccent),
             ),
@@ -173,9 +193,25 @@ Widget buildItem(BuildContext context, SanPham _sp) {
           top: 146.0,
           child: Align(
               alignment: const Alignment(3, 0),
-              child: IconButton(
-                onPressed: () {},
-                icon: const Icon(
+              child: InkWell(
+                onTap: () {
+                  db
+                      .insert(CartModel(
+                    productId: _sp.id.toString(),
+                    productName: _sp.tenSanPham,
+                    productPrice: _sp.giaBan,
+                    quantity: 1,
+                    productImg: _sp.hinhAnh,
+                  ))
+                      .then((value) {
+                    print('Product add to cart!');
+                    cart.addTotalPrice(double.parse(_sp.giaBan.toString()));
+                    cart.addCounter();
+                  }).onError((error, stackTrace) {
+                    print(error.toString());
+                  });
+                },
+                child: const Icon(
                   Icons.add_circle,
                   color: Colors.green,
                   size: 40.0,
@@ -366,10 +402,11 @@ List<Widget> hienThiDanhMucDrawer(BuildContext context) {
   ];
 }
 
-String avtImageFix() {
+String avtImageLogOut() {
   return (Auth.khachHang.hinhAnh!.isEmpty)
-      ? "images/gallery/user2.png"
-      : "images/gallery/" + Auth.khachHang.hinhAnh!;
+      ? "http://10.0.2.2:8000/storage/assets/images/avatar/empty.png"
+      : "http://10.0.2.2:8000/storage/assets/images/avatar/User/${Auth.khachHang.id!}/" +
+          Auth.khachHang.hinhAnh!;
 }
 
 Widget buildCircle({
@@ -388,5 +425,59 @@ Widget buildCircle({
 void thongBaoScaffoldMessenger(BuildContext context, String text) {
   ScaffoldMessenger.of(context)
     ..removeCurrentSnackBar()
-    ..showSnackBar(SnackBar(content: Text(text)));
+    ..showSnackBar(SnackBar(
+        content: Text(
+      text,
+      textAlign: TextAlign.center,
+    )));
+}
+
+Widget avtCachedNetworkImage(double _width, double _height) => CachedNetworkImage(
+      imageUrl: avtImageLogOut(),
+      width: _width,
+      height: _height,
+      fit: BoxFit.cover,
+      placeholder: (context, url) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+      errorWidget: (context, url, error) => const Icon(
+        Icons.error,
+        color: Colors.red,
+        size: 50,
+      ),
+    );
+
+Widget OrDivider(BuildContext context) {
+  Size size = MediaQuery.of(context).size;
+  return Container(
+    margin: EdgeInsets.symmetric(vertical: size.height * 0.02),
+    width: size.width * 0.8,
+    child: Row(
+      children: <Widget>[
+        buildDivider(),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: Text(
+            "OR",
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+        buildDivider(),
+      ],
+    ),
+  );
+}
+
+Expanded buildDivider() {
+  //expanded la widget nhu khoang? cach'
+  return const Expanded(
+    //Divider la ke~ lan`
+    child: Divider(
+      color: Colors.white,
+      height: 1.5,
+    ),
+  );
 }

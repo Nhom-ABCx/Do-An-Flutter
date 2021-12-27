@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../all_page.dart';
 
 class NavigationDrawer extends StatelessWidget {
@@ -26,12 +27,7 @@ class NavigationDrawer extends StatelessWidget {
                   children: [
                     ClipRRect(
                         borderRadius: BorderRadius.circular(100),
-                        child: Image.asset(
-                          avtImageFix(),
-                          width: 100,
-                          height: 100,
-                          fit: BoxFit.cover,
-                        )),
+                        child: avtCachedNetworkImage(100, 100)),
                     Padding(
                       padding: const EdgeInsets.only(top: 10),
                       child: Text(

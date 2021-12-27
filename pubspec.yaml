@@ -39,6 +39,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   custom_navigator: ^0.3.0
 
+  shared_preferences: ^2.0.11
+  #sql 
+  sqflite: ^2.0.1
   #image carousel slider
   carousel_slider: ^4.0.0
 
@@ -46,6 +49,11 @@ dependencies:
   smooth_page_indicator: ^0.3.0-nullsafety.0
   # prodiver
   provider: ^6.0.1
+  #Bloc
+  flutter_bloc: ^8.0.0
+  equatable: ^2.0.3
+  cached_network_image: ^3.2.0
+  flutter_svg: ^1.0.0
 
 
 dev_dependencies:
@@ -73,11 +81,9 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - images/
-    - images/logo/
-    - images/banner/
-    - images/product-image/
-    - images/gallery/
+    - assets/icons/
+    - assets/images/
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

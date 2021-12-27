@@ -1,7 +1,6 @@
-//ignore_for_file: unnecessary_const
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '/all_page.dart';
 
 class SignInPage extends StatefulWidget {
@@ -138,10 +137,15 @@ class _SignInPageState extends State<SignInPage> {
                             ),
                             GestureDetector(
                               onTap: () => setState(() => notShowPassword = !notShowPassword),
-                              child: Text(
-                                notShowPassword ? "SHOW" : "HIDE",
-                                style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                              ),
+                              child: notShowPassword
+                                  ? const Icon(
+                                      Icons.visibility,
+                                      color: Colors.white,
+                                    )
+                                  : const Icon(
+                                      Icons.visibility_off,
+                                      color: Colors.white,
+                                    ),
                             ),
                           ],
                         ),
@@ -198,9 +202,87 @@ class _SignInPageState extends State<SignInPage> {
                       ),
                       onPressed: () => Navigator.pushReplacementNamed(context, '/Home'),
                     ),
+                    OrDivider(context),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SocialIcon(
+                          colors: const [
+                            Color(0xFF102397),
+                            Color(0xFF187adf),
+                            Color(0xFF00eaf8),
+                          ],
+                          iconURL: "assets/icons/facebook.svg",
+                          onPressed: () {
+                            print("facebook");
+                          },
+                        ),
+                        SocialIcon(
+                          colors: const [
+                            Color(0xFF17ead9),
+                            Color(0xFF6078ea),
+                          ],
+                          iconURL: "assets/icons/twitter.svg",
+                          onPressed: () {
+                            print("twitter");
+                          },
+                        ),
+                        SocialIcon(
+                          colors: const [
+                            Color(0xFFff4f38),
+                            Color(0xFFff355d),
+                          ],
+                          iconURL: "assets/icons/google-plus.svg",
+                          onPressed: () {
+                            print("google");
+                          },
+                        ),
+                        SocialIcon(
+                          colors: const [
+                            Color(0xFF00c6fb),
+                            Color(0xFF005bea),
+                          ],
+                          iconURL: "assets/icons/github.svg",
+                          onPressed: () {
+                            print("github");
+                          },
+                        )
+                      ],
+                    ),
                   ],
                 )),
           ),
         ),
       );
+}
+
+class SocialIcon extends StatelessWidget {
+  final List<Color> colors;
+  final String iconURL;
+  final void Function() onPressed;
+  const SocialIcon({Key? key, required this.colors, required this.iconURL, required this.onPressed})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 14.0),
+      child: Container(
+        width: 45.0,
+        height: 45.0,
+        decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            gradient: LinearGradient(colors: colors, tileMode: TileMode.clamp)),
+        child: RawMaterialButton(
+          shape: const CircleBorder(),
+          onPressed: onPressed,
+          child: SvgPicture.asset(
+            iconURL,
+            height: 30,
+            width: 30,
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
+  }
 }
