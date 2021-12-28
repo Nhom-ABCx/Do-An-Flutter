@@ -1,13 +1,11 @@
 // ignore_for_file: unnecessary_const
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/cart/cart_model.dart';
 import 'package:flutter_application_1/cart/cart_provider.dart';
 import 'package:provider/provider.dart';
 import 'all_page.dart'; //lam` v cho no' nho? ra
 
 void main() {
-  Provider.debugCheckInvalidValueType = null;
   runApp(const MyApp());
 }
 // SystemChrome.setSystemUIOverlayStyle(
@@ -21,9 +19,9 @@ class MyApp extends StatelessWidget {
     return 
     MultiProvider (
        providers: [
-        Provider<ChangeLayOut>( create: (_) => ChangeLayOut()),
-        Provider<CartProvider>(create:(_)=>CartProvider()),
-        Provider<FileController>(create: (_) => FileController())
+        ChangeNotifierProvider( create: (_) => ChangeLayOut()),
+        ChangeNotifierProvider(create:(_)=>CartProvider()),
+        ChangeNotifierProvider(create: (_) => FileController())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false, //tat cai' debug tren appbar
