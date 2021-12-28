@@ -184,7 +184,7 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
                             style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                           ),
                           trailing: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () => Navigator.pushNamed(context, "/SelectPaymentPage"),
                               child: const Text(
                                 "Confirm & Pay",
                                 style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),

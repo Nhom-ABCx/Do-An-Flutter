@@ -28,6 +28,11 @@ class _PagesState extends State<Pages> {
                   textCustoms: '',
                   onClicked: () => Navigator.pushNamed(context, "/BillingPage"),
                 ),
+                buildListTitleSetting(
+                  text: 'Select Payment',
+                  textCustoms: '',
+                  onClicked: () => Navigator.pushNamed(context, "/SelectPaymentPage"),
+                ),
               ],
             ),
           ),

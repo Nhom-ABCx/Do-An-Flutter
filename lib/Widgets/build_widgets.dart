@@ -313,7 +313,11 @@ Widget buildInputTextMyProfile(AsyncSnapshot<Object?> snapshot,
   );
 }
 
-Widget buildListTitleSetting({IconData? icons, required String text, required String textCustoms,required VoidCallback? onClicked}) {
+Widget buildListTitleSetting(
+    {IconData? icons,
+    required String text,
+    required String textCustoms,
+    required VoidCallback? onClicked}) {
   return Container(
     margin: const EdgeInsets.fromLTRB(15, 10, 15, 0),
     alignment: Alignment.center,
