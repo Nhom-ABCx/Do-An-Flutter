@@ -202,7 +202,7 @@ class _SignInPageState extends State<SignInPage> {
                       ),
                       onPressed: () => Navigator.pushReplacementNamed(context, '/Home'),
                     ),
-                    OrDivider(context),
+                    orDivider(context),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

@@ -1,172 +1,95 @@
-import 'dart:ui';
-
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:flutter_application_1/cart/cart_model.dart';
 import 'package:flutter_application_1/cart/cart_provider.dart';
 import 'package:flutter_application_1/cart/db/db_cart.dart';
 import 'package:provider/provider.dart';
+
 import '../../all_page.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({Key? key}) : super(key: key);
 
-  
   @override
-  State<StatefulWidget> createState() => CartPageState();
+  _CartPageState createState() => _CartPageState();
 }
 
-class CartPageState extends State<CartPage> {
+class _CartPageState extends State<CartPage> {
   @override
-
-  //Widget product to cart
-  Widget buildProductCart(SanPham sp ){
-    int soLuong=0;
-    return Row(
-      children:[
-          IconButton(onPressed: (){},
-           icon: const Icon(Icons.cancel_outlined,color: Colors.red,)),
-          Image(image: AssetImage("images/product-image/"+sp.hinhAnh!)),
-          Column(
-            children: [
-              Text(sp.tenSanPham),
-              Text(sp.giaBan.toString())
-            ],
-          ),
-          Row(
-            children: [
-              IconButton(onPressed: ()=>soLuong--, icon: const Icon(Icons.remove)),
-              Text(soLuong.toString()),
-              IconButton(onPressed: ()=>soLuong++, icon: const Icon(Icons.add))
-            ],
-          )
-      ]
-    );
-  }
   Widget build(BuildContext context) {
-    final cart = Provider.of<CartProvider>(context);
     return GestureDetector(
-        //huy keyboard khi bam ngoai man hinh
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: Consumer<CartProvider>(
-          builder: (context,crtpvd,child)=> Scaffold(
-            //TopHeader
-            appBar: AppBar(
-              title: const Align(
-                alignment: Alignment.center,
-                child: Text(
-                  "My Cart",
-                  style: TextStyle(color: Colors.black),
-                ),
-              ),
-            ),
-            //Hide
-            //drawer:  NavigationDrawer(),
-            //Body
-            body: SingleChildScrollView(
-              child: Column(
-                children: [
-                  FutureBuilder(
-                      future: cart.getData(),
-                      builder: (context, AsyncSnapshot<List<Cart>> snapshot) {
-                        if (snapshot.hasError) {
-                          return Center(child: Text(snapshot.error.toString()));
-                        }
-                        return snapshot.hasData
-                            ? ListView.builder(
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemCount: snapshot.data!.length,
-                                itemBuilder: (context, index) => Container(
-                                    margin: const EdgeInsets.all(5.0),
-                                    child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 5.0, bottom: 5.0),
-                                        child: Container(
-                                            color: Colors.white,
-                                            child: buildCartProduct(
-                                                snapshot.data![index])))))
-                            : const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                      })
-                ],
-              ),
-            ),
-            bottomNavigationBar: const BottomNavBar(2),
-          ),
-        )
-          );
-  }
-}
-
-Widget buildCartProduct(Cart cart) {
-  DbCart db=DbCart();
-  return Stack(
-    children:[
-      Row(
-      children: [
-        CachedNetworkImage(
-          width: 100,
-          height: 80,
-          imageUrl:
-              "http://10.0.2.2:8000/storage/assets/images/product-image/" +
-                  cart.productImg,
-        ),
-        const SizedBox(
-          width: 3.0,
-        ),
-        Container(
-          height: 100,
-          width: 200,
-          //color: Colors.blue,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+      //huy keyboard khi bam ngoai man hinh
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        //TopHeader
+        appBar: AppBarPage(),
+        //Hide
+        drawer: const NavigationDrawer(),
+        //Body
+        body: Consumer<CartProvider>(
+          builder: (context, cartprd, child) => ListView(
             children: [
-              Text(
-                cart.productName,
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
-              ),
-              Text(
-                "Giá: " + cart.productPrice.toString(),
-                style: const TextStyle(
-                  color: Colors.red,
-                ),
+              ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: cartprd.getCartItems.length,
+                  itemBuilder: (context, index) {
+                    return buildCart(context, cartprd.getCartItems[index]);
+                  }),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                  Text(
+                    "Tổng tiền: " + cartprd.gettotalPrice.toString(),
+                  ),
+                ]),
               )
             ],
           ),
         ),
-        Container(
-          color: Colors.green,
-          child: Row(
-            children: [
-              InkWell(
-                onTap: () {},
-                child: const Icon(Icons.remove),
-              ),
-              Text(cart.quantity.toString()),
-              InkWell(
-                onTap: () {},
-                child: const Icon(Icons.add),
-              ),
-            ],
+
+        //nho' thay doi? lai con so' truyen du~ lieu
+        bottomNavigationBar: const BottomNavBar(2),
+      ),
+    );
+  }
+}
+
+Widget buildCart(BuildContext context, Cart cart) {
+  //DbCart dbCart = DbCart();
+  final cartprd = Provider.of<CartProvider>(context);
+  return Container(
+    padding: const EdgeInsets.only(left: 5.0, right: 5.0, top: 5.0),
+    child: Row(
+      children: [
+        InkWell(
+          onTap: () => cartprd.removeItem(cart),
+          child: const Icon(
+            Icons.cancel,
+            color: Colors.red,
           ),
         ),
+        const SizedBox(
+          width: 10.0,
+        ),
+        CachedNetworkImage(
+            width: 100,
+            height: 100,
+            imageUrl:
+                "http://10.0.2.2:8000/storage/assets/images/product-image/" +
+                    cart.productImg),
+        const SizedBox(
+          width: 5.0,
+        ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(cart.productName),
+            Text("Giá: " + cart.productPrice.toString()),
+          ],
+        )
       ],
     ),
-    Positioned(
-      top: 3.0,
-      left: 375,
-      child:InkWell(
-        onTap:(){
-          db.deletePrdCart(cart.id!);
-        } ,
-        child: const Icon(Icons.cancel,color:Colors.red,
-        ))
-    )
-    ]
   );
 }

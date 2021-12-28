@@ -196,20 +196,26 @@ Widget buildItem(BuildContext context, SanPham _sp) {
               alignment: const Alignment(3, 0),
               child: InkWell(
                 onTap: () {
-                  db
-                      .insert(Cart(
-                    productName: _sp.tenSanPham,
-                    productPrice: _sp.giaBan!,
-                    quantity: 1,
-                    productImg: _sp.hinhAnh!,
-                  ))
-                      .then((value) {
-                    print('Product add to cart!');
-                    // cart.addTotalPrice(double.parse(_sp.giaBan.toString()));
-                    // cart.addCounter();
-                  }).onError((error, stackTrace) {
-                    print(error.toString());
-                  });
+                  cart.addItem(Cart(
+                      productName: _sp.tenSanPham,
+                      productPrice: _sp.giaBan!,
+                      quantity: 1,
+                      productImg: _sp.hinhAnh!));
+
+                  // db
+                  //     .insertItems(Cart(
+                  //   productName: _sp.tenSanPham,
+                  //   productPrice: _sp.giaBan!,
+                  //   quantity: 1,
+                  //   productImg: _sp.hinhAnh!,
+                  // ))
+                  //     .then((value) {
+                  //   thongBaoScaffoldMessenger(context, "Thêm thành công");
+                  //   // cart.addTotalPrice(double.parse(_sp.giaBan.toString()));
+                  //   // cart.addCounter();
+                  // }).onError((error, stackTrace) {
+                  //   print(error.toString());
+                  // });
                 },
                 child: const Icon(
                   Icons.add_circle,
@@ -441,7 +447,7 @@ Widget avtCachedNetworkImage(double _width, double _height) => CachedNetworkImag
       ),
     );
 
-Widget OrDivider(BuildContext context) {
+Widget orDivider(BuildContext context) {
   Size size = MediaQuery.of(context).size;
   return Container(
     margin: EdgeInsets.symmetric(vertical: size.height * 0.02),
