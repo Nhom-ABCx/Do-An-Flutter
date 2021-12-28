@@ -267,8 +267,8 @@ class SocialIcon extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 14.0),
       child: Container(
-        width: 45.0,
-        height: 45.0,
+        width: 40.0,
+        height: 40.0,
         decoration: BoxDecoration(
             shape: BoxShape.circle,
             gradient: LinearGradient(colors: colors, tileMode: TileMode.clamp)),
@@ -277,8 +277,8 @@ class SocialIcon extends StatelessWidget {
           onPressed: onPressed,
           child: SvgPicture.asset(
             iconURL,
-            height: 30,
-            width: 30,
+            height: 25,
+            width: 25,
             color: Colors.white,
           ),
         ),

@@ -89,7 +89,7 @@ Widget buildImageBanner(String _urlImage, int index) => Container(
       ),
     );
 
-Widget buildItemListTitle({
+Widget buildListTitleDrawer({
   required String text,
   required IconData icon,
   VoidCallback? onClicked,
@@ -196,18 +196,18 @@ Widget buildItem(BuildContext context, SanPham _sp) {
               alignment: const Alignment(3, 0),
               child: InkWell(
                 onTap: () {
-                  db.insert(Cart(
-                        productName: _sp.tenSanPham,
-                        productPrice: _sp.giaBan!,
-                        quantity: 1,
-                        productImg: _sp.hinhAnh!,
-                      ))
+                  db
+                      .insert(Cart(
+                    productName: _sp.tenSanPham,
+                    productPrice: _sp.giaBan!,
+                    quantity: 1,
+                    productImg: _sp.hinhAnh!,
+                  ))
                       .then((value) {
-                        print('Product add to cart!');
-                        // cart.addTotalPrice(double.parse(_sp.giaBan.toString()));
-                        // cart.addCounter();
-                      })
-                      .onError((error, stackTrace) {
+                    print('Product add to cart!');
+                    // cart.addTotalPrice(double.parse(_sp.giaBan.toString()));
+                    // cart.addCounter();
+                  }).onError((error, stackTrace) {
                     print(error.toString());
                   });
                 },
@@ -294,7 +294,7 @@ Widget buildInputTextMyProfile(AsyncSnapshot<Object?> snapshot,
           ),
           controller: txtController, //gan gia tri cua text vao bien'
           keyboardType: txtInputType,
-          textInputAction: TextInputAction.done,
+          textInputAction: TextInputAction.next,
           inputFormatters: inputNumberOnly!
               ? <TextInputFormatter>[
                   //only number
@@ -307,42 +307,33 @@ Widget buildInputTextMyProfile(AsyncSnapshot<Object?> snapshot,
   );
 }
 
-Widget buildSessionCutoms(
+Widget buildListTitleSetting(
     {required IconData icons, required String text, required String textCustoms}) {
-  const icon = Icons.chevron_right;
-  Color clr = Colors.blue;
-  Row object_1 = Row(
-    children: [
-      Icon(icons, color: Colors.brown, size: 27),
-      Padding(
-          padding: const EdgeInsets.fromLTRB(28, 0, 0, 0),
-          child: Text(
-            text,
-            style: const TextStyle(fontSize: 17),
-          ))
-    ],
-  );
   return ColoredBox(
       color: Colors.white,
-      child: Padding(
-          padding: const EdgeInsets.fromLTRB(18, 0, 10, 0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              object_1,
-              TextButton(
-                  onPressed: () {},
-                  child: Row(
-                    children: [
-                      Text(textCustoms, style: TextStyle(color: clr)),
-                      const Icon(
-                        icon,
-                        color: Colors.blue,
-                      )
-                    ],
-                  ))
-            ],
-          )));
+      child: ListTile(
+        leading: Icon(
+          icons,
+          color: Colors.brown,
+          size: 27,
+        ),
+        title: Text(
+          text,
+          style: const TextStyle(fontSize: 17),
+        ),
+        trailing: TextButton(
+            onPressed: () {},
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(textCustoms, style: const TextStyle(color: Colors.blue)),
+                const Icon(
+                  Icons.chevron_right,
+                  color: Colors.blue,
+                )
+              ],
+            )),
+      ));
 }
 // class _MainScreenState extends State<MainScreen> {
 //   @override
@@ -373,25 +364,28 @@ Widget buildSessionCutoms(
 List<Widget> hienThiDanhMucDrawer(BuildContext context) {
   return [
     const SizedBox(height: 16),
-    buildItemListTitle(
+    buildListTitleDrawer(
       text: 'My Profile',
       icon: Icons.account_circle,
       onClicked: () => Navigator.pushNamed(context, '/MyProfile'),
     ),
     //const SizedBox(height: 16),
-    buildItemListTitle(
+    buildListTitleDrawer(
         text: 'Notifications',
         icon: Icons.notifications,
         onClicked: () => Navigator.pushNamed(context, '/Notifications')),
     //const SizedBox(height: 16),
-    buildItemListTitle(
+    buildListTitleDrawer(
         text: 'ChangePass',
-        icon: Icons.change_circle,
+        icon: Icons.lock_outline_rounded,
         onClicked: () => Navigator.pushNamed(context, '/ChangePW')),
     //const SizedBox(height: 16),
-    buildItemListTitle(text: 'Settings', icon: Icons.settings),
+    buildListTitleDrawer(
+      text: 'Settings',
+      icon: Icons.settings,
+    ),
     //const SizedBox(height: 16),
-    buildItemListTitle(
+    buildListTitleDrawer(
       text: 'Sign Out',
       icon: Icons.logout,
       onClicked: () {
@@ -479,5 +473,41 @@ Expanded buildDivider() {
       color: Colors.white,
       height: 1.5,
     ),
+  );
+}
+
+Widget topMyprofile() {
+  return Container(
+    decoration: BoxDecoration(
+        color: Colors.orange[700],
+        border: Border.all(
+          color: Colors.red.shade100,
+        ),
+        borderRadius:
+            const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+    child: Row(children: [
+      Padding(
+        padding: const EdgeInsets.fromLTRB(20, 20, 10, 20),
+        child: ClipRRect(
+            borderRadius: BorderRadius.circular(100), child: avtCachedNetworkImage(100, 100)),
+      ),
+      Container(
+        margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              '@' + Auth.khachHang.username,
+              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
+            Text(
+              Auth.khachHang.hoTen!,
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            ),
+          ],
+        ),
+      )
+    ]),
   );
 }

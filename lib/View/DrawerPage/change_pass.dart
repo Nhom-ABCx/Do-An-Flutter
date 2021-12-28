@@ -9,8 +9,10 @@ class ChangePass extends StatefulWidget {
 }
 
 class ChangePassState extends State<ChangePass> {
-  //cac bien' de dung`, de? tam
-  final txtTimKiem = TextEditingController();
+  final _editMyController = EditMyProfileController();
+  final txtOldMatKhau = TextEditingController();
+  final txtNewMatKhau = TextEditingController();
+  final txtConfirmMatKhau = TextEditingController();
 
   @override
   Widget build(BuildContext context) => GestureDetector(
@@ -30,111 +32,50 @@ class ChangePassState extends State<ChangePass> {
                     padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                     child: Column(
                       children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Colors.red.shade100,
-                              ),
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  topRight: Radius.circular(10))),
-                          child: Row(children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.fromLTRB(20, 20, 10, 20),
-                              child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(100),
-                                  child: Image.asset(
-                                    'images/avt.jpg',
-                                    width: 100,
-                                    height: 100,
-                                    fit: BoxFit.cover,
-                                  )),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: const [
-                                  Text(
-                                    '@designing-word',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    'Suha Jannat',
-                                    style: TextStyle(
-                                        color: Colors.green,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20),
-                                  ),
-                                ],
-                              ),
-                            )
-                          ]),
-                        ),
+                        topMyprofile(),
                         ColoredBox(
                           color: Colors.white70,
                           child: Column(children: [
-                            buildTextMyProfile(
-                                icon: Icons.vpn_key,
-                                title: 'Old PassWord',
-                                lable: ''),
-                            const Padding(
-                              padding: EdgeInsets.all(4),
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                ),
-                              ),
-                            ),
-                            buildTextMyProfile(
-                                icon: Icons.vpn_key,
-                                title: 'New PassWord',
-                                lable: ''),
-                            const Padding(
-                              padding: EdgeInsets.all(0),
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                ),
-                              ),
-                            ),
-                            buildTextMyProfile(
-                                icon: Icons.vpn_key,
-                                title: 'Reapeat New PassWord',
-                                lable: ''),
-                            const Padding(
-                              padding: EdgeInsets.all(4),
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                ),
-                              ),
-                            ),
+                            StreamBuilder(
+                                stream: _editMyController.oldmatkhauController.stream,
+                                builder: (context, snapshot) => buildInputTextMyProfile(snapshot,
+                                    icon: Icons.vpn_key,
+                                    title: 'Old Password',
+                                    txtController: txtOldMatKhau)),
+                            StreamBuilder(
+                                stream: _editMyController.newmatkhauController.stream,
+                                builder: (context, snapshot) => buildInputTextMyProfile(snapshot,
+                                    icon: Icons.vpn_key,
+                                    title: 'New Password',
+                                    txtController: txtNewMatKhau)),
+                            StreamBuilder(
+                                stream: _editMyController.confirmmatkhauController.stream,
+                                builder: (context, snapshot) => buildInputTextMyProfile(snapshot,
+                                    icon: Icons.vpn_key,
+                                    title: 'Reapeat New Password',
+                                    txtController: txtConfirmMatKhau)),
                             SizedBox(
                                 //tu dong canh le`tu thiet bi
                                 width: MediaQuery.of(context).size.width,
                                 child: ElevatedButton(
-                                  onPressed: () {},
-                                  child: const Text('Update PassWord'),
-                                )
-                                // ElevatedButton.icon(
-                                //   onPressed: () {},
-                                //   icon: const Icon(
-                                //     Icons.edit,
-                                //     color: Colors.white,
-                                //   ),
-                                //   label: const Text(
-                                //     'Update New PassWord',
-                                //     style: TextStyle(
-                                //         color: Colors.white,
-                                //         fontWeight: FontWeight.bold),
-                                //   ),
-                                // ),
-                                ),
+                                  child: const Text(
+                                    'Update Password',
+                                    style: TextStyle(fontSize: 17),
+                                  ),
+                                  onPressed: () async {
+                                    if (await _editMyController.ktUpdateKhachHang_MatKhau(
+                                        txtOldMatKhau.text,
+                                        txtNewMatKhau.text,
+                                        txtConfirmMatKhau.text)) {
+                                      thongBaoScaffoldMessenger(
+                                          context, "Update Password Successful");
+                                      //reload page
+                                      (context as Element).reassemble();
+                                    } else {
+                                      thongBaoScaffoldMessenger(context, "Update Password Fails");
+                                    }
+                                  },
+                                )),
                           ]),
                         ),
                       ],

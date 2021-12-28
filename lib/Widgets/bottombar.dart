@@ -14,40 +14,35 @@ class _BottomNavBarState extends State<BottomNavBar> {
         items: [
           BottomNavigationBarItem(
             icon: IconButton(
-                onPressed: () => Navigator.of(context)
-                    .pushReplacementNamedIfNotCurrent('/Home'),
+                onPressed: () => Navigator.of(context).pushReplacementNamedIfNotCurrent('/Home'),
                 //Navigator.pushReplacementNamed(context, '/Home'),
                 icon: const Icon(Icons.home)),
             label: 'Home',
           ),
           BottomNavigationBarItem(
             icon: IconButton(
-                onPressed: () => Navigator.of(context)
-                    .pushReplacementNamedIfNotCurrent('/Support'),
+                onPressed: () => Navigator.of(context).pushReplacementNamedIfNotCurrent('/Support'),
                 //Navigator.pushReplacementNamed(context, '/Support'),
                 icon: const Icon(Icons.support)),
             label: 'Support',
           ),
           BottomNavigationBarItem(
             icon: IconButton(
-                onPressed: () => Navigator.of(context)
-                    .pushReplacementNamedIfNotCurrent('/Cart'),
+                onPressed: () => Navigator.of(context).pushReplacementNamedIfNotCurrent('/Cart'),
                 //Navigator.pushReplacementNamed(context, '/Cart'),
                 icon: const Icon(Icons.shopping_cart)),
             label: 'Cart',
           ),
           BottomNavigationBarItem(
             icon: IconButton(
-                onPressed: () => Navigator.of(context)
-                    .pushReplacementNamedIfNotCurrent('/Pages'),
+                onPressed: () => Navigator.of(context).pushReplacementNamedIfNotCurrent('/Pages'),
                 //Navigator.pushReplacementNamed(context, '/Pages'),
                 icon: const Icon(Icons.favorite_outline)),
             label: 'Page',
           ),
           BottomNavigationBarItem(
             icon: IconButton(
-                onPressed: () => Navigator.of(context)
-                    .pushReplacementNamedIfNotCurrent('/Setting'),
+                onPressed: () => Navigator.of(context).pushReplacementNamedIfNotCurrent('/Setting'),
                 //Navigator.pushReplacementNamed(context, '/Setting'),
                 icon: const Icon(Icons.settings)),
             label: 'Setting',
@@ -59,7 +54,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 }
 
 //ham nay kiem tra neu' dang o route nay` r thi ko can` phai tao moi lai
-//cai nay copy tu google nen cung ko ro~, vi du su dung:
+//cai nay tham khao tu google nen cung ko ro~, vi du su dung:
 //Navigator.of(context).pushNamedIfNotCurrent('/Setting'),
 extension NavigatorStateExtension on NavigatorState {
   //them 1 phuong thuc'moi'

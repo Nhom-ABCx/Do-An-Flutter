@@ -33,9 +33,9 @@ class NavigationDrawer extends StatelessWidget {
                       child: Text(
                         _chuaDangNhap
                             ? "You are not login"
-                            : ((Auth.khachHang.username.isEmpty)
-                                ? Auth.khachHang.hoTen!
-                                : Auth.khachHang.username),
+                            : ((Auth.khachHang.hoTen!.isEmpty)
+                                ? Auth.khachHang.username
+                                : Auth.khachHang.hoTen!),
                         style: const TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
@@ -46,7 +46,7 @@ class NavigationDrawer extends StatelessWidget {
                   ],
                 )),
             if (_chuaDangNhap)
-              buildItemListTitle(
+              buildListTitleDrawer(
                 text: 'Loggin Now',
                 icon: Icons.login_outlined,
                 onClicked: () {

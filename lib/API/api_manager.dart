@@ -154,7 +154,7 @@ Future<List<SanPham>> ftechSanPhamSearch(String tenSanPhamTiemKiem) async {
 
 //Dang nhap
 Future<KhachHang> api_DangNhap(String email, String matkhau) async {
-  var khachHang = KhachHang.empty();
+  var _khachHang = KhachHang.empty();
 
   try {
     final response = await http.post(Uri.parse(urlBaseAPI + "DangNhap"),
@@ -163,18 +163,17 @@ Future<KhachHang> api_DangNhap(String email, String matkhau) async {
       //nay` von' dang o dang List, ep kieu no' thanh List de co them phuong thuc'
       final jsonRaw = json.decode(response.body);
       //print(jsonRaw[0]['TenSanPham']); //truy xuat no' bang cach nhu nay`
-      khachHang = KhachHang.fromJson(jsonRaw);
+      _khachHang = KhachHang.fromJson(jsonRaw);
     } else {
       throw Exception("Something get wrong! Status code ${response.statusCode}");
     }
   } catch (e) {}
 
-  return khachHang;
+  return _khachHang;
 }
 
 // Dang ky
 Future<dynamic> api_DangKy(String username, String email, String matkhau) async {
-  var khachHang = KhachHang(hoTen: "", username: '');
 //Future<dynamic> api_DangKy(String username, String email, String matkhau) async {
   //var khachHang = KhachHang.empty();
 
@@ -185,19 +184,16 @@ Future<dynamic> api_DangKy(String username, String email, String matkhau) async 
       //nay` von' dang o dang List, ep kieu no' thanh List de co them phuong thuc'
       final jsonRaw = json.decode(response.body);
       //print(jsonRaw[0]['TenSanPham']); //truy xuat no' bang cach nhu nay`
-      khachHang = KhachHang.fromJson(jsonRaw);
+      return KhachHang.fromJson(jsonRaw);
     } else if (response.statusCode == 400) {
       return json.decode(response.body);
     } else {
       throw Exception("Something get wrong! Status code ${response.statusCode}");
     }
   } catch (e) {}
-
-  return khachHang;
 }
 
 Future<dynamic> api_Update_KhachHang(KhachHang khachHang) async {
-  var _khachHang = KhachHang.empty();
   final uri = Uri.parse(urlBaseAPI + "KhachHang/" + "${khachHang.id}?_method=PUT");
 
   try {
@@ -209,15 +205,13 @@ Future<dynamic> api_Update_KhachHang(KhachHang khachHang) async {
     if (response.statusCode == 200) {
       //nay` von' dang o dang List, ep kieu no' thanh List de co them phuong thuc'
       final jsonRaw = json.decode(response.body);
-      _khachHang = KhachHang.fromJson(jsonRaw);
+      return KhachHang.fromJson(jsonRaw);
     } else if (response.statusCode == 400) {
       return json.decode(response.body);
     } else {
       throw Exception("Something get wrong! Status code ${response.statusCode}");
     }
   } catch (e) {}
-
-  return _khachHang;
 }
 
 Future<bool> api_sendEmail_User_Reset(String username) async {
@@ -260,7 +254,6 @@ Future<List<dynamic>> addCart(int khachHangId, int sanPhamId, int soLuong) async
 }
 
 Future<dynamic> api_Update_KhachHang_HinhAnh(KhachHang khachHang, File imageFile) async {
-  var _khachHang = KhachHang.empty();
   final uri = Uri.parse(urlBaseAPI + "KhachHang/" + "${khachHang.id}?_method=PATCH");
 
   try {
@@ -273,13 +266,36 @@ Future<dynamic> api_Update_KhachHang_HinhAnh(KhachHang khachHang, File imageFile
     final response = await http.Response.fromStream(streamedResponse);
     if (streamedResponse.statusCode == 200) {
       final jsonRaw = json.decode(response.body);
-      _khachHang = KhachHang.fromJson(jsonRaw);
+      return KhachHang.fromJson(jsonRaw);
     } else if (streamedResponse.statusCode == 400) {
       return json.decode(response.body);
     } else {
       throw Exception("Something get wrong! Status code ${streamedResponse.statusCode}");
     }
   } catch (e) {}
+}
 
-  return _khachHang;
+Future<dynamic> api_Update_KhachHang_MatKhau(
+    KhachHang khachHang, String oldPassword, String newPassword, String confirmPassword) async {
+  final uri = Uri.parse(urlBaseAPI + "KhachHang/" + "${khachHang.id}/updatePassword?_method=PUT");
+
+  try {
+    final response = await http.post(
+      uri,
+      body: {
+        "oldMatKhau": "$oldPassword",
+        "MatKhau": "$newPassword",
+        "XacNhan_MatKhau": "$confirmPassword"
+      },
+    );
+    if (response.statusCode == 200) {
+      //nay` von' dang o dang List, ep kieu no' thanh List de co them phuong thuc'
+      final jsonRaw = json.decode(response.body);
+      return KhachHang.fromJson(jsonRaw);
+    } else if (response.statusCode == 400) {
+      return json.decode(response.body);
+    } else {
+      throw Exception("Something get wrong! Status code ${response.statusCode}");
+    }
+  } catch (e) {}
 }

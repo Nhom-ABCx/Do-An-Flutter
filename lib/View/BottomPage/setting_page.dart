@@ -40,6 +40,7 @@ class SettingPageState extends State<SettingPage> {
                 secondary: const Icon(
                   Icons.check_box,
                   color: Colors.brown,
+                  size: 30,
                 ),
               ),
               const SizedBox(height: 10.0),
@@ -58,6 +59,7 @@ class SettingPageState extends State<SettingPage> {
                 secondary: const Icon(
                   Icons.notifications_none_outlined,
                   color: Colors.brown,
+                  size: 30,
                 ),
               ),
               const SizedBox(height: 10.0),
@@ -76,28 +78,18 @@ class SettingPageState extends State<SettingPage> {
                 secondary: const Icon(
                   Icons.mode_night_outlined,
                   color: Colors.brown,
+                  size: 30,
                 ),
               ),
               const SizedBox(height: 10.0),
-              buildSessionCutoms(
-                  icons: Icons.language_outlined,
-                  text: 'Language',
-                  textCustoms: 'English'),
+              buildListTitleSetting(
+                  icons: Icons.language_outlined, text: 'Language', textCustoms: 'English'),
               const SizedBox(height: 10.0),
-              buildSessionCutoms(
-                  icons: Icons.help_outline,
-                  text: 'Support',
-                  textCustoms: 'Get Help'),
+              buildListTitleSetting(
+                  icons: Icons.help_outline, text: 'Support', textCustoms: 'Get Help'),
               const SizedBox(height: 10.0),
-              buildSessionCutoms(
-                  icons: Icons.verified_user_outlined,
-                  text: 'Privacy Policy',
-                  textCustoms: 'View'),
-              const SizedBox(height: 10.0),
-              buildSessionCutoms(
-                  icons: Icons.lock_outline_rounded,
-                  text: 'Password',
-                  textCustoms: 'Change'),
+              buildListTitleSetting(
+                  icons: Icons.verified_user_outlined, text: 'Privacy Policy', textCustoms: 'View'),
             ],
           ),
           bottomNavigationBar: const BottomNavBar(4),

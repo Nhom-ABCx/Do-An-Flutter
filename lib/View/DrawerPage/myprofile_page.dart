@@ -35,42 +35,7 @@ class MyProfileState extends State<MyProfile> {
                       padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                       child: Column(
                         children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                color: Colors.orange[700],
-                                border: Border.all(
-                                  color: Colors.red.shade100,
-                                ),
-                                borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(10), topRight: Radius.circular(10))),
-                            child: Row(children: [
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(20, 20, 10, 20),
-                                child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(100),
-                                    child: avtCachedNetworkImage(100, 100)),
-                              ),
-                              Container(
-                                margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      '@' + Auth.khachHang.username,
-                                      style: const TextStyle(
-                                          color: Colors.white, fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(
-                                      Auth.khachHang.hoTen!,
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold, fontSize: 20),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ]),
-                          ),
+                          topMyprofile(),
                           ColoredBox(
                             color: Colors.white70,
                             child: Padding(
