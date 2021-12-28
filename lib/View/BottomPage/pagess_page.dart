@@ -1,62 +1,38 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
+import '/all_page.dart';
 
-class Loder extends StatefulWidget {
-  const Loder({Key? key}) : super(key: key);
-
+class Pages extends StatefulWidget {
+  const Pages({Key? key}) : super(key: key);
   @override
-  _LoderState createState() => _LoderState();
+  _PagesState createState() => _PagesState();
 }
 
-class _LoderState extends State<Loder> with SingleTickerProviderStateMixin {
-  late AnimationController animationController;
-  // ignore: non_constant_identifier_names
-  late Animation<double> animation_rotation;
-  late final double initRadius = 30.0;
-  double radius = 0.0;
+//trang nay la layout de copy custom, ko co xai`
+class _PagesState extends State<Pages> {
   @override
-  void initState() {
-    super.initState();
-    animationController =
-        AnimationController(vsync: this, duration: const Duration(seconds: 8));
-   
-    animation_rotation= Tween<double>(begin: 0.0, end: 1.0).animate(
-        CurvedAnimation(
-            parent: animationController,
-            curve: const Interval(0.0, 0.25, curve: Curves.elasticOut)));
-
-    animationController.addListener(() {
-      setState(() {
-        if (animationController.value >= 0.75 &&
-            animationController.value <= 1.0) {
-          radius = animationController.value * initRadius;
-        } else if (animationController.value >= 0.0 &&
-            animationController.value <= 0.25) {
-          radius = animationController.value * initRadius;
-        }
-      });
-    });
-    animationController.repeat();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0x0ff32a00),
-      body: SizedBox(
-        width: 100.0,
-        height: 100.0,
-        child: Center(
-          child: RotationTransition(
-            turns: animation_rotation,
-            child: Stack(
+  Widget build(BuildContext context) => GestureDetector(
+        //huy keyboard khi bam ngoai man hinh
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Scaffold(
+          //TopHeader
+          appBar: AppBarPage(),
+          //Hide
+          drawer: const NavigationDrawer(),
+          //Body
+          body: SingleChildScrollView(
+            child: Column(
               children: [
-                 Image.asset('images/logo/logo-white.png'),
+                const SizedBox(height: 10.0),
+                buildListTitleSetting(
+                  text: 'Billing Information',
+                  textCustoms: '',
+                  onClicked: () => Navigator.pushNamed(context, "/BillingPage"),
+                ),
               ],
             ),
           ),
+          //nho' thay doi? lai con so' truyen du~ lieu
+          bottomNavigationBar: const BottomNavBar(3),
         ),
-      ),
-    );
-  }
+      );
 }

@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
           '/Forgot_action': (context) => const ForgotAction(),
           '/Home': (context) => const HomePage(),
           '/Cart': (context) => const CartPage(),
-          '/Pages': (context) => const Loder(),
+          '/Pages': (context) => const Pages(),
           '/Setting': (context) => const SettingPage(),
           '/Support': (context) => const SupportPage(),
           '/MyProfile': (context) => const MyProfile(),
@@ -51,6 +51,7 @@ class MyApp extends StatelessWidget {
           '/ChangePW': (context) => const ChangePass(),
           '/PhonePage': (context) => const PhonePage(),
           '/LapTopPage': (context) => const LapTopPage(),
+          '/BillingPage': (context) => const BillingInfomationPage(),
         },
       ),
     );

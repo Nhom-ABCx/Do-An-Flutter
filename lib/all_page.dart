@@ -35,5 +35,4 @@ export 'Controller/auth.dart';
 export 'Controller/edit_myprofile_controller.dart';
 export 'Controller/sanpham_controller.dart';
 export 'Controller/file_controller.dart';
-
-const String logo = 'assets/images/thongbao.jpg';
+export 'View/HoaDon/billing_infomation_page.dart';

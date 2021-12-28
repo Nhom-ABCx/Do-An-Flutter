@@ -24,72 +24,102 @@ class SettingPageState extends State<SettingPage> {
           //Body
           body: Column(
             children: [
-              const SizedBox(height: 16.0),
-              SwitchListTile(
-                title: const Text('Availability'),
-                tileColor: Colors.white,
-                value: isCheck1,
-                onChanged: (bool value) {
-                  setState(() {
-                    isCheck1 = value;
-                  });
-                },
-                activeColor: Colors.blue[700],
-                // inactiveThumbColor: Colors.blue[700],
-                inactiveTrackColor: Colors.white,
-                secondary: const Icon(
-                  Icons.check_box,
-                  color: Colors.brown,
-                  size: 30,
-                ),
+              const SizedBox(
+                height: 10,
               ),
-              const SizedBox(height: 10.0),
-              SwitchListTile(
-                title: const Text('Notifications'),
-                tileColor: Colors.white,
-                value: isCheck2,
-                onChanged: (bool value) {
-                  setState(() {
-                    isCheck2 = value;
-                  });
-                },
-                activeColor: Colors.blue[700],
-                // inactiveThumbColor: Colors.blue[700],
-                inactiveTrackColor: Colors.white,
-                secondary: const Icon(
-                  Icons.notifications_none_outlined,
-                  color: Colors.brown,
-                  size: 30,
-                ),
-              ),
-              const SizedBox(height: 10.0),
-              SwitchListTile(
-                title: const Text('Night Mode'),
-                tileColor: Colors.white,
-                value: isCheck3,
-                onChanged: (bool value) {
-                  setState(() {
-                    isCheck3 = value;
-                  });
-                },
-                activeColor: Colors.blue[700],
-                // inactiveThumbColor: Colors.blue[700],
-                inactiveTrackColor: Colors.pink[300],
-                secondary: const Icon(
-                  Icons.mode_night_outlined,
-                  color: Colors.brown,
-                  size: 30,
-                ),
-              ),
-              const SizedBox(height: 10.0),
+              Container(
+                  margin: const EdgeInsets.fromLTRB(15, 10, 15, 0),
+                  alignment: Alignment.center,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius:
+                        BorderRadius.all(Radius.circular(10.0)), // Set rounded corner radius
+                  ),
+                  child: SwitchListTile(
+                    title: const Text('Availability'),
+                    tileColor: Colors.white,
+                    value: isCheck1,
+                    onChanged: (bool value) {
+                      setState(() {
+                        isCheck1 = value;
+                      });
+                    },
+                    activeColor: Colors.blue[700],
+                    // inactiveThumbColor: Colors.blue[700],
+                    inactiveTrackColor: Colors.white,
+                    secondary: const Icon(
+                      Icons.check_box,
+                      color: Colors.brown,
+                      size: 30,
+                    ),
+                  )),
+              Container(
+                  margin: const EdgeInsets.fromLTRB(15, 10, 15, 0),
+                  alignment: Alignment.center,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius:
+                        BorderRadius.all(Radius.circular(10.0)), // Set rounded corner radius
+                  ),
+                  child: SwitchListTile(
+                    title: const Text('Notifications'),
+                    tileColor: Colors.white,
+                    value: isCheck2,
+                    onChanged: (bool value) {
+                      setState(() {
+                        isCheck2 = value;
+                      });
+                    },
+                    activeColor: Colors.blue[700],
+                    // inactiveThumbColor: Colors.blue[700],
+                    inactiveTrackColor: Colors.white,
+                    secondary: const Icon(
+                      Icons.notifications_none_outlined,
+                      color: Colors.brown,
+                      size: 30,
+                    ),
+                  )),
+              Container(
+                  margin: const EdgeInsets.fromLTRB(15, 10, 15, 0),
+                  alignment: Alignment.center,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius:
+                        BorderRadius.all(Radius.circular(10.0)), // Set rounded corner radius
+                  ),
+                  child: SwitchListTile(
+                    title: const Text('Night Mode'),
+                    tileColor: Colors.white,
+                    value: isCheck3,
+                    onChanged: (bool value) {
+                      setState(() {
+                        isCheck3 = value;
+                      });
+                    },
+                    activeColor: Colors.blue[700],
+                    // inactiveThumbColor: Colors.blue[700],
+                    inactiveTrackColor: Colors.pink[300],
+                    secondary: const Icon(
+                      Icons.mode_night_outlined,
+                      color: Colors.brown,
+                      size: 30,
+                    ),
+                  )),
               buildListTitleSetting(
-                  icons: Icons.language_outlined, text: 'Language', textCustoms: 'English'),
-              const SizedBox(height: 10.0),
+                  icons: Icons.language_outlined,
+                  text: 'Language',
+                  textCustoms: 'English',
+                  onClicked: () {}),
               buildListTitleSetting(
-                  icons: Icons.help_outline, text: 'Support', textCustoms: 'Get Help'),
-              const SizedBox(height: 10.0),
+                  icons: Icons.help_outline,
+                  text: 'Support',
+                  textCustoms: 'Get Help',
+                  onClicked: () {}),
               buildListTitleSetting(
-                  icons: Icons.verified_user_outlined, text: 'Privacy Policy', textCustoms: 'View'),
+                  icons: Icons.verified_user_outlined,
+                  text: 'Privacy Policy',
+                  textCustoms: 'View',
+                  onClicked: () {}),
             ],
           ),
           bottomNavigationBar: const BottomNavBar(4),
