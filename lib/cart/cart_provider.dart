@@ -18,13 +18,13 @@ class CartProvider extends ChangeNotifier {
   }
   void _setPrefItems() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setDouble('total_price', _totalPrice);
+    prefs.setDouble('total_price',_totalPrice);
     notifyListeners();
   }
 
    void _getPrefItems() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    _totalPrice = prefs.getDouble('total_price')??0.0;
+    _totalPrice = prefs.getDouble('total_price')!;
     notifyListeners();
   }
 

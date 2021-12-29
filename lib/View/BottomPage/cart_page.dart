@@ -1,4 +1,3 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/cart/cart_model.dart';
@@ -19,7 +18,7 @@ class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
     DbCart dbCart = DbCart();
-    final cartprd=Provider.of<CartProvider>(context);
+    final cartprd = Provider.of<CartProvider>(context);
     return GestureDetector(
       //huy keyboard khi bam ngoai man hinh
       onTap: () => FocusScope.of(context).unfocus(),
@@ -32,127 +31,203 @@ class _CartPageState extends State<CartPage> {
         drawer: const NavigationDrawer(),
         //Body
         body: SingleChildScrollView(
-          child: Column(
-            children:[
-              Stack(
+          child: Column(children: [
+            Stack(
               children: [
-                Container(
-                  height: 520,
-                  child: FutureBuilder<List<Cart>>(
-                      future: cartprd.getData(),
-                      builder: (context, snap) {
-                        if (snap.hasError) {
-                          return Center(
-                            child: Text(snap.error.toString()),
-                          );
-                        }
-                        return snap.hasData
-                            ? ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: snap.data!.length,
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                    padding: const EdgeInsets.only(
-                                        left: 5.0, right: 5.0, top: 5.0),
-                                    child: Row(
-                                      children: [
-                                        InkWell(
-                                          onTap: () {
-                                            dbCart.deleteCart(snap.data![index].id!);
-                                            cartprd.removeTotalPrice(double.parse(snap.data![index].productPrice.toString()));
-                                          },
-                                          child: const Icon(
-                                            Icons.cancel,
-                                            color: Colors.red,
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width: 10.0,
-                                        ),
-                                        CachedNetworkImage(
-                                            width: 100,
-                                            height: 100,
-                                            imageUrl:
-                                                "http://10.0.2.2:8000/storage/assets/images/product-image/" +
-                                                    snap.data![index].productImg),
-                                        const SizedBox(
-                                          width: 5.0,
-                                        ),
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              snap.data![index].productName,
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 15,
-                                              ),
+                
+               SizedBox(
+                    height: 530,
+                    child: FutureBuilder<List<Cart>>(
+                        future: cartprd.getData(),
+                        builder: (context, snap) {
+                          if (snap.hasError) {
+                            return Center(
+                              child: Text(snap.error.toString()),
+                            );
+                          }
+                          return snap.hasData
+                              ? ListView.builder(
+                                  shrinkWrap: true,
+                                   physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: snap.data!.length,
+                                  itemBuilder: (context, index) {
+                                    return Container(
+                                      padding: const EdgeInsets.only(
+                                          left: 5.0, right: 5.0, top: 5.0),
+                                      child: Row(
+                                        children: [
+                                          InkWell(
+                                            onTap: () {
+                                              dbCart.deleteCart(
+                                                  snap.data![index].id!);
+                                              cartprd.removeTotalPrice(
+                                                  double.parse(snap
+                                                      .data![index].productPrice
+                                                      .toString()));
+                                            },
+                                            child: const Icon(
+                                              Icons.cancel,
+                                              color: Colors.red,
                                             ),
-                                            Text(
-                                              "Giá: " +
-                                                  snap.data![index].productPrice
-                                                      .toString(),
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.red,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Container(
-                                          padding: const EdgeInsets.only(
-                                              top: 20, left: 10.0),
-                                          width: 80,
-                                          //color: Colors.indigo,
-                                          child: Row(
-                                            children: [
-                                              InkWell(
-                                                onTap: () {},
-                                                child: const Icon(
-                                                  Icons.remove,
-                                                  color: Colors.red,
-                                                ),
-                                              ),
-                                              Container(
-                                                margin: const EdgeInsets.only(
-                                                    left: 5.0, right: 5.0),
-                                                child: Text(
-                                                  snap.data![index].quantity
-                                                      .toString(),
-                                                ),
-                                              ),
-                                              InkWell(
-                                                onTap: () {},
-                                                child: const Icon(
-                                                  Icons.add,
-                                                  color: Colors.green,
-                                                ),
-                                              )
-                                            ],
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                })
-                            : const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                      }),
-                ),
-                // ListView(
-                // children: [
-                //   ListView.builder(
-                //       physics: const NeverScrollableScrollPhysics(),
-                //       shrinkWrap: true,
-                //       itemCount: cartprd.getCartItems.length,
-                //       itemBuilder: (context, index) {
-                //         return buildCart(context, cartprd.getCartItems[index]);
-                //       }),
-               Positioned(
+                                          const SizedBox(
+                                            width: 10.0,
+                                          ),
+                                          CachedNetworkImage(
+                                              width: 100,
+                                              height: 100,
+                                              imageUrl:
+                                                  "http://10.0.2.2:8000/storage/assets/images/product-image/" +
+                                                      snap.data![index]
+                                                          .productImg),
+                                          const SizedBox(
+                                            width: 5.0,
+                                          ),
+                                          Container(
+                                            width: 180,
+                                            child: Column(
+                                             
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  snap.data![index].productName,
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 15,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  "Giá: " +
+                                                      snap.data![index].inintPrice
+                                                          .toString(),
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.red,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Container(
+                                            padding: const EdgeInsets.only(
+                                                top: 20, left: 10.0),
+                                            width: 80,
+                                            //color: Colors.indigo,
+                                            child: Row(
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                     int quantity = snap
+                                                        .data![index].quantity;
+                                                    int price = snap
+                                                        .data![index].inintPrice;
+                                                    quantity--;
+                                                    int newPrice =
+                                                        price * quantity;
+                                                    if(quantity>0){
+                                                      dbCart
+                                                          .updateCart(
+                                                        Cart(
+                                                            id: snap
+                                                                .data![index].id!,
+                                                            productName: snap
+                                                                .data![index]
+                                                                .productName,
+                                                            inintPrice: snap
+                                                                .data![index]
+                                                                .inintPrice,
+                                                            productPrice:
+                                                                newPrice,
+                                                            quantity: quantity,
+                                                            productImg: snap
+                                                                .data![index]
+                                                                .productImg),
+                                                      )
+                                                          .then((value) {
+                                                        newPrice = 0;
+                                                        quantity = 0;
+                                                        cartprd.removeTotalPrice(
+                                                            double.parse(snap
+                                                                .data![index]
+                                                                .inintPrice
+                                                                .toString()));
+                                                      }).onError((error,
+                                                              stackTrace) {
+                                                        print(error.toString());
+                                                      });
+                                                    }
+                                                  },
+                                                  child: const Icon(
+                                                    Icons.remove,
+                                                    color: Colors.red,
+                                                  ),
+                                                ),
+                                                Container(
+                                                  margin: const EdgeInsets.only(
+                                                      left: 5.0, right: 5.0),
+                                                  child: Text(
+                                                    snap.data![index].quantity
+                                                        .toString(),
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    int quantity = snap
+                                                        .data![index].quantity;
+                                                    int price = snap
+                                                        .data![index].inintPrice;
+                                                    quantity++;
+                                                    int newPrice =
+                                                        price * quantity;
+                                                    dbCart
+                                                        .updateCart(
+                                                      Cart(
+                                                          id: snap
+                                                              .data![index].id!,
+                                                          productName: snap
+                                                              .data![index]
+                                                              .productName,
+                                                          inintPrice: snap
+                                                              .data![index]
+                                                              .inintPrice,
+                                                          productPrice: newPrice,
+                                                          quantity: quantity,
+                                                          productImg: snap
+                                                              .data![index]
+                                                              .productImg),
+                                                    )
+                                                        .then((value) {
+                                                      newPrice = 0;
+                                                      quantity = 0;
+                                                      cartprd.addTotalPrice(
+                                                          double.parse(snap
+                                                              .data![index]
+                                                              .inintPrice
+                                                              .toString()));
+                                                    }).onError(
+                                                            (error, stackTrace) {
+                                                      print(error.toString());
+                                                    });
+                                                  },
+                                                  child: const Icon(
+                                                    Icons.add,
+                                                    color: Colors.green,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  })
+                              : const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                        }),
+                  ),
+                Positioned(
                   bottom: 0.0,
                   child: Container(
                     color: Colors.green,
@@ -169,7 +244,7 @@ class _CartPageState extends State<CartPage> {
                           ),
                           const SizedBox(width: 10.0),
                           Padding(
-                            padding: const EdgeInsets.only(right:8.0),
+                            padding: const EdgeInsets.only(right: 8.0),
                             child: InkWell(
                               onTap: () {},
                               child: Container(
@@ -191,16 +266,13 @@ class _CartPageState extends State<CartPage> {
                   ),
                 )
               ],
-              
             ),
-             
-            ]
-          ),
-        ), 
-              //nho' thay doi? lai con so' truyen du~ lieu
+          ]),
+        ),
+        //nho' thay doi? lai con so' truyen du~ lieu
         bottomNavigationBar: const BottomNavBar(2),
-          ),
-      );
+      ),
+    );
   }
 }
 

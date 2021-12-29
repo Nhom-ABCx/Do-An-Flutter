@@ -3,6 +3,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_application_1/cart/cart_model.dart';
+import 'package:flutter_application_1/cart/cart_provider.dart';
+import 'package:flutter_application_1/cart/db/db_cart.dart';
+import 'package:provider/provider.dart';
 import '../../all_page.dart';
 
 // ignore: must_be_immutable
@@ -15,7 +19,9 @@ class ProductDetail extends StatelessWidget {
     return SizedBox(
       child: CachedNetworkImage(
           height: 150,
-          imageUrl: 'http://10.0.2.2:8000/storage/assets/images/product-image/' + sanPham.hinhAnh!),
+          imageUrl:
+              'http://10.0.2.2:8000/storage/assets/images/product-image/' +
+                  sanPham.hinhAnh!),
     );
   }
 
@@ -79,7 +85,7 @@ class ProductDetail extends StatelessWidget {
                 const SizedBox(
                   height: 10.0,
                 ),
-                buildStockProduct(),
+                buildStockProduct(context, sanPham),
               ],
             ),
           ],
@@ -158,14 +164,19 @@ Widget buildTimeSale() {
   );
 }
 
-Widget buildStockProduct() {
+Widget buildStockProduct(BuildContext context, SanPham sanPham) {
+  DbCart dbCart = DbCart();
+  final cartprd = Provider.of<CartProvider>(context);
+  int quantity = 1;
   Row stock = Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       Padding(
         padding: const EdgeInsets.only(left: 8.0, right: 5.0),
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            quantity--;
+          },
           child: Text(
             "-",
             style: TextStyle(fontSize: 20.0),
@@ -174,12 +185,14 @@ Widget buildStockProduct() {
       ),
       Padding(
         padding: const EdgeInsets.only(right: 5.0),
-        child: Text('4'),
+        child: Text(quantity.toString()),
       ),
       Padding(
         padding: const EdgeInsets.only(right: 40.0),
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            quantity++;
+          },
           clipBehavior: Clip.antiAlias,
           child: Text(
             "+",
@@ -198,7 +211,22 @@ Widget buildStockProduct() {
       FlatButton(
           textColor: Colors.white,
           color: Colors.red,
-          onPressed: () {},
+          onPressed: () {
+            dbCart
+                .insertItems(Cart(
+                    productName: sanPham.tenSanPham,
+                    inintPrice: sanPham.giaBan!,
+                    productPrice: sanPham.giaBan!,
+                    quantity: 1,
+                    productImg: sanPham.hinhAnh!))
+                .then((value) {
+              thongBaoScaffoldMessenger(context, "Thêm thành công");
+              cartprd.addTotalPrice(double.parse(sanPham.giaBan.toString()));
+            }).onError((error, stackTrace) {
+              print(error.toString());
+            });
+            ;
+          },
           child: Text(
             'Add to card',
             style: TextStyle(),

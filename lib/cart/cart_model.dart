@@ -9,7 +9,9 @@ class CartFields{
 }
 class Cart {
   final int? id;
+ 
   final String productName;
+  final int inintPrice;
   final int productPrice;
   final int quantity;
   final String productImg;
@@ -17,6 +19,7 @@ class Cart {
   Cart({
     this.id,
     required this.productName,
+    required this.inintPrice,
     required this.productPrice,
     required this.quantity,
     required this.productImg
@@ -25,6 +28,7 @@ class Cart {
   Cart.fromMap(Map<dynamic,dynamic> json)
    :id=json['id'],
   productName=json['productName'],
+  inintPrice=json['inintPrice'],
   productPrice=json['productPrice'],
   quantity=json['quantity'],
   productImg=json['productImg'];
@@ -33,28 +37,29 @@ class Cart {
     return {
         'id':id,
         'productName':productName,
+        'inintPrice':inintPrice,
         'productPrice': productPrice,
         'quantity':quantity,
         'productImg':productImg
     };
   }
-  Map<String, Object?> toJson()=>{
-    CartFields.id:id,
-    CartFields.productName:productName,
-    CartFields.productPrice:productPrice,
-    CartFields.quantity:quantity,
-    CartFields.productImg:productImg
-  };
-  Cart copy({
-    int? id,
-    String? productName,
-    int? productPrice,
-    int? quantity,
-    String? productImg,
-  })=>Cart(id: id?? this.id,
-    productName: productName?? this.productName,
-    productPrice: productPrice??this.productPrice,
-    quantity: quantity??this.quantity,
-    productImg: productImg??this.productImg
-  );
+  // Map<String, Object?> toJson()=>{
+  //   CartFields.id:id,
+  //   CartFields.productName:productName,
+  //   CartFields.productPrice:productPrice,
+  //   CartFields.quantity:quantity,
+  //   CartFields.productImg:productImg
+  // };
+  // Cart copy({
+  //   int? id,
+  //   String? productName,
+  //   int? productPrice,
+  //   int? quantity,
+  //   String? productImg,
+  // })=>Cart(id: id?? this.id,
+  //   productName: productName?? this.productName,
+  //   productPrice: productPrice??this.productPrice,
+  //   quantity: quantity??this.quantity,
+  //   productImg: productImg??this.productImg
+  // );
 }
