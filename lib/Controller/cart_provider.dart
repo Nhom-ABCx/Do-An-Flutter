@@ -46,4 +46,11 @@ class CartProvider extends ChangeNotifier {
     _getPrefItems();
     return _totalPrice;
   }
+
+  Future<bool> deleteAllCart() {
+    _totalPrice = 0;
+    _setPrefItems();
+    notifyListeners();
+    return db.deleteAllCart();
+  }
 }

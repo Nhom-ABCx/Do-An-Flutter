@@ -118,4 +118,10 @@ class DbCart {
       whereArgs: [cart.id],
     );
   }
+
+  Future<bool> deleteAllCart() async {
+    final dbclient = await database;
+    // ignore: unrelated_type_equality_checks
+    return dbclient.delete('cart')!=0;
+  }
 }
