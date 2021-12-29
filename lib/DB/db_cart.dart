@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
@@ -121,12 +120,12 @@ class DbCart {
   }
 
   //select cart co ton tai san pham chua
-  Future<bool> ifPrdExits(Cart cart) async{
-    var dbclient= await database ;
-    final raw= await dbclient.rawQuery('SELECT EXISTS(SELECT * FROM cart WHERE productId=?)',[cart.productId]);
-    int? exits=Sqflite.firstIntValue(raw);
-    return exits==1;
-  }
+  // Future<bool> ifPrdExits(Cart cart) async{
+  //   var dbclient= await database ;
+  //   final raw= await dbclient.rawQuery('SELECT EXISTS(SELECT * FROM cart WHERE productId=?)',[cart.productId]);
+  //   int? exits=Sqflite.firstIntValue(raw);
+  //   return exits==1;
+  // }
 
   //kiem tra neu ton tai thi update nguoc lai them moi
   // Future inserIfExits(Cart cart) async{
@@ -137,4 +136,9 @@ class DbCart {
   //   return  await insertItems(cart);
   //   }
   // } 
+  Future<bool> deleteAllCart() async {
+    final dbclient = await database;
+    // ignore: unrelated_type_equality_checks
+    return dbclient.delete('cart')!=0;
+  }
 }

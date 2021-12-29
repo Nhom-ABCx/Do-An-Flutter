@@ -167,6 +167,163 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
                           ),
                         ),
                       ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      Container(
+                        margin: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                        height: 75,
+                        alignment: Alignment.center,
+                        decoration: const BoxDecoration(
+                            color: Colors.blue,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(15),
+                                topRight: Radius.circular(15)) // Set rounded corner radius
+                            ),
+                        child: const Text(
+                          "Choose Payment Method",
+                          style: TextStyle(fontSize: 20, color: Colors.white),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.fromLTRB(5, 0, 5, 0),
+                        color: Colors.white70,
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                          child: Wrap(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(15),
+                                  child: Container(
+                                    width: 160,
+                                    height: 100,
+                                    color: Colors.white,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                                      children: [
+                                        IconButton(
+                                            onPressed: () {
+                                              Navigator.pushNamed(context, "routeting");
+                                            },
+                                            icon: const Icon(
+                                              Icons.credit_card,
+                                              size: 50,
+                                              color: Colors.blue,
+                                            )),
+                                        const Padding(
+                                          padding: EdgeInsets.only(left: 27, top: 20),
+                                          child: Text(
+                                            "Credit Card",
+                                            style: TextStyle(fontSize: 20),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(15),
+                                  child: Container(
+                                    width: 160,
+                                    height: 100,
+                                    color: Colors.white,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                                      children: [
+                                        IconButton(
+                                            onPressed: () {
+                                              Navigator.pushNamed(context, "routeting");
+                                            },
+                                            icon: const Icon(
+                                              Icons.account_balance,
+                                              size: 50,
+                                              color: Colors.blue,
+                                            )),
+                                        const Padding(
+                                          padding: EdgeInsets.only(left: 60, top: 20),
+                                          child: Text(
+                                            "Bank",
+                                            style: TextStyle(fontSize: 20),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(15),
+                                  child: Container(
+                                    width: 160,
+                                    height: 100,
+                                    color: Colors.white,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                                      children: [
+                                        IconButton(
+                                            onPressed: () {
+                                              Navigator.pushNamed(context, "routeting");
+                                            },
+                                            icon: const Icon(
+                                              Icons.payments,
+                                              size: 50,
+                                              color: Colors.blue,
+                                            )),
+                                        const Padding(
+                                          padding: EdgeInsets.only(left: 50, top: 20),
+                                          child: Text(
+                                            "PayPal",
+                                            style: TextStyle(fontSize: 20),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(15),
+                                  child: Container(
+                                    width: 160,
+                                    height: 100,
+                                    color: Colors.white,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                                      children: [
+                                        IconButton(
+                                            onPressed: () {
+                                              Navigator.pushNamed(context, "routeting");
+                                            },
+                                            icon: const Icon(
+                                              Icons.price_change,
+                                              size: 50,
+                                              color: Colors.blue,
+                                            )),
+                                        const Padding(
+                                          padding: EdgeInsets.only(left: 60, top: 20),
+                                          child: Text(
+                                            "Cash",
+                                            style: TextStyle(fontSize: 20),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                       Container(
                         margin: const EdgeInsets.fromLTRB(5, 20, 5, 0),
                         alignment: Alignment.center,
@@ -184,7 +341,13 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
                             style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                           ),
                           trailing: ElevatedButton(
-                              onPressed: () => Navigator.pushNamed(context, "/SelectPaymentPage"),
+                              onPressed: () async {
+                                if (await api_HoaDon_LapHoaDon(Auth.khachHang.id!)) {
+                                  Navigator.pushNamed(context, "/SuccessfullyPage");
+                                } else {
+                                  thongBaoScaffoldMessenger(context, "Something Fails");
+                                }
+                              },
                               child: const Text(
                                 "Confirm & Pay",
                                 style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),

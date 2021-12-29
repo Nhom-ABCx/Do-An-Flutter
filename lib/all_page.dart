@@ -33,7 +33,7 @@ export 'API/api_manager.dart';
 
 export 'Controller/auth.dart';
 export 'Controller/edit_myprofile_controller.dart';
-export 'Controller/sanpham_controller.dart';
 export 'Controller/file_controller.dart';
 export 'View/HoaDon/billing_infomation_page.dart';
 export 'View/HoaDon/select_payment_page.dart';
+export 'View/HoaDon/successfully_page.dart';

@@ -53,6 +53,7 @@ class MyApp extends StatelessWidget {
           '/LapTopPage': (context) => const LapTopPage(),
           '/BillingPage': (context) => const BillingInfomationPage(),
           '/SelectPaymentPage': (context) => const SelectPaymentPage(),
+          '/SuccessfullyPage': (context) => const SuccessfullyPage(),
         },
       ),
     );

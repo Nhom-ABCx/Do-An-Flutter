@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'dart:convert';
 import 'dart:core';
+import 'package:flutter_application_1/Controller/cart_provider.dart';
+import 'package:flutter_application_1/Modals/cart_model.dart';
 import 'package:http/http.dart' as http;
 import '../all_page.dart';
 
@@ -233,24 +235,28 @@ Future<bool> api_sendEmail_User_Reset(String username) async {
 }
 
 //them du lieu vao gio hang
-Future<List<dynamic>> addCart(int khachHangId, int sanPhamId, int soLuong) async {
-  final url = urlBaseAPI + 'add-Cart';
-  List<HoaDon> hoadon = [];
-  List<CT_HoaDon> ct_hoadon = [];
+// ignore: non_constant_identifier_names
+Future<bool> api_HoaDon_LapHoaDon(int khachHangId) async {
+  final url = urlBaseAPI + 'HoaDon/LapHoaDon';
 
   try {
-    final response = await http.post(Uri.parse(url), body: {
-      "KhachHangId": "$khachHangId",
-      "SanPhamId": "$sanPhamId",
-      "SoLuong": "$soLuong",
-    });
+    final cartProvider = CartProvider();
+    final cart = await cartProvider.getData();
+
+    if (cart.isEmpty) return false;
+
+    List<Map<String, dynamic>> value = [];
+    for (var item in cart) {
+      value.add({"SanPhamId": "${item.productId}", "SoLuong": "${item.quantity}"});
+    }
+    final body = json.encode({"KhachHangId": "$khachHangId", "Data": value});
+    final response = await http.post(Uri.parse(url),
+        body: body, headers: {"accept": "application/json", "content-type": "application/json"});
     if (response.statusCode == 200) {
-      List jSonlst = json.decode(response.body);
-      hoadon = jSonlst[0].map((data) => HoaDon.fromJson(data)).toList();
-      ct_hoadon = jSonlst[1].map((data) => CT_HoaDon.fromJson(data)).toList();
+      return await cartProvider.deleteAllCart();
     }
   } catch (e) {}
-  return [hoadon, ct_hoadon];
+  return false;
 }
 
 Future<dynamic> api_Update_KhachHang_HinhAnh(KhachHang khachHang, File imageFile) async {

@@ -33,6 +33,16 @@ class _PagesState extends State<Pages> {
                   textCustoms: '',
                   onClicked: () => Navigator.pushNamed(context, "/SelectPaymentPage"),
                 ),
+                buildListTitleSetting(
+                  text: 'Forgot Password Susses',
+                  textCustoms: '',
+                  onClicked: () => Navigator.pushNamed(context, "/Forgot_action"),
+                ),
+                buildListTitleSetting(
+                  text: 'Successfully Page',
+                  textCustoms: '',
+                  onClicked: () => Navigator.pushNamed(context, "/SuccessfullyPage"),
+                ),
               ],
             ),
           ),

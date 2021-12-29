@@ -69,4 +69,10 @@ class CartProvider extends ChangeNotifier {
   int getQuantity() => _quantity;
 
 
+  Future<bool> deleteAllCart() {
+    _totalPrice = 0;
+    _setPrefItems();
+    notifyListeners();
+    return db.deleteAllCart();
+  }
 }
