@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; //text input
-import 'package:flutter_application_1/cart/cart_model.dart';
-import 'package:flutter_application_1/cart/cart_provider.dart';
-import 'package:flutter_application_1/cart/db/db_cart.dart';
+import '../Modals/cart_model.dart';
+import 'package:flutter_application_1/Controller/cart_provider.dart';
+import 'package:flutter_application_1/DB/db_cart.dart';
 import 'package:provider/provider.dart';
 import '../all_page.dart';
 
@@ -196,23 +196,17 @@ Widget buildItem(BuildContext context, SanPham _sp) {
               alignment: const Alignment(3, 0),
               child: InkWell(
                 onTap: () {
-                  // cart.addItem(Cart(
-                  //     productName: _sp.tenSanPham,
-                  //     productPrice: _sp.giaBan!,
-                  //     quantity: 1,
-                  //     productImg: _sp.hinhAnh!));
-
                   db
                       .insertItems(Cart(
                     productName: _sp.tenSanPham,
+                    inintPrice: _sp.giaBan!,
                     productPrice: _sp.giaBan!,
                     quantity: 1,
                     productImg: _sp.hinhAnh!,
                   ))
                       .then((value) {
                     thongBaoScaffoldMessenger(context, "Thêm thành công");
-                    cart.addTotalPrice(double.parse(_sp.giaBan.toString()));
-                    // cart.addCounter();
+                     cart.addTotalPrice(double.parse(_sp.giaBan.toString()));
                   }).onError((error, stackTrace) {
                     print(error.toString());
                   });
