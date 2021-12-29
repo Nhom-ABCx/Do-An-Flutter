@@ -26,7 +26,7 @@ class NotificationsState extends State<Notifications> {
           drawer: const NavigationDrawer(),
           //Body
           body: ListView.separated(
-            physics:const ClampingScrollPhysics(),
+            physics: const ClampingScrollPhysics(),
             padding: EdgeInsets.zero,
             itemCount: 35,
             itemBuilder: (context, index) {
@@ -54,7 +54,8 @@ class BodyNotifications extends StatelessWidget {
         height: 50.0,
         width: 50.0,
         decoration: const BoxDecoration(
-            image: DecorationImage(image: AssetImage(logo), fit: BoxFit.cover)),
+            image: DecorationImage(
+                image: AssetImage("assets/images/thongbao.jpg"), fit: BoxFit.cover)),
       ),
       title: const Text(
         'E-EEEE',

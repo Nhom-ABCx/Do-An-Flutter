@@ -3,37 +3,46 @@ import 'package:flutter/services.dart';
 import 'package:flutter_application_1/all_page.dart';
 
 class AppBarPage extends StatelessWidget implements PreferredSizeWidget {
-  AppBarPage({Key? key}) : super(key: key);
+  AppBarPage({Key? key, this.title}) : super(key: key);
   //cac bien' de dung`, de? tam
+  final Widget? title;
   final txtTimKiem = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       iconTheme: const IconThemeData(color: Colors.indigo),
-      title: SizedBox(
-        width: 250,
-        child: TextField(
-          decoration: const InputDecoration(
-            border: OutlineInputBorder(),
-            hintText: "Enter your keyword",
-          ),
-          controller: txtTimKiem, //gan gia tri cua text vao bien'
-          textInputAction: TextInputAction.search,
-          inputFormatters: <TextInputFormatter>[
-            LengthLimitingTextInputFormatter(50), //gioi han do dai`
-          ],
-        ),
-      ),
+      title: title != null
+          ? title!
+          : SizedBox(
+              width: 250,
+              child: TextField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: "Enter your keyword",
+                ),
+                controller: txtTimKiem, //gan gia tri cua text vao bien'
+                textInputAction: TextInputAction.search,
+                inputFormatters: <TextInputFormatter>[
+                  LengthLimitingTextInputFormatter(50), //gioi han do dai`
+                ],
+              ),
+            ),
       centerTitle: true,
       actions: [
-       IconButton(onPressed:  (){
-         if(txtTimKiem.text.isNotEmpty){
-           Navigator.push(context,MaterialPageRoute(
-             builder: (context)=>SearchPage(tenTimKiem: txtTimKiem.text),
-           ));
-         }
-       }, icon: const Icon(Icons.search_outlined)),
+        title == null
+            ? IconButton(
+                onPressed: () {
+                  if (txtTimKiem.text.isNotEmpty) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SearchPage(tenTimKiem: txtTimKiem.text),
+                        ));
+                  }
+                },
+                icon: const Icon(Icons.search_outlined))
+            : const SizedBox(),
         IconButton(onPressed: () {}, icon: const Icon(Icons.notifications))
       ],
     );

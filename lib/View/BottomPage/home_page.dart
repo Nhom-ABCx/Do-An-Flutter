@@ -27,7 +27,6 @@ class HomePageState extends State<HomePage> {
   //final Future<List<SanPham>> _dssanpham = fetchSanPham();
   @override
   void initState() {
-    
     super.initState();
   }
 
@@ -112,8 +111,7 @@ class HomePageState extends State<HomePage> {
                   children: [
                     const Text(
                       'Top Products',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(right: 10.0),
@@ -123,8 +121,7 @@ class HomePageState extends State<HomePage> {
                         onPressed: () {},
                         child: const Text(
                           'View All',
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
+                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                         ),
                         color: Colors.red,
                       ),
@@ -214,8 +211,7 @@ Widget buildSanPhamFlashsale(BuildContext context) {
             ? ListView.separated(
                 padding: const EdgeInsets.all(20),
                 scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) =>
-                    buildItem(context, snapshot.data![index]),
+                itemBuilder: (context, index) => buildItem(context, snapshot.data![index]),
                 separatorBuilder: (context, _) => const SizedBox(
                       width: 15, //khoang cach giua cac'layout
                     ),

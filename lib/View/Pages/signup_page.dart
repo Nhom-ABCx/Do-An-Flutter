@@ -149,17 +149,21 @@ class _SignUpPageState extends State<SignUpPage> {
                                       LengthLimitingTextInputFormatter(255), //gioi han do dai`
                                     ],
                                   ),
-                                  GestureDetector(
-                                    onTap: () => setState(() => notShowPassword = !notShowPassword),
-                                    child: notShowPassword
-                                        ? const Icon(
-                                            Icons.visibility,
-                                            color: Colors.white,
-                                          )
-                                        : const Icon(
-                                            Icons.visibility_off,
-                                            color: Colors.white,
-                                          ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 15),
+                                    child: GestureDetector(
+                                      onTap: () =>
+                                          setState(() => notShowPassword = !notShowPassword),
+                                      child: notShowPassword
+                                          ? const Icon(
+                                              Icons.visibility,
+                                              color: Colors.white,
+                                            )
+                                          : const Icon(
+                                              Icons.visibility_off,
+                                              color: Colors.white,
+                                            ),
+                                    ),
                                   ),
                                 ],
                               )),

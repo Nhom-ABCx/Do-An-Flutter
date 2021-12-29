@@ -118,7 +118,7 @@ class _SignInPageState extends State<SignInPage> {
                               decoration: InputDecoration(
                                 //border: OutlineInputBorder(),
                                 enabledBorder: const OutlineInputBorder(
-                                  borderSide: const BorderSide(color: Colors.grey),
+                                  borderSide: BorderSide(color: Colors.grey),
                                 ),
                                 labelText: "Password",
                                 errorText: snapshot.hasError ? snapshot.error.toString() : null,
@@ -135,17 +135,20 @@ class _SignInPageState extends State<SignInPage> {
                                 LengthLimitingTextInputFormatter(255), //gioi han do dai`
                               ],
                             ),
-                            GestureDetector(
-                              onTap: () => setState(() => notShowPassword = !notShowPassword),
-                              child: notShowPassword
-                                  ? const Icon(
-                                      Icons.visibility,
-                                      color: Colors.white,
-                                    )
-                                  : const Icon(
-                                      Icons.visibility_off,
-                                      color: Colors.white,
-                                    ),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 15),
+                              child: GestureDetector(
+                                onTap: () => setState(() => notShowPassword = !notShowPassword),
+                                child: notShowPassword
+                                    ? const Icon(
+                                        Icons.visibility,
+                                        color: Colors.white,
+                                      )
+                                    : const Icon(
+                                        Icons.visibility_off,
+                                        color: Colors.white,
+                                      ),
+                              ),
                             ),
                           ],
                         ),

@@ -314,32 +314,43 @@ Widget buildInputTextMyProfile(AsyncSnapshot<Object?> snapshot,
 }
 
 Widget buildListTitleSetting(
-    {required IconData icons, required String text, required String textCustoms}) {
-  return ColoredBox(
+    {IconData? icons,
+    required String text,
+    required String textCustoms,
+    required VoidCallback? onClicked}) {
+  return Container(
+    margin: const EdgeInsets.fromLTRB(15, 10, 15, 0),
+    alignment: Alignment.center,
+    decoration: const BoxDecoration(
       color: Colors.white,
-      child: ListTile(
-        leading: Icon(
-          icons,
-          color: Colors.brown,
-          size: 27,
-        ),
-        title: Text(
-          text,
-          style: const TextStyle(fontSize: 17),
-        ),
-        trailing: TextButton(
-            onPressed: () {},
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(textCustoms, style: const TextStyle(color: Colors.blue)),
-                const Icon(
-                  Icons.chevron_right,
-                  color: Colors.blue,
-                )
-              ],
-            )),
-      ));
+      borderRadius: BorderRadius.all(Radius.circular(10.0)), // Set rounded corner radius
+    ),
+    child: ListTile(
+      leading: icons != null
+          ? Icon(
+              icons,
+              color: Colors.brown,
+              size: 27,
+            )
+          : null,
+      title: Text(
+        text,
+        style: const TextStyle(fontSize: 17),
+      ),
+      trailing: TextButton(
+          onPressed: onClicked,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(textCustoms, style: const TextStyle(color: Colors.blue)),
+              const Icon(
+                Icons.chevron_right,
+                color: Colors.blue,
+              )
+            ],
+          )),
+    ),
+  );
 }
 // class _MainScreenState extends State<MainScreen> {
 //   @override
