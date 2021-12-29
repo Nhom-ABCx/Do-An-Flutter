@@ -83,6 +83,7 @@ class DbCart {
     await db.execute('''
       CREATE TABLE cart (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        productId INTEGER,
         productName  TEXT,
         inintPrice INTEGER,
         productPrice INTEGER,
@@ -92,7 +93,7 @@ class DbCart {
      ''');
   }
 
-  Future<Cart> insertItems(Cart cart) async {
+  Future insertItems(Cart cart) async {
     var dbclient = await database;
     await dbclient.insert('cart', cart.toMap());
     return cart;
@@ -118,4 +119,22 @@ class DbCart {
       whereArgs: [cart.id],
     );
   }
+
+  //select cart co ton tai san pham chua
+  Future<bool> ifPrdExits(Cart cart) async{
+    var dbclient= await database ;
+    final raw= await dbclient.rawQuery('SELECT EXISTS(SELECT * FROM cart WHERE productId=?)',[cart.productId]);
+    int? exits=Sqflite.firstIntValue(raw);
+    return exits==1;
+  }
+
+  //kiem tra neu ton tai thi update nguoc lai them moi
+  // Future inserIfExits(Cart cart) async{
+  //   //var dbclient =await database;
+  //   if (await ifPrdExits(cart)) {
+  //    return await  updateCart(cart);
+  //   }else{
+  //   return  await insertItems(cart);
+  //   }
+  // } 
 }

@@ -7,7 +7,7 @@ class CartFields{
 }
 class Cart {
   final int? id;
- 
+  final int productId;
   final String productName;
   final int inintPrice;
   final int productPrice;
@@ -16,6 +16,7 @@ class Cart {
 
   Cart({
     this.id,
+    required this.productId,
     required this.productName,
     required this.inintPrice,
     required this.productPrice,
@@ -25,6 +26,7 @@ class Cart {
 
   Cart.fromMap(Map<dynamic,dynamic> json)
    :id=json['id'],
+   productId=json['productId'],
   productName=json['productName'],
   inintPrice=json['inintPrice'],
   productPrice=json['productPrice'],
@@ -34,6 +36,7 @@ class Cart {
   Map<String,Object?> toMap(){
     return {
         'id':id,
+        'productId':productId,
         'productName':productName,
         'inintPrice':inintPrice,
         'productPrice': productPrice,

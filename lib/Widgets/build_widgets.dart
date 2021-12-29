@@ -195,22 +195,41 @@ Widget buildItem(BuildContext context, SanPham _sp) {
           child: Align(
               alignment: const Alignment(3, 0),
               child: InkWell(
-                onTap: () {
-                  db
-                      .insertItems(Cart(
+                onTap: () async {
+                  Cart crt=Cart(
+                        productId: _sp.id!,
                     productName: _sp.tenSanPham,
                     inintPrice: _sp.giaBan!,
                     productPrice: _sp.giaBan!,
                     quantity: 1,
-                    productImg: _sp.hinhAnh!,
-                  ))
+                    productImg: _sp.hinhAnh!,);
+                   // ignore: unrelated_type_equality_checks
+                   bool check= await db.ifPrdExits(crt);
+                   if ( check) {
+                    int quantity = crt.quantity;
+                    quantity++;
+                    int newPrice = quantity * crt.inintPrice;
+                    db.updateCart(Cart(
+                        id: crt.id!,
+                        productId: crt.productId,
+                        productName: crt.productName,
+                        inintPrice: crt.inintPrice,
+                        productPrice: newPrice,
+                        quantity: quantity,
+                        productImg: crt.productImg));
+                  } else{
+                    db
+                      .insertItems(crt
+                  )
                       .then((value) {
-                    thongBaoScaffoldMessenger(context, "Thêm thành công");
+                    thongBaoScaffoldMessenger(context, "Add cart complete");
                      cart.addTotalPrice(double.parse(_sp.giaBan.toString()));
                   }).onError((error, stackTrace) {
                     print(error.toString());
                   });
-                },
+                
+                  }
+                  },
                 child: const Icon(
                   Icons.add_circle,
                   color: Colors.green,

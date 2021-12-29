@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -167,7 +169,7 @@ Widget buildTimeSale() {
 Widget buildStockProduct(BuildContext context, SanPham sanPham) {
   DbCart dbCart = DbCart();
   final cartprd = Provider.of<CartProvider>(context);
-  int quantity = 1;
+   cartprd.setQuantity();
   Row stock = Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
@@ -175,7 +177,7 @@ Widget buildStockProduct(BuildContext context, SanPham sanPham) {
         padding: const EdgeInsets.only(left: 8.0, right: 5.0),
         child: ElevatedButton(
           onPressed: () {
-            quantity--;
+            cartprd.removeQuantity();
           },
           child: Text(
             "-",
@@ -185,13 +187,13 @@ Widget buildStockProduct(BuildContext context, SanPham sanPham) {
       ),
       Padding(
         padding: const EdgeInsets.only(right: 5.0),
-        child: Text(quantity.toString()),
+        child:Text(cartprd.getQuantity().toString()),
       ),
       Padding(
         padding: const EdgeInsets.only(right: 40.0),
         child: ElevatedButton(
           onPressed: () {
-            quantity++;
+           cartprd.addQuantity();
           },
           clipBehavior: Clip.antiAlias,
           child: Text(
@@ -212,16 +214,18 @@ Widget buildStockProduct(BuildContext context, SanPham sanPham) {
           textColor: Colors.white,
           color: Colors.red,
           onPressed: () {
+            int newPrice=sanPham.giaBan!*cartprd.getQuantity();
             dbCart
                 .insertItems(Cart(
+                  productId: sanPham.id!,
                     productName: sanPham.tenSanPham,
                     inintPrice: sanPham.giaBan!,
-                    productPrice: sanPham.giaBan!,
-                    quantity: 1,
+                    productPrice: newPrice,
+                    quantity: cartprd.getQuantity(),
                     productImg: sanPham.hinhAnh!))
                 .then((value) {
-              thongBaoScaffoldMessenger(context, "Thêm thành công");
-              cartprd.addTotalPrice(double.parse(sanPham.giaBan.toString()));
+              thongBaoScaffoldMessenger(context, "Add cart complete");
+              cartprd.addTotalPrice(double.parse(newPrice.toString()));
             }).onError((error, stackTrace) {
               print(error.toString());
             });

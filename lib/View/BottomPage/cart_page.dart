@@ -19,6 +19,7 @@ class _CartPageState extends State<CartPage> {
   Widget build(BuildContext context) {
     DbCart dbCart = DbCart();
     final cartprd = Provider.of<CartProvider>(context);
+    
     return GestureDetector(
       //huy keyboard khi bam ngoai man hinh
       onTap: () => FocusScope.of(context).unfocus(),
@@ -51,6 +52,11 @@ class _CartPageState extends State<CartPage> {
                                    physics: const NeverScrollableScrollPhysics(),
                                   itemCount: snap.data!.length,
                                   itemBuilder: (context, index) {
+                                    
+                                    // ignore: unrelated_type_equality_checks
+                                    //if (snap.data!.length>0) {
+                                     
+                                   // }
                                     return Container(
                                       padding: const EdgeInsets.only(
                                           left: 5.0, right: 5.0, top: 5.0),
@@ -131,6 +137,7 @@ class _CartPageState extends State<CartPage> {
                                                         Cart(
                                                             id: snap
                                                                 .data![index].id!,
+                                                                productId: snap.data![index].productId,
                                                             productName: snap
                                                                 .data![index]
                                                                 .productName,
@@ -167,6 +174,7 @@ class _CartPageState extends State<CartPage> {
                                                   margin: const EdgeInsets.only(
                                                       left: 5.0, right: 5.0),
                                                   child: Text(
+                                                    
                                                     snap.data![index].quantity
                                                         .toString(),
                                                   ),
@@ -185,6 +193,7 @@ class _CartPageState extends State<CartPage> {
                                                       Cart(
                                                           id: snap
                                                               .data![index].id!,
+                                                              productId: snap.data![index].productId,
                                                           productName: snap
                                                               .data![index]
                                                               .productName,
