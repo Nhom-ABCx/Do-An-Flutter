@@ -60,26 +60,27 @@ import '../cart_model.dart';
 //   }
 // }
 
-class DbCart{
-   static Database? _db;
+class DbCart {
+  static Database? _db;
 
-   Future<Database> get database async{
-      if(_db!=null){
-        return _db!;
-      }
-
-      _db=await initDatabase();
+  Future<Database> get database async {
+    if (_db != null) {
       return _db!;
-   }
+    }
 
-   initDatabase() async{
-     Directory docCument= await getApplicationDocumentsDirectory();
-     String path=join(docCument.path,'cart.db');
-     var db=await openDatabase(path,version: 1,onCreate: _onCreate);
-     return db;
-   }
-   _onCreate (Database db,int version) async{
-     await db.execute('''
+    _db = await initDatabase();
+    return _db!;
+  }
+
+  initDatabase() async {
+    Directory docCument = await getApplicationDocumentsDirectory();
+    String path = join(docCument.path, 'cart.db');
+    var db = await openDatabase(path, version: 1, onCreate: _onCreate);
+    return db;
+  }
+
+  _onCreate(Database db, int version) async {
+    await db.execute('''
       CREATE TABLE cart (
         id INTEGET PRIMARY KEY AUTOINCREMENT,
         productName  TEXT,
@@ -88,23 +89,22 @@ class DbCart{
         productImg TEXT
       )
      ''');
-   }
-  Future<Cart> insertItems(Cart cart) async{
-    var dbclient =await database;
+  }
+
+  Future<Cart> insertItems(Cart cart) async {
+    var dbclient = await database;
     await dbclient.insert('cart', cart.toMap());
     return cart;
   }
-  Future<int> deleteCart(int id) async{
-    var dbclient= await database;
-    return await dbclient.delete(
-      'cart',
-      where: 'id=?',
-      whereArgs: [id]
-    );
-  }
-  Future<List<Cart>> getCartList() async{
+
+  Future<int> deleteCart(int id) async {
     var dbclient = await database;
-    final query=await dbclient.query('cart');
+    return await dbclient.delete('cart', where: 'id=?', whereArgs: [id]);
+  }
+
+  Future<List<Cart>> getCartList() async {
+    var dbclient = await database;
+    final query = await dbclient.query('cart');
     return query.map((e) => Cart.fromMap(e)).toList();
   }
 }

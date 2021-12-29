@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter_application_1/DB/db_khach_hang.dart';
 import 'package:flutter_application_1/all_page.dart';
 
 class Auth {
@@ -8,6 +9,7 @@ class Auth {
   final passController = StreamController();
 
   Future<bool> ktDangNhap(String email, String pass) async {
+//kt rong~
     if (email.isEmpty) {
       emailController.sink.addError("Nhập username hoặc email");
       return false;
@@ -22,7 +24,11 @@ class Auth {
 
     khachHang = await api_DangNhap(email, pass);
 
-    return (khachHang.username.isNotEmpty) ? true : false;
+    if (khachHang.email.isNotEmpty) {
+      khachHang = await DB_KhachHang().insertIfExistItem(khachHang);
+      return true;
+    }
+    return false;
   }
 
   Future<bool> ktDangKy(String username, String email, String pass) async {
@@ -66,7 +72,7 @@ class Auth {
     }
 
     if (validate is KhachHang) khachHang = validate; //kt lai 1 lan nua cho no chac chan'
-    return (khachHang.username.isNotEmpty) ? true : false;
+    return (khachHang.email.isNotEmpty) ? true : false;
     // if (khachHang.hoTen.isNotEmpty) return true;
     // return false;
   }
@@ -86,6 +92,15 @@ class Auth {
   static bool isValidEmail(String email) {
     return RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
         .hasMatch(email);
+  }
+
+  static Future<bool> ktDaCoTaiKhoanDangNhap() async {
+    final _khDangCoTrongDatabase = await DB_KhachHang().getFirstItems();
+    if (khachHang.email != _khDangCoTrongDatabase.email) {
+      khachHang = _khDangCoTrongDatabase;
+      return true;
+    }
+    return false;
   }
 
   void dispose() {

@@ -49,7 +49,7 @@ class NavigationDrawer extends StatelessWidget {
               buildListTitleDrawer(
                 text: 'Loggin Now',
                 icon: Icons.login_outlined,
-                onClicked: () {
+                onClicked: () async {
                   Auth.khachHang.LogOut();
                   Navigator.pushNamedAndRemoveUntil(context, "/Sign_In", (route) => false);
                 },

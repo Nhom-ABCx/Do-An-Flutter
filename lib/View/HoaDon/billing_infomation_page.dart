@@ -69,7 +69,7 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
                             buildTextMyProfile(
                                 icon: Icons.email,
                                 title: 'Email Address',
-                                lable: Auth.khachHang.email!),
+                                lable: Auth.khachHang.email),
                             buildTextMyProfile(
                                 icon: Icons.phone,
                                 title: 'Phone',

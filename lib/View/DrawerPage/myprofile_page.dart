@@ -56,7 +56,7 @@ class MyProfileState extends State<MyProfile> {
                                 buildTextMyProfile(
                                     icon: Icons.email,
                                     title: 'Email Address',
-                                    lable: Auth.khachHang.email!),
+                                    lable: Auth.khachHang.email),
                                 buildTextMyProfile(
                                     icon: Icons.gps_fixed,
                                     title: 'Address',

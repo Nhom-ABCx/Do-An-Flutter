@@ -23,10 +23,10 @@ class EditMyProfileController {
       return false;
     }
 
-    if (_khachHang.email!.isEmpty) {
+    if (_khachHang.email.isEmpty) {
       emailController.sink.addError("Nhập email");
       return false;
-    } else if (!Auth.isValidEmail(_khachHang.email!)) {
+    } else if (!Auth.isValidEmail(_khachHang.email)) {
       emailController.sink.addError("Nhập đúng định dạng email");
       return false;
     }

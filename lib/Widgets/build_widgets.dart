@@ -211,7 +211,7 @@ Widget buildItem(BuildContext context, SanPham _sp) {
                   ))
                       .then((value) {
                     thongBaoScaffoldMessenger(context, "Thêm thành công");
-                     cart.addTotalPrice(double.parse(_sp.giaBan.toString()));
+                    cart.addTotalPrice(double.parse(_sp.giaBan.toString()));
                     // cart.addCounter();
                   }).onError((error, stackTrace) {
                     print(error.toString());

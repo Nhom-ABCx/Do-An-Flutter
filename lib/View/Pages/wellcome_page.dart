@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Controller/auth.dart';
 
 class WellcomePage extends StatefulWidget {
   const WellcomePage({
@@ -23,10 +24,7 @@ class _WellcomePageState extends State<WellcomePage> {
               children: <Widget>[
                 const Text(
                   'Welcome!',
-                  style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
+                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.white),
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 32, bottom: 16),
@@ -37,10 +35,15 @@ class _WellcomePageState extends State<WellcomePage> {
                   ),
                   width: 250,
                   child: TextButton(
-                    child: const Text('Sign In',
-                        style: TextStyle(fontSize: 20, color: Colors.white)),
-                    onPressed: () =>
-                        Navigator.pushReplacementNamed(context, '/Sign_In'),
+                    child:
+                        const Text('Sign In', style: TextStyle(fontSize: 20, color: Colors.white)),
+                    onPressed: () async {
+                      if (await Auth.ktDaCoTaiKhoanDangNhap()) {
+                        Navigator.pushReplacementNamed(context, '/Home');
+                      } else {
+                        Navigator.pushReplacementNamed(context, '/Sign_In');
+                      }
+                    },
                   ),
                 ),
                 Container(
@@ -53,11 +56,9 @@ class _WellcomePageState extends State<WellcomePage> {
                   ),
                   width: 250,
                   child: TextButton(
-                    child: Text('Sign Up',
-                        style:
-                            TextStyle(fontSize: 20, color: Colors.green[100])),
-                    onPressed: () =>
-                        Navigator.pushReplacementNamed(context, '/Sign_Up'),
+                    child:
+                        Text('Sign Up', style: TextStyle(fontSize: 20, color: Colors.green[100])),
+                    onPressed: () => Navigator.pushReplacementNamed(context, '/Sign_Up'),
                   ),
                 ),
                 Row(
@@ -80,9 +81,7 @@ class _WellcomePageState extends State<WellcomePage> {
                       child: const Text(
                         'English',
                         style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.amber),
+                            fontSize: 18, fontWeight: FontWeight.bold, color: Colors.amber),
                       ),
                     ),
                   ],

@@ -18,7 +18,7 @@ class EditMyProfileState extends State<EditMyProfile> {
   final txtUsername = TextEditingController(text: Auth.khachHang.username);
   final txtHoTen = TextEditingController(text: Auth.khachHang.hoTen!);
   final txtPhone = TextEditingController(text: Auth.khachHang.phone!);
-  final txtEmail = TextEditingController(text: Auth.khachHang.email!);
+  final txtEmail = TextEditingController(text: Auth.khachHang.email);
   final txtDiaChi = TextEditingController(text: Auth.khachHang.diaChi!);
   DateTime txtNgaySinh = Auth.khachHang.ngaySinh!;
   bool txtGioiTinh = Auth.khachHang.gioiTinh!.isOdd;

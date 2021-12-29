@@ -201,7 +201,13 @@ class _SignUpPageState extends State<SignUpPage> {
                             "Sign In",
                             style: TextStyle(fontSize: 17, color: Colors.white),
                           ),
-                          onPressed: () => Navigator.pushReplacementNamed(context, '/Sign_In'),
+                          onPressed: () async {
+                            if (await Auth.ktDaCoTaiKhoanDangNhap()) {
+                              Navigator.pushReplacementNamed(context, '/Home');
+                            } else {
+                              Navigator.pushReplacementNamed(context, '/Sign_In');
+                            }
+                          },
                         ),
                       ],
                     ),

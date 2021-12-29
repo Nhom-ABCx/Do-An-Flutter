@@ -9,7 +9,7 @@ part of 'khach_hang.dart';
 KhachHang _$KhachHangFromJson(Map<String, dynamic> json) => KhachHang(
       id: json['id'] as int?,
       username: json['Username'] as String,
-      email: json['Email'] as String?,
+      email: json['Email'] as String,
       phone: json['Phone'] as String?,
       //matKhau: json['MatKhau'] as String?,
       hoTen: json['HoTen'] as String?,
