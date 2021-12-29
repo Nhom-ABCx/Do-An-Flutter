@@ -63,13 +63,13 @@ import '../cart_model.dart';
 class DbCart{
    static Database? _db;
 
-   Future<Database?> get database async{
+   Future<Database> get database async{
       if(_db!=null){
         return _db!;
       }
 
       _db=await initDatabase();
-      //return _db!;
+      return _db!;
    }
 
    initDatabase() async{
@@ -91,12 +91,12 @@ class DbCart{
    }
   Future<Cart> insertItems(Cart cart) async{
     var dbclient =await database;
-    await dbclient!.insert('cart', cart.toMap());
+    await dbclient.insert('cart', cart.toMap());
     return cart;
   }
   Future<int> deleteCart(int id) async{
     var dbclient= await database;
-    return await dbclient!.delete(
+    return await dbclient.delete(
       'cart',
       where: 'id=?',
       whereArgs: [id]
@@ -104,7 +104,7 @@ class DbCart{
   }
   Future<List<Cart>> getCartList() async{
     var dbclient = await database;
-    final query=await dbclient!.query('cart');
+    final query=await dbclient.query('cart');
     return query.map((e) => Cart.fromMap(e)).toList();
   }
 }

@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../all_page.dart';
@@ -12,9 +13,9 @@ class ProductDetail extends StatelessWidget {
 
   _sanPhamImg(SanPham sanPham) {
     return SizedBox(
-      child: Image(
-          height: 200,
-          image: AssetImage('images/product-image/' + sanPham.hinhAnh!)),
+      child: CachedNetworkImage(
+          height: 150,
+          imageUrl: 'http://10.0.2.2:8000/storage/assets/images/product-image/' + sanPham.hinhAnh!),
     );
   }
 
