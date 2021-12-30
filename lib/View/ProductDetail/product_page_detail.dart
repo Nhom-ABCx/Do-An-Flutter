@@ -88,6 +88,37 @@ class ProductDetail extends StatelessWidget {
                   height: 10.0,
                 ),
                 buildStockProduct(context, sanPham),
+                SizedBox(
+                  height: 10.0,
+                ),
+                Container(
+                  height: 100,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(15.0),
+                      topRight: Radius.circular(15.0)
+                    )
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text('Decription product',style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20
+                        ),),
+                      ),
+                      SizedBox(height:10.0),
+                      Padding(
+                        padding: const EdgeInsets.only(left:10.0),
+                        child: Text(sanPham.moTa!),
+                      )
+                    ],
+                  ),
+                )
+                
               ],
             ),
           ],
@@ -169,24 +200,21 @@ Widget buildTimeSale() {
 Widget buildStockProduct(BuildContext context, SanPham sanPham) {
   DbCart dbCart = DbCart();
   final cartprd = Provider.of<CartProvider>(context);
-   cartprd.setQuantity();
+   //cartprd.setQuantity();
   Row stock = Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       Padding(
-        padding: const EdgeInsets.only(left: 8.0, right: 5.0),
+        padding: const EdgeInsets.only(left: 8.0),
         child: ElevatedButton(
           onPressed: () {
             cartprd.removeQuantity();
           },
-          child: Text(
-            "-",
-            style: TextStyle(fontSize: 20.0),
+          child: Icon(Icons.remove,color: Colors.white,size: 20,),
           ),
-        ),
       ),
       Padding(
-        padding: const EdgeInsets.only(right: 5.0),
+        padding: const EdgeInsets.only(left: 20.0,right: 20.0),
         child:Text(cartprd.getQuantity().toString()),
       ),
       Padding(
@@ -195,13 +223,10 @@ Widget buildStockProduct(BuildContext context, SanPham sanPham) {
           onPressed: () {
            cartprd.addQuantity();
           },
-          clipBehavior: Clip.antiAlias,
-          child: Text(
-            "+",
-            style: TextStyle(fontSize: 20.0),
-          ),
+          //clipBehavior: Clip.antiAlias,
+          child: Icon(Icons.add,color:Colors.white,size: 20.0,) )
         ),
-      )
+      
     ],
   );
   return Container(
@@ -213,23 +238,47 @@ Widget buildStockProduct(BuildContext context, SanPham sanPham) {
       FlatButton(
           textColor: Colors.white,
           color: Colors.red,
-          onPressed: () {
-            int newPrice=sanPham.giaBan!*cartprd.getQuantity();
-            dbCart
-                .insertItems(Cart(
-                  productId: sanPham.id!,
-                    productName: sanPham.tenSanPham,
-                    inintPrice: sanPham.giaBan!,
-                    productPrice: newPrice,
-                    quantity: cartprd.getQuantity(),
-                    productImg: sanPham.hinhAnh!))
-                .then((value) {
-              thongBaoScaffoldMessenger(context, "Add cart complete");
-              cartprd.addTotalPrice(double.parse(newPrice.toString()));
-            }).onError((error, stackTrace) {
-              print(error.toString());
-            });
-            ;
+          onPressed: ()  async{
+            final crt=Cart(
+              id: sanPham.id,
+                productId: sanPham.id!,
+                productName: sanPham.tenSanPham,
+                inintPrice: sanPham.giaBan!,
+                productPrice: sanPham.giaBan!,
+                quantity: cartprd.getQuantity(),
+                productImg: sanPham.hinhAnh!
+            );
+            bool check= await dbCart.ifPrdExits(crt);
+             if (check)  {
+                     thongBaoScaffoldMessenger(context, "Product exits cart");
+                     dbCart.updateQuantity(crt);
+              cartprd.addTotalPrice(double.parse(crt.productPrice.toString()));
+             }
+             else{
+                dbCart.insertItems(crt).then((value) {
+                thongBaoScaffoldMessenger(context, "Add cart complete");
+                cartprd.addTotalPrice(double.parse(sanPham.giaBan.toString()));
+              }).onError((error, stackTrace) {
+                print(error.toString());
+              });
+             }
+            // int newPrice=sanPham.giaBan!*cartprd.getQuantity();
+            // dbCart
+            //     .insertItems(Cart(
+            //       id: sanPham.id,
+            //       productId: sanPham.id!,
+            //         productName: sanPham.tenSanPham,
+            //         inintPrice: sanPham.giaBan!,
+            //         productPrice: newPrice,
+            //         quantity: cartprd.getQuantity(),
+            //         productImg: sanPham.hinhAnh!))
+            //     .then((value) {
+            //   thongBaoScaffoldMessenger(context, "Add cart complete");
+            //   cartprd.addTotalPrice(double.parse(newPrice.toString()));
+            // }).onError((error, stackTrace) {
+            //   print(error.toString());
+            // });
+            // ;
           },
           child: Text(
             'Add to card',

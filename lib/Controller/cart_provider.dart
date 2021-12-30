@@ -75,4 +75,7 @@ class CartProvider extends ChangeNotifier {
     notifyListeners();
     return db.deleteAllCart();
   }
+
+
+  
 }

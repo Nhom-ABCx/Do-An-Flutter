@@ -197,6 +197,7 @@ Widget buildItem(BuildContext context, SanPham _sp) {
               child: InkWell(
                 onTap: () async {
                   Cart crt=Cart(
+                    id: _sp.id,
                     productId: _sp.id!,
                     productName: _sp.tenSanPham,
                     inintPrice: _sp.giaBan!,
@@ -204,20 +205,23 @@ Widget buildItem(BuildContext context, SanPham _sp) {
                     quantity: 1,
                     productImg: _sp.hinhAnh!,);
                    // ignore: unrelated_type_equality_checks
-                  //  bool check= await db.ifPrdExits(crt);
-                  //  if ( check) {
-                  //   int quantity = crt.quantity;
-                  //   quantity++;
-                  //   int newPrice = quantity * crt.inintPrice;
-                  //   db.updateCart(Cart(
-                  //       id: crt.id!,
-                  //      // productId: crt.productId,
-                  //       productName: crt.productName,
-                  //       inintPrice: crt.inintPrice,
-                  //       productPrice: newPrice,
-                  //       quantity: quantity,
-                  //       productImg: crt.productImg));
-                  // } else{
+                   bool check= await db.ifPrdExits(crt);
+                   if (check)  {
+                     thongBaoScaffoldMessenger(context, "Product exits cart");
+                    // int quantity = crt.quantity;
+                    // quantity++;
+                    // int newPrice = quantity * crt.inintPrice;
+                    // db.updateCart(Cart(
+                    //     id: crt.id,
+                    //     productId: crt.productId,
+                    //     productName: crt.productName,
+                    //     inintPrice: crt.inintPrice,
+                    //     productPrice: newPrice,
+                    //     quantity: quantity,
+                    //     productImg: crt.productImg));
+                    db.updateQuantity(crt);
+                    cart.addTotalPrice(double.parse(crt.productPrice.toString()));
+                  } else{
                     db
                       .insertItems(crt)
                       .then((value) {
@@ -226,7 +230,7 @@ Widget buildItem(BuildContext context, SanPham _sp) {
                   }).onError((error, stackTrace) {
                     print(error.toString());
                   });
-                
+                  }
                   },
                 
                 child: const Icon(

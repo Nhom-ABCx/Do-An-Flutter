@@ -15,7 +15,7 @@ class Cart {
   final String productImg;
 
   Cart({
-    this.id,
+    required this.id,
     required this.productId,
     required this.productName,
     required this.inintPrice,
