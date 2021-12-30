@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '/all_page.dart';
 
@@ -169,9 +170,15 @@ class _SignInPageState extends State<SignInPage> {
                         child: const Text('Log In',
                             style: TextStyle(fontSize: 20, color: Colors.white)),
                         onPressed: () async {
-                          await (_auth.ktDangNhap(txtEmail.text, txtPassword.text))
-                              ? Navigator.pushReplacementNamed(context, '/Home')
-                              : (thongBaoScaffoldMessenger(context, "Wrong Username or Password"));
+                          showCustomLoadding();
+
+                          if (await (_auth.ktDangNhap(txtEmail.text, txtPassword.text))) {
+                            Navigator.pushReplacementNamed(context, '/Home');
+                            EasyLoading.dismiss();
+                          } else {
+                            (thongBaoScaffoldMessenger(context, "Wrong Username or Password"));
+                            EasyLoading.dismiss();
+                          }
                         },
                       ),
                     ),

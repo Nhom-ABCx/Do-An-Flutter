@@ -48,6 +48,11 @@ class _PagesState extends State<Pages> {
                   textCustoms: '',
                   onClicked: () => Navigator.pushNamed(context, "/QuanLyDonHangPage"),
                 ),
+                buildListTitleSetting(
+                  text: 'My Wishlist',
+                  textCustoms: '',
+                  onClicked: () => Navigator.pushNamed(context, "/MyWishlist"),
+                ),
               ],
             ),
           ),

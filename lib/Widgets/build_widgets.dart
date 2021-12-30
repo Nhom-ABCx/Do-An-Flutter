@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; //text input
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '../Modals/cart_model.dart';
 import 'package:flutter_application_1/Controller/cart_provider.dart';
 import 'package:flutter_application_1/DB/db_cart.dart';
@@ -196,14 +197,15 @@ Widget buildItem(BuildContext context, SanPham _sp) {
               alignment: const Alignment(3, 0),
               child: InkWell(
                 onTap: () async {
-                  Cart crt=Cart(
+                  Cart crt = Cart(
                     productId: _sp.id!,
                     productName: _sp.tenSanPham,
                     inintPrice: _sp.giaBan!,
                     productPrice: _sp.giaBan!,
                     quantity: 1,
-                    productImg: _sp.hinhAnh!,);
-                   // ignore: unrelated_type_equality_checks
+                    productImg: _sp.hinhAnh!,
+                  );
+                  // ignore: unrelated_type_equality_checks
                   //  bool check= await db.ifPrdExits(crt);
                   //  if ( check) {
                   //   int quantity = crt.quantity;
@@ -218,17 +220,13 @@ Widget buildItem(BuildContext context, SanPham _sp) {
                   //       quantity: quantity,
                   //       productImg: crt.productImg));
                   // } else{
-                    db
-                      .insertItems(crt)
-                      .then((value) {
+                  db.insertItems(crt).then((value) {
                     thongBaoScaffoldMessenger(context, "Add cart complete");
-                     cart.addTotalPrice(double.parse(_sp.giaBan.toString()));
+                    cart.addTotalPrice(double.parse(_sp.giaBan.toString()));
                   }).onError((error, stackTrace) {
                     print(error.toString());
                   });
-                
-                  },
-                
+                },
                 child: const Icon(
                   Icons.add_circle,
                   color: Colors.green,
@@ -538,5 +536,24 @@ Widget topMyprofile() {
         ),
       )
     ]),
+  );
+}
+
+void showCustomLoadding() {
+  //cai nay la tuy chinh? loadding
+  EasyLoading.instance
+    ..loadingStyle = EasyLoadingStyle.custom
+    ..indicatorType = EasyLoadingIndicatorType.threeBounce
+    ..radius = 50
+    ..progressColor = Colors.yellow
+    ..backgroundColor = Colors.white
+    ..indicatorColor = Colors.indigo
+    ..textColor = Colors.indigo
+    ..fontSize = 20;
+
+  //hien thi loadding
+  EasyLoading.show(
+    status: "Please wait...",
+    maskType: EasyLoadingMaskType.black,
   );
 }
