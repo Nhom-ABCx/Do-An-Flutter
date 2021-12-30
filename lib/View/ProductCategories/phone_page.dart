@@ -8,28 +8,31 @@ class PhonePage extends StatefulWidget {
   @override
   _PhonePageState createState() => _PhonePageState();
 }
+
 // khai bao cacs bien cho dropdown button
 String dropdownvalue = "All";
 List<String> items = ["All", "1tr-3tr", "3tr-7tr", "Trên 7tr"];
+
 // class der thay doi lay ao theo mengh de chon dropdown
-class ChangeLayOut extends ChangeNotifier{
+class ChangeLayOut extends ChangeNotifier {
   changeLayOut() {
     if (dropdownvalue == "All") {
       return fetchSanPhamDienThoai();
-    } 
+    }
     if (dropdownvalue == "1tr-3tr") {
       return fetchSanPhamDienThoai1_3tr();
-    } 
-     if(dropdownvalue=="3tr-7tr"){
-       return fetchSanPhamDienThoai3_7tr();
     }
-    if(dropdownvalue=="Trên 7tr"){
+    if (dropdownvalue == "3tr-7tr") {
+      return fetchSanPhamDienThoai3_7tr();
+    }
+    if (dropdownvalue == "Trên 7tr") {
       return fetchSanPhamDienThoai7tr();
     }
     notifyListeners();
   }
 }
-class _PhonePageState extends State<PhonePage> { 
+
+class _PhonePageState extends State<PhonePage> {
   @override
   Widget build(BuildContext context) {
     // sap xep theo gia
@@ -47,7 +50,7 @@ class _PhonePageState extends State<PhonePage> {
                 }).toList(),
                 onChanged: (String? val) {
                   setState(() {
-                     dropdownvalue=val!;
+                    dropdownvalue = val!;
                   });
                 })
           ],
@@ -56,8 +59,7 @@ class _PhonePageState extends State<PhonePage> {
       //huy keyboard khi bam ngoai man hinh
       onTap: () => FocusScope.of(context).unfocus(),
       child: Consumer<ChangeLayOut>(
-        builder:(context,clt,child)=>
-         Scaffold(
+        builder: (context, clt, child) => Scaffold(
             //TopHeader
             appBar: AppBarPage(),
             //Hide
@@ -78,7 +80,7 @@ class _PhonePageState extends State<PhonePage> {
                   ),
                   // ds san pham dien thoai
                   FutureBuilder<List<SanPham>>(
-                      future:clt.changeLayOut(),
+                      future: clt.changeLayOut(),
                       builder: (context, snapshot) {
                         if (snapshot.hasError) {
                           // ignore: avoid_print
@@ -88,15 +90,13 @@ class _PhonePageState extends State<PhonePage> {
                             ? GridView.builder(
                                 shrinkWrap: true,
                                 physics: const NeverScrollableScrollPhysics(),
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2,
                                 ),
                                 itemCount: snapshot.data!.length,
                                 itemBuilder: (context, index) => Container(
                                       margin: const EdgeInsets.all(5.0),
-                                      child: buildItem(
-                                          context, snapshot.data![index]),
+                                      child: buildItem(context, snapshot.data![index]),
                                     ))
                             : const Center(
                                 child: Padding(
@@ -121,10 +121,6 @@ Widget TitlePagePhone() => const Align(
           padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 0),
           child: Text(
             'Điện thoại',
-            style: TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-                color: Colors.indigoAccent),
+            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.indigoAccent),
           )),
     );
-

@@ -323,3 +323,21 @@ Future<KhachHang> api_GET_KhachHang(int id) async {
 
   return _khachHang;
 }
+
+Future<List<SanPham>> api_Get_SanPham_YeuThich(int id) async {
+  List<SanPham> lstSanPham = [];
+
+  try {
+    final response = await http.get(Uri.parse(urlBaseAPI + "SanPham/YeuThich/$id"));
+    if (response.statusCode == 200) {
+      //nay` von' dang o dang List, ep kieu no' thanh List de co them phuong thuc'
+      List jsonRaw = json.decode(response.body);
+      //print(jsonRaw[0]['TenSanPham']); //truy xuat no' bang cach nhu nay`
+      lstSanPham = jsonRaw.map((data) => SanPham.fromJson(data)).toList();
+    } else {
+      throw Exception("Something get wrong! Status code ${response.statusCode}");
+    }
+  } catch (e) {}
+
+  return lstSanPham;
+}
