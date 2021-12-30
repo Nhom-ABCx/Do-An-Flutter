@@ -37,3 +37,4 @@ export 'Controller/file_controller.dart';
 export 'View/HoaDon/billing_infomation_page.dart';
 export 'View/HoaDon/select_payment_page.dart';
 export 'View/HoaDon/successfully_page.dart';
+export 'View/HoaDon/quanly_donhang_page.dart';

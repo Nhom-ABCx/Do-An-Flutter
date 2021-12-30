@@ -95,9 +95,14 @@ class Auth {
   }
 
   static Future<bool> ktDaCoTaiKhoanDangNhap() async {
-    final _khDangCoTrongDatabase = await DB_KhachHang().getFirstItems();
+    var _khDangCoTrongDatabase = await DB_KhachHang().getFirstItems();
     if (khachHang.email != _khDangCoTrongDatabase.email) {
-      khachHang = _khDangCoTrongDatabase;
+      //lay du lieu tu databse sever
+      final _kh = await api_GET_KhachHang(_khDangCoTrongDatabase.id!);
+      //cap nhat lai trong android
+      DB_KhachHang().updateItem(_kh);
+      //gan' bien' static de su dung
+      khachHang = _kh;
       return true;
     }
     return false;
