@@ -305,3 +305,21 @@ Future<dynamic> api_Update_KhachHang_MatKhau(
     }
   } catch (e) {}
 }
+
+Future<KhachHang> api_GET_KhachHang(int id) async {
+  var _khachHang = KhachHang.empty();
+
+  try {
+    final response = await http.get(Uri.parse(urlBaseAPI + "KhachHang/$id"));
+    if (response.statusCode == 200) {
+      //nay` von' dang o dang List, ep kieu no' thanh List de co them phuong thuc'
+      final jsonRaw = json.decode(response.body);
+
+      _khachHang = KhachHang.fromJson(jsonRaw);
+    } else {
+      throw Exception("Something get wrong! Status code ${response.statusCode}");
+    }
+  } catch (e) {}
+
+  return _khachHang;
+}

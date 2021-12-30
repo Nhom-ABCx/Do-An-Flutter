@@ -43,6 +43,11 @@ class _PagesState extends State<Pages> {
                   textCustoms: '',
                   onClicked: () => Navigator.pushNamed(context, "/SuccessfullyPage"),
                 ),
+                buildListTitleSetting(
+                  text: 'Quan Ly Don Hang Page',
+                  textCustoms: '',
+                  onClicked: () => Navigator.pushNamed(context, "/QuanLyDonHangPage"),
+                ),
               ],
             ),
           ),

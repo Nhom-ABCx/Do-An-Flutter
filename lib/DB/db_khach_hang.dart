@@ -53,6 +53,16 @@ class DB_KhachHang {
     return result != 0;
   }
 
+  Future<int> updateItem(KhachHang khachHang) async {
+    var dbclient = await database;
+    return dbclient.update(
+      'khach_hangs',
+      khachHang.toJson(),
+      where: 'id=?',
+      whereArgs: [khachHang.id],
+    );
+  }
+
   Future<KhachHang> getItems(int id) async {
     final dbclient = await database;
     var _khachHang = KhachHang.empty();

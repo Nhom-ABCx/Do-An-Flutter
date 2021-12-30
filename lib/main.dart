@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
           appBarTheme: const AppBarTheme(color: Colors.white),
           //0xFF
           scaffoldBackgroundColor: const Color(0xFFe5e8ff),
+          primaryTextTheme: Theme.of(context).primaryTextTheme.apply(bodyColor: Colors.indigo),
         ),
         home: const WellcomePage(),
         routes: {
@@ -54,6 +55,7 @@ class MyApp extends StatelessWidget {
           '/BillingPage': (context) => const BillingInfomationPage(),
           '/SelectPaymentPage': (context) => const SelectPaymentPage(),
           '/SuccessfullyPage': (context) => const SuccessfullyPage(),
+          '/QuanLyDonHangPage': (context) => const QuanLyDonHangPage(),
         },
       ),
     );
