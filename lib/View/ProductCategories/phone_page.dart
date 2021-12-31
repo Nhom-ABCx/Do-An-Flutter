@@ -17,7 +17,7 @@ List<String> items = ["All", "1tr-3tr", "3tr-7tr", "Trên 7tr"];
 class ChangeLayOut extends ChangeNotifier {
   changeLayOut() {
     if (dropdownvalue == "All") {
-      return fetchSanPhamDienThoai();
+      return api_SanPham_LoaiSanPham(2);
     }
     if (dropdownvalue == "1tr-3tr") {
       return fetchSanPhamDienThoai1_3tr();
@@ -63,7 +63,7 @@ class _PhonePageState extends State<PhonePage> {
             //TopHeader
             appBar: AppBarPage(),
             //Hide
-            drawer: const NavigationDrawer(),
+            //drawer: const NavigationDrawer(),
             //body
             body: SingleChildScrollView(
               child: Column(

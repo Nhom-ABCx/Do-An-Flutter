@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_application_1/all_page.dart';
 
 class AppBarPage extends StatelessWidget implements PreferredSizeWidget {
@@ -14,37 +13,58 @@ class AppBarPage extends StatelessWidget implements PreferredSizeWidget {
       iconTheme: const IconThemeData(color: Colors.indigo),
       title: title != null
           ? title!
-          : SizedBox(
-              width: 250,
-              child: TextField(
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: "Enter your keyword",
-                ),
-                controller: txtTimKiem, //gan gia tri cua text vao bien'
-                textInputAction: TextInputAction.search,
-                inputFormatters: <TextInputFormatter>[
-                  LengthLimitingTextInputFormatter(50), //gioi han do dai`
+          : Container(
+              alignment: Alignment.center,
+              margin: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              height: 54,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.indigo.withOpacity(0.5)),
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                // boxShadow: [
+                //   BoxShadow(
+                //     offset: const Offset(0, 10),
+                //     blurRadius: 50,
+                //     color: Colors.black.withOpacity(0.5),
+                //   ),
+                // ],
+              ),
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: TextField(
+                      controller: txtTimKiem,
+                      onChanged: (value) {},
+                      decoration: const InputDecoration(
+                        hintText: "Search",
+                        hintStyle: TextStyle(
+                          color: Colors.black,
+                        ),
+                        enabledBorder: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                        // surffix isn't working properly  with SVG
+                        // thats why we use row
+                        // suffixIcon: SvgPicture.asset("assets/icons/search.svg"),
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        if (txtTimKiem.text.isNotEmpty) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SearchPage(tenTimKiem: txtTimKiem.text),
+                              ));
+                        }
+                      },
+                      icon: const Icon(Icons.search_outlined))
                 ],
               ),
             ),
       centerTitle: true,
-      actions: [
-        title == null
-            ? IconButton(
-                onPressed: () {
-                  if (txtTimKiem.text.isNotEmpty) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SearchPage(tenTimKiem: txtTimKiem.text),
-                        ));
-                  }
-                },
-                icon: const Icon(Icons.search_outlined))
-            : const SizedBox(),
-        IconButton(onPressed: () {}, icon: const Icon(Icons.notifications))
-      ],
+      actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.notifications))],
     );
   }
 

@@ -1,7 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_1/all_page.dart'; //text input
+import 'package:flutter_application_1/all_page.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class ForgotPage extends StatefulWidget {
   const ForgotPage({Key? key}) : super(key: key);
@@ -91,9 +92,15 @@ class _ForgotPageState extends State<ForgotPage> {
                         child: const Text('Reset password',
                             style: TextStyle(fontSize: 20, color: Colors.black)),
                         onPressed: () async {
-                          await (_auth.ktResetMK(txtEmail.text))
-                              ? Navigator.pushNamed(context, '/Forgot_action')
-                              : (thongBaoScaffoldMessenger(context, "Wrong Username or Password"));
+                          showCustomLoadding();
+
+                          if (await _auth.ktResetMK(txtEmail.text)) {
+                            Navigator.pushNamed(context, '/Forgot_action');
+                            EasyLoading.dismiss();
+                          } else {
+                            (thongBaoScaffoldMessenger(context, "Wrong Username or Password"));
+                            EasyLoading.dismiss();
+                          }
                         },
                       ),
                     ),

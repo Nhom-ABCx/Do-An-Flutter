@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -17,7 +19,7 @@ class _SignInPageState extends State<SignInPage> {
   final txtPassword = TextEditingController(text: "passwordKH02");
   final _auth = Auth();
 
-  //animation logo
+  // //animation logo
   // late AnimationController animationController;
   // //ignore: non_constant_identifier_names
   // late Animation<double> animation_rotation;
@@ -26,8 +28,8 @@ class _SignInPageState extends State<SignInPage> {
   // @override
   // void initState() {
   //   super.initState();
-  //   // animationController = AnimationController(
-  //   //     vsync: this, duration: const Duration(seconds: 6)); //cu sau 4s la thuc hien hieu ung
+  //   animationController = AnimationController(
+  //       vsync: this, duration: const Duration(seconds: 6)); //cu sau 4s la thuc hien hieu ung
 
   //   animation_rotation = Tween<double>(begin: 0.0, end: 2.0).animate(CurvedAnimation(
   //       parent: animationController, curve: const Interval(0.0, 1.0, curve: Curves.elasticOut)));
@@ -176,7 +178,8 @@ class _SignInPageState extends State<SignInPage> {
                             Navigator.pushReplacementNamed(context, '/Home');
                             EasyLoading.dismiss();
                           } else {
-                            (thongBaoScaffoldMessenger(context, "Wrong Username or Password"));
+                            (thongBaoScaffoldMessenger(
+                                context, "Timeout or Wrong Username/Password"));
                             EasyLoading.dismiss();
                           }
                         },

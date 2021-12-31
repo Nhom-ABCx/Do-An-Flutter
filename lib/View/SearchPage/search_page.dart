@@ -10,19 +10,17 @@ class SearchPage extends StatelessWidget {
   Widget build(BuildContext context) {
     //title ket qua tim kiem
 // ignore: non_constant_identifier_names
-    Widget TitleSearchPage() =>  Align(
+    Widget TitleSearchPage() => Align(
           alignment: Alignment.centerLeft,
           child: Padding(
               padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 0),
               child: Text(
                 'Kết quả tìm kiếm: $tenTimKiem',
                 style: const TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.redAccent),
+                    fontSize: 25, fontWeight: FontWeight.bold, color: Colors.redAccent),
               )),
         );
-// build ket qua request 
+// build ket qua request
     Widget _buildSearcProduct() => FutureBuilder<List<SanPham>>(
         future: ftechSanPhamSearch(tenTimKiem),
         builder: (context, snapshot) {
@@ -45,8 +43,7 @@ class SearchPage extends StatelessWidget {
                       ))
               : const Center(
                   child: Padding(
-                      padding: EdgeInsets.only(top: 250),
-                      child: CircularProgressIndicator()));
+                      padding: EdgeInsets.only(top: 250), child: CircularProgressIndicator()));
         });
     return GestureDetector(
         //huy keyboard khi bam ngoai man hinh
@@ -55,16 +52,12 @@ class SearchPage extends StatelessWidget {
           //TopHeader
           appBar: AppBarPage(),
           //Hide
-          drawer: const NavigationDrawer(),
+          //drawer: const NavigationDrawer(),
           body: SingleChildScrollView(
             child: Column(
-              children: [
-                TitleSearchPage(),
-                _buildSearcProduct()
-              ],
+              children: [TitleSearchPage(), _buildSearcProduct()],
             ),
           ),
         ));
   }
 }
-

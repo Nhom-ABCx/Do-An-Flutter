@@ -2,7 +2,6 @@ import 'dart:io';
 import 'dart:convert';
 import 'dart:core';
 import 'package:flutter_application_1/Controller/cart_provider.dart';
-import 'package:flutter_application_1/Modals/cart_model.dart';
 import 'package:http/http.dart' as http;
 import '../all_page.dart';
 
@@ -26,17 +25,17 @@ Future<List<SanPham>> fetchSanPham() async {
 }
 
 //Điện thoại
-Future<List<SanPham>> fetchSanPhamDienThoai() async {
-  List<SanPham> lstSanPhamDienThoai = [];
+Future<List<SanPham>> api_SanPham_LoaiSanPham(int loaiSanPhamId) async {
+  List<SanPham> lstSanPhamTheoLoai = [];
   try {
-    final response = await http.get(Uri.parse(urlBaseAPI + 'dien-thoai'));
+    final response = await http.get(Uri.parse(urlBaseAPI + 'SanPham/LoaiSanPham/$loaiSanPhamId'));
     if (response.statusCode == 200) {
       List jsonlst = [];
       jsonlst = json.decode(response.body);
-      lstSanPhamDienThoai = jsonlst.map((data) => SanPham.fromJson(data)).toList();
+      lstSanPhamTheoLoai = jsonlst.map((data) => SanPham.fromJson(data)).toList();
     }
   } catch (e) {}
-  return lstSanPhamDienThoai;
+  return lstSanPhamTheoLoai;
 }
 
 // san pham dt 1tr-3tr
@@ -79,20 +78,6 @@ Future<List<SanPham>> fetchSanPhamDienThoai7tr() async {
     }
   } catch (e) {}
   return lstSanPhamDienThoai;
-}
-
-//Laptop
-Future<List<SanPham>> fetchSanPhamLapTop() async {
-  List<SanPham> lstSanPhamLapTop = [];
-  try {
-    final response = await http.get(Uri.parse(urlBaseAPI + 'get-all-latop'));
-    if (response.statusCode == 200) {
-      List jsonlst = [];
-      jsonlst = json.decode(response.body);
-      lstSanPhamLapTop = jsonlst.map((data) => SanPham.fromJson(data)).toList();
-    }
-  } catch (e) {}
-  return lstSanPhamLapTop;
 }
 
 //Chi tiết sản phẩm
@@ -159,8 +144,12 @@ Future<KhachHang> api_DangNhap(String email, String matkhau) async {
   var _khachHang = KhachHang.empty();
 
   try {
-    final response = await http.post(Uri.parse(urlBaseAPI + "DangNhap"),
-        body: {"Email": "$email", "MatKhau": "$matkhau", "Username": "$email", "Phone": "$email"});
+    final response = await http.post(Uri.parse(urlBaseAPI + "DangNhap"), body: {
+      "Email": "$email",
+      "MatKhau": "$matkhau",
+      "Username": "$email",
+      "Phone": "$email"
+    }).timeout(const Duration(seconds: 10));
     if (response.statusCode == 200) {
       //nay` von' dang o dang List, ep kieu no' thanh List de co them phuong thuc'
       final jsonRaw = json.decode(response.body);
