@@ -20,13 +20,13 @@ class ChangeLayOut extends ChangeNotifier {
       return api_SanPham_LoaiSanPham(2);
     }
     if (dropdownvalue == "1tr-3tr") {
-      return fetchSanPhamDienThoai1_3tr();
+      return api_SanPham_GiaBan(2, 1000000, 3000000);
     }
     if (dropdownvalue == "3tr-7tr") {
-      return fetchSanPhamDienThoai3_7tr();
+      return api_SanPham_GiaBan(2, 3000000, 7000000);
     }
     if (dropdownvalue == "Trên 7tr") {
-      return fetchSanPhamDienThoai7tr();
+      return api_SanPham_GiaBan(2, 7000000, 0);
     }
     notifyListeners();
   }
