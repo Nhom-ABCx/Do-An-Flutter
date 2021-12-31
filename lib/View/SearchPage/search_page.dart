@@ -21,30 +21,7 @@ class SearchPage extends StatelessWidget {
               )),
         );
 // build ket qua request
-    Widget _buildSearcProduct() => FutureBuilder<List<SanPham>>(
-        future: ftechSanPhamSearch(tenTimKiem),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          return snapshot.hasData
-              ? GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                  ),
-                  itemCount: snapshot.data!.length,
-                  itemBuilder: (context, index) => Container(
-                        margin: const EdgeInsets.all(5.0),
-                        child: buildItem(context, snapshot.data![index]),
-                      ))
-              : const Center(
-                  child: Padding(
-                      padding: EdgeInsets.only(top: 250), child: CircularProgressIndicator()));
-        });
+    Widget _buildSearcProduct() => buildListSanPham(context, ftechSanPhamSearch(tenTimKiem));
     return GestureDetector(
         //huy keyboard khi bam ngoai man hinh
         onTap: () => FocusScope.of(context).unfocus(),

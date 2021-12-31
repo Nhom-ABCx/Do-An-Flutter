@@ -71,7 +71,7 @@ class _PhonePageState extends State<PhonePage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      TitlePagePhone(),
+                      titlePageCategory("Phone"),
                       Padding(
                         padding: const EdgeInsets.only(right: 30),
                         child: _buildShortPrice(),
@@ -112,15 +112,3 @@ class _PhonePageState extends State<PhonePage> {
     );
   }
 }
-
-//title page laptop
-// ignore: non_constant_identifier_names
-Widget TitlePagePhone() => const Align(
-      alignment: Alignment.centerLeft,
-      child: Padding(
-          padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 0),
-          child: Text(
-            'Điện thoại',
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.indigoAccent),
-          )),
-    );

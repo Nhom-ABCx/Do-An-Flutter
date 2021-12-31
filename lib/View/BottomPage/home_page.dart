@@ -131,7 +131,7 @@ class HomePageState extends State<HomePage> {
               ),
               // Sản phẩm top
 
-              _builProductTop(context)
+              buildListSanPham(context, fecthSanPhamBanChay())
               // buildSanPhamTop(context)
             ],
           ),
@@ -148,14 +148,14 @@ Widget buildIconProductCategori(BuildContext context) => Padding(
       padding: const EdgeInsets.all(15.0),
       child: Wrap(
         children: [
-          buildIconButton(context, Icons.phone_android_rounded, Colors.red,
-              "Phone", "/PhonePage"),
-          buildIconButton(context, Icons.laptop_chromebook_sharp, Colors.blue,
-              "LapTop", "/LapTopPage"),
-          // buildIconButton(Icons.fastfood_outlined, Colors.yellow, "Foods"),
-          // buildIconButton(Icons.sports_esports, Colors.green, "Sports"),
-          // buildIconButton(Icons.headphones_battery_outlined, Colors.yellow, "Gadgets"),
-          // buildIconButton(Icons.wb_sunny_outlined, Colors.cyan, "Travel"),
+          buildIconButton(context, Icons.phone_android_rounded, Colors.red, "Phone", "/PhonePage"),
+          buildIconButton(
+              context, Icons.laptop_chromebook_sharp, Colors.blue, "LapTop", "/LapTopPage"),
+          buildIconButton(context, Icons.microwave, Colors.pink, "Refrigeration", "/DienLanhPage"),
+          buildIconButton(context, Icons.photo_camera, Colors.green, "Camera", "/CameraPage"),
+          buildIconButton(context, Icons.tablet_mac, Colors.black, "IPAD", "/IpadPage"),
+          buildIconButton(
+              context, Icons.sports_esports, Colors.cyan, "Accessory", "/AccessoryPage"),
         ],
       ),
     );
@@ -223,27 +223,3 @@ Widget buildSanPhamFlashsale(BuildContext context) {
     ),
   );
 }
-
-//Sản phẩm bán chạy
-Widget _builProductTop(BuildContext context) => FutureBuilder<List<SanPham>>(
-    future: fecthSanPhamBanChay(),
-    builder: (context, snapshot) {
-      if (snapshot.hasError) {
-        return Center(child: Text(snapshot.error.toString()));
-      }
-      return snapshot.hasData
-          ? GridView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: snapshot.data!.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-              ),
-              itemBuilder: (context, index) => Container(
-                    margin: const EdgeInsets.all(5.0),
-                    child: buildItem(context, snapshot.data![index]),
-                  ))
-          : const Center(
-              child: CircularProgressIndicator(),
-            );
-    });
