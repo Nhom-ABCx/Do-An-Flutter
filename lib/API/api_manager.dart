@@ -123,7 +123,6 @@ Future<List<SanPham>> fetchSanPhamSale() async {
 }
 
 //tiềm kiếm
-
 Future<List<SanPham>> ftechSanPhamSearch(String tenSanPhamTiemKiem) async {
   final url = urlBaseAPI + "search-product?TenSanPham=$tenSanPhamTiemKiem";
   List<SanPham> lstSanPhamSearch = [];
