@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import '../all_page.dart';
 
 String urlBaseAPI = "http://10.0.2.2:8000/api/";
-Future<List<SanPham>> fetchSanPham() async {
+Future<List<SanPham>> api_GetAll_SanPham() async {
   List<SanPham> lstSanPham = [];
 
   try {
