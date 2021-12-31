@@ -43,8 +43,8 @@ import '../all_page.dart';
 //     );
 //   }
 // }
-Widget buildIconButton(BuildContext context, IconData iconItem, Color? colorItem, String? textItem,
-        String routeting) =>
+Widget buildIconButton(BuildContext context, IconData iconItem,
+        Color? colorItem, String? textItem, String routeting) =>
     Padding(
       padding: const EdgeInsets.all(10),
       child: ClipRRect(
@@ -127,10 +127,10 @@ Widget buildItem(BuildContext context, SanPham _sp) {
   //var autoId=id++;
   return Container(
     width: 200,
-    height: 580,
+    height: 600,
     //color: Colors.indigo,
     decoration: BoxDecoration(
-      border: Border.all(color: Colors.white),
+      border: Border.all(color: Colors.grey,width: 2.0),
       borderRadius: BorderRadius.circular(8.0),
       color: Colors.white,
     ),
@@ -143,7 +143,8 @@ Widget buildItem(BuildContext context, SanPham _sp) {
             child: InkWell(
               child: CachedNetworkImage(
                 imageUrl:
-                    "http://10.0.2.2:8000/storage/assets/images/product-image/" + _sp.hinhAnh!,
+                    "http://10.0.2.2:8000/storage/assets/images/product-image/" +
+                        _sp.hinhAnh!,
                 width: 100,
                 height: 130,
                 placeholder: (context, url) => const Center(
@@ -155,7 +156,9 @@ Widget buildItem(BuildContext context, SanPham _sp) {
               ),
               onTap: () {
                 Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => ProductDetail(sanPham: _sp)));
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ProductDetail(sanPham: _sp)));
               },
             ),
           ),
@@ -164,9 +167,13 @@ Widget buildItem(BuildContext context, SanPham _sp) {
             top: 125.0,
             child: Padding(
               padding: const EdgeInsets.fromLTRB(4.0, 0, 0, 0),
-              child: Text(
-                _sp.tenSanPham,
-                style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              child: Container(
+                width: 200,
+                child: Text(
+                  _sp.tenSanPham,
+                  style:
+                      const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                ),
               ),
             )),
         Positioned(
@@ -176,7 +183,9 @@ Widget buildItem(BuildContext context, SanPham _sp) {
             child: Text(
               'Giá:' + _sp.giaBan.toString(),
               style: const TextStyle(
-                  fontWeight: FontWeight.bold, fontSize: 15, color: Colors.blueAccent),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                  color: Colors.blueAccent),
             ),
           ),
         ),
@@ -186,9 +195,18 @@ Widget buildItem(BuildContext context, SanPham _sp) {
                 padding: const EdgeInsets.fromLTRB(4.0, 0, 0, 0),
                 child: Text(
                   'Còn:' + _sp.soLuongTon.toString(),
-                  style:
-                      const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.red),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                      color: Colors.red),
                 ))),
+        Positioned(
+            right: 5.0,
+            top: 0.0,
+            child: IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.favorite_border),
+            )),
         Positioned(
           left: 140.0,
           top: 146.0,
@@ -196,18 +214,19 @@ Widget buildItem(BuildContext context, SanPham _sp) {
               alignment: const Alignment(3, 0),
               child: InkWell(
                 onTap: () async {
-                  Cart crt=Cart(
+                  Cart crt = Cart(
                     id: _sp.id,
                     productId: _sp.id!,
                     productName: _sp.tenSanPham,
                     inintPrice: _sp.giaBan!,
                     productPrice: _sp.giaBan!,
                     quantity: 1,
-                    productImg: _sp.hinhAnh!,);
-                   // ignore: unrelated_type_equality_checks
-                   bool check= await db.ifPrdExits(crt);
-                   if (check)  {
-                     thongBaoScaffoldMessenger(context, "Product exits cart");
+                    productImg: _sp.hinhAnh!,
+                  );
+                  // ignore: unrelated_type_equality_checks
+                  bool check = await db.ifPrdExits(crt);
+                  if (check) {
+                    thongBaoScaffoldMessenger(context, "Product exits cart");
                     // int quantity = crt.quantity;
                     // quantity++;
                     // int newPrice = quantity * crt.inintPrice;
@@ -220,19 +239,17 @@ Widget buildItem(BuildContext context, SanPham _sp) {
                     //     quantity: quantity,
                     //     productImg: crt.productImg));
                     db.updateQuantity(crt);
-                    cart.addTotalPrice(double.parse(crt.productPrice.toString()));
-                  } else{
-                    db
-                      .insertItems(crt)
-                      .then((value) {
-                    thongBaoScaffoldMessenger(context, "Add cart complete");
-                     cart.addTotalPrice(double.parse(_sp.giaBan.toString()));
-                  }).onError((error, stackTrace) {
-                    print(error.toString());
-                  });
+                    cart.addTotalPrice(
+                        double.parse(crt.productPrice.toString()));
+                  } else {
+                    db.insertItems(crt).then((value) {
+                      thongBaoScaffoldMessenger(context, "Add cart complete");
+                      cart.addTotalPrice(double.parse(_sp.giaBan.toString()));
+                    }).onError((error, stackTrace) {
+                      print(error.toString());
+                    });
                   }
-                  },
-                
+                },
                 child: const Icon(
                   Icons.add_circle,
                   color: Colors.green,
@@ -245,7 +262,8 @@ Widget buildItem(BuildContext context, SanPham _sp) {
   );
 }
 
-Widget buildTextMyProfile({required IconData icon, required String title, required String lable}) {
+Widget buildTextMyProfile(
+    {required IconData icon, required String title, required String lable}) {
   const color = Colors.green;
   const colorText = Colors.black;
   const padding = EdgeInsets.fromLTRB(0, 10, 0, 10);
@@ -265,8 +283,10 @@ Widget buildTextMyProfile({required IconData icon, required String title, requir
             Padding(
               padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
               child: Text(title,
-                  style:
-                      const TextStyle(color: colorText, fontSize: 15, fontWeight: FontWeight.bold)),
+                  style: const TextStyle(
+                      color: colorText,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold)),
             )
           ],
         ),
@@ -302,8 +322,10 @@ Widget buildInputTextMyProfile(AsyncSnapshot<Object?> snapshot,
             Padding(
               padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
               child: Text(title,
-                  style:
-                      const TextStyle(color: colorText, fontSize: 15, fontWeight: FontWeight.bold)),
+                  style: const TextStyle(
+                      color: colorText,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold)),
             )
           ],
         ),
@@ -339,7 +361,8 @@ Widget buildListTitleSetting(
     alignment: Alignment.center,
     decoration: const BoxDecoration(
       color: Colors.white,
-      borderRadius: BorderRadius.all(Radius.circular(10.0)), // Set rounded corner radius
+      borderRadius:
+          BorderRadius.all(Radius.circular(10.0)), // Set rounded corner radius
     ),
     child: ListTile(
       leading: icons != null
@@ -459,7 +482,8 @@ void thongBaoScaffoldMessenger(BuildContext context, String text) {
     )));
 }
 
-Widget avtCachedNetworkImage(double _width, double _height) => CachedNetworkImage(
+Widget avtCachedNetworkImage(double _width, double _height) =>
+    CachedNetworkImage(
       imageUrl: avtImageLogOut(),
       width: _width,
       height: _height,
@@ -516,13 +540,14 @@ Widget topMyprofile() {
         border: Border.all(
           color: Colors.red.shade100,
         ),
-        borderRadius:
-            const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+        borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(10), topRight: Radius.circular(10))),
     child: Row(children: [
       Padding(
         padding: const EdgeInsets.fromLTRB(20, 20, 10, 20),
         child: ClipRRect(
-            borderRadius: BorderRadius.circular(100), child: avtCachedNetworkImage(100, 100)),
+            borderRadius: BorderRadius.circular(100),
+            child: avtCachedNetworkImage(100, 100)),
       ),
       Container(
         margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -532,7 +557,8 @@ Widget topMyprofile() {
           children: [
             Text(
               '@' + Auth.khachHang.username,
-              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                  color: Colors.white, fontWeight: FontWeight.bold),
             ),
             Text(
               Auth.khachHang.hoTen!,
