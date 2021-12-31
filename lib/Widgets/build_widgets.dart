@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; //text input
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '../Modals/cart_model.dart';
 import 'package:flutter_application_1/Controller/cart_provider.dart';
 import 'package:flutter_application_1/DB/db_cart.dart';
@@ -239,8 +240,7 @@ Widget buildItem(BuildContext context, SanPham _sp) {
                     //     quantity: quantity,
                     //     productImg: crt.productImg));
                     db.updateQuantity(crt);
-                    cart.addTotalPrice(
-                        double.parse(crt.productPrice.toString()));
+                    cart.addTotalPrice(double.parse(crt.productPrice.toString()));
                   } else {
                     db.insertItems(crt).then((value) {
                       thongBaoScaffoldMessenger(context, "Add cart complete");
@@ -568,5 +568,25 @@ Widget topMyprofile() {
         ),
       )
     ]),
+  );
+}
+
+void showCustomLoadding() {
+  //https://pub.dev/packages/flutter_easyloading
+  //cai nay la tuy chinh? loadding
+  EasyLoading.instance
+    ..loadingStyle = EasyLoadingStyle.custom
+    ..indicatorType = EasyLoadingIndicatorType.threeBounce
+    ..radius = 50
+    ..progressColor = Colors.yellow
+    ..backgroundColor = Colors.white
+    ..indicatorColor = Colors.indigo
+    ..textColor = Colors.indigo
+    ..fontSize = 20;
+
+  //hien thi loadding
+  EasyLoading.show(
+    status: "Please wait...",
+    maskType: EasyLoadingMaskType.black,
   );
 }

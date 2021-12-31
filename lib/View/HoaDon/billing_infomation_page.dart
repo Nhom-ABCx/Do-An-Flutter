@@ -1,6 +1,6 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '/all_page.dart';
 
 class BillingInfomationPage extends StatefulWidget {
@@ -342,10 +342,15 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
                           ),
                           trailing: ElevatedButton(
                               onPressed: () async {
+                                showCustomLoadding();
+
                                 if (await api_HoaDon_LapHoaDon(Auth.khachHang.id!)) {
                                   Navigator.pushNamed(context, "/SuccessfullyPage");
+                                  EasyLoading.dismiss();
                                 } else {
-                                  thongBaoScaffoldMessenger(context, "Something Fails");
+                                  thongBaoScaffoldMessenger(
+                                      context, "Sometime fails, check your my cart");
+                                  EasyLoading.dismiss();
                                 }
                               },
                               child: const Text(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/Controller/auth.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import '../../all_page.dart';
 
 class WellcomePage extends StatefulWidget {
   const WellcomePage({
@@ -38,10 +39,14 @@ class _WellcomePageState extends State<WellcomePage> {
                     child:
                         const Text('Sign In', style: TextStyle(fontSize: 20, color: Colors.white)),
                     onPressed: () async {
+                      showCustomLoadding();
+
                       if (await Auth.ktDaCoTaiKhoanDangNhap()) {
                         Navigator.pushReplacementNamed(context, '/Home');
+                        EasyLoading.dismiss();
                       } else {
                         Navigator.pushReplacementNamed(context, '/Sign_In');
+                        EasyLoading.dismiss();
                       }
                     },
                   ),

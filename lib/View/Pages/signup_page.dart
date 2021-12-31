@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; //text input
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '/all_page.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -183,9 +184,16 @@ class _SignUpPageState extends State<SignUpPage> {
                         child: const Text('Sign Up',
                             style: TextStyle(fontSize: 20, color: Colors.white)),
                         onPressed: () async {
-                          await (_auth.ktDangKy(txtUsername.text, txtEmail.text, txtPassword.text))
-                              ? Navigator.pushReplacementNamed(context, '/Home')
-                              : (thongBaoScaffoldMessenger(context, "Create account Fails !"));
+                          showCustomLoadding();
+
+                          if (await (_auth.ktDangKy(
+                              txtUsername.text, txtEmail.text, txtPassword.text))) {
+                            Navigator.pushReplacementNamed(context, '/Home');
+                            EasyLoading.dismiss();
+                          } else {
+                            (thongBaoScaffoldMessenger(context, "Create account Fails !"));
+                            EasyLoading.dismiss();
+                          }
                         },
                       ),
                     ),

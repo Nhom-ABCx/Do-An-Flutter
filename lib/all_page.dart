@@ -28,6 +28,7 @@ export 'Modals/class.dart';
 export 'Modals/khach_hang.dart';
 export 'Modals/hoa_don.dart';
 export 'Modals/ct_hoa_don.dart';
+export 'Modals/yeu_thich.dart';
 
 export 'API/api_manager.dart';
 
