@@ -2,48 +2,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; //text input
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:intl/intl.dart';
 import '../Modals/cart_model.dart';
 import 'package:flutter_application_1/Controller/cart_provider.dart';
 import 'package:flutter_application_1/DB/db_cart.dart';
 import 'package:provider/provider.dart';
 import '../all_page.dart';
 
-// class PhoneScreen extends StatefulWidget {
-//   const PhoneScreen({Key? key}) : super(key: key);
+final formatNumber = NumberFormat("#,##0", "en_US");
 
-//   @override
-//   _PhonePageState createState() => _PhonePageState();
-// }
-
-// class _PhonePageState extends State<PhoneScreen> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Padding(padding: const EdgeInsets.all(10.0),
-//       child: ClipRRect(
-//         borderRadius: BorderRadius.circular(15),
-//         child: Container(
-//           width: 100,
-//           height: 80,
-//           color: Colors.white,
-//           child: Column(
-//             children: [
-//               IconButton(
-//                   onPressed: () {
-//                    Navigator.push(context,MaterialPageRoute(builder: (context)=>const PhonePage()));
-//                   },
-//                   icon: const Icon(
-//                    Icons.phone_android_rounded,
-//                     size: 30.0,
-//                     color:  Colors.red,
-//                   )),
-//               const Text("Phone"),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
 Widget buildIconButton(BuildContext context, IconData iconItem, Color? colorItem, String? textItem,
         String routeting) =>
     Padding(
@@ -122,6 +89,7 @@ Widget buildListTitleDrawer({
 }
 
 Widget buildItem(BuildContext context, SanPham _sp) {
+  bool yeuThich = false;
   DbCart db = DbCart();
   final cart = Provider.of<CartProvider>(context);
   //  final id=Provider.of<CartModel>(context).id;
@@ -165,7 +133,7 @@ Widget buildItem(BuildContext context, SanPham _sp) {
             top: 125.0,
             child: Padding(
               padding: const EdgeInsets.fromLTRB(4.0, 0, 0, 0),
-              child: Container(
+              child: SizedBox(
                 width: 200,
                 child: Text(
                   _sp.tenSanPham,
@@ -178,7 +146,7 @@ Widget buildItem(BuildContext context, SanPham _sp) {
           child: Padding(
             padding: const EdgeInsets.fromLTRB(4.0, 0, 0, 0),
             child: Text(
-              'Giá:' + _sp.giaBan.toString(),
+              'Giá: ' + formatNumber.format(_sp.giaBan),
               style: const TextStyle(
                   fontWeight: FontWeight.bold, fontSize: 15, color: Colors.blueAccent),
             ),
@@ -194,11 +162,16 @@ Widget buildItem(BuildContext context, SanPham _sp) {
                       const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.red),
                 ))),
         Positioned(
-            right: 5.0,
+            right: 0.0,
             top: 0.0,
             child: IconButton(
               onPressed: () {},
-              icon: const Icon(Icons.favorite_border),
+              icon: yeuThich
+                  ? const Icon(
+                      Icons.favorite,
+                      color: Colors.red,
+                    )
+                  : const Icon(Icons.favorite_border),
             )),
         Positioned(
           left: 140.0,
@@ -416,7 +389,10 @@ List<Widget> hienThiDanhMucDrawer(BuildContext context) {
         text: 'Notifications',
         icon: Icons.notifications,
         onClicked: () => Navigator.pushNamed(context, '/Notifications')),
-    //const SizedBox(height: 16),
+    buildListTitleDrawer(
+        text: 'My Wishlist',
+        icon: Icons.favorite_sharp,
+        onClicked: () => Navigator.pushNamed(context, '/MyWishlist')),
     buildListTitleDrawer(
         text: 'ChangePass',
         icon: Icons.lock_outline_rounded,
@@ -585,25 +561,26 @@ Widget titlePageCategory(String text) => Align(
           )),
     );
 
-Widget buildListSanPham(BuildContext context,Future<List<SanPham>> listSanPham) => FutureBuilder<List<SanPham>>(
-    future: listSanPham,
-    builder: (context, snapshot) {
-      if (snapshot.hasError) {
-        return Center(child: Text(snapshot.error.toString()));
-      }
-      return snapshot.hasData
-          ? GridView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: snapshot.data!.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-              ),
-              itemBuilder: (context, index) => Container(
-                    margin: const EdgeInsets.all(5.0),
-                    child: buildItem(context, snapshot.data![index]),
-                  ))
-          : const Center(
-              child: CircularProgressIndicator(),
-            );
-    });
+Widget buildListSanPham(BuildContext context, Future<List<SanPham>> listSanPham) =>
+    FutureBuilder<List<SanPham>>(
+        future: listSanPham,
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Center(child: Text(snapshot.error.toString()));
+          }
+          return snapshot.hasData
+              ? GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: snapshot.data!.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                  ),
+                  itemBuilder: (context, index) => Container(
+                        margin: const EdgeInsets.all(5.0),
+                        child: buildItem(context, snapshot.data![index]),
+                      ))
+              : const Center(
+                  child: CircularProgressIndicator(),
+                );
+        });

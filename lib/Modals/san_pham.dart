@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'class.g.dart';
+part 'san_pham.g.dart';
 
 //Chạy câu lệnh flutter pub run build_runner watch trong terminal khi part 'user.g.dart' bị lỗi đỏ
 @JsonSerializable(
@@ -19,6 +19,7 @@ class SanPham {
   DateTime? createdAt;
   DateTime? updatedAt;
   DateTime? deletedAt;
+  bool? isFavorite;
 
   SanPham({
     this.id,
@@ -34,6 +35,7 @@ class SanPham {
     this.createdAt,
     this.updatedAt,
     this.deletedAt,
+    this.isFavorite,
   });
   factory SanPham.fromJson(dynamic json) => _$SanPhamFromJson(json);
   Map<String, dynamic> toJson() => _$SanPhamToJson(this);
