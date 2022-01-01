@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../Modals/cart_model.dart';
 import 'package:flutter_application_1/Controller/cart_provider.dart';
-import 'package:flutter_application_1/DB/db_cart.dart';
+import 'package:flutter_application_1/DB/database_mb.dart';
 import 'package:provider/provider.dart';
 import '../../all_page.dart';
 
@@ -198,7 +198,7 @@ Widget buildTimeSale() {
 }
 
 Widget buildStockProduct(BuildContext context, SanPham sanPham) {
-  DbCart dbCart = DbCart();
+  Db dbCart = Db();
   final cartprd = Provider.of<CartProvider>(context);
    //cartprd.setQuantity();
   Row stock = Row(
@@ -248,14 +248,14 @@ Widget buildStockProduct(BuildContext context, SanPham sanPham) {
                 quantity: cartprd.getQuantity(),
                 productImg: sanPham.hinhAnh!
             );
-            bool check= await dbCart.ifPrdExits(crt);
+            bool check= await dbCart.ifPrdExitsCart(crt);
              if (check)  {
                      thongBaoScaffoldMessenger(context, "Product exits cart");
                      dbCart.updateQuantity(crt);
               cartprd.addTotalPrice(double.parse(crt.productPrice.toString()));
              }
              else{
-                dbCart.insertItems(crt).then((value) {
+                dbCart.insertItemCart(crt).then((value) {
                 thongBaoScaffoldMessenger(context, "Add cart complete");
                 cartprd.addTotalPrice(double.parse(sanPham.giaBan.toString()));
               }).onError((error, stackTrace) {

@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:flutter_application_1/DB/db_khach_hang.dart';
+import 'package:flutter_application_1/DB/database_mb.dart';
 import 'package:flutter_application_1/all_page.dart';
 
 class Auth {
@@ -25,7 +25,7 @@ class Auth {
     khachHang = await api_DangNhap(email, pass);
 
     if (khachHang.email.isNotEmpty) {
-      khachHang = await DB_KhachHang().insertIfExistItem(khachHang);
+      khachHang = await Db().insertIfExistItemKH(khachHang);
       return true;
     }
     return false;
@@ -95,12 +95,12 @@ class Auth {
   }
 
   static Future<bool> ktDaCoTaiKhoanDangNhap() async {
-    var _khDangCoTrongDatabase = await DB_KhachHang().getFirstItems();
+    var _khDangCoTrongDatabase = await Db().getFirstItemsKH();
     if (khachHang.email != _khDangCoTrongDatabase.email) {
       //lay du lieu tu databse sever
       final _kh = await api_GET_KhachHang(_khDangCoTrongDatabase.id!);
       //cap nhat lai trong android
-      DB_KhachHang().updateItem(_kh);
+      Db().updateItemKH(_kh);
       //gan' bien' static de su dung
       khachHang = _kh;
       return true;

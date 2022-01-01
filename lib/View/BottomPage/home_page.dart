@@ -149,13 +149,11 @@ Widget buildIconProductCategori(BuildContext context) => Padding(
       child: Wrap(
         children: [
           buildIconButton(context, Icons.phone_android_rounded, Colors.red, "Phone", "/PhonePage"),
-          buildIconButton(
-              context, Icons.laptop_chromebook_sharp, Colors.blue, "LapTop", "/LapTopPage"),
+          buildIconButton(context, Icons.laptop_chromebook_sharp, Colors.blue, "LapTop", "/LapTopPage"),
           buildIconButton(context, Icons.microwave, Colors.pink, "Refrigeration", "/DienLanhPage"),
           buildIconButton(context, Icons.photo_camera, Colors.green, "Camera", "/CameraPage"),
           buildIconButton(context, Icons.tablet_mac, Colors.black, "IPAD", "/IpadPage"),
-          buildIconButton(
-              context, Icons.sports_esports, Colors.cyan, "Accessory", "/AccessoryPage"),
+          buildIconButton(context, Icons.sports_esports, Colors.cyan, "Accessory", "/AccessoryPage"),
         ],
       ),
     );
@@ -211,7 +209,7 @@ Widget buildSanPhamFlashsale(BuildContext context) {
             ? ListView.separated(
                 padding: const EdgeInsets.all(20),
                 scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) => buildItem(context, snapshot.data![index]),
+                itemBuilder: (context, index) => buildItem(snapshot.data![index]),
                 separatorBuilder: (context, _) => const SizedBox(
                       width: 15, //khoang cach giua cac'layout
                     ),
