@@ -31,42 +31,50 @@ class MyWishlistPageState extends State<MyWishlistPage> {
               // //Hide
               // drawer: const NavigationDrawer(),
               //Body
-              body: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                      child: Row(
-                        children: [
-                          const Text("Your Wishlist ()",
-                              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
-                          const Spacer(),
-                          IconButton(
-                            icon: Icon(
-                              Icons.grid_view,
-                              color: _wishList == wishList.Grid ? Colors.red : null,
+              body: RefreshIndicator(
+                onRefresh: () async {
+                  //reload
+                  (context as Element).reassemble();
+                },
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                        child: Row(
+                          children: [
+                            const Text("Your Wishlist ()", style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+                            const Spacer(),
+                            IconButton(
+                              icon: Icon(
+                                Icons.grid_view,
+                                color: _wishList == wishList.Grid ? Colors.red : null,
+                              ),
+                              onPressed: () {
+                                setState(() => _wishList = wishList.Grid);
+                              },
                             ),
-                            onPressed: () {
-                              setState(() => _wishList = wishList.Grid);
-                            },
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          IconButton(
-                            icon: Icon(
-                              Icons.view_list,
-                              color: _wishList == wishList.List ? Colors.red : null,
+                            IconButton(
+                              icon: Icon(
+                                Icons.view_list,
+                                color: _wishList == wishList.List ? Colors.red : null,
+                              ),
+                              onPressed: () {
+                                setState(() => _wishList = wishList.List);
+                              },
                             ),
-                            onPressed: () {
-                              setState(() => _wishList = wishList.List);
-                            },
-                          ),
-                        ],
+                            IconButton(
+                              icon: const Icon(
+                                Icons.refresh,
+                              ),
+                              onPressed: () => (context as Element).reassemble(),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    buildListSanPham(context, api_Get_SanPham_YeuThich(Auth.khachHang.id!)),
-                  ],
+                      buildListSanPham(context, api_Get_SanPham_YeuThich(Auth.khachHang.id!)),
+                    ],
+                  ),
                 ),
               ),
               bottomNavigationBar: const BottomNavBar(0),

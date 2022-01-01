@@ -47,8 +47,7 @@ Future<List<SanPham>> api_SanPham_LoaiSanPham(int loaiSanPhamId) async {
 Future<List<SanPham>> api_SanPham_GiaBan(int loaiSanPhamId, int priceFrom, int priceTo) async {
   List<SanPham> lstSanPham = [];
   try {
-    final response = await http.get(Uri.parse(
-        urlBaseAPI + 'SanPham/GiaBan?id=$loaiSanPhamId&PriceFrom=$priceFrom&PriceTo=$priceTo'));
+    final response = await http.get(Uri.parse(urlBaseAPI + 'SanPham/GiaBan?id=$loaiSanPhamId&PriceFrom=$priceFrom&PriceTo=$priceTo'));
     if (response.statusCode == 200) {
       List jsonlst = json.decode(response.body);
       lstSanPham = jsonlst.map((data) => SanPham.fromJson(data)).toList();
@@ -61,7 +60,7 @@ Future<List<SanPham>> api_SanPham_GiaBan(int loaiSanPhamId, int priceFrom, int p
 //Chi tiết sản phẩm
 Future<SanPham> fetchProductData(String id) async {
   final url = urlBaseAPI + 'san-pham/$id';
-  SanPham sanPhamChiTiet =SanPham(tenSanPham: "");
+  SanPham sanPhamChiTiet = SanPham(tenSanPham: "");
   try {
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
@@ -126,12 +125,8 @@ Future<KhachHang> api_DangNhap(String email, String matkhau) async {
   var _khachHang = KhachHang.empty();
 
   try {
-    final response = await http.post(Uri.parse(urlBaseAPI + "DangNhap"), body: {
-      "Email": email,
-      "MatKhau": matkhau,
-      "Username": email,
-      "Phone": email
-    }).timeout(const Duration(seconds: 10));
+    final response = await http.post(Uri.parse(urlBaseAPI + "DangNhap"),
+        body: {"Email": email, "MatKhau": matkhau, "Username": email, "Phone": email}).timeout(const Duration(seconds: 10));
     if (response.statusCode == 200) {
       //nay` von' dang o dang List, ep kieu no' thanh List de co them phuong thuc'
       final jsonRaw = json.decode(response.body);
@@ -149,12 +144,8 @@ Future<KhachHang> api_DangNhap(String email, String matkhau) async {
 // Dang ky
 // ignore: non_constant_identifier_names
 Future<dynamic> api_DangKy(String username, String email, String matkhau) async {
-//Future<dynamic> api_DangKy(String username, String email, String matkhau) async {
-  //var khachHang = KhachHang.empty();
-
   try {
-    final response = await http.post(Uri.parse(urlBaseAPI + "DangKy"),
-        body: {"Username": username, "Email": email, "MatKhau": matkhau});
+    final response = await http.post(Uri.parse(urlBaseAPI + "DangKy"), body: {"Username": username, "Email": email, "MatKhau": matkhau});
     if (response.statusCode == 200) {
       //nay` von' dang o dang List, ep kieu no' thanh List de co them phuong thuc'
       final jsonRaw = json.decode(response.body);
@@ -196,8 +187,7 @@ Future<dynamic> api_Update_KhachHang(KhachHang khachHang) async {
 Future<bool> api_sendEmail_User_Reset(String username) async {
   bool _guiEmailThanhCong = false;
   try {
-    final response = await http.post(Uri.parse(urlBaseAPI + "sendEmail-User-Reset"),
-        body: {"Email": username, "Username": username});
+    final response = await http.post(Uri.parse(urlBaseAPI + "sendEmail-User-Reset"), body: {"Email": username, "Username": username});
     if (response.statusCode == 200) {
       //nay` von' dang o dang List, ep kieu no' thanh List de co them phuong thuc'
       final jsonRaw = json.decode(response.body);
@@ -228,8 +218,7 @@ Future<bool> api_HoaDon_LapHoaDon(int khachHangId) async {
       value.add({"SanPhamId": "${item.productId}", "SoLuong": "${item.quantity}"});
     }
     final body = json.encode({"KhachHangId": "$khachHangId", "Data": value});
-    final response = await http.post(Uri.parse(url),
-        body: body, headers: {"accept": "application/json", "content-type": "application/json"});
+    final response = await http.post(Uri.parse(url), body: body, headers: {"accept": "application/json", "content-type": "application/json"});
     if (response.statusCode == 200) {
       return await cartProvider.deleteAllCart();
     }
@@ -244,8 +233,7 @@ Future<dynamic> api_Update_KhachHang_HinhAnh(KhachHang khachHang, File imageFile
 
   try {
     //tao 1 request chua 1 hinh anh
-    var request = http.MultipartRequest('POST', uri)
-      ..files.add(await http.MultipartFile.fromPath('HinhAnh', imageFile.path));
+    var request = http.MultipartRequest('POST', uri)..files.add(await http.MultipartFile.fromPath('HinhAnh', imageFile.path));
     //gui request do len sever, sever se luu hinh anh
     final streamedResponse = await request.send();
     //lay ket qua json tra ve cua sever
@@ -263,8 +251,7 @@ Future<dynamic> api_Update_KhachHang_HinhAnh(KhachHang khachHang, File imageFile
 }
 
 // ignore: non_constant_identifier_names
-Future<dynamic> api_Update_KhachHang_MatKhau(
-    KhachHang khachHang, String oldPassword, String newPassword, String confirmPassword) async {
+Future<dynamic> api_Update_KhachHang_MatKhau(KhachHang khachHang, String oldPassword, String newPassword, String confirmPassword) async {
   final uri = Uri.parse(urlBaseAPI + "KhachHang/" + "${khachHang.id}/updatePassword?_method=PUT");
 
   try {
@@ -325,15 +312,43 @@ Future<List<SanPham>> api_Get_SanPham_YeuThich(int khachHangId) async {
   return lstSanPham;
 }
 
+// ignore: non_constant_identifier_names
 Future<bool> api_Get_YeuThich(int khachHangId, int SanPhamId) async {
   bool isYeuThich = false;
   try {
-    final response = await http
-        .get(Uri.parse(urlBaseAPI + "YeuThich?KhachHangId=$khachHangId&SanPhamId=$SanPhamId"));
+    final response = await http.get(Uri.parse(urlBaseAPI + "YeuThich?KhachHangId=$khachHangId&SanPhamId=$SanPhamId"));
     if (response.statusCode == 200) {
       isYeuThich = true;
     }
     // ignore: empty_catches
   } catch (e) {}
   return isYeuThich;
+}
+
+// ignore: non_constant_identifier_names
+Future<bool> api_Insert_KhachHang_YeuThich_SanPham(int khachHangId, int sanPhamId) async {
+  final uri = Uri.parse(urlBaseAPI + "YeuThich/add");
+  bool success = false;
+  try {
+    final response = await http.post(uri, body: {"KhachHangId": "$khachHangId", "SanPhamId": "$sanPhamId"});
+    if (response.statusCode == 200) {
+      return success = true;
+    }
+    // ignore: empty_catches
+  } catch (e) {}
+  return success;
+}
+
+// ignore: non_constant_identifier_names
+Future<bool> api_Delete_KhachHang_YeuThich_SanPham(int khachHangId, int sanPhamId) async {
+  final uri = Uri.parse(urlBaseAPI + "YeuThich/delete?_method=DELETE");
+  bool success = false;
+  try {
+    final response = await http.post(uri, body: {"KhachHangId": "$khachHangId", "SanPhamId": "$sanPhamId"});
+    if (response.statusCode == 200) {
+      return success = true;
+    }
+    // ignore: empty_catches
+  } catch (e) {}
+  return success;
 }
