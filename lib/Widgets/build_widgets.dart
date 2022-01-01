@@ -224,23 +224,26 @@ Widget buildItem(BuildContext context, SanPham _sp) {
                     quantity: 1,
                     productImg: _sp.hinhAnh!,
                   );
-                  // ignore: unrelated_type_equality_checks
+                  // tạo biến kiểm tra sản phẩm thêm vào cart có tồn tại chưa
+                  
                   bool check = await db.ifPrdExits(crt);
+                  //nếu check ==true 
                   if (check) {
-                    thongBaoScaffoldMessenger(context, "Product exits cart");
-                    // int quantity = crt.quantity;
-                    // quantity++;
-                    // int newPrice = quantity * crt.inintPrice;
-                    // db.updateCart(Cart(
-                    //     id: crt.id,
-                    //     productId: crt.productId,
-                    //     productName: crt.productName,
-                    //     inintPrice: crt.inintPrice,
-                    //     productPrice: newPrice,
-                    //     quantity: quantity,
-                    //     productImg: crt.productImg));
-                    db.updateQuantity(crt);
-                    cart.addTotalPrice(double.parse(crt.productPrice.toString()));
+                    // tạo biến kiểm tra số lượng tồn và số lượng trong cart
+                    bool checkStock =
+                        await db.checkStocProduct(_sp.soLuongTon!, crt);
+                        //nếu true =>số lượng tồn sản phẩm > số lượng trong item trong cart
+                    if(checkStock){
+                      thongBaoScaffoldMessenger(context, "Product exits cart");
+                      db.updateQuantity(crt);
+                      cart.addTotalPrice(
+                          double.parse(crt.productPrice.toString()));
+                    }
+                    // số lượng tồn = số lượng trong cart 
+                    else{
+                      thongBaoScaffoldMessenger(context, "Limited quantity");
+                    }
+                    
                   } else {
                     db.insertItems(crt).then((value) {
                       thongBaoScaffoldMessenger(context, "Add cart complete");

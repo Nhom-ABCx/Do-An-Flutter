@@ -37,23 +37,27 @@ class DbCart {
      ''');
   }
 
+  //thêm một item vào trong db cart
   Future insertItems(Cart cart) async {
     var dbclient = await database;
     await dbclient.insert('cart', cart.toMap());
     return cart;
   }
 
+  //xoá item trong db cart
   Future<int> deleteCart(int id) async {
     var dbclient = await database;
     return await dbclient.delete('cart', where: 'id=?', whereArgs: [id]);
   }
 
+  //lấy ra toàn bộ các item trong db cart
   Future<List<Cart>> getCartList() async {
     var dbclient = await database;
     final query = await dbclient.query('cart');
     return query.map((e) => Cart.fromMap(e)).toList();
   }
 
+  //update giỏ hàng
   Future<int> updateCart(Cart cart) async {
     var dbclient = await database;
     return dbclient.update(
@@ -64,40 +68,48 @@ class DbCart {
     );
   }
 
-  //select cart co ton tai san pham chua
-  Future<bool> ifPrdExits(Cart cart) async{
-    var dbclient= await database ;
-    final raw= await dbclient.rawQuery('SELECT EXISTS(SELECT * FROM cart WHERE productId=?)',[cart.productId]);
-    int? exits=Sqflite.firstIntValue(raw);
-    return exits==1;
+  //kiểm tra sản phảm đã tồn tại trong giỏ hàng chưa
+  Future<bool> ifPrdExits(Cart cart) async {
+    var dbclient = await database;
+    final raw = await dbclient.rawQuery(
+        'SELECT EXISTS(SELECT * FROM cart WHERE productId=?)',
+        [cart.productId]);
+    int? exits = Sqflite.firstIntValue(raw);
+    return exits == 1;
   }
 
-  Future<int> updateQuantity(Cart cart) async{
-    var dbclient=await database;
-    final raw=await dbclient.query('cart',where: 'id=?',whereArgs: [cart.id]);
-    final crt= raw.map((e) => Cart.fromMap(e)).toList();
-    int quantity=crt[0].quantity;
+  // Kiểm tra số lượng tồn vs số lượng giỏ hàng
+  Future<bool> checkStocProduct(int soLuongTon, Cart cart) async {
+    var dbclient = await database;
+    final raw =
+        await dbclient.query('cart', where: 'id=?', whereArgs: [cart.id]);
+    final crt = raw.map((e) => Cart.fromMap(e)).toList();
+    int quantity = crt[0].quantity;
+    if (soLuongTon > quantity) {
+      return true;
+    }
+    return false;
+  }
+
+  // update số lượng khi sản phẩm đã có trong giỏ hàng
+  Future<int> updateQuantity(Cart cart) async {
+    var dbclient = await database;
+    final raw =await dbclient.query('cart', where: 'id=?', whereArgs: [cart.id]);
+    final crt = raw.map((e) => Cart.fromMap(e)).toList();
+    int quantity = crt[0].quantity;
     quantity++;
     int newPrice = quantity * crt[0].inintPrice;
     return await dbclient.rawUpdate('''
       UPDATE cart
       SET productPrice=?,quantity=?
       WHERE id=?
-    ''',[newPrice, quantity,cart.id]);
-    // return updateCart(Cart(
-    //   id: cart.id,
-    //   productId: cart.productId,
-    //   productName: cart.productName,
-    //   inintPrice: cart.inintPrice,
-    //   productPrice: newPrice,
-    //   quantity: quantity,
-    //   productImg: cart.productImg
-    // ));
+    ''', [newPrice, quantity, cart.id]);
   }
 
+  //xoá tất cả các item trong giỏ hàng
   Future<bool> deleteAllCart() async {
     final dbclient = await database;
     // ignore: unrelated_type_equality_checks
-    return dbclient.delete('cart')!=0;
+    return dbclient.delete('cart') != 0;
   }
 }

@@ -81,16 +81,16 @@ Future<List<SanPham>> fetchSanPhamDienThoai7tr() async {
 }
 
 //Chi tiết sản phẩm
-Future<List<SanPham>> fetchProductData(String id) async {
+Future<SanPham> fetchProductData(String id) async {
   final url = urlBaseAPI + 'san-pham/$id';
-  List<SanPham> sanPhamChiTiet = [];
+  SanPham sanPhamChiTiet =SanPham(tenSanPham: "");
   try {
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
-      List jSonlst = json.decode(response.body);
-      sanPhamChiTiet = jSonlst.map((data) => SanPham.fromJson(data)).toList();
+      final jSonlst = json.decode(response.body);
+      sanPhamChiTiet = SanPham.fromJson(jSonlst);
     }
-  } catch (e) {}
+  } catch (_) {}
   return sanPhamChiTiet;
 }
 
@@ -115,7 +115,7 @@ Future<List<SanPham>> fetchSanPhamSale() async {
   try {
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
-      List jsonlst = json.decode(response.body);
+      final jsonlst = json.decode(response.body);
       return lstSanPhamSale = jsonlst.map((data) => SanPham.fromJson(data)).toList();
     }
   } catch (e) {}

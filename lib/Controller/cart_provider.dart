@@ -68,7 +68,7 @@ class CartProvider extends ChangeNotifier {
   }
   int getQuantity() => _quantity;
 
-
+  //xoá total price 
   Future<bool> deleteAllCart() {
     _totalPrice = 0;
     _setPrefItems();

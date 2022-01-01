@@ -38,8 +38,7 @@ class _CartPageState extends State<CartPage> {
           child: Column(children: [
             Stack(
               children: [
-                ListView(
-                  shrinkWrap: true,
+                ListView(shrinkWrap: true,
                     //
                     children: [
                       Container(
@@ -129,34 +128,57 @@ class _CartPageState extends State<CartPage> {
                                                   children: [
                                                     InkWell(
                                                       onTap: () {
-                                                        int quantity = snap.data![index].quantity;    
-                                                        int price = snap.data![index].inintPrice;
+                                                        int quantity = snap
+                                                            .data![index]
+                                                            .quantity;
+                                                        int price = snap
+                                                            .data![index]
+                                                            .inintPrice;
                                                         quantity--;
-                                                        int newPrice =price * quantity;
+                                                        int newPrice =
+                                                            price * quantity;
                                                         if (quantity > 0) {
                                                           dbCart
                                                               .updateCart(
                                                             Cart(
-                                                                id: snap.data![index].id!,
-                                                                productId: snap.data![index].productId,
-                                                                productName: snap.data![index].productName,
-                                                                inintPrice: snap.data![index].inintPrice,
-                                                                productPrice:newPrice,
-                                                                quantity:quantity,
-                                                                productImg: snap.data![index].productImg),
+                                                                id: snap
+                                                                    .data![
+                                                                        index]
+                                                                    .id!,
+                                                                productId: snap
+                                                                    .data![
+                                                                        index]
+                                                                    .productId,
+                                                                productName: snap
+                                                                    .data![
+                                                                        index]
+                                                                    .productName,
+                                                                inintPrice: snap
+                                                                    .data![
+                                                                        index]
+                                                                    .inintPrice,
+                                                                productPrice:
+                                                                    newPrice,
+                                                                quantity:
+                                                                    quantity,
+                                                                productImg: snap
+                                                                    .data![
+                                                                        index]
+                                                                    .productImg),
                                                           )
                                                               .then((value) {
                                                             newPrice = 0;
                                                             quantity = 0;
                                                             cartprd.removeTotalPrice(
                                                                 double.parse(snap
-                                                                    .data![index]
+                                                                    .data![
+                                                                        index]
                                                                     .inintPrice
                                                                     .toString()));
                                                           }).onError((error,
                                                                   stackTrace) {
-                                                            print(
-                                                                error.toString());
+                                                            print(error
+                                                                .toString());
                                                           });
                                                         }
                                                       },
@@ -171,55 +193,72 @@ class _CartPageState extends State<CartPage> {
                                                               left: 5.0,
                                                               right: 5.0),
                                                       child: Text(
-                                                        snap.data![index].quantity
+                                                        snap.data![index]
+                                                            .quantity
                                                             .toString(),
                                                       ),
                                                     ),
                                                     InkWell(
-                                                      onTap: () {
-                                                        int quantity = snap
-                                                            .data![index]
-                                                            .quantity;
-                                                        int price = snap
-                                                            .data![index]
-                                                            .inintPrice;
-                                                        quantity++;
-                                                        int newPrice =
-                                                            price * quantity;
-                                                        dbCart
-                                                            .updateCart(
-                                                          Cart(
-                                                              id: snap
-                                                                  .data![index]
-                                                                  .id!,
-                                                              productId: snap
-                                                                  .data![index]
-                                                                  .productId,
-                                                              productName: snap
-                                                                  .data![index]
-                                                                  .productName,
-                                                              inintPrice: snap
-                                                                  .data![index]
-                                                                  .inintPrice,
-                                                              productPrice:
-                                                                  newPrice,
-                                                              quantity: quantity,
-                                                              productImg: snap
-                                                                  .data![index]
-                                                                  .productImg),
-                                                        )
-                                                            .then((value) {
-                                                          newPrice = 0;
-                                                          quantity = 0;
-                                                          cartprd.addTotalPrice(
-                                                              double.parse(snap
-                                                                  .data![index]
-                                                                  .inintPrice
-                                                                  .toString()));
-                                                        }).onError((error,
-                                                                stackTrace) {
-                                                          print(error.toString());
-                                                        });
+                                                      onTap: () async {
+                                                        final sp = await fetchProductData(snap.data![index].productId.toString());
+                                                        bool check = await dbCart.checkStocProduct(sp.soLuongTon!,snap.data![index]);
+                                                        if (check) {
+                                                          int quantity = snap
+                                                              .data![index]
+                                                              .quantity;
+                                                          int price = snap
+                                                              .data![index]
+                                                              .inintPrice;
+                                                          quantity++;
+                                                          int newPrice =
+                                                              price * quantity;
+                                                          dbCart
+                                                              .updateCart(
+                                                            Cart(
+                                                                id: snap
+                                                                    .data![
+                                                                        index]
+                                                                    .id!,
+                                                                productId: snap
+                                                                    .data![
+                                                                        index]
+                                                                    .productId,
+                                                                productName: snap
+                                                                    .data![
+                                                                        index]
+                                                                    .productName,
+                                                                inintPrice: snap
+                                                                    .data![
+                                                                        index]
+                                                                    .inintPrice,
+                                                                productPrice:
+                                                                    newPrice,
+                                                                quantity:
+                                                                    quantity,
+                                                                productImg: snap
+                                                                    .data![
+                                                                        index]
+                                                                    .productImg),
+                                                          )
+                                                              .then((value) {
+                                                            newPrice = 0;
+                                                            quantity = 0;
+                                                            cartprd.addTotalPrice(
+                                                                double.parse(snap
+                                                                    .data![
+                                                                        index]
+                                                                    .inintPrice
+                                                                    .toString()));
+                                                          }).onError((error,
+                                                                  stackTrace) {
+                                                            print(error
+                                                                .toString());
+                                                          });
+                                                        } else {
+                                                          thongBaoScaffoldMessenger(
+                                                              context,
+                                                              "Limited quantity");
+                                                        }
                                                       },
                                                       child: const Icon(
                                                         Icons.add,
