@@ -22,10 +22,7 @@ class _IpadPageState extends State<IpadPage> {
           //body
           body: SingleChildScrollView(
             child: Column(
-              children: [
-                titlePageCategory("IPAD"),
-                buildListSanPham(context, api_SanPham_LoaiSanPham(5))
-              ],
+              children: [titlePageCategory("IPAD"), buildListSanPham(context, api_SanPham_LoaiSanPham(5))],
             ),
           ),
           //Footer

@@ -53,9 +53,7 @@ class BodyNotifications extends StatelessWidget {
       leading: Container(
         height: 50.0,
         width: 50.0,
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("assets/images/thongbao.jpg"), fit: BoxFit.cover)),
+        decoration: const BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/thongbao.jpg"), fit: BoxFit.cover)),
       ),
       title: const Text(
         'E-EEEE',

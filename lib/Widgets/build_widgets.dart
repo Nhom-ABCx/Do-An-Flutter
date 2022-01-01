@@ -44,9 +44,7 @@ import '../all_page.dart';
 //     );
 //   }
 // }
-Widget buildIconButton(BuildContext context, IconData iconItem,
-        Color? colorItem, String? textItem, String routeting) =>
-    Padding(
+Widget buildIconButton(BuildContext context, IconData iconItem, Color? colorItem, String? textItem, String routeting) => Padding(
       padding: const EdgeInsets.all(10),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(15),
@@ -143,9 +141,7 @@ Widget buildItem(BuildContext context, SanPham _sp) {
             color: Colors.transparent,
             child: InkWell(
               child: CachedNetworkImage(
-                imageUrl:
-                    "http://10.0.2.2:8000/storage/assets/images/product-image/" +
-                        _sp.hinhAnh!,
+                imageUrl: "http://10.0.2.2:8000/storage/assets/images/product-image/" + _sp.hinhAnh!,
                 width: 100,
                 height: 130,
                 placeholder: (context, url) => const Center(
@@ -156,10 +152,7 @@ Widget buildItem(BuildContext context, SanPham _sp) {
                 ),
               ),
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ProductDetail(sanPham: _sp)));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetail(sanPham: _sp)));
               },
             ),
           ),
@@ -172,8 +165,7 @@ Widget buildItem(BuildContext context, SanPham _sp) {
                 width: 200,
                 child: Text(
                   _sp.tenSanPham,
-                  style: const TextStyle(
-                      fontSize: 15, fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                 ),
               ),
             )),
@@ -183,10 +175,7 @@ Widget buildItem(BuildContext context, SanPham _sp) {
             padding: const EdgeInsets.fromLTRB(4.0, 0, 0, 0),
             child: Text(
               'Giá:' + _sp.giaBan.toString(),
-              style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
-                  color: Colors.blueAccent),
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.blueAccent),
             ),
           ),
         ),
@@ -196,10 +185,7 @@ Widget buildItem(BuildContext context, SanPham _sp) {
                 padding: const EdgeInsets.fromLTRB(4.0, 0, 0, 0),
                 child: Text(
                   'Còn:' + _sp.soLuongTon.toString(),
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                      color: Colors.red),
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.red),
                 ))),
         Positioned(
             right: 5.0,
@@ -231,14 +217,12 @@ Widget buildItem(BuildContext context, SanPham _sp) {
                   if (check) {
                     // tạo biến kiểm tra số lượng tồn và số lượng trong cart
                     final sp = await fetchProductData(_sp.id.toString());
-                    bool checkStock =
-                        await db.checkStocProduct(sp.soLuongTon!, crt);
+                    bool checkStock = await db.checkStocProduct(sp.soLuongTon!, crt);
                     //nếu true =>số lượng tồn sản phẩm > số lượng trong item trong cart
                     if (checkStock) {
                       thongBaoScaffoldMessenger(context, "Product exits cart");
                       db.updateQuantity(crt);
-                      cart.addTotalPrice(
-                          double.parse(crt.productPrice.toString()));
+                      cart.addTotalPrice(double.parse(crt.productPrice.toString()));
                     }
                     // số lượng tồn = số lượng trong cart
                     else {
@@ -265,8 +249,7 @@ Widget buildItem(BuildContext context, SanPham _sp) {
   );
 }
 
-Widget buildTextMyProfile(
-    {required IconData icon, required String title, required String lable}) {
+Widget buildTextMyProfile({required IconData icon, required String title, required String lable}) {
   const color = Colors.green;
   const colorText = Colors.black;
   const padding = EdgeInsets.fromLTRB(0, 10, 0, 10);
@@ -285,11 +268,7 @@ Widget buildTextMyProfile(
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
-              child: Text(title,
-                  style: const TextStyle(
-                      color: colorText,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold)),
+              child: Text(title, style: const TextStyle(color: colorText, fontSize: 15, fontWeight: FontWeight.bold)),
             )
           ],
         ),
@@ -324,11 +303,7 @@ Widget buildInputTextMyProfile(AsyncSnapshot<Object?> snapshot,
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
-              child: Text(title,
-                  style: const TextStyle(
-                      color: colorText,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold)),
+              child: Text(title, style: const TextStyle(color: colorText, fontSize: 15, fontWeight: FontWeight.bold)),
             )
           ],
         ),
@@ -354,18 +329,13 @@ Widget buildInputTextMyProfile(AsyncSnapshot<Object?> snapshot,
   );
 }
 
-Widget buildListTitleSetting(
-    {IconData? icons,
-    required String text,
-    required String textCustoms,
-    required VoidCallback? onClicked}) {
+Widget buildListTitleSetting({IconData? icons, required String text, required String textCustoms, required VoidCallback? onClicked}) {
   return Container(
     margin: const EdgeInsets.fromLTRB(15, 10, 15, 0),
     alignment: Alignment.center,
     decoration: const BoxDecoration(
       color: Colors.white,
-      borderRadius:
-          BorderRadius.all(Radius.circular(10.0)), // Set rounded corner radius
+      borderRadius: BorderRadius.all(Radius.circular(10.0)), // Set rounded corner radius
     ),
     child: ListTile(
       leading: icons != null
@@ -429,15 +399,9 @@ List<Widget> hienThiDanhMucDrawer(BuildContext context) {
       onClicked: () => Navigator.pushNamed(context, '/MyProfile'),
     ),
     //const SizedBox(height: 16),
-    buildListTitleDrawer(
-        text: 'Notifications',
-        icon: Icons.notifications,
-        onClicked: () => Navigator.pushNamed(context, '/Notifications')),
+    buildListTitleDrawer(text: 'Notifications', icon: Icons.notifications, onClicked: () => Navigator.pushNamed(context, '/Notifications')),
     //const SizedBox(height: 16),
-    buildListTitleDrawer(
-        text: 'ChangePass',
-        icon: Icons.lock_outline_rounded,
-        onClicked: () => Navigator.pushNamed(context, '/ChangePW')),
+    buildListTitleDrawer(text: 'ChangePass', icon: Icons.lock_outline_rounded, onClicked: () => Navigator.pushNamed(context, '/ChangePW')),
     //const SizedBox(height: 16),
     buildListTitleDrawer(
       text: 'Settings',
@@ -458,8 +422,7 @@ List<Widget> hienThiDanhMucDrawer(BuildContext context) {
 String avtImageLogOut() {
   return (Auth.khachHang.hinhAnh!.isEmpty)
       ? "http://10.0.2.2:8000/storage/assets/images/avatar/empty.png"
-      : "http://10.0.2.2:8000/storage/assets/images/avatar/User/${Auth.khachHang.id!}/" +
-          Auth.khachHang.hinhAnh!;
+      : "http://10.0.2.2:8000/storage/assets/images/avatar/User/${Auth.khachHang.id!}/" + Auth.khachHang.hinhAnh!;
 }
 
 Widget buildCircle({
@@ -485,8 +448,7 @@ void thongBaoScaffoldMessenger(BuildContext context, String text) {
     )));
 }
 
-Widget avtCachedNetworkImage(double _width, double _height) =>
-    CachedNetworkImage(
+Widget avtCachedNetworkImage(double _width, double _height) => CachedNetworkImage(
       imageUrl: avtImageLogOut(),
       width: _width,
       height: _height,
@@ -543,14 +505,11 @@ Widget topMyprofile() {
         border: Border.all(
           color: Colors.red.shade100,
         ),
-        borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+        borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
     child: Row(children: [
       Padding(
         padding: const EdgeInsets.fromLTRB(20, 20, 10, 20),
-        child: ClipRRect(
-            borderRadius: BorderRadius.circular(100),
-            child: avtCachedNetworkImage(100, 100)),
+        child: ClipRRect(borderRadius: BorderRadius.circular(100), child: avtCachedNetworkImage(100, 100)),
       ),
       Container(
         margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -560,8 +519,7 @@ Widget topMyprofile() {
           children: [
             Text(
               '@' + Auth.khachHang.username,
-              style: const TextStyle(
-                  color: Colors.white, fontWeight: FontWeight.bold),
+              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
             Text(
               Auth.khachHang.hoTen!,
@@ -600,34 +558,29 @@ Widget titlePageCategory(String text) => Align(
           padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 0),
           child: Text(
             text,
-            style: const TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-                color: Colors.indigoAccent),
+            style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.indigoAccent),
           )),
     );
 
-Widget buildListSanPham(
-        BuildContext context, Future<List<SanPham>> listSanPham) =>
-    FutureBuilder<List<SanPham>>(
-        future: listSanPham,
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return Center(child: Text(snapshot.error.toString()));
-          }
-          return snapshot.hasData
-              ? GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: snapshot.data!.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                  ),
-                  itemBuilder: (context, index) => Container(
-                        margin: const EdgeInsets.all(5.0),
-                        child: buildItem(context, snapshot.data![index]),
-                      ))
-              : const Center(
-                  child: CircularProgressIndicator(),
-                );
-        });
+Widget buildListSanPham(BuildContext context, Future<List<SanPham>> listSanPham) => FutureBuilder<List<SanPham>>(
+    future: listSanPham,
+    builder: (context, snapshot) {
+      if (snapshot.hasError) {
+        return Center(child: Text(snapshot.error.toString()));
+      }
+      return snapshot.hasData
+          ? GridView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: snapshot.data!.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+              ),
+              itemBuilder: (context, index) => Container(
+                    margin: const EdgeInsets.all(5.0),
+                    child: buildItem(context, snapshot.data![index]),
+                  ))
+          : const Center(
+              child: CircularProgressIndicator(),
+            );
+    });

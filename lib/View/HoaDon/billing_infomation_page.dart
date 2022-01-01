@@ -47,9 +47,7 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
                         alignment: Alignment.center,
                         decoration: const BoxDecoration(
                             color: Colors.redAccent,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(15),
-                                topRight: Radius.circular(15)) // Set rounded corner radius
+                            borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)) // Set rounded corner radius
                             ),
                         child: const Text(
                           "Billing Information",
@@ -62,22 +60,10 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                           child: Column(children: [
-                            buildTextMyProfile(
-                                icon: Icons.contact_page,
-                                title: 'Full Name',
-                                lable: Auth.khachHang.hoTen!),
-                            buildTextMyProfile(
-                                icon: Icons.email,
-                                title: 'Email Address',
-                                lable: Auth.khachHang.email),
-                            buildTextMyProfile(
-                                icon: Icons.phone,
-                                title: 'Phone',
-                                lable: '+' + Auth.khachHang.phone!),
-                            buildTextMyProfile(
-                                icon: Icons.gps_fixed,
-                                title: 'Address',
-                                lable: Auth.khachHang.diaChi!),
+                            buildTextMyProfile(icon: Icons.contact_page, title: 'Full Name', lable: Auth.khachHang.hoTen!),
+                            buildTextMyProfile(icon: Icons.email, title: 'Email Address', lable: Auth.khachHang.email),
+                            buildTextMyProfile(icon: Icons.phone, title: 'Phone', lable: '+' + Auth.khachHang.phone!),
+                            buildTextMyProfile(icon: Icons.gps_fixed, title: 'Address', lable: Auth.khachHang.diaChi!),
                             SizedBox(
                               //tu dong canh le`tu thiet bi
                               width: MediaQuery.of(context).size.width,
@@ -89,8 +75,7 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
                                 ),
                                 label: const Text(
                                   'Edit Billing Information',
-                                  style:
-                                      TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                                 ),
                                 style: ButtonStyle(
                                   backgroundColor: MaterialStateProperty.all(Colors.redAccent),
@@ -112,9 +97,7 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
                         alignment: Alignment.center,
                         decoration: const BoxDecoration(
                             color: Colors.green,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(15),
-                                topRight: Radius.circular(15)) // Set rounded corner radius
+                            borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)) // Set rounded corner radius
                             ),
                         child: const Text(
                           "Shipping Method Choose",
@@ -176,9 +159,7 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
                         alignment: Alignment.center,
                         decoration: const BoxDecoration(
                             color: Colors.blue,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(15),
-                                topRight: Radius.circular(15)) // Set rounded corner radius
+                            borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)) // Set rounded corner radius
                             ),
                         child: const Text(
                           "Choose Payment Method",
@@ -328,12 +309,8 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
                         margin: const EdgeInsets.fromLTRB(5, 20, 5, 0),
                         alignment: Alignment.center,
                         decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(
-                                Radius.circular(10.0)), // Set rounded corner radius
-                            boxShadow: [
-                              BoxShadow(blurRadius: 5, color: Colors.black, offset: Offset(1, 3))
-                            ] // Make rounded corner of border
+                            color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(10.0)), // Set rounded corner radius
+                            boxShadow: [BoxShadow(blurRadius: 5, color: Colors.black, offset: Offset(1, 3))] // Make rounded corner of border
                             ),
                         child: ListTile(
                           title: const Text(
@@ -348,8 +325,7 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
                                   Navigator.pushNamed(context, "/SuccessfullyPage");
                                   EasyLoading.dismiss();
                                 } else {
-                                  thongBaoScaffoldMessenger(
-                                      context, "Sometime fails, check your my cart");
+                                  thongBaoScaffoldMessenger(context, "Sometime fails, check your my cart");
                                   EasyLoading.dismiss();
                                 }
                               },
@@ -358,8 +334,7 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
                                 style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                               ),
                               style: ButtonStyle(
-                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
+                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                   //side: const BorderSide(color: Colors.pink)
                                 )),

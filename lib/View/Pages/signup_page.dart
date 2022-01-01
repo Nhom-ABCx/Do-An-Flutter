@@ -76,8 +76,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   errorText: snapshot.hasError ? snapshot.error.toString() : null,
                                   labelStyle: const TextStyle(color: Colors.white),
                                   hintStyle: const TextStyle(color: Colors.grey),
-                                  prefixIcon:
-                                      const Icon(Icons.supervisor_account, color: Colors.white),
+                                  prefixIcon: const Icon(Icons.supervisor_account, color: Colors.white),
                                 ),
                                 controller: txtUsername, //gan gia tri cua text vao bien'
                                 textInputAction: TextInputAction.next,
@@ -136,8 +135,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                         borderSide: BorderSide(color: Colors.grey),
                                       ),
                                       labelText: "Password",
-                                      errorText:
-                                          snapshot.hasError ? snapshot.error.toString() : null,
+                                      errorText: snapshot.hasError ? snapshot.error.toString() : null,
                                       labelStyle: const TextStyle(color: Colors.white),
                                       prefixIcon: const Icon(
                                         Icons.vpn_key,
@@ -153,8 +151,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   Padding(
                                     padding: const EdgeInsets.only(right: 15),
                                     child: GestureDetector(
-                                      onTap: () =>
-                                          setState(() => notShowPassword = !notShowPassword),
+                                      onTap: () => setState(() => notShowPassword = !notShowPassword),
                                       child: notShowPassword
                                           ? const Icon(
                                               Icons.visibility,
@@ -181,13 +178,11 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       width: 300,
                       child: TextButton(
-                        child: const Text('Sign Up',
-                            style: TextStyle(fontSize: 20, color: Colors.white)),
+                        child: const Text('Sign Up', style: TextStyle(fontSize: 20, color: Colors.white)),
                         onPressed: () async {
                           showCustomLoadding();
 
-                          if (await (_auth.ktDangKy(
-                              txtUsername.text, txtEmail.text, txtPassword.text))) {
+                          if (await (_auth.ktDangKy(txtUsername.text, txtEmail.text, txtPassword.text))) {
                             Navigator.pushReplacementNamed(context, '/Home');
                             EasyLoading.dismiss();
                           } else {
