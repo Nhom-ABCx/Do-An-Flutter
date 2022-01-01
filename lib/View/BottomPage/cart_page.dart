@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../../Modals/cart_model.dart';
 import 'package:flutter_application_1/Controller/cart_provider.dart';
-import 'package:flutter_application_1/DB/db_cart.dart';
+import 'package:flutter_application_1/DB/database_mb.dart';
 import 'package:provider/provider.dart';
 
 import '../../all_page.dart';
@@ -17,7 +17,7 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
-    DbCart dbCart = DbCart();
+    Db dbCart = Db();
     final cartprd = Provider.of<CartProvider>(context);
 
     return GestureDetector(
@@ -91,7 +91,7 @@ class _CartPageState extends State<CartPage> {
                                                 width: 5.0,
                                               ),
                                               SizedBox(
-                                                width: 180,
+                                                width: 160,
                                                 child: Column(
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,

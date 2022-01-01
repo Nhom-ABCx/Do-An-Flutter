@@ -66,30 +66,7 @@ class MyWishlistPageState extends State<MyWishlistPage> {
                         ],
                       ),
                     ),
-                    FutureBuilder<List<SanPham>>(
-                        future: api_Get_SanPham_YeuThich(Auth.khachHang.id!),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasError) {
-                            // ignore: avoid_print
-                            print(snapshot.error);
-                          }
-                          return snapshot.hasData
-                              ? GridView.builder(
-                                  shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2,
-                                  ),
-                                  itemCount: snapshot.data!.length,
-                                  itemBuilder: (context, index) => Container(
-                                        margin: const EdgeInsets.all(5.0),
-                                        child: buildItem(context, snapshot.data![index]),
-                                      ))
-                              : const Center(
-                                  child: Padding(
-                                      padding: EdgeInsets.only(top: 250),
-                                      child: CircularProgressIndicator()));
-                        }),
+                    buildListSanPham(context, api_Get_SanPham_YeuThich(Auth.khachHang.id!)),
                   ],
                 ),
               ),

@@ -1,5 +1,4 @@
 // ignore_for_file: unnecessary_const
-import 'package:flutter_application_1/View/DrawerPage/mywishlist_page.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Controller/cart_provider.dart';
@@ -58,6 +57,10 @@ class MyApp extends StatelessWidget {
           '/SuccessfullyPage': (context) => const SuccessfullyPage(),
           '/QuanLyDonHangPage': (context) => const QuanLyDonHangPage(),
           '/MyWishlist': (context) => const MyWishlistPage(),
+          '/DienLanhPage': (context) => const DienLanhPage(),
+          '/CameraPage': (context) => const CameraPage(),
+          '/IpadPage': (context) => const IpadPage(),
+          '/AccessoryPage': (context) => const AccessoryPage(),
         },
         builder: EasyLoading.init(),
       ),

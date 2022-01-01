@@ -4,7 +4,7 @@ import 'package:flutter/services.dart'; //text input
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '../Modals/cart_model.dart';
 import 'package:flutter_application_1/Controller/cart_provider.dart';
-import 'package:flutter_application_1/DB/db_cart.dart';
+import 'package:flutter_application_1/DB/database_mb.dart';
 import 'package:provider/provider.dart';
 import '../all_page.dart';
 
@@ -122,7 +122,7 @@ Widget buildListTitleDrawer({
 }
 
 Widget buildItem(BuildContext context, SanPham _sp) {
-  DbCart db = DbCart();
+  Db db = Db();
   final cart = Provider.of<CartProvider>(context);
   //  final id=Provider.of<CartModel>(context).id;
   //var autoId=id++;
@@ -131,7 +131,7 @@ Widget buildItem(BuildContext context, SanPham _sp) {
     height: 600,
     //color: Colors.indigo,
     decoration: BoxDecoration(
-      border: Border.all(color: Colors.grey,width: 2.0),
+      border: Border.all(color: Colors.grey, width: 2.0),
       borderRadius: BorderRadius.circular(8.0),
       color: Colors.white,
     ),
@@ -172,8 +172,8 @@ Widget buildItem(BuildContext context, SanPham _sp) {
                 width: 200,
                 child: Text(
                   _sp.tenSanPham,
-                  style:
-                      const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 15, fontWeight: FontWeight.bold),
                 ),
               ),
             )),
@@ -225,27 +225,27 @@ Widget buildItem(BuildContext context, SanPham _sp) {
                     productImg: _sp.hinhAnh!,
                   );
                   // tạo biến kiểm tra sản phẩm thêm vào cart có tồn tại chưa
-                  
-                  bool check = await db.ifPrdExits(crt);
-                  //nếu check ==true 
+
+                  bool check = await db.ifPrdExitsCart(crt);
+                  //nếu check ==true
                   if (check) {
                     // tạo biến kiểm tra số lượng tồn và số lượng trong cart
+                    final sp = await fetchProductData(_sp.id.toString());
                     bool checkStock =
-                        await db.checkStocProduct(_sp.soLuongTon!, crt);
-                        //nếu true =>số lượng tồn sản phẩm > số lượng trong item trong cart
-                    if(checkStock){
+                        await db.checkStocProduct(sp.soLuongTon!, crt);
+                    //nếu true =>số lượng tồn sản phẩm > số lượng trong item trong cart
+                    if (checkStock) {
                       thongBaoScaffoldMessenger(context, "Product exits cart");
                       db.updateQuantity(crt);
                       cart.addTotalPrice(
                           double.parse(crt.productPrice.toString()));
                     }
-                    // số lượng tồn = số lượng trong cart 
-                    else{
+                    // số lượng tồn = số lượng trong cart
+                    else {
                       thongBaoScaffoldMessenger(context, "Limited quantity");
                     }
-                    
                   } else {
-                    db.insertItems(crt).then((value) {
+                    db.insertItemCart(crt).then((value) {
                       thongBaoScaffoldMessenger(context, "Add cart complete");
                       cart.addTotalPrice(double.parse(_sp.giaBan.toString()));
                     }).onError((error, stackTrace) {
@@ -593,3 +593,41 @@ void showCustomLoadding() {
     maskType: EasyLoadingMaskType.black,
   );
 }
+
+Widget titlePageCategory(String text) => Align(
+      alignment: Alignment.centerLeft,
+      child: Padding(
+          padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 0),
+          child: Text(
+            text,
+            style: const TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+                color: Colors.indigoAccent),
+          )),
+    );
+
+Widget buildListSanPham(
+        BuildContext context, Future<List<SanPham>> listSanPham) =>
+    FutureBuilder<List<SanPham>>(
+        future: listSanPham,
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Center(child: Text(snapshot.error.toString()));
+          }
+          return snapshot.hasData
+              ? GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: snapshot.data!.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                  ),
+                  itemBuilder: (context, index) => Container(
+                        margin: const EdgeInsets.all(5.0),
+                        child: buildItem(context, snapshot.data![index]),
+                      ))
+              : const Center(
+                  child: CircularProgressIndicator(),
+                );
+        });

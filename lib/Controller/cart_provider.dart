@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import '../Modals/cart_model.dart';
-import 'package:flutter_application_1/DB/db_cart.dart';
+import 'package:flutter_application_1/DB/database_mb.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CartProvider extends ChangeNotifier {
   
   double _totalPrice = 0.0;
   double get totalPrice => _totalPrice;
-  DbCart db = DbCart();
+  Db db = Db();
 
   late Future<List<Cart>> _cart;
   Future<List<Cart>> get cart => _cart;

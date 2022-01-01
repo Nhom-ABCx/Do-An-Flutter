@@ -20,13 +20,13 @@ class ChangeLayOut extends ChangeNotifier {
       return api_SanPham_LoaiSanPham(2);
     }
     if (dropdownvalue == "1tr-3tr") {
-      return fetchSanPhamDienThoai1_3tr();
+      return api_SanPham_GiaBan(2, 1000000, 3000000);
     }
     if (dropdownvalue == "3tr-7tr") {
-      return fetchSanPhamDienThoai3_7tr();
+      return api_SanPham_GiaBan(2, 3000000, 7000000);
     }
     if (dropdownvalue == "Trên 7tr") {
-      return fetchSanPhamDienThoai7tr();
+      return api_SanPham_GiaBan(2, 7000000, 0);
     }
     notifyListeners();
   }
@@ -71,7 +71,7 @@ class _PhonePageState extends State<PhonePage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      TitlePagePhone(),
+                      titlePageCategory("Phone"),
                       Padding(
                         padding: const EdgeInsets.only(right: 30),
                         child: _buildShortPrice(),
@@ -112,15 +112,3 @@ class _PhonePageState extends State<PhonePage> {
     );
   }
 }
-
-//title page laptop
-// ignore: non_constant_identifier_names
-Widget TitlePagePhone() => const Align(
-      alignment: Alignment.centerLeft,
-      child: Padding(
-          padding: EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 0),
-          child: Text(
-            'Điện thoại',
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.indigoAccent),
-          )),
-    );

@@ -1,4 +1,4 @@
-import 'package:flutter_application_1/DB/db_khach_hang.dart';
+import 'package:flutter_application_1/DB/database_mb.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'khach_hang.g.dart';
@@ -55,8 +55,8 @@ class KhachHang {
   }
   // ignore: non_constant_identifier_names
   void LogOut() {
-    final db = DB_KhachHang();
-    db.deleteItem(id!);
+    final db = Db();
+    db.deleteItemKH(id!);
 
     id = -1;
     username = "";
