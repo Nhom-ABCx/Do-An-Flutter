@@ -41,34 +41,15 @@ class MyProfileState extends State<MyProfile> {
                             child: Padding(
                               padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                               child: Column(children: [
+                                buildTextMyProfile(icon: Icons.account_circle_sharp, title: 'Username', lable: '@' + Auth.khachHang.username),
+                                buildTextMyProfile(icon: Icons.contact_page, title: 'Full Name', lable: Auth.khachHang.hoTen!),
+                                buildTextMyProfile(icon: Icons.phone, title: 'Phone', lable: '+' + Auth.khachHang.phone!),
+                                buildTextMyProfile(icon: Icons.email, title: 'Email Address', lable: Auth.khachHang.email),
+                                buildTextMyProfile(icon: Icons.gps_fixed, title: 'Address', lable: Auth.khachHang.diaChi!),
                                 buildTextMyProfile(
-                                    icon: Icons.account_circle_sharp,
-                                    title: 'Username',
-                                    lable: '@' + Auth.khachHang.username),
+                                    icon: Icons.date_range, title: 'Birthday', lable: DateFormat('yyyy-MM-dd').format(Auth.khachHang.ngaySinh!)),
                                 buildTextMyProfile(
-                                    icon: Icons.contact_page,
-                                    title: 'Full Name',
-                                    lable: Auth.khachHang.hoTen!),
-                                buildTextMyProfile(
-                                    icon: Icons.phone,
-                                    title: 'Phone',
-                                    lable: '+' + Auth.khachHang.phone!),
-                                buildTextMyProfile(
-                                    icon: Icons.email,
-                                    title: 'Email Address',
-                                    lable: Auth.khachHang.email),
-                                buildTextMyProfile(
-                                    icon: Icons.gps_fixed,
-                                    title: 'Address',
-                                    lable: Auth.khachHang.diaChi!),
-                                buildTextMyProfile(
-                                    icon: Icons.date_range,
-                                    title: 'Birthday',
-                                    lable:
-                                        DateFormat('yyyy-MM-dd').format(Auth.khachHang.ngaySinh!)),
-                                buildTextMyProfile(
-                                    icon:
-                                        Auth.khachHang.gioiTinh!.isOdd ? Icons.male : Icons.female,
+                                    icon: Auth.khachHang.gioiTinh!.isOdd ? Icons.male : Icons.female,
                                     title: 'Gender',
                                     lable: Auth.khachHang.gioiTinh!.isOdd ? "Male" : "Female"),
                                 Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
@@ -94,19 +75,14 @@ class MyProfileState extends State<MyProfile> {
                                     onPressed: () {},
                                     child: Container(
                                         decoration: const BoxDecoration(
-                                            color: Colors.red,
-                                            shape: BoxShape.rectangle,
-                                            borderRadius: BorderRadius.all(Radius.circular(8))),
+                                            color: Colors.red, shape: BoxShape.rectangle, borderRadius: BorderRadius.all(Radius.circular(8))),
                                         width: 60,
                                         height: 40,
                                         child: const Padding(
                                           padding: EdgeInsets.all(10),
                                           child: Text(
                                             'View',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold),
+                                            style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold),
                                             textAlign: TextAlign.center,
                                           ),
                                         )),
@@ -123,8 +99,7 @@ class MyProfileState extends State<MyProfile> {
                                     ),
                                     label: const Text(
                                       'Edit Profile',
-                                      style: TextStyle(
-                                          color: Colors.white, fontWeight: FontWeight.bold),
+                                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                                     ),
                                   ),
                                 ),

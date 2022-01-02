@@ -144,9 +144,6 @@ Future<KhachHang> api_DangNhap(String email, String matkhau) async {
 // Dang ky
 // ignore: non_constant_identifier_names
 Future<dynamic> api_DangKy(String username, String email, String matkhau) async {
-//Future<dynamic> api_DangKy(String username, String email, String matkhau) async {
-  //var khachHang = KhachHang.empty();
-
   try {
     final response = await http.post(Uri.parse(urlBaseAPI + "DangKy"), body: {"Username": username, "Email": email, "MatKhau": matkhau});
     if (response.statusCode == 200) {
@@ -315,15 +312,43 @@ Future<List<SanPham>> api_Get_SanPham_YeuThich(int khachHangId) async {
   return lstSanPham;
 }
 
+// ignore: non_constant_identifier_names
 Future<bool> api_Get_YeuThich(int khachHangId, int SanPhamId) async {
   bool isYeuThich = false;
   try {
-    final response = await http
-        .get(Uri.parse(urlBaseAPI + "YeuThich?KhachHangId=$khachHangId&SanPhamId=$SanPhamId"));
+    final response = await http.get(Uri.parse(urlBaseAPI + "YeuThich?KhachHangId=$khachHangId&SanPhamId=$SanPhamId"));
     if (response.statusCode == 200) {
       isYeuThich = true;
     }
     // ignore: empty_catches
   } catch (e) {}
   return isYeuThich;
+}
+
+// ignore: non_constant_identifier_names
+Future<bool> api_Insert_KhachHang_YeuThich_SanPham(int khachHangId, int sanPhamId) async {
+  final uri = Uri.parse(urlBaseAPI + "YeuThich/add");
+  bool success = false;
+  try {
+    final response = await http.post(uri, body: {"KhachHangId": "$khachHangId", "SanPhamId": "$sanPhamId"});
+    if (response.statusCode == 200) {
+      return success = true;
+    }
+    // ignore: empty_catches
+  } catch (e) {}
+  return success;
+}
+
+// ignore: non_constant_identifier_names
+Future<bool> api_Delete_KhachHang_YeuThich_SanPham(int khachHangId, int sanPhamId) async {
+  final uri = Uri.parse(urlBaseAPI + "YeuThich/delete?_method=DELETE");
+  bool success = false;
+  try {
+    final response = await http.post(uri, body: {"KhachHangId": "$khachHangId", "SanPhamId": "$sanPhamId"});
+    if (response.statusCode == 200) {
+      return success = true;
+    }
+    // ignore: empty_catches
+  } catch (e) {}
+  return success;
 }

@@ -201,10 +201,16 @@ class _buildItemState extends State<buildItem> {
               right: 0.0,
               top: 0.0,
               child: IconButton(
-                onPressed: () {
-                  setState(() {
-                    widget.isFavorite = !widget.isFavorite!;
-                  });
+                onPressed: () async {
+                  if (widget.isFavorite!) {
+                    await api_Delete_KhachHang_YeuThich_SanPham(Auth.khachHang.id!, widget.sanPham.id!)
+                        ? setState(() => widget.isFavorite = false)
+                        : null;
+                  } else {
+                    await api_Insert_KhachHang_YeuThich_SanPham(Auth.khachHang.id!, widget.sanPham.id!)
+                        ? setState(() => widget.isFavorite = true)
+                        : null;
+                  }
                 },
                 icon: widget.isFavorite!
                     ? const Icon(

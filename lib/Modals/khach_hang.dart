@@ -10,7 +10,7 @@ class KhachHang {
   late String username;
   late String email;
   String? phone;
-  String? matKhau;
+  //String? matKhau;
   String? hoTen;
   DateTime? ngaySinh;
   int? gioiTinh;
