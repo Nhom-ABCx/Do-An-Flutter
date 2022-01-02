@@ -89,13 +89,13 @@ Future<List<SanPham>> fecthSanPhamBanChay() async {
 
 // San pham dang khuyen mai~
 Future<List<SanPham>> fetchSanPhamSale() async {
-  String url = urlBaseAPI + 'get-all-product-sale';
+  String url = urlBaseAPI + 'SanPham/GiamGia';
   List<SanPham> lstSanPhamSale = [];
   try {
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
-      final jsonlst = json.decode(response.body);
-      return lstSanPhamSale = jsonlst.map((data) => SanPham.fromJson(data)).toList();
+      List jsonlst = json.decode(response.body);
+      lstSanPhamSale = jsonlst.map((data) => SanPham.fromJson(data)).toList();
     }
     // ignore: empty_catches
   } catch (e) {}

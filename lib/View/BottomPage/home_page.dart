@@ -115,15 +115,13 @@ class HomePageState extends State<HomePage> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(right: 10.0),
-                      child:
-                          // ignore: deprecated_member_use
-                          FlatButton(
-                        onPressed: () {},
+                      child: ElevatedButton(
+                        onPressed: () => Navigator.pushNamed(context, "/AllSanPhamPage"),
                         child: const Text(
                           'View All',
                           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                         ),
-                        color: Colors.red,
+                        style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.red)),
                       ),
                     )
                   ],
