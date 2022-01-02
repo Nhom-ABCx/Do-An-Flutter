@@ -123,6 +123,18 @@ Widget buildImageSanPham(SanPham sanPham) {
 }
 
 Widget buildProductData(SanPham sanPham) {
+   // ignore: unused_element
+   setStar() async {
+    final dsStar = await api_fetchStar(sanPham.id!);
+    int z = 0;
+    int s = 0;
+    for (var i = 0; i < dsStar.length; i++) {
+      s += dsStar[i].Star!;
+      z++;
+    }
+    double star = s / z;
+    return star;
+  }
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -144,12 +156,28 @@ Widget buildProductData(SanPham sanPham) {
         ),
       ),
       const SizedBox(height: 5),
-      Text(
-        "còn: " + sanPham.soLuongTon.toString(),
-        style: TextStyle(
-          color: Colors.red,
-          fontSize: 16.0,
-        ),
+      Row(
+        children: [
+          Text(
+            "còn: " + sanPham.soLuongTon.toString(),
+            style: TextStyle(
+              color: Colors.red,
+              fontSize: 16.0,
+            ),
+          ),
+          Row(
+            children: [
+              Icon(Icons.star,color: Color(0xFFFDD835),),
+              FutureBuilder(
+                future: setStar(),
+                builder: (context,snap){
+                return snap.hasData?
+                Text(snap.data!.toString()):Text("");
+              }
+              )
+            ],
+          )
+        ],
       ),
     ],
   );
@@ -205,8 +233,15 @@ Widget buildStockProduct(BuildContext context, SanPham sanPham) {
       Padding(
           padding: const EdgeInsets.only(right: 40.0),
           child: ElevatedButton(
-              onPressed: () {
-                cartprd.addQuantity();
+              onPressed: () async{
+                Cart crt= Cart(id: sanPham.id,productId: sanPham.id!,productName: sanPham.tenSanPham,inintPrice: sanPham.giaBan!,productPrice: sanPham.giaBan!,quantity: 1,productImg: sanPham.hinhAnh!); 
+                bool check=await dbCart.checkStocProduct(sanPham.soLuongTon!,crt);
+                if(check){
+                  cartprd.addQuantity();
+                }
+                else{
+                   thongBaoScaffoldMessenger(context, "Limited quantity");
+                }
               },
               //clipBehavior: Clip.antiAlias,
               child: Icon(

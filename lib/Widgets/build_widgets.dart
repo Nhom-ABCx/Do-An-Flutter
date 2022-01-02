@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; //text input
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:intl/intl.dart';
 import '../Modals/cart_model.dart';
 import 'package:flutter_application_1/Controller/cart_provider.dart';
@@ -128,6 +129,20 @@ class buildItem extends StatefulWidget {
 }
 
 class _buildItemState extends State<buildItem> {
+
+  Future<double> setStar() async {
+    final dsStar = await api_fetchStar(widget.sanPham.id!);
+    int z = 0;
+    int s = 0;
+    if(dsStar.isNotEmpty){
+      for (var i = 0; i < dsStar.length; i++) {
+        s += dsStar[i].Star!;
+        z++;
+      }
+    }
+    double star = s / z;
+    return star;
+  }
   @override
   Widget build(BuildContext context) {
     Db db = Db();
@@ -193,9 +208,28 @@ class _buildItemState extends State<buildItem> {
               top: 170.0,
               child: Padding(
                   padding: const EdgeInsets.fromLTRB(4.0, 0, 0, 0),
-                  child: Text(
-                    'Còn:' + widget.sanPham.soLuongTon.toString(),
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.red),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                        'Còn:' + widget.sanPham.soLuongTon.toString(),
+                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.red),
+                      ),
+                      Row(
+                        children: [
+                          const Icon(Icons.star,color: Color(0xFFFDD835),),
+                          FutureBuilder(
+                            future: setStar(),
+                            builder: (context,snap){
+                                return snap.hasData?  
+                                Text(snap.data!.toString()) 
+                                :const Text("");
+
+                          })
+                          
+                        ],
+                      )
+                    ],
                   ))),
           Positioned(
               right: 0.0,
@@ -426,6 +460,7 @@ List<Widget> hienThiDanhMucDrawer(BuildContext context) {
     ),
     //const SizedBox(height: 16),
     buildListTitleDrawer(text: 'Notifications', icon: Icons.notifications, onClicked: () => Navigator.pushNamed(context, '/Notifications')),
+     buildListTitleDrawer(text: 'My Wishlist', icon: Icons.favorite_sharp, onClicked: () => Navigator.pushNamed(context, '/MyWishlist')),
     //const SizedBox(height: 16),
     buildListTitleDrawer(text: 'ChangePass', icon: Icons.lock_outline_rounded, onClicked: () => Navigator.pushNamed(context, '/ChangePW')),
     //const SizedBox(height: 16),
