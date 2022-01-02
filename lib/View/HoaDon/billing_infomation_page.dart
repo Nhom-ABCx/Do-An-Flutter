@@ -1,6 +1,7 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Controller/cart_provider.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:provider/provider.dart';
 import '/all_page.dart';
 
 class BillingInfomationPage extends StatefulWidget {
@@ -313,9 +314,9 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
                             boxShadow: [BoxShadow(blurRadius: 5, color: Colors.black, offset: Offset(1, 3))] // Make rounded corner of border
                             ),
                         child: ListTile(
-                          title: const Text(
-                            "570.000đ",
-                            style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                          title: Text(
+                            Provider.of<CartProvider>(context).getTotalPrice().toString(),
+                            style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                           ),
                           trailing: ElevatedButton(
                               onPressed: () async {
