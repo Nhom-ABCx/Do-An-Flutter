@@ -42,6 +42,7 @@ export 'View/ProductCategories/dien_lanh_page.dart';
 export 'View/ProductCategories/camera_page.dart';
 export 'View/ProductCategories/ipad_page.dart';
 export 'View/ProductCategories/phu_kien_page.dart';
+export 'View/ProductCategories/all_sanpham_page.dart';
 
 export 'View/ProductDetail/product_page_detail.dart';
 //View/Search

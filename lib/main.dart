@@ -61,6 +61,7 @@ class MyApp extends StatelessWidget {
           '/CameraPage': (context) => const CameraPage(),
           '/IpadPage': (context) => const IpadPage(),
           '/AccessoryPage': (context) => const AccessoryPage(),
+          '/AllSanPhamPage': (context) => const AllSanPhamPage(),
         },
         builder: EasyLoading.init(),
       ),
