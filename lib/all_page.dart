@@ -6,7 +6,7 @@ export 'Widgets/appbar.dart';
 export 'Widgets/bottombar.dart';
 export 'Widgets/build_widgets.dart';
 //Models
-export 'Modals/class.dart';
+export 'Modals/san_pham.dart';
 export 'Modals/khach_hang.dart';
 export 'Modals/hoa_don.dart';
 export 'Modals/ct_hoa_don.dart';

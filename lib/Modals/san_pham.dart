@@ -1,10 +1,10 @@
+import 'package:flutter_application_1/all_page.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'class.g.dart';
+part 'san_pham.g.dart';
 
 //Chạy câu lệnh flutter pub run build_runner watch trong terminal khi part 'user.g.dart' bị lỗi đỏ
-@JsonSerializable(
-    explicitToJson: true) // Nếu không có explicitToJson: true thì ko in được lớp ở trong.
+@JsonSerializable(explicitToJson: true) // Nếu không có explicitToJson: true thì ko in được lớp ở trong.
 class SanPham {
   int? id;
   String tenSanPham;

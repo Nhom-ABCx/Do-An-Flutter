@@ -25,17 +25,11 @@ class NavigationDrawer extends StatelessWidget {
                     ),
                 child: Column(
                   children: [
-                    ClipRRect(
-                        borderRadius: BorderRadius.circular(100),
-                        child: avtCachedNetworkImage(100, 100)),
+                    ClipRRect(borderRadius: BorderRadius.circular(100), child: avtCachedNetworkImage(100, 100)),
                     Padding(
                       padding: const EdgeInsets.only(top: 10),
                       child: Text(
-                        _chuaDangNhap
-                            ? "You are not login"
-                            : ((Auth.khachHang.hoTen!.isEmpty)
-                                ? Auth.khachHang.username
-                                : Auth.khachHang.hoTen!),
+                        _chuaDangNhap ? "You are not login" : ((Auth.khachHang.hoTen!.isEmpty) ? Auth.khachHang.username : Auth.khachHang.hoTen!),
                         style: const TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,

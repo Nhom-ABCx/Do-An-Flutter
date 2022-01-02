@@ -14,7 +14,6 @@ enum wishList { Grid, List }
 
 class MyWishlistPageState extends State<MyWishlistPage> {
   wishList _wishList = wishList.Grid;
-  int soLuongYeuThich = 3; //chua xu ly provider
 
   @override
   Widget build(BuildContext context) => Consumer<ChangeLayOut>(
@@ -36,11 +35,11 @@ class MyWishlistPageState extends State<MyWishlistPage> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(20),
+                      padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                       child: Row(
                         children: [
-                          Text("Your Wishlist ($soLuongYeuThich)",
-                              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+                          const Text("Your Wishlist ()",
+                              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
                           const Spacer(),
                           IconButton(
                             icon: Icon(

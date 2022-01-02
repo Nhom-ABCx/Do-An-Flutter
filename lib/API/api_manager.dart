@@ -296,11 +296,11 @@ Future<KhachHang> api_GET_KhachHang(int id) async {
 }
 
 // ignore: non_constant_identifier_names
-Future<List<SanPham>> api_Get_SanPham_YeuThich(int id) async {
+Future<List<SanPham>> api_Get_SanPham_YeuThich(int khachHangId) async {
   List<SanPham> lstSanPham = [];
 
   try {
-    final response = await http.get(Uri.parse(urlBaseAPI + "SanPham/YeuThich/$id"));
+    final response = await http.get(Uri.parse(urlBaseAPI + "SanPham/YeuThich/$khachHangId"));
     if (response.statusCode == 200) {
       //nay` von' dang o dang List, ep kieu no' thanh List de co them phuong thuc'
       List jsonRaw = json.decode(response.body);
@@ -313,4 +313,17 @@ Future<List<SanPham>> api_Get_SanPham_YeuThich(int id) async {
   } catch (e) {}
 
   return lstSanPham;
+}
+
+Future<bool> api_Get_YeuThich(int khachHangId, int SanPhamId) async {
+  bool isYeuThich = false;
+  try {
+    final response = await http
+        .get(Uri.parse(urlBaseAPI + "YeuThich?KhachHangId=$khachHangId&SanPhamId=$SanPhamId"));
+    if (response.statusCode == 200) {
+      isYeuThich = true;
+    }
+    // ignore: empty_catches
+  } catch (e) {}
+  return isYeuThich;
 }

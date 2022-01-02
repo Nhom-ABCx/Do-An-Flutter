@@ -2,14 +2,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; //text input
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:intl/intl.dart';
 import '../Modals/cart_model.dart';
 import 'package:flutter_application_1/Controller/cart_provider.dart';
 import 'package:flutter_application_1/DB/database_mb.dart';
 import 'package:provider/provider.dart';
 import '../all_page.dart';
 
-// class PhoneScreen extends StatefulWidget {
-//   const PhoneScreen({Key? key}) : super(key: key);
+final formatNumber = NumberFormat("#,##0", "en_US");
 
 //   @override
 //   _PhonePageState createState() => _PhonePageState();
@@ -119,134 +119,154 @@ Widget buildListTitleDrawer({
   );
 }
 
-Widget buildItem(BuildContext context, SanPham _sp) {
-  Db db = Db();
-  final cart = Provider.of<CartProvider>(context);
-  //  final id=Provider.of<CartModel>(context).id;
-  //var autoId=id++;
-  return Container(
-    width: 200,
-    height: 600,
-    //color: Colors.indigo,
-    decoration: BoxDecoration(
-      border: Border.all(color: Colors.grey, width: 2.0),
-      borderRadius: BorderRadius.circular(8.0),
-      color: Colors.white,
-    ),
-    child: Stack(
-      children: [
-        Align(
-          alignment: Alignment.topCenter,
-          child: Material(
-            color: Colors.transparent,
-            child: InkWell(
-              child: CachedNetworkImage(
-                imageUrl: "http://10.0.2.2:8000/storage/assets/images/product-image/" + _sp.hinhAnh!,
-                width: 100,
-                height: 130,
-                placeholder: (context, url) => const Center(
-                  child: CircularProgressIndicator(),
-                ),
-                errorWidget: (context, url, error) => Container(
-                  color: Colors.black12,
-                ),
-              ),
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetail(sanPham: _sp)));
-              },
-            ),
-          ),
-        ),
-        Positioned(
-            top: 125.0,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(4.0, 0, 0, 0),
-              child: Container(
-                width: 200,
-                child: Text(
-                  _sp.tenSanPham,
-                  style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                ),
-              ),
-            )),
-        Positioned(
-          top: 150.0,
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(4.0, 0, 0, 0),
-            child: Text(
-              'Giá:' + _sp.giaBan.toString(),
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.blueAccent),
-            ),
-          ),
-        ),
-        Positioned(
-            top: 170.0,
-            child: Padding(
-                padding: const EdgeInsets.fromLTRB(4.0, 0, 0, 0),
-                child: Text(
-                  'Còn:' + _sp.soLuongTon.toString(),
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.red),
-                ))),
-        Positioned(
-            right: 5.0,
-            top: 0.0,
-            child: IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.favorite_border),
-            )),
-        Positioned(
-          left: 140.0,
-          top: 146.0,
-          child: Align(
-              alignment: const Alignment(3, 0),
-              child: InkWell(
-                onTap: () async {
-                  Cart crt = Cart(
-                    id: _sp.id,
-                    productId: _sp.id!,
-                    productName: _sp.tenSanPham,
-                    inintPrice: _sp.giaBan!,
-                    productPrice: _sp.giaBan!,
-                    quantity: 1,
-                    productImg: _sp.hinhAnh!,
-                  );
-                  // tạo biến kiểm tra sản phẩm thêm vào cart có tồn tại chưa
+class buildItem extends StatefulWidget {
+  SanPham sanPham;
+  bool? isFavorite;
+  buildItem(this.sanPham, {Key? key, this.isFavorite = false}) : super(key: key);
+  @override
+  _buildItemState createState() => _buildItemState();
+}
 
-                  bool check = await db.ifPrdExitsCart(crt);
-                  //nếu check ==true
-                  if (check) {
-                    // tạo biến kiểm tra số lượng tồn và số lượng trong cart
-                    final sp = await fetchProductData(_sp.id.toString());
-                    bool checkStock = await db.checkStocProduct(sp.soLuongTon!, crt);
-                    //nếu true =>số lượng tồn sản phẩm > số lượng trong item trong cart
-                    if (checkStock) {
-                      thongBaoScaffoldMessenger(context, "Product exits cart");
-                      db.updateQuantity(crt);
-                      cart.addTotalPrice(double.parse(crt.productPrice.toString()));
-                    }
-                    // số lượng tồn = số lượng trong cart
-                    else {
-                      thongBaoScaffoldMessenger(context, "Limited quantity");
-                    }
-                  } else {
-                    db.insertItemCart(crt).then((value) {
-                      thongBaoScaffoldMessenger(context, "Add cart complete");
-                      cart.addTotalPrice(double.parse(_sp.giaBan.toString()));
-                    }).onError((error, stackTrace) {
-                      print(error.toString());
-                    });
-                  }
+class _buildItemState extends State<buildItem> {
+  @override
+  Widget build(BuildContext context) {
+    Db db = Db();
+    final cart = Provider.of<CartProvider>(context);
+    //  final id=Provider.of<CartModel>(context).id;
+    //var autoId=id++;
+    return Container(
+      width: 200,
+      height: 600,
+      //color: Colors.indigo,
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey, width: 2.0),
+        borderRadius: BorderRadius.circular(8.0),
+        color: Colors.white,
+      ),
+      child: Stack(
+        children: [
+          Align(
+            alignment: Alignment.topCenter,
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                child: CachedNetworkImage(
+                  imageUrl: "http://10.0.2.2:8000/storage/assets/images/product-image/" + widget.sanPham.hinhAnh!,
+                  width: 100,
+                  height: 130,
+                  placeholder: (context, url) => const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                  errorWidget: (context, url, error) => Container(
+                    color: Colors.black12,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetail(sanPham: widget.sanPham)));
                 },
-                child: const Icon(
-                  Icons.add_circle,
-                  color: Colors.green,
-                  size: 40.0,
+              ),
+            ),
+          ),
+          Positioned(
+              top: 125.0,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(4.0, 0, 0, 0),
+                child: SizedBox(
+                  width: 200,
+                  child: Text(
+                    widget.sanPham.tenSanPham,
+                    style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                  ),
                 ),
               )),
-        )
-      ],
-    ),
-  );
+          Positioned(
+            top: 150.0,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(4.0, 0, 0, 0),
+              child: Text(
+                'Giá: ' + formatNumber.format(widget.sanPham.giaBan),
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.blueAccent),
+              ),
+            ),
+          ),
+          Positioned(
+              top: 170.0,
+              child: Padding(
+                  padding: const EdgeInsets.fromLTRB(4.0, 0, 0, 0),
+                  child: Text(
+                    'Còn:' + widget.sanPham.soLuongTon.toString(),
+                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.red),
+                  ))),
+          Positioned(
+              right: 0.0,
+              top: 0.0,
+              child: IconButton(
+                onPressed: () {
+                  setState(() {
+                    widget.isFavorite = !widget.isFavorite!;
+                  });
+                },
+                icon: widget.isFavorite!
+                    ? const Icon(
+                        Icons.favorite,
+                        color: Colors.red,
+                      )
+                    : const Icon(Icons.favorite_border),
+              )),
+          Positioned(
+            left: 140.0,
+            top: 146.0,
+            child: Align(
+                alignment: const Alignment(3, 0),
+                child: InkWell(
+                  onTap: () async {
+                    Cart crt = Cart(
+                      id: widget.sanPham.id,
+                      productId: widget.sanPham.id!,
+                      productName: widget.sanPham.tenSanPham,
+                      inintPrice: widget.sanPham.giaBan!,
+                      productPrice: widget.sanPham.giaBan!,
+                      quantity: 1,
+                      productImg: widget.sanPham.hinhAnh!,
+                    );
+                    // tạo biến kiểm tra sản phẩm thêm vào cart có tồn tại chưa
+
+                    bool check = await db.ifPrdExitsCart(crt);
+                    //nếu check ==true
+                    if (check) {
+                      // tạo biến kiểm tra số lượng tồn và số lượng trong cart
+                      final sp = await fetchProductData(widget.sanPham.id.toString());
+                      bool checkStock = await db.checkStocProduct(sp.soLuongTon!, crt);
+                      //nếu true =>số lượng tồn sản phẩm > số lượng trong item trong cart
+                      if (checkStock) {
+                        thongBaoScaffoldMessenger(context, "Product exits cart");
+                        db.updateQuantity(crt);
+                        cart.addTotalPrice(double.parse(crt.productPrice.toString()));
+                      }
+                      // số lượng tồn = số lượng trong cart
+                      else {
+                        thongBaoScaffoldMessenger(context, "Limited quantity");
+                      }
+                    } else {
+                      db.insertItemCart(crt).then((value) {
+                        thongBaoScaffoldMessenger(context, "Add cart complete");
+                        cart.addTotalPrice(double.parse(widget.sanPham.giaBan.toString()));
+                      }).onError((error, stackTrace) {
+                        print(error.toString());
+                      });
+                    }
+                  },
+                  child: const Icon(
+                    Icons.add_circle,
+                    color: Colors.green,
+                    size: 40.0,
+                  ),
+                )),
+          )
+        ],
+      ),
+    );
+  }
 }
 
 Widget buildTextMyProfile({required IconData icon, required String title, required String lable}) {
@@ -576,10 +596,19 @@ Widget buildListSanPham(BuildContext context, Future<List<SanPham>> listSanPham)
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
               ),
-              itemBuilder: (context, index) => Container(
-                    margin: const EdgeInsets.all(5.0),
-                    child: buildItem(context, snapshot.data![index]),
-                  ))
+              itemBuilder: (context, index) => FutureBuilder<bool>(
+                  future: api_Get_YeuThich(Auth.khachHang.id!, snapshot.data![index].id!),
+                  builder: (context, isFavorite) => snapshot.hasData
+                      ? Container(
+                          margin: const EdgeInsets.all(5.0),
+                          child: buildItem(
+                            snapshot.data![index],
+                            isFavorite: isFavorite.data ?? false,
+                          ),
+                        )
+                      : const Center(
+                          child: CircularProgressIndicator(),
+                        )))
           : const Center(
               child: CircularProgressIndicator(),
             );
