@@ -352,3 +352,18 @@ Future<bool> api_Delete_KhachHang_YeuThich_SanPham(int khachHangId, int sanPhamI
   } catch (e) {}
   return success;
 }
+
+//danh gia 
+// ignore: non_constant_identifier_names
+Future<List<CT_HoaDon>> api_fetchStar(int idSanPham) async{
+  final uri=Uri.parse(urlBaseAPI+"danh-gia/$idSanPham");
+List<CT_HoaDon> ctHoaDon=[];
+  try {
+    final response=await http.get(uri);
+    if (response.statusCode==200) {
+      List jSonRaw=json.decode(response.body);
+      ctHoaDon=jSonRaw.map((e) => CT_HoaDon.fromJson(e)).toList();
+    }
+  } catch (_) {}
+  return ctHoaDon;
+}

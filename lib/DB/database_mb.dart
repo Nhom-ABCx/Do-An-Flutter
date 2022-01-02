@@ -92,9 +92,7 @@ class Db {
   //kiểm tra sản phảm đã tồn tại trong giỏ hàng chưa
   Future<bool> ifPrdExitsCart(Cart cart) async {
     var dbclient = await database;
-    final raw = await dbclient.rawQuery(
-        'SELECT EXISTS(SELECT * FROM cart WHERE productId=?)',
-        [cart.productId]);
+    final raw = await dbclient.rawQuery('SELECT EXISTS(SELECT * FROM cart WHERE productId=?)', [cart.productId]);
     int? exits = Sqflite.firstIntValue(raw);
     return exits == 1;
   }
@@ -102,8 +100,7 @@ class Db {
   // Kiểm tra số lượng tồn vs số lượng giỏ hàng
   Future<bool> checkStocProduct(int soLuongTon, Cart cart) async {
     var dbclient = await database;
-    final raw =
-        await dbclient.query('cart', where: 'id=?', whereArgs: [cart.id]);
+    final raw = await dbclient.query('cart', where: 'id=?', whereArgs: [cart.id]);
     final crt = raw.map((e) => Cart.fromMap(e)).toList();
     int quantity = crt[0].quantity;
     if (soLuongTon > quantity) {
@@ -115,7 +112,7 @@ class Db {
   // update số lượng khi sản phẩm đã có trong giỏ hàng
   Future<int> updateQuantity(Cart cart) async {
     var dbclient = await database;
-    final raw =await dbclient.query('cart', where: 'id=?', whereArgs: [cart.id]);
+    final raw = await dbclient.query('cart', where: 'id=?', whereArgs: [cart.id]);
     final crt = raw.map((e) => Cart.fromMap(e)).toList();
     int quantity = crt[0].quantity;
     quantity++;
@@ -189,8 +186,7 @@ class Db {
 
   Future<bool> ifItemExistKH(int id) async {
     final dbclient = await database;
-    final result =
-        await dbclient.rawQuery('SELECT EXISTS(SELECT * FROM khach_hangs WHERE id=?)', [id]);
+    final result = await dbclient.rawQuery('SELECT EXISTS(SELECT * FROM khach_hangs WHERE id=?)', [id]);
 
     int? exists = Sqflite.firstIntValue(result);
     return exists == 1;

@@ -39,8 +39,7 @@ class _ForgotActionState extends State<ForgotAction> {
               ),
               width: 300,
               child: TextButton(
-                child: const Text('Go home',
-                    style: TextStyle(fontSize: 20, color: Colors.black)),
+                child: const Text('Go home', style: TextStyle(fontSize: 20, color: Colors.black)),
                 onPressed: () => Navigator.pushNamed(context, '/Sign_In'),
               ),
             ),

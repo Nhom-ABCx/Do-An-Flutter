@@ -4,7 +4,6 @@ import 'package:flutter_application_1/DB/database_mb.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CartProvider extends ChangeNotifier {
-  
   double _totalPrice = 0.0;
   double get totalPrice => _totalPrice;
   Db db = Db();
@@ -26,7 +25,7 @@ class CartProvider extends ChangeNotifier {
 
   void _getPrefItems() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    _totalPrice = prefs.getDouble('total_price')??0.0;
+    _totalPrice = prefs.getDouble('total_price') ?? 0.0;
     notifyListeners();
   }
 
@@ -59,23 +58,22 @@ class CartProvider extends ChangeNotifier {
   void removeQuantity() {
     if (_quantity > 1) {
       _quantity--;
-   }
+    }
     notifyListeners();
   }
- void   setQuantity(){
-     _quantity=1;
+
+  void setQuantity() {
+    _quantity = 1;
     // notifyListeners();
   }
+
   int getQuantity() => _quantity;
 
-  //xoá total price 
+  //xoá total price
   Future<bool> deleteAllCart() {
     _totalPrice = 0;
     _setPrefItems();
     notifyListeners();
     return db.deleteAllCart();
   }
-
-
-  
 }

@@ -1,7 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,11 +17,7 @@ class ProductDetail extends StatelessWidget {
 
   _sanPhamImg(SanPham sanPham) {
     return SizedBox(
-      child: CachedNetworkImage(
-          height: 150,
-          imageUrl:
-              'http://10.0.2.2:8000/storage/assets/images/product-image/' +
-                  sanPham.hinhAnh!),
+      child: CachedNetworkImage(height: 150, imageUrl: 'http://10.0.2.2:8000/storage/assets/images/product-image/' + sanPham.hinhAnh!),
     );
   }
 
@@ -69,10 +63,7 @@ class ProductDetail extends StatelessWidget {
                   decoration: const BoxDecoration(color: Colors.white),
                   child: Container(
                     height: 130,
-                    decoration: const BoxDecoration(
-                        color: Colors.blueGrey,
-                        borderRadius:
-                            BorderRadius.only(topLeft: Radius.circular(50))),
+                    decoration: const BoxDecoration(color: Colors.blueGrey, borderRadius: BorderRadius.only(topLeft: Radius.circular(50))),
                     child: Padding(
                         padding: const EdgeInsets.fromLTRB(30.0, 10.0, 0, 5.0),
                         child: Column(
@@ -94,31 +85,25 @@ class ProductDetail extends StatelessWidget {
                 Container(
                   height: 100,
                   decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(15.0),
-                      topRight: Radius.circular(15.0)
-                    )
-                  ),
+                      color: Colors.white, borderRadius: BorderRadius.only(topLeft: Radius.circular(15.0), topRight: Radius.circular(15.0))),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text('Decription product',style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20
-                        ),),
+                        child: Text(
+                          'Decription product',
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                        ),
                       ),
-                      SizedBox(height:10.0),
+                      SizedBox(height: 10.0),
                       Padding(
-                        padding: const EdgeInsets.only(left:10.0),
+                        padding: const EdgeInsets.only(left: 10.0),
                         child: Text(sanPham.moTa!),
                       )
                     ],
                   ),
                 )
-                
               ],
             ),
           ],
@@ -138,6 +123,18 @@ Widget buildImageSanPham(SanPham sanPham) {
 }
 
 Widget buildProductData(SanPham sanPham) {
+   // ignore: unused_element
+   setStar() async {
+    final dsStar = await api_fetchStar(sanPham.id!);
+    int z = 0;
+    int s = 0;
+    for (var i = 0; i < dsStar.length; i++) {
+      s += dsStar[i].Star!;
+      z++;
+    }
+    double star = s / z;
+    return star;
+  }
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -148,8 +145,7 @@ Widget buildProductData(SanPham sanPham) {
       const SizedBox(height: 5),
       Text(
         'Giá: ' + sanPham.giaBan.toString(),
-        style: TextStyle(
-            fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.red),
+        style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.red),
       ),
       const SizedBox(height: 5),
       Text(
@@ -160,12 +156,28 @@ Widget buildProductData(SanPham sanPham) {
         ),
       ),
       const SizedBox(height: 5),
-      Text(
-        "còn: " + sanPham.soLuongTon.toString(),
-        style: TextStyle(
-          color: Colors.red,
-          fontSize: 16.0,
-        ),
+      Row(
+        children: [
+          Text(
+            "còn: " + sanPham.soLuongTon.toString(),
+            style: TextStyle(
+              color: Colors.red,
+              fontSize: 16.0,
+            ),
+          ),
+          Row(
+            children: [
+              Icon(Icons.star,color: Color(0xFFFDD835),),
+              FutureBuilder(
+                future: setStar(),
+                builder: (context,snap){
+                return snap.hasData?
+                Text(snap.data!.toString()):Text("");
+              }
+              )
+            ],
+          )
+        ],
       ),
     ],
   );
@@ -180,10 +192,7 @@ Widget buildTimeSale() {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
-          children: const [
-            Icon(Icons.bolt_outlined),
-            Text('Flash sale end in')
-          ],
+          children: const [Icon(Icons.bolt_outlined), Text('Flash sale end in')],
         ),
         Padding(
           padding: const EdgeInsets.only(left: 8.0),
@@ -200,7 +209,7 @@ Widget buildTimeSale() {
 Widget buildStockProduct(BuildContext context, SanPham sanPham) {
   Db dbCart = Db();
   final cartprd = Provider.of<CartProvider>(context);
-   //cartprd.setQuantity();
+  //cartprd.setQuantity();
   Row stock = Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
@@ -210,23 +219,36 @@ Widget buildStockProduct(BuildContext context, SanPham sanPham) {
           onPressed: () {
             cartprd.removeQuantity();
           },
-          child: Icon(Icons.remove,color: Colors.white,size: 20,),
+          child: Icon(
+            Icons.remove,
+            color: Colors.white,
+            size: 20,
           ),
-      ),
-      Padding(
-        padding: const EdgeInsets.only(left: 20.0,right: 20.0),
-        child:Text(cartprd.getQuantity().toString()),
-      ),
-      Padding(
-        padding: const EdgeInsets.only(right: 40.0),
-        child: ElevatedButton(
-          onPressed: () {
-           cartprd.addQuantity();
-          },
-          //clipBehavior: Clip.antiAlias,
-          child: Icon(Icons.add,color:Colors.white,size: 20.0,) )
         ),
-      
+      ),
+      Padding(
+        padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+        child: Text(cartprd.getQuantity().toString()),
+      ),
+      Padding(
+          padding: const EdgeInsets.only(right: 40.0),
+          child: ElevatedButton(
+              onPressed: () async{
+                Cart crt= Cart(id: sanPham.id,productId: sanPham.id!,productName: sanPham.tenSanPham,inintPrice: sanPham.giaBan!,productPrice: sanPham.giaBan!,quantity: 1,productImg: sanPham.hinhAnh!); 
+                bool check=await dbCart.checkStocProduct(sanPham.soLuongTon!,crt);
+                if(check){
+                  cartprd.addQuantity();
+                }
+                else{
+                   thongBaoScaffoldMessenger(context, "Limited quantity");
+                }
+              },
+              //clipBehavior: Clip.antiAlias,
+              child: Icon(
+                Icons.add,
+                color: Colors.white,
+                size: 20.0,
+              ))),
     ],
   );
   return Container(
@@ -238,30 +260,28 @@ Widget buildStockProduct(BuildContext context, SanPham sanPham) {
       FlatButton(
           textColor: Colors.white,
           color: Colors.red,
-          onPressed: ()  async{
-            final crt=Cart(
-              id: sanPham.id,
+          onPressed: () async {
+            final crt = Cart(
+                id: sanPham.id,
                 productId: sanPham.id!,
                 productName: sanPham.tenSanPham,
                 inintPrice: sanPham.giaBan!,
                 productPrice: sanPham.giaBan!,
                 quantity: cartprd.getQuantity(),
-                productImg: sanPham.hinhAnh!
-            );
-            bool check= await dbCart.ifPrdExitsCart(crt);
-             if (check)  {
-                     thongBaoScaffoldMessenger(context, "Product exits cart");
-                     dbCart.updateQuantity(crt);
+                productImg: sanPham.hinhAnh!);
+            bool check = await dbCart.ifPrdExitsCart(crt);
+            if (check) {
+              thongBaoScaffoldMessenger(context, "Product exits cart");
+              dbCart.updateQuantity(crt);
               cartprd.addTotalPrice(double.parse(crt.productPrice.toString()));
-             }
-             else{
-                dbCart.insertItemCart(crt).then((value) {
+            } else {
+              dbCart.insertItemCart(crt).then((value) {
                 thongBaoScaffoldMessenger(context, "Add cart complete");
                 cartprd.addTotalPrice(double.parse(sanPham.giaBan.toString()));
               }).onError((error, stackTrace) {
                 print(error.toString());
               });
-             }
+            }
             // int newPrice=sanPham.giaBan!*cartprd.getQuantity();
             // dbCart
             //     .insertItems(Cart(
