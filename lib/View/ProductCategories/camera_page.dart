@@ -9,6 +9,13 @@ class CameraPage extends StatefulWidget {
 }
 
 class _CameraPageState extends State<CameraPage> {
+  late Future<List<SanPham>> apiSanPhamLoaiSanPham;
+  @override
+  void initState() {
+    super.initState();
+    apiSanPhamLoaiSanPham = api_SanPham_LoaiSanPham(4);
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -22,10 +29,7 @@ class _CameraPageState extends State<CameraPage> {
           //body
           body: SingleChildScrollView(
             child: Column(
-              children: [
-                titlePageCategory("Camera"),
-                buildListSanPham(context, api_SanPham_LoaiSanPham(4))
-              ],
+              children: [titlePageCategory("Camera"), buildListSanPham(context, apiSanPhamLoaiSanPham)],
             ),
           ),
           //Footer

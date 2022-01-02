@@ -9,6 +9,13 @@ class DienLanhPage extends StatefulWidget {
 }
 
 class _DienLanhPageState extends State<DienLanhPage> {
+  late Future<List<SanPham>> apiSanPhamLoaiSanPham;
+  @override
+  void initState() {
+    super.initState();
+    apiSanPhamLoaiSanPham = api_SanPham_LoaiSanPham(1);
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -22,10 +29,7 @@ class _DienLanhPageState extends State<DienLanhPage> {
           //body
           body: SingleChildScrollView(
             child: Column(
-              children: [
-                titlePageCategory("Refrigeration"),
-                buildListSanPham(context, api_SanPham_LoaiSanPham(1))
-              ],
+              children: [titlePageCategory("Refrigeration"), buildListSanPham(context, apiSanPhamLoaiSanPham)],
             ),
           ),
           //Footer

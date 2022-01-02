@@ -9,6 +9,14 @@ class AllSanPhamPage extends StatefulWidget {
 }
 
 class _AllSanPhamPageState extends State<AllSanPhamPage> {
+  late Future<List<SanPham>> apiGetAllSanPham;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    apiGetAllSanPham = api_GetAll_SanPham();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -22,7 +30,7 @@ class _AllSanPhamPageState extends State<AllSanPhamPage> {
           //body
           body: SingleChildScrollView(
             child: Column(
-              children: [titlePageCategory("All Products"), buildListSanPham(context, api_GetAll_SanPham())],
+              children: [titlePageCategory("All Products"), buildListSanPham(context, apiGetAllSanPham)],
             ),
           ),
           //Footer

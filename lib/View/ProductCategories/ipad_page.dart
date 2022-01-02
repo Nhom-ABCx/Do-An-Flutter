@@ -9,6 +9,13 @@ class IpadPage extends StatefulWidget {
 }
 
 class _IpadPageState extends State<IpadPage> {
+  late Future<List<SanPham>> apiSanPhamLoaiSanPham;
+  @override
+  void initState() {
+    super.initState();
+    apiSanPhamLoaiSanPham = api_SanPham_LoaiSanPham(5);
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -22,10 +29,7 @@ class _IpadPageState extends State<IpadPage> {
           //body
           body: SingleChildScrollView(
             child: Column(
-              children: [
-                titlePageCategory("IPAD"),
-                buildListSanPham(context, api_SanPham_LoaiSanPham(5))
-              ],
+              children: [titlePageCategory("IPAD"), buildListSanPham(context, apiSanPhamLoaiSanPham)],
             ),
           ),
           //Footer
