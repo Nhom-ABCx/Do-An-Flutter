@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 import '../all_page.dart';
 
 final formatNumber = NumberFormat("#,##0", "en_US");
+final formatStar=NumberFormat("#0.0");
 
 //   @override
 //   _PhonePageState createState() => _PhonePageState();
@@ -129,19 +130,21 @@ class buildItem extends StatefulWidget {
 }
 
 class _buildItemState extends State<buildItem> {
-
+  //ham tra ve so sao cua san pham
   Future<double> setStar() async {
     final dsStar = await api_fetchStar(widget.sanPham.id!);
-    int z = 0;
+    int z = 1;
     int s = 0;
     if(dsStar.isNotEmpty){
       for (var i = 0; i < dsStar.length; i++) {
-        s += dsStar[i].Star!;
-        z++;
+        if(dsStar[i].Star!=0){
+          s += dsStar[i].Star!;
+          z++;
+        }
       }
     }
-    double star = s / z;
-    return star;
+    //double star = s / z;
+    return double.parse((s / z).toString());
   }
   @override
   Widget build(BuildContext context) {
@@ -222,7 +225,8 @@ class _buildItemState extends State<buildItem> {
                             future: setStar(),
                             builder: (context,snap){
                                 return snap.hasData?  
-                                Text(snap.data!.toString()) 
+                                // ignore: unnecessary_string_interpolations
+                                Text("${formatStar.format(snap.data)}") 
                                 :const Text("");
 
                           })
@@ -270,9 +274,8 @@ class _buildItemState extends State<buildItem> {
                       productImg: widget.sanPham.hinhAnh!,
                     );
                     // tạo biến kiểm tra sản phẩm thêm vào cart có tồn tại chưa
-
                     bool check = await db.ifPrdExitsCart(crt);
-                    //nếu check ==true
+                    // tạo biến kiểm tra sản phẩm thêm vào cart có tồn tại chưa
                     if (check) {
                       // tạo biến kiểm tra số lượng tồn và số lượng trong cart
                       final sp = await fetchProductData(widget.sanPham.id.toString());
