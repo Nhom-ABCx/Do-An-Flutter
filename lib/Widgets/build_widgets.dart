@@ -152,6 +152,23 @@ class _buildItemState extends State<buildItem> {
     }
   }
 
+  // //KIỂM TRA SẢN PHẨM CÓ KHUYẾN MÃI?
+  // Future<bool> checkSale() async {
+  //   final check = await api_Price_Sale(widget.sanPham.id!);
+  //   // ignore: unnecessary_null_comparison
+  //   if (api_Price_Sale(widget.sanPham.id!).) {
+  //     return true;
+  //   }
+  //   return false;
+  // }
+
+  late Future<KhuyenMai> khuyenMai;
+  @override
+  void initState() {
+    super.initState();
+    khuyenMai = api_Price_Sale(widget.sanPham.id!);
+  }
+
   @override
   Widget build(BuildContext context) {
     Db db = Db();
@@ -199,12 +216,24 @@ class _buildItemState extends State<buildItem> {
                 widget.sanPham.tenSanPham,
                 style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
               ),
+              FutureBuilder<KhuyenMai>(
+                  future: khuyenMai,
+                  builder: (context, snap) {
+                    var _giamGia = 0;
+                    if (snap.hasError) {
+                      //return Text(snap.error.toString());
+                    }
+                    if (snap.hasData) {
+                      _giamGia = snap.data!.giamGia ?? _giamGia;
+                      if (_giamGia == 0) {
+                        return Text("Giá: " + widget.sanPham.giaBan.toString(),
+                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.blueAccent));
+                      }
+                    }
+                    return Text("Giá slae:" + (widget.sanPham.giaBan! - _giamGia).toString(),
+                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.red));
+                  }),
 
-              Text(
-                'Giá: ' + formatNumber.format(widget.sanPham.giaBan),
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.blueAccent),
-              ),
-              //so luong con
               Text(
                 'Còn:' + widget.sanPham.soLuongTon.toString(),
                 style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.red),
@@ -301,7 +330,28 @@ class _buildItemState extends State<buildItem> {
                               );
                             })
                         : const Text("");
-                  }))
+                  })),
+          // Positioned(
+          //   left: 0.0,
+          //   top: 3.0,
+          //   child: FutureBuilder(
+          //       future: checkSale(),
+          //       builder: (contect, snap) {
+          //         if (snap.hasData) {
+          //           if (snap.data == true) {
+          //             return const Text("");
+          //           }
+          //             return Container(
+          //               width: 50,
+          //               height: 30,
+          //               color: Colors.red,
+          //               child: const Text("Sale"),
+          //             );
+                    
+          //         }
+          //        return const Text("");
+          //       }),
+          // ),
         ],
       ),
     );

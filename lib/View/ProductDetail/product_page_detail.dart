@@ -3,6 +3,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../../Modals/cart_model.dart';
 import 'package:flutter_application_1/Controller/cart_provider.dart';
 import 'package:flutter_application_1/DB/database_mb.dart';
@@ -45,7 +46,7 @@ class ProductDetail extends StatelessWidget {
                       borderRadius: BorderRadius.only(
                         bottomRight: Radius.circular(90),
                       )),
-                  child: FutureBuilder(
+                  child: FutureBuilder<SanPham>(
                       future: fetchProductData(sanPham.id.toString()),
                       builder: (context, snapshot) {
                         if (snapshot.hasError) {
@@ -53,7 +54,7 @@ class ProductDetail extends StatelessWidget {
                           print(snapshot.error);
                         }
                         return snapshot.hasData
-                            ? _sanPhamImg(sanPham)
+                            ? _sanPhamImg(snapshot.data!)
                             : const Center(
                                 child: CircularProgressIndicator(),
                               );
@@ -63,13 +64,25 @@ class ProductDetail extends StatelessWidget {
                   decoration: const BoxDecoration(color: Colors.white),
                   child: Container(
                     height: 130,
-                    decoration: const BoxDecoration(color: Colors.blueGrey, borderRadius: BorderRadius.only(topLeft: Radius.circular(50))),
+                    decoration: const BoxDecoration(color: Color(0xFFD6D6D6), borderRadius: BorderRadius.only(topLeft: Radius.circular(50))),
                     child: Padding(
                         padding: const EdgeInsets.fromLTRB(30.0, 10.0, 0, 5.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            buildProductData(sanPham),
+                            FutureBuilder<SanPham>(
+                                future: fetchProductData(sanPham.id.toString()),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasError) {
+                                    // ignore: avoid_print
+                                    print(snapshot.error);
+                                  }
+                                  return snapshot.hasData
+                                      ? buildProductData(snapshot.data!)
+                                      : Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+                                })
                           ],
                         )),
                   ),
@@ -123,65 +136,59 @@ Widget buildImageSanPham(SanPham sanPham) {
 }
 
 Widget buildProductData(SanPham sanPham) {
-   // ignore: unused_element
-   setStar() async {
+  //ham tra ve so sao cua san pham
+  Future<double> setStar() async {
     final dsStar = await api_To_Star(sanPham.id!);
-    int z = 0;
+    double star = 0.0;
+    double z = 1;
     int s = 0;
-    for (var i = 0; i < dsStar.length; i++) {
-      s += dsStar[i].Star!;
-      z++;
+    if (dsStar.isNotEmpty) {
+      for (var i = 0; i < dsStar.length; i++) {
+        if (dsStar[i].Star != 0) {
+          s += dsStar[i].Star!;
+          z++;
+        }
+      }
     }
-    double star = s / z;
-    return star;
+    if (z > 1) {
+      return double.parse((s / (z - 1)).toString());
+    } else {
+      return star;
+    }
   }
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        sanPham.tenSanPham,
-        style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-      ),
-      const SizedBox(height: 5),
-      Text(
-        'Giá: ' + sanPham.giaBan.toString(),
-        style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.red),
-      ),
-      const SizedBox(height: 5),
-      Text(
-        sanPham.moTa.toString(),
-        style: TextStyle(
-          color: Colors.black87,
-          fontSize: 16.0,
-        ),
-      ),
-      const SizedBox(height: 5),
-      Row(
-        children: [
-          Text(
-            "còn: " + sanPham.soLuongTon.toString(),
-            style: TextStyle(
-              color: Colors.red,
-              fontSize: 16.0,
-            ),
-          ),
-          Row(
-            children: [
-              Icon(Icons.star,color: Color(0xFFFDD835),),
-              FutureBuilder(
-                future: setStar(),
-                builder: (context,snap){
-                return snap.hasData
-                ?Text(formatStar.format(snap.data))
-                :Text("");
-              }
-              )
-            ],
-          )
-        ],
-      ),
-    ],
-  );
+
+  return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+    Text(
+      sanPham.tenSanPham,
+      style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+    ),
+    const SizedBox(height: 5),
+    Text(
+      'Giá: ' + sanPham.giaBan.toString(),
+      style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.blue),
+    ),
+    const SizedBox(height: 5),
+    Text(
+      "Còn: " + sanPham.soLuongTon.toString(),
+      style: TextStyle(color: Colors.red, fontSize: 20.0, fontWeight: FontWeight.bold),
+    ),
+    FutureBuilder(
+      future: setStar(),
+      builder: (context, snap) {
+        return snap.hasData
+            ? RatingBarIndicator(
+                rating: double.parse(snap.data.toString()),
+                itemSize: 30.0,
+                itemBuilder: (context, index) {
+                  return const Icon(
+                    Icons.star,
+                    color: Colors.amber,
+                  );
+                })
+            : const Text("");
+      },
+    )
+  ]);
 }
 
 Widget buildTimeSale() {
@@ -193,13 +200,19 @@ Widget buildTimeSale() {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
-          children: const [Icon(Icons.bolt_outlined), Text('Flash sale end in')],
+          children: const [
+            Icon(Icons.bolt_outlined),
+            Text(
+              'Flash sale end in',
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+            )
+          ],
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 8.0),
+          padding: const EdgeInsets.only(left: 20.0),
           child: Text(
             "15d 22h 53m 23s",
-            style: TextStyle(color: Colors.red),
+            style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
           ),
         )
       ],
@@ -234,14 +247,20 @@ Widget buildStockProduct(BuildContext context, SanPham sanPham) {
       Padding(
           padding: const EdgeInsets.only(right: 40.0),
           child: ElevatedButton(
-              onPressed: () async{
-                Cart crt= Cart(id: sanPham.id,productId: sanPham.id!,productName: sanPham.tenSanPham,inintPrice: sanPham.giaBan!,productPrice: sanPham.giaBan!,quantity: 1,productImg: sanPham.hinhAnh!); 
-                bool check=await dbCart.checkStocProduct(sanPham.soLuongTon!,crt);
-                if(check){
+              onPressed: () async {
+                Cart crt = Cart(
+                    id: sanPham.id,
+                    productId: sanPham.id!,
+                    productName: sanPham.tenSanPham,
+                    inintPrice: sanPham.giaBan!,
+                    productPrice: sanPham.giaBan!,
+                    quantity: 1,
+                    productImg: sanPham.hinhAnh!);
+                bool check = await dbCart.checkStocProduct(sanPham.soLuongTon!, crt);
+                if (check) {
                   cartprd.addQuantity();
-                }
-                else{
-                   thongBaoScaffoldMessenger(context, "Limited quantity");
+                } else {
+                  thongBaoScaffoldMessenger(context, "Limited quantity");
                 }
               },
               //clipBehavior: Clip.antiAlias,
