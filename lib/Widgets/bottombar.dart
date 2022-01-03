@@ -35,10 +35,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
           ),
           BottomNavigationBarItem(
             icon: IconButton(
-                onPressed: () => Navigator.of(context).pushReplacementNamedIfNotCurrent('/Pages'),
+                onPressed: () => Navigator.of(context).pushReplacementNamedIfNotCurrent('/MyWishlist'),
                 //Navigator.pushReplacementNamed(context, '/Pages'),
                 icon: const Icon(Icons.favorite_outline)),
-            label: 'Page',
+            label: 'Wishlist',
           ),
           BottomNavigationBarItem(
             icon: IconButton(

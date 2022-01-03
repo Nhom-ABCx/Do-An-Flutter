@@ -62,6 +62,8 @@ class MyApp extends StatelessWidget {
           '/IpadPage': (context) => const IpadPage(),
           '/AccessoryPage': (context) => const AccessoryPage(),
           '/AllSanPhamPage': (context) => const AllSanPhamPage(),
+          '/AddressPage': (context) => const AddressPage(),
+          '/AddressAddPage': (context) => const AddressAddPage(),
         },
         builder: EasyLoading.init(),
       ),

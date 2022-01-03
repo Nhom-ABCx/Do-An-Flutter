@@ -523,7 +523,7 @@ List<Widget> hienThiDanhMucDrawer(BuildContext context) {
       icon: Icons.logout,
       onClicked: () {
         Auth.khachHang.LogOut();
-        Navigator.pushNamedAndRemoveUntil(context, "/Home", (route) => false);
+        Navigator.pushNamedAndRemoveUntil(context, "/Sign_In", (route) => false);
       },
     ),
   ];
@@ -704,3 +704,4 @@ Widget buildListSanPham(BuildContext context, Future<List<SanPham>> listSanPham)
               child: CircularProgressIndicator(),
             );
     });
+

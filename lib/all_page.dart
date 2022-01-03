@@ -52,3 +52,6 @@ export 'View/HoaDon/billing_infomation_page.dart';
 export 'View/HoaDon/select_payment_page.dart';
 export 'View/HoaDon/successfully_page.dart';
 export 'View/HoaDon/quanly_donhang_page.dart';
+//View/SettingPage
+export 'View/SettingPage/address_page.dart';
+export 'View/SettingPage/address_add_page.dart';

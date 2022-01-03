@@ -77,7 +77,7 @@ class MyWishlistPageState extends State<MyWishlistPage> {
                   ),
                 ),
               ),
-              bottomNavigationBar: const BottomNavBar(0),
+              bottomNavigationBar: const BottomNavBar(3),
             ),
           ));
 }
