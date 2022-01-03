@@ -63,7 +63,6 @@ class MyApp extends StatelessWidget {
           '/AccessoryPage': (context) => const AccessoryPage(),
           '/AllSanPhamPage': (context) => const AllSanPhamPage(),
           '/AddressPage': (context) => const AddressPage(),
-          '/AddressAddPage': (context) => const AddressAddPage(),
         },
         builder: EasyLoading.init(),
       ),

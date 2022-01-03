@@ -11,10 +11,16 @@ export 'Modals/khach_hang.dart';
 export 'Modals/hoa_don.dart';
 export 'Modals/ct_hoa_don.dart';
 export 'Modals/yeu_thich.dart';
+export 'Modals/dia_chi.dart';
+export 'Modals/khuyen_mai.dart';
+export 'Modals/phuong_xa.dart';
+export 'Modals/quan_huyen.dart';
+export 'Modals/tinh_thanhpho.dart';
 //Controller
 export 'Controller/auth.dart';
 export 'Controller/edit_myprofile_controller.dart';
 export 'Controller/file_controller.dart';
+export 'Controller/cart_provider.dart';
 //View/Page
 export 'View/Pages/wellcome_page.dart';
 export 'View/Pages/signin_page.dart';
@@ -54,4 +60,3 @@ export 'View/HoaDon/successfully_page.dart';
 export 'View/HoaDon/quanly_donhang_page.dart';
 //View/SettingPage
 export 'View/SettingPage/address_page.dart';
-export 'View/SettingPage/address_add_page.dart';

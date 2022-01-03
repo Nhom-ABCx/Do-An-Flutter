@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/View/SettingPage/address_add_page.dart';
 import '/all_page.dart';
 
 class AddressPage extends StatefulWidget {
@@ -34,7 +35,12 @@ class _HomeState extends State<AddressPage> {
                     width: MediaQuery.of(context).size.width,
                     height: 75,
                     child: TextButton(
-                        onPressed: () => Navigator.pushNamed(context, "/AddressAddPage"),
+                        onPressed: () => Navigator.push(
+                              context,
+                              MaterialPageRoute<void>(
+                                builder: (BuildContext context) => AddressAddPage(DiaChi.empty()),
+                              ),
+                            ),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: const [
@@ -51,31 +57,61 @@ class _HomeState extends State<AddressPage> {
                         )),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: ListTile(
-                    leading: const Icon(
-                      Icons.location_on,
-                      color: Colors.indigo,
-                    ),
-                    title: Row(
-                      children: const [
-                        Text(
-                          "Tên khách hàng",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(width: 15),
-                        Text("09123123", style: TextStyle(color: Colors.grey))
-                      ],
-                    ),
-                    subtitle: const Text("ABC/123/XYZ Đường ABC, Ấp 1,thành phố HCM"),
-                    isThreeLine: true,
-                    trailing: TextButton(
-                      child: const Text("Edit", style: TextStyle(color: Colors.blue)),
-                      onPressed: () {},
-                    ),
-                  ),
-                )
+                FutureBuilder<List<DiaChi>>(
+                    future: api_GetAll_DiaChi(Auth.khachHang.id!),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) {
+                        return Center(
+                          child: Text(snapshot.error.toString()),
+                        );
+                      }
+                      return snapshot.hasData
+                          ? ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: snapshot.data!.length,
+                              itemBuilder: (context, index) => ListTile(
+                                    leading: const Icon(
+                                      Icons.location_on,
+                                      color: Colors.indigo,
+                                    ),
+                                    title: Row(
+                                      children: [
+                                        Text(
+                                          snapshot.data![index].tenNguoiNhan,
+                                          style: const TextStyle(fontWeight: FontWeight.bold),
+                                        ),
+                                        const SizedBox(width: 15),
+                                        Text(snapshot.data![index].phone, style: const TextStyle(color: Colors.grey))
+                                      ],
+                                    ),
+                                    subtitle: Text(snapshot.data![index].diaChiChiTiet +
+                                        ", " +
+                                        (snapshot.data![index].phuongXa ?? "") +
+                                        ", " +
+                                        (snapshot.data![index].quanHuyen ?? "") +
+                                        ", " +
+                                        (snapshot.data![index].tinhThanhPho ?? "")),
+                                    isThreeLine: true,
+                                    trailing: TextButton(
+                                      child: const Text("Edit", style: TextStyle(color: Colors.blue)),
+                                      onPressed: () {
+                                        //Todo
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute<void>(
+                                            builder: (BuildContext context) => AddressAddPage(
+                                              snapshot.data![index],
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ))
+                          : const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                    })
               ],
             ),
           ),

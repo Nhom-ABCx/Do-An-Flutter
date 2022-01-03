@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_1/Modals/phuong_xa.dart';
-import 'package:flutter_application_1/Modals/quan_huyen.dart';
-import 'package:flutter_application_1/Modals/tinh_thanhpho.dart';
 import 'package:flutter_application_1/View/SettingPage/phuong_xa_page.dart';
 import 'package:flutter_application_1/View/SettingPage/quan_huyen_page.dart';
 import 'package:flutter_application_1/View/SettingPage/tinh_thanhpho_page.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '/all_page.dart';
 
 class AddressAddPage extends StatefulWidget {
-  const AddressAddPage({Key? key}) : super(key: key);
+  final DiaChi diaChi;
+  const AddressAddPage(this.diaChi, {Key? key}) : super(key: key);
   @override
   _HomeState createState() => _HomeState();
 }
@@ -19,8 +18,8 @@ class _HomeState extends State<AddressAddPage> {
   late TextEditingController _txtFullname;
   late TextEditingController _txtPhone;
   late TextEditingController _txtAddress;
-  String _fullName = "";
-  String _phone = "";
+  late String _fullName;
+  late String _phone;
   late TinhThanhPho _tinhThanhPho;
   late QuanHuyen _quanHuyen;
   late PhuongXa _phuongXa;
@@ -29,12 +28,25 @@ class _HomeState extends State<AddressAddPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _txtFullname = TextEditingController();
-    _txtAddress = TextEditingController();
-    _txtPhone = TextEditingController();
-    _tinhThanhPho = TinhThanhPho();
-    _quanHuyen = QuanHuyen();
-    _phuongXa = PhuongXa();
+    if (widget.diaChi.tenNguoiNhan.isNotEmpty) {
+      _fullName = widget.diaChi.tenNguoiNhan;
+      _txtFullname = TextEditingController(text: widget.diaChi.tenNguoiNhan);
+      _txtAddress = TextEditingController(text: widget.diaChi.diaChiChiTiet);
+      _txtPhone = TextEditingController(text: widget.diaChi.phone);
+      _phone = widget.diaChi.phone;
+      _tinhThanhPho = TinhThanhPho(name: widget.diaChi.tinhThanhPho);
+      _quanHuyen = QuanHuyen(name: widget.diaChi.quanHuyen);
+      _phuongXa = PhuongXa(name: widget.diaChi.phuongXa);
+    } else {
+      _fullName = "";
+      _txtFullname = TextEditingController();
+      _txtAddress = TextEditingController();
+      _txtPhone = TextEditingController();
+      _phone = "";
+      _tinhThanhPho = TinhThanhPho();
+      _quanHuyen = QuanHuyen();
+      _phuongXa = PhuongXa();
+    }
   }
 
   @override
@@ -53,9 +65,9 @@ class _HomeState extends State<AddressAddPage> {
         child: Scaffold(
           //TopHeader
           appBar: AppBarPage(
-            title: const Text(
-              "Add new shipping address",
-              style: TextStyle(color: Colors.indigo),
+            title: Text(
+              widget.diaChi.tenNguoiNhan.isEmpty ? "Add new shipping address" : "Update shipping address",
+              style: const TextStyle(color: Colors.indigo),
             ),
           ),
           //Hide
@@ -80,7 +92,7 @@ class _HomeState extends State<AddressAddPage> {
                       //tao 1 bien nhan gia tri tu trang tiep theo gui ve`
                       final phone = await openInputDialog(_txtPhone, "Input your phone number", "Your phone", true);
                       if (phone!.isEmpty) return;
-                      setState(() => this._phone = phone);
+                      setState(() => _phone = phone);
                     }),
                 buildListTitleSetting(
                     text: 'Province / City',
@@ -168,7 +180,42 @@ class _HomeState extends State<AddressAddPage> {
                     //tu dong canh le`tu thiet bi
                     width: MediaQuery.of(context).size.width,
                     child: ElevatedButton.icon(
-                      onPressed: () {},
+                      onPressed: () async {
+                        showCustomLoadding();
+
+                        final _diaChi = DiaChi(
+                            khachHangId: Auth.khachHang.id!,
+                            tenNguoiNhan: _fullName,
+                            phone: _phone,
+                            tinhThanhPho: _tinhThanhPho.name,
+                            quanHuyen: _quanHuyen.name,
+                            phuongXa: _phuongXa.name,
+                            diaChiChiTiet: _txtAddress.text);
+                        //neu nhu co truyen vao diaChi thi se cap nhat chu ko tao cai moi'
+                        if (widget.diaChi.id! > 0) {
+                          //neu nhu id ko phai la -1 cua ham khoi tao empty()
+                          _diaChi.id = widget.diaChi.id; //cap nhat cai dia chi
+                          final success = await api_Update_DiaChi(_diaChi);
+                          if (success) {
+                            thongBaoScaffoldMessenger(context, "Update Success");
+                            Navigator.pop(context);
+                            EasyLoading.dismiss();
+                          } else {
+                            (thongBaoScaffoldMessenger(context, "Fails update"));
+                            EasyLoading.dismiss();
+                          }
+                        } else {
+                          final success = await api_Insert_DiaChi(_diaChi);
+                          if (success) {
+                            thongBaoScaffoldMessenger(context, "Add Success");
+                            Navigator.pop(context);
+                            EasyLoading.dismiss();
+                          } else {
+                            (thongBaoScaffoldMessenger(context, "Fails add"));
+                            EasyLoading.dismiss();
+                          }
+                        }
+                      },
                       icon: const Icon(
                         Icons.add_location_alt,
                         color: Colors.white,
