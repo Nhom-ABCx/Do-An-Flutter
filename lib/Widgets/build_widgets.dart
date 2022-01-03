@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; //text input
+import 'package:flutter_application_1/Modals/khuyen_mai.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:intl/intl.dart';
@@ -11,7 +12,7 @@ import 'package:provider/provider.dart';
 import '../all_page.dart';
 
 final formatNumber = NumberFormat("#,##0", "en_US");
-final formatStar=NumberFormat("#0.0");
+final formatStar = NumberFormat("#0.0");
 
 //   @override
 //   _PhonePageState createState() => _PhonePageState();
@@ -132,20 +133,27 @@ class buildItem extends StatefulWidget {
 class _buildItemState extends State<buildItem> {
   //ham tra ve so sao cua san pham
   Future<double> setStar() async {
-    final dsStar = await api_fetchStar(widget.sanPham.id!);
-    int z = 1;
+    final dsStar = await api_To_Star(widget.sanPham.id!);
+    double star = 0.0;
+    double z =1;
     int s = 0;
-    if(dsStar.isNotEmpty){
+    if (dsStar.isNotEmpty) {
       for (var i = 0; i < dsStar.length; i++) {
-        if(dsStar[i].Star!=0){
+        if (dsStar[i].Star != 0) {
           s += dsStar[i].Star!;
           z++;
         }
       }
     }
-    //double star = s / z;
-    return double.parse((s / z).toString());
+    if(z>1){
+      return double.parse((s/(z-1)).toString());
+    }
+    else{
+      return star;
+    }
+
   }
+
   @override
   Widget build(BuildContext context) {
     Db db = Db();
@@ -154,7 +162,7 @@ class _buildItemState extends State<buildItem> {
     //var autoId=id++;
     return Container(
       width: 200,
-      height: 600,
+      height: 750,
       //color: Colors.indigo,
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey, width: 2.0),
@@ -163,78 +171,49 @@ class _buildItemState extends State<buildItem> {
       ),
       child: Stack(
         children: [
-          Align(
-            alignment: Alignment.topCenter,
-            child: Material(
-              color: Colors.transparent,
-              child: InkWell(
-                child: CachedNetworkImage(
-                  imageUrl: "http://10.0.2.2:8000/storage/assets/images/product-image/" + widget.sanPham.hinhAnh!,
-                  width: 100,
-                  height: 130,
-                  placeholder: (context, url) => const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                  errorWidget: (context, url, error) => Container(
-                    color: Colors.black12,
-                  ),
-                ),
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetail(sanPham: widget.sanPham)));
-                },
-              ),
-            ),
-          ),
-          Positioned(
-              top: 125.0,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(4.0, 0, 0, 0),
-                child: SizedBox(
-                  width: 200,
-                  child: Text(
-                    widget.sanPham.tenSanPham,
-                    style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                  ),
-                ),
-              )),
-          Positioned(
-            top: 150.0,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(4.0, 0, 0, 0),
-              child: Text(
-                'Giá: ' + formatNumber.format(widget.sanPham.giaBan),
-                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.blueAccent),
-              ),
-            ),
-          ),
-          Positioned(
-              top: 170.0,
-              child: Padding(
-                  padding: const EdgeInsets.fromLTRB(4.0, 0, 0, 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text(
-                        'Còn:' + widget.sanPham.soLuongTon.toString(),
-                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.red),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Align(
+                alignment: Alignment.topCenter,
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    child: CachedNetworkImage(
+                      imageUrl: "http://10.0.2.2:8000/storage/assets/images/product-image/" + widget.sanPham.hinhAnh!,
+                      width: 100,
+                      height: 120,
+                      placeholder: (context, url) => const Center(
+                        child: CircularProgressIndicator(),
                       ),
-                      Row(
-                        children: [
-                          const Icon(Icons.star,color: Color(0xFFFDD835),),
-                          FutureBuilder(
-                            future: setStar(),
-                            builder: (context,snap){
-                                return snap.hasData?  
-                                // ignore: unnecessary_string_interpolations
-                                Text("${formatStar.format(snap.data)}") 
-                                :const Text("");
-
-                          })
-                          
-                        ],
-                      )
-                    ],
-                  ))),
+                      errorWidget: (context, url, error) => Container(
+                        color: Colors.black12,
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetail(sanPham: widget.sanPham)));
+                    },
+                  ),
+                ),
+              ),
+              //ten san pham
+              Text(
+                widget.sanPham.tenSanPham,
+                style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              ),
+             
+              Text(
+                        'Giá: ' + formatNumber.format(widget.sanPham.giaBan),
+                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.blueAccent),
+                      ),
+              //so luong con
+              Text(
+                'Còn:' + widget.sanPham.soLuongTon.toString(),
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.red),
+              ),
+            ],
+          ),
+          //yeu tich
           Positioned(
               right: 0.0,
               top: 0.0,
@@ -257,9 +236,10 @@ class _buildItemState extends State<buildItem> {
                       )
                     : const Icon(Icons.favorite_border),
               )),
+          //add cart
           Positioned(
-            left: 140.0,
-            top: 146.0,
+            right: 5.0,
+            bottom: 5.0,
             child: Align(
                 alignment: const Alignment(3, 0),
                 child: InkWell(
@@ -305,7 +285,25 @@ class _buildItemState extends State<buildItem> {
                     size: 40.0,
                   ),
                 )),
-          )
+          ),
+          // //rating
+          Positioned(
+              bottom: 0.0,
+              child: FutureBuilder(
+                  future: setStar(),
+                  builder: (context, snap) {
+                    return snap.hasData
+                        ? RatingBarIndicator(
+                            rating: double.parse(snap.data.toString()),
+                            itemSize: 20.0,
+                            itemBuilder: (context, index) {
+                              return const Icon(
+                                Icons.star,
+                                color: Colors.amber,
+                              );
+                            })
+                        : const Text("");
+                  }))
         ],
       ),
     );
@@ -463,7 +461,7 @@ List<Widget> hienThiDanhMucDrawer(BuildContext context) {
     ),
     //const SizedBox(height: 16),
     buildListTitleDrawer(text: 'Notifications', icon: Icons.notifications, onClicked: () => Navigator.pushNamed(context, '/Notifications')),
-     buildListTitleDrawer(text: 'My Wishlist', icon: Icons.favorite_sharp, onClicked: () => Navigator.pushNamed(context, '/MyWishlist')),
+    buildListTitleDrawer(text: 'My Wishlist', icon: Icons.favorite_sharp, onClicked: () => Navigator.pushNamed(context, '/MyWishlist')),
     //const SizedBox(height: 16),
     buildListTitleDrawer(text: 'ChangePass', icon: Icons.lock_outline_rounded, onClicked: () => Navigator.pushNamed(context, '/ChangePW')),
     //const SizedBox(height: 16),
@@ -644,7 +642,8 @@ Widget buildListSanPham(BuildContext context, Future<List<SanPham>> listSanPham)
                   future: api_Get_YeuThich(Auth.khachHang.id!, snapshot.data![index].id!),
                   builder: (context, isFavorite) => snapshot.hasData
                       ? Container(
-                          margin: const EdgeInsets.all(5.0),
+                          height: 600,
+                          margin: const EdgeInsets.all(2.0),
                           child: buildItem(
                             snapshot.data![index],
                             isFavorite: isFavorite.data ?? false,

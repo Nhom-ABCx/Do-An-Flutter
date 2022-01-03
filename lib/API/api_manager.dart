@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:convert';
 import 'dart:core';
 import 'package:flutter_application_1/Controller/cart_provider.dart';
+import 'package:flutter_application_1/Modals/khuyen_mai.dart';
 import 'package:http/http.dart' as http;
 import '../all_page.dart';
 
@@ -355,7 +356,7 @@ Future<bool> api_Delete_KhachHang_YeuThich_SanPham(int khachHangId, int sanPhamI
 
 //danh gia 
 // ignore: non_constant_identifier_names
-Future<List<CT_HoaDon>> api_fetchStar(int idSanPham) async{
+Future<List<CT_HoaDon>> api_To_Star(int idSanPham) async{
   final uri=Uri.parse(urlBaseAPI+"danh-gia/$idSanPham");
 List<CT_HoaDon> ctHoaDon=[];
   try {
@@ -366,4 +367,19 @@ List<CT_HoaDon> ctHoaDon=[];
     }
   } catch (_) {}
   return ctHoaDon;
+}
+
+//Gia giam
+// ignore: non_constant_identifier_names
+Future<KhuyenMai> api_Price_Sale(int idSanPham) async{
+  final uri=Uri.parse(urlBaseAPI+"khuyen-mai/$idSanPham");
+  KhuyenMai ctKhuyenMai=KhuyenMai();
+  try {
+    final response= await http.get(uri);  
+    if (response.statusCode==200) {
+      final jsonRaw=json.decode(response.body);
+      ctKhuyenMai=KhuyenMai.fromJson(jsonRaw);
+    }
+  } catch (_) {}
+  return ctKhuyenMai;
 }

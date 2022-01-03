@@ -125,7 +125,7 @@ Widget buildImageSanPham(SanPham sanPham) {
 Widget buildProductData(SanPham sanPham) {
    // ignore: unused_element
    setStar() async {
-    final dsStar = await api_fetchStar(sanPham.id!);
+    final dsStar = await api_To_Star(sanPham.id!);
     int z = 0;
     int s = 0;
     for (var i = 0; i < dsStar.length; i++) {
@@ -171,8 +171,9 @@ Widget buildProductData(SanPham sanPham) {
               FutureBuilder(
                 future: setStar(),
                 builder: (context,snap){
-                return snap.hasData?
-                Text(snap.data!.toString()):Text("");
+                return snap.hasData
+                ?Text(formatStar.format(snap.data))
+                :Text("");
               }
               )
             ],

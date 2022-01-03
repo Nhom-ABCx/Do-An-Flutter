@@ -95,7 +95,8 @@ class _PhonePageState extends State<PhonePage> {
                                 ),
                                 itemCount: snapshot.data!.length,
                                 itemBuilder: (context, index) => Container(
-                                      margin: const EdgeInsets.all(5.0),
+                                  height: 600,
+                                      margin: const EdgeInsets.all(3.0),
                                       child: buildItem(snapshot.data![index]),
                                     ))
                             : const Center(
