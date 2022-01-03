@@ -135,7 +135,7 @@ class _buildItemState extends State<buildItem> {
   Future<double> setStar() async {
     final dsStar = await api_To_Star(widget.sanPham.id!);
     double star = 0.0;
-    double z =1;
+    double z = 1;
     int s = 0;
     if (dsStar.isNotEmpty) {
       for (var i = 0; i < dsStar.length; i++) {
@@ -145,13 +145,11 @@ class _buildItemState extends State<buildItem> {
         }
       }
     }
-    if(z>1){
-      return double.parse((s/(z-1)).toString());
-    }
-    else{
+    if (z > 1) {
+      return double.parse((s / (z - 1)).toString());
+    } else {
       return star;
     }
-
   }
 
   @override
@@ -201,11 +199,11 @@ class _buildItemState extends State<buildItem> {
                 widget.sanPham.tenSanPham,
                 style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
               ),
-             
+
               Text(
-                        'Giá: ' + formatNumber.format(widget.sanPham.giaBan),
-                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.blueAccent),
-                      ),
+                'Giá: ' + formatNumber.format(widget.sanPham.giaBan),
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.blueAccent),
+              ),
               //so luong con
               Text(
                 'Còn:' + widget.sanPham.soLuongTon.toString(),
@@ -475,7 +473,7 @@ List<Widget> hienThiDanhMucDrawer(BuildContext context) {
       icon: Icons.logout,
       onClicked: () {
         Auth.khachHang.LogOut();
-        Navigator.pushNamedAndRemoveUntil(context, "/Home", (route) => false);
+        Navigator.pushNamedAndRemoveUntil(context, "/Sign_In", (route) => false);
       },
     ),
   ];
@@ -656,3 +654,4 @@ Widget buildListSanPham(BuildContext context, Future<List<SanPham>> listSanPham)
               child: CircularProgressIndicator(),
             );
     });
+

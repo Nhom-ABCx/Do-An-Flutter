@@ -15,9 +15,13 @@ class _PagesState extends State<Pages> {
         onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
           //TopHeader
-          appBar: AppBarPage(),
+          appBar: AppBarPage(
+              title: const Text(
+            "All page",
+            style: TextStyle(color: Colors.black),
+          )),
           //Hide
-          drawer: const NavigationDrawer(),
+          //drawer: const NavigationDrawer(),
           //Body
           body: SingleChildScrollView(
             child: Column(
@@ -53,11 +57,21 @@ class _PagesState extends State<Pages> {
                   textCustoms: '',
                   onClicked: () => Navigator.pushNamed(context, "/MyWishlist"),
                 ),
+                buildListTitleSetting(
+                  text: 'Shipping Address',
+                  textCustoms: '',
+                  onClicked: () => Navigator.pushNamed(context, "/AddressPage"),
+                ),
+                buildListTitleSetting(
+                  text: 'Address Add Page',
+                  textCustoms: '',
+                  onClicked: () => Navigator.pushNamed(context, "/AddressAddPage"),
+                ),
               ],
             ),
           ),
           //nho' thay doi? lai con so' truyen du~ lieu
-          bottomNavigationBar: const BottomNavBar(3),
+          bottomNavigationBar: const BottomNavBar(4),
         ),
       );
 }

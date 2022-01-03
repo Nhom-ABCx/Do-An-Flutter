@@ -1,13 +1,19 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:io';
 import 'dart:convert';
 import 'dart:core';
 import 'package:flutter_application_1/Controller/cart_provider.dart';
 import 'package:flutter_application_1/Modals/khuyen_mai.dart';
+import 'package:flutter_application_1/Modals/phuong_xa.dart';
+import 'package:flutter_application_1/Modals/quan_huyen.dart';
+import 'package:flutter_application_1/Modals/tinh_thanhpho.dart';
 import 'package:http/http.dart' as http;
 import '../all_page.dart';
 
-String urlBaseAPI = "http://10.0.2.2:8000/api/";
-// ignore: non_constant_identifier_names
+const urlBaseAPI = "http://10.0.2.2:8000/api/";
+const urlProvincesOpenApi = "https://provinces.open-api.vn/api/";
+
 Future<List<SanPham>> api_GetAll_SanPham() async {
   List<SanPham> lstSanPham = [];
 
@@ -28,7 +34,7 @@ Future<List<SanPham>> api_GetAll_SanPham() async {
 }
 
 //Điện thoại
-// ignore: non_constant_identifier_names
+
 Future<List<SanPham>> api_SanPham_LoaiSanPham(int loaiSanPhamId) async {
   List<SanPham> lstSanPhamTheoLoai = [];
   try {
@@ -44,7 +50,7 @@ Future<List<SanPham>> api_SanPham_LoaiSanPham(int loaiSanPhamId) async {
 }
 
 // san pham dt 1tr-3tr
-// ignore: non_constant_identifier_names
+
 Future<List<SanPham>> api_SanPham_GiaBan(int loaiSanPhamId, int priceFrom, int priceTo) async {
   List<SanPham> lstSanPham = [];
   try {
@@ -121,7 +127,7 @@ Future<List<SanPham>> ftechSanPhamSearch(String tenSanPhamTiemKiem) async {
 }
 
 //Dang nhap
-// ignore: non_constant_identifier_names
+
 Future<KhachHang> api_DangNhap(String email, String matkhau) async {
   var _khachHang = KhachHang.empty();
 
@@ -143,7 +149,7 @@ Future<KhachHang> api_DangNhap(String email, String matkhau) async {
 }
 
 // Dang ky
-// ignore: non_constant_identifier_names
+
 Future<dynamic> api_DangKy(String username, String email, String matkhau) async {
   try {
     final response = await http.post(Uri.parse(urlBaseAPI + "DangKy"), body: {"Username": username, "Email": email, "MatKhau": matkhau});
@@ -161,7 +167,6 @@ Future<dynamic> api_DangKy(String username, String email, String matkhau) async 
   } catch (e) {}
 }
 
-// ignore: non_constant_identifier_names
 Future<dynamic> api_Update_KhachHang(KhachHang khachHang) async {
   final uri = Uri.parse(urlBaseAPI + "KhachHang/" + "${khachHang.id}?_method=PUT");
 
@@ -184,7 +189,6 @@ Future<dynamic> api_Update_KhachHang(KhachHang khachHang) async {
   } catch (e) {}
 }
 
-// ignore: non_constant_identifier_names
 Future<bool> api_sendEmail_User_Reset(String username) async {
   bool _guiEmailThanhCong = false;
   try {
@@ -204,7 +208,7 @@ Future<bool> api_sendEmail_User_Reset(String username) async {
 }
 
 //them du lieu vao gio hang
-// ignore: non_constant_identifier_names
+
 Future<bool> api_HoaDon_LapHoaDon(int khachHangId) async {
   final url = urlBaseAPI + 'HoaDon/LapHoaDon';
 
@@ -228,7 +232,6 @@ Future<bool> api_HoaDon_LapHoaDon(int khachHangId) async {
   return false;
 }
 
-// ignore: non_constant_identifier_names
 Future<dynamic> api_Update_KhachHang_HinhAnh(KhachHang khachHang, File imageFile) async {
   final uri = Uri.parse(urlBaseAPI + "KhachHang/" + "${khachHang.id}?_method=PATCH");
 
@@ -251,7 +254,6 @@ Future<dynamic> api_Update_KhachHang_HinhAnh(KhachHang khachHang, File imageFile
   } catch (e) {}
 }
 
-// ignore: non_constant_identifier_names
 Future<dynamic> api_Update_KhachHang_MatKhau(KhachHang khachHang, String oldPassword, String newPassword, String confirmPassword) async {
   final uri = Uri.parse(urlBaseAPI + "KhachHang/" + "${khachHang.id}/updatePassword?_method=PUT");
 
@@ -273,7 +275,6 @@ Future<dynamic> api_Update_KhachHang_MatKhau(KhachHang khachHang, String oldPass
   } catch (e) {}
 }
 
-// ignore: non_constant_identifier_names
 Future<KhachHang> api_GET_KhachHang(int id) async {
   var _khachHang = KhachHang.empty();
 
@@ -293,7 +294,6 @@ Future<KhachHang> api_GET_KhachHang(int id) async {
   return _khachHang;
 }
 
-// ignore: non_constant_identifier_names
 Future<List<SanPham>> api_Get_SanPham_YeuThich(int khachHangId) async {
   List<SanPham> lstSanPham = [];
 
@@ -313,7 +313,6 @@ Future<List<SanPham>> api_Get_SanPham_YeuThich(int khachHangId) async {
   return lstSanPham;
 }
 
-// ignore: non_constant_identifier_names
 Future<bool> api_Get_YeuThich(int khachHangId, int SanPhamId) async {
   bool isYeuThich = false;
   try {
@@ -326,7 +325,6 @@ Future<bool> api_Get_YeuThich(int khachHangId, int SanPhamId) async {
   return isYeuThich;
 }
 
-// ignore: non_constant_identifier_names
 Future<bool> api_Insert_KhachHang_YeuThich_SanPham(int khachHangId, int sanPhamId) async {
   final uri = Uri.parse(urlBaseAPI + "YeuThich/add");
   bool success = false;
@@ -340,7 +338,6 @@ Future<bool> api_Insert_KhachHang_YeuThich_SanPham(int khachHangId, int sanPhamI
   return success;
 }
 
-// ignore: non_constant_identifier_names
 Future<bool> api_Delete_KhachHang_YeuThich_SanPham(int khachHangId, int sanPhamId) async {
   final uri = Uri.parse(urlBaseAPI + "YeuThich/delete?_method=DELETE");
   bool success = false;
@@ -354,32 +351,88 @@ Future<bool> api_Delete_KhachHang_YeuThich_SanPham(int khachHangId, int sanPhamI
   return success;
 }
 
-//danh gia 
-// ignore: non_constant_identifier_names
-Future<List<CT_HoaDon>> api_To_Star(int idSanPham) async{
-  final uri=Uri.parse(urlBaseAPI+"danh-gia/$idSanPham");
-List<CT_HoaDon> ctHoaDon=[];
+//danh gia
+
+Future<List<CT_HoaDon>> api_To_Star(int idSanPham) async {
+  final uri = Uri.parse(urlBaseAPI + "danh-gia/$idSanPham");
+  List<CT_HoaDon> ctHoaDon = [];
   try {
-    final response=await http.get(uri);
-    if (response.statusCode==200) {
-      List jSonRaw=json.decode(response.body);
-      ctHoaDon=jSonRaw.map((e) => CT_HoaDon.fromJson(e)).toList();
+    final response = await http.get(uri);
+    if (response.statusCode == 200) {
+      List jSonRaw = json.decode(response.body);
+      ctHoaDon = jSonRaw.map((e) => CT_HoaDon.fromJson(e)).toList();
     }
   } catch (_) {}
   return ctHoaDon;
 }
 
 //Gia giam
-// ignore: non_constant_identifier_names
-Future<KhuyenMai> api_Price_Sale(int idSanPham) async{
-  final uri=Uri.parse(urlBaseAPI+"khuyen-mai/$idSanPham");
-  KhuyenMai ctKhuyenMai=KhuyenMai();
+
+Future<KhuyenMai> api_Price_Sale(int idSanPham) async {
+  final uri = Uri.parse(urlBaseAPI + "khuyen-mai/$idSanPham");
+  KhuyenMai ctKhuyenMai = KhuyenMai();
   try {
-    final response= await http.get(uri);  
-    if (response.statusCode==200) {
-      final jsonRaw=json.decode(response.body);
-      ctKhuyenMai=KhuyenMai.fromJson(jsonRaw);
+    final response = await http.get(uri);
+    if (response.statusCode == 200) {
+      final jsonRaw = json.decode(response.body);
+      ctKhuyenMai = KhuyenMai.fromJson(jsonRaw);
     }
   } catch (_) {}
   return ctKhuyenMai;
+}
+
+Future<List<TinhThanhPho>> api_GetAll_TinhThanhPho() async {
+  List<TinhThanhPho> lst = [];
+
+  try {
+    final response =
+        await http.get(Uri.parse(urlProvincesOpenApi + "p/"), headers: {"accept": "application/json", "content-type": "application/json"});
+    if (response.statusCode == 200) {
+      List jsonRaw = json.decode(utf8.decode(response.bodyBytes)); //utf8 cho json ko bi lỗi font
+      lst = jsonRaw.map((data) => TinhThanhPho.fromJson(data)).toList();
+    } else {
+      throw Exception("Something get wrong! Status code ${response.statusCode}");
+    }
+    // ignore: empty_catches
+  } catch (e) {}
+
+  return lst;
+}
+
+Future<List<QuanHuyen>> api_GetAll_QuanHuyen(int codeTinhThanhPho) async {
+  List<QuanHuyen> lst = [];
+
+  try {
+    final response = await http.get(Uri.parse(urlProvincesOpenApi + "p/$codeTinhThanhPho?depth=2"),
+        headers: {"accept": "application/json", "content-type": "application/json"});
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonRaw = json.decode(utf8.decode(response.bodyBytes)); //cho json ko bị lỗi font
+      final List _quanHuyen = jsonRaw['districts'];
+      lst = _quanHuyen.map((data) => QuanHuyen.fromJson(data)).toList();
+    } else {
+      throw Exception("Something get wrong! Status code ${response.statusCode}");
+    }
+    // ignore: empty_catches
+  } catch (e) {}
+
+  return lst;
+}
+
+Future<List<PhuongXa>> api_GetAll_PhuongXa(int codeQuanHuyen) async {
+  List<PhuongXa> lst = [];
+
+  try {
+    final response = await http.get(Uri.parse(urlProvincesOpenApi + "d/$codeQuanHuyen?depth=2"),
+        headers: {"accept": "application/json", "content-type": "application/json"});
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonRaw = json.decode(utf8.decode(response.bodyBytes)); //utf8 cho json ko bị lỗi font
+      final List _phuongXa = jsonRaw['wards'];
+      lst = _phuongXa.map((data) => PhuongXa.fromJson(data)).toList();
+    } else {
+      throw Exception("Something get wrong! Status code ${response.statusCode}");
+    }
+    // ignore: empty_catches
+  } catch (e) {}
+
+  return lst;
 }
