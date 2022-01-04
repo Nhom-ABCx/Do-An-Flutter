@@ -1,10 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
-
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Modals/binh_luan.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../../Modals/cart_model.dart';
 import 'package:flutter_application_1/DB/database_mb.dart';
@@ -23,30 +22,44 @@ class ProductDetail extends StatelessWidget {
     );
   }
 
-  createNewComment(BuildContext context,int khachHangId,int sanPhamId) {
+  createNewComment(BuildContext context, int khachHangId, int sanPhamId) {
     final commentController = TextEditingController();
     return showDialog(
+        //barrierDismissible: false, //ko cho nhap ra ngoai
         context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text("Comment"),
-            content: TextField(
-              controller: commentController,
-            ),
-            actions: [
-              MaterialButton(
-                onPressed: () async{
-                  await api_Add_BinhLuan(commentController.text, khachHangId, sanPhamId)
-                  ?AlertDialog(
-                    title: Text("success"),
-                  ):null;
-                },
-                elevation: 5.0,
-                child: Text("Submit"),
-              )
-            ],
-          );
-        });
+        builder: (context) => AlertDialog(
+              title: Text("title"),
+              content: TextFormField(
+                autofocus: true, //tu dong hien cai ban`phim'
+                controller: commentController, //gan gia tri cua text vao bien'
+                decoration: InputDecoration(
+                  border: const UnderlineInputBorder(),
+                  labelText: "labelText",
+                ),
+              ),
+              actions: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      showCustomLoadding();
+
+                      final success = await api_Add_BinhLuan(commentController.text, khachHangId, sanPhamId);
+                      if (success) {
+                        thongBaoScaffoldMessenger(context, "Add Success");
+                        Navigator.pop(context);
+                        EasyLoading.dismiss();
+                      } else {
+                        (thongBaoScaffoldMessenger(context, "Fails add"));
+                        //(context as Element).reassemble();
+                        EasyLoading.dismiss();
+                      }
+                    },
+                    child: const Text("Submit"),
+                  ),
+                )
+              ],
+            ));
   }
 
   @override
@@ -61,7 +74,7 @@ class ProductDetail extends StatelessWidget {
         //TopHeader
         appBar: AppBarPage(),
         //Hide
-        drawer: const NavigationDrawer(),
+        //drawer: const NavigationDrawer(),
         body: Stack(
           children: [
             ListView(
@@ -162,7 +175,7 @@ class ProductDetail extends StatelessWidget {
                           decoration: BoxDecoration(color: Colors.grey[300], borderRadius: BorderRadius.circular(10)),
                           child: TextButton(
                               onPressed: () {
-                                createNewComment(context,Auth.khachHang.id!,sanPham.id!);
+                                createNewComment(context, Auth.khachHang.id!, sanPham.id!);
                               },
                               child: Row(
                                 children: const [

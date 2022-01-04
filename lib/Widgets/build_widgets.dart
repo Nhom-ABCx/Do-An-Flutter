@@ -675,33 +675,3 @@ Widget buildListSanPham(BuildContext context, Future<List<SanPham>> listSanPham)
               child: CircularProgressIndicator(),
             );
     });
-
-Future<String?> openInputDialog(BuildContext context,TextEditingController txtColtroller, title, String labelText, [bool? inputNumberOnly = false]) => showDialog<String>(
-    barrierDismissible: false,
-    context: context,
-    builder: (context) => AlertDialog(
-          title: Text(title),
-          content: TextFormField(
-              autofocus: true,
-              controller: txtColtroller, //gan gia tri cua text vao bien'
-              decoration: InputDecoration(
-                border: const UnderlineInputBorder(),
-                labelText: labelText,
-              ),
-              inputFormatters: inputNumberOnly!
-                  ? <TextInputFormatter>[
-                      //only number
-                      FilteringTextInputFormatter.digitsOnly
-                    ]
-                  : null,
-              keyboardType: inputNumberOnly ? TextInputType.phone : null),
-          actions: [
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: ElevatedButton(
-                onPressed: () => Navigator.of(context).pop(txtColtroller.text),
-                child: const Text("Submit"),
-              ),
-            )
-          ],
-        ));
