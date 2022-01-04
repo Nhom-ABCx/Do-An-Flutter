@@ -59,7 +59,7 @@ class Db {
   }
 
   //thêm một item vào trong db cart
-  Future insertItemCart(Cart cart) async {
+  Future<Cart> insertItemCart(Cart cart) async {
     var dbclient = await database;
     await dbclient.insert('cart', cart.toMap());
     return cart;
