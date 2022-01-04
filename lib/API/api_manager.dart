@@ -3,6 +3,7 @@
 import 'dart:io';
 import 'dart:convert';
 import 'dart:core';
+import 'package:flutter_application_1/Modals/binh_luan.dart';
 import 'package:http/http.dart' as http;
 import '../all_page.dart';
 
@@ -76,7 +77,7 @@ Future<SanPham> fetchProductData(String id) async {
 
 // sản phẩm bán chạy
 Future<List<SanPham>> fecthSanPhamBanChay() async {
-  final url = urlBaseAPI + 'san-pham-top';
+  const url = urlBaseAPI + 'san-pham-top';
   List<SanPham> sanPhamTop = [];
   try {
     final response = await http.get(Uri.parse(url));
@@ -347,7 +348,6 @@ Future<bool> api_Delete_KhachHang_YeuThich_SanPham(int khachHangId, int sanPhamI
 }
 
 //danh gia
-
 Future<List<CT_HoaDon>> api_To_Star(int idSanPham) async {
   final uri = Uri.parse(urlBaseAPI + "danh-gia/$idSanPham");
   List<CT_HoaDon> ctHoaDon = [];
@@ -362,7 +362,6 @@ Future<List<CT_HoaDon>> api_To_Star(int idSanPham) async {
 }
 
 //Gia giam
-
 Future<KhuyenMai> api_Price_Sale(int idSanPham) async {
   final uri = Uri.parse(urlBaseAPI + "khuyen-mai/$idSanPham");
   KhuyenMai ctKhuyenMai = KhuyenMai();
@@ -375,6 +374,7 @@ Future<KhuyenMai> api_Price_Sale(int idSanPham) async {
   } catch (_) {}
   return ctKhuyenMai;
 }
+
 
 Future<List<TinhThanhPho>> api_GetAll_TinhThanhPho() async {
   List<TinhThanhPho> lst = [];
@@ -491,4 +491,31 @@ Future<bool> api_Update_DiaChi(DiaChi diaChi) async {
   } catch (e) {}
 
   return success;
+}
+
+// get binh luan
+Future<List<BinhLuan>> api_GetAll_BinhLuan(int idSanPham) async {
+  final uri = Uri.parse(urlBaseAPI + "binh-luan/$idSanPham");
+  List<BinhLuan> lstBinhLuan = [];
+  try {
+    final response = await http.get(uri);
+    if (response.statusCode == 200) {
+      List jsonRaw = json.decode(response.body);
+      lstBinhLuan = jsonRaw.map((e) => BinhLuan.fromJson(e)).toList();
+    }
+  } catch (_) {}
+  return lstBinhLuan;
+}
+//create binh luan
+Future<bool> api_Add_BinhLuan(String noiDung,int khachHangId,int sanPhamId) async{
+  final uri =Uri.parse(urlBaseAPI+"binh-luan/add");
+  bool status=false;
+  try {
+    final response = await http.post(uri, body: {"NoiDung":noiDung,"KhachHangId": "$khachHangId", "SanPhamId": "$sanPhamId"});
+    if (response.statusCode == 200) {
+      return status = true;
+    }
+    // ignore: empty_catches
+  } catch (e) {}
+  return status;
 }

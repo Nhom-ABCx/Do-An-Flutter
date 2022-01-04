@@ -1,11 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 
+
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_application_1/Modals/binh_luan.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../../Modals/cart_model.dart';
-import 'package:flutter_application_1/Controller/cart_provider.dart';
 import 'package:flutter_application_1/DB/database_mb.dart';
 import 'package:provider/provider.dart';
 import '../../all_page.dart';
@@ -20,6 +21,32 @@ class ProductDetail extends StatelessWidget {
     return SizedBox(
       child: CachedNetworkImage(height: 150, imageUrl: 'http://10.0.2.2:8000/storage/assets/images/product-image/' + sanPham.hinhAnh!),
     );
+  }
+
+  createNewComment(BuildContext context,int khachHangId,int sanPhamId) {
+    final commentController = TextEditingController();
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text("Comment"),
+            content: TextField(
+              controller: commentController,
+            ),
+            actions: [
+              MaterialButton(
+                onPressed: () async{
+                  await api_Add_BinhLuan(commentController.text, khachHangId, sanPhamId)
+                  ?AlertDialog(
+                    title: Text("success"),
+                  ):null;
+                },
+                elevation: 5.0,
+                child: Text("Submit"),
+              )
+            ],
+          );
+        });
   }
 
   @override
@@ -116,7 +143,84 @@ class ProductDetail extends StatelessWidget {
                       )
                     ],
                   ),
-                )
+                ),
+                //binh luan
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: 100,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Product Reviews',
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                        ),
+                        Container(
+                          height: 45,
+                          //color:Colors.amber,
+                          decoration: BoxDecoration(color: Colors.grey[300], borderRadius: BorderRadius.circular(10)),
+                          child: TextButton(
+                              onPressed: () {
+                                createNewComment(context,Auth.khachHang.id!,sanPham.id!);
+                              },
+                              child: Row(
+                                children: const [
+                                  Text(
+                                    "Add comment",
+                                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.blue),
+                                  ),
+                                  Icon(
+                                    Icons.create_sharp,
+                                    size: 20,
+                                    color: Colors.teal,
+                                  )
+                                ],
+                              )),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                FutureBuilder<List<BinhLuan>>(
+                    future: api_GetAll_BinhLuan(sanPham.id!),
+                    builder: (context, snap) {
+                      if (snap.hasError) {
+                        return Text(snap.error.toString());
+                      }
+                      if (snap.hasData) {
+                        return ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: snap.data!.length,
+                            itemBuilder: (context, index) {
+                              return ListTile(
+                                leading: ClipRRect(
+                                  borderRadius: BorderRadius.circular(100),
+                                  child: CachedNetworkImage(
+                                    width: 60,
+                                    height: 60,
+                                    imageUrl: "http://10.0.2.2:8000/storage/assets/images/avatar/User/${snap.data![index].khachHangId}/" +
+                                        snap.data![index].hinhAnhKh!,
+                                    placeholder: (context, url) => const Center(
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                    errorWidget: (context, url, error) => const Icon(
+                                      Icons.error,
+                                      color: Colors.red,
+                                      size: 50,
+                                    ),
+                                  ),
+                                ),
+                                title: Text(snap.data![index].userName!),
+                                subtitle: Text(snap.data![index].noiDung!),
+                              );
+                            });
+                      }
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    })
               ],
             ),
           ],
@@ -327,26 +431,3 @@ Widget buildStockProduct(BuildContext context, SanPham sanPham) {
     ]),
   );
 }
-// Widget buildSanPhamLienQuan() {
-//   return Container(
-//     height: 200,
-//     child: FutureBuilder<List<SanPham>>(
-//         future: fetchSanPhamDienThoai(),
-//         builder: (context, snapshot) {
-//           if (snapshot.hasError) {
-//             // ignore: avoid_print
-//             print(snapshot.error);
-//           }
-//           return snapshot.hasData
-//               ? GridView.builder(
-//                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-//                     crossAxisCount: 2,
-//                   ),
-//                   itemCount: snapshot.data!.length,
-//                   itemBuilder: (context, index) =>
-//                       buildItem(context, snapshot.data![index]),
-//                 )
-//               : const CircularProgressIndicator();
-//         }),
-//   );
-// }
