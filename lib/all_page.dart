@@ -16,6 +16,7 @@ export 'Modals/khuyen_mai.dart';
 export 'Modals/phuong_xa.dart';
 export 'Modals/quan_huyen.dart';
 export 'Modals/tinh_thanhpho.dart';
+export 'Modals/cart_model.dart';
 //Controller
 export 'Controller/auth.dart';
 export 'Controller/edit_myprofile_controller.dart';

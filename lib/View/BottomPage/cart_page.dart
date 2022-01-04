@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../../Modals/cart_model.dart';
-import 'package:flutter_application_1/Controller/cart_provider.dart';
 import 'package:flutter_application_1/DB/database_mb.dart';
 import 'package:provider/provider.dart';
 
