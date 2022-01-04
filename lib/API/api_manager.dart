@@ -3,11 +3,6 @@
 import 'dart:io';
 import 'dart:convert';
 import 'dart:core';
-import 'package:flutter_application_1/Controller/cart_provider.dart';
-import 'package:flutter_application_1/Modals/khuyen_mai.dart';
-import 'package:flutter_application_1/Modals/phuong_xa.dart';
-import 'package:flutter_application_1/Modals/quan_huyen.dart';
-import 'package:flutter_application_1/Modals/tinh_thanhpho.dart';
 import 'package:http/http.dart' as http;
 import '../all_page.dart';
 
@@ -435,4 +430,65 @@ Future<List<PhuongXa>> api_GetAll_PhuongXa(int codeQuanHuyen) async {
   } catch (e) {}
 
   return lst;
+}
+
+Future<List<DiaChi>> api_GetAll_DiaChi(int khachHangId) async {
+  List<DiaChi> lst = [];
+
+  try {
+    final response = await http.get(Uri.parse(urlBaseAPI + "DiaChi/$khachHangId"));
+    if (response.statusCode == 200) {
+      List jsonRaw = json.decode(response.body);
+
+      lst = jsonRaw.map((data) => DiaChi.fromJson(data)).toList();
+    } else {
+      throw Exception("Something get wrong! Status code ${response.statusCode}");
+    }
+    // ignore: empty_catches
+  } catch (e) {}
+
+  return lst;
+}
+
+Future<bool> api_Insert_DiaChi(DiaChi diaChi) async {
+  final uri = Uri.parse(urlBaseAPI + "DiaChi/add");
+  bool success = false;
+  try {
+    final response = await http.post(
+      uri,
+      body: json.encode(diaChi.toJson()),
+      headers: {"accept": "application/json", "content-type": "application/json"},
+    );
+
+    if (response.statusCode == 200) {
+      return success = true;
+    }
+    // ignore: empty_catches
+  } catch (e) {}
+  return success;
+}
+
+Future<bool> api_Update_DiaChi(DiaChi diaChi) async {
+  final uri = Uri.parse(urlBaseAPI + "DiaChi/update/${diaChi.id}?_method=PUT");
+  bool success = false;
+
+  try {
+    final response = await http.post(
+      uri,
+      body: json.encode(diaChi.toJson()),
+      headers: {"accept": "application/json", "content-type": "application/json"},
+    );
+    if (response.statusCode == 200) {
+      return success = true;
+    }
+    // else if (response.statusCode == 400) {
+    //   return json.decode(response.body);
+    // }
+    else {
+      throw Exception("Something get wrong! Status code ${response.statusCode}");
+    }
+    // ignore: empty_catches
+  } catch (e) {}
+
+  return success;
 }
