@@ -89,8 +89,7 @@ class _ForgotPageState extends State<ForgotPage> {
                       ),
                       width: 300,
                       child: TextButton(
-                        child: const Text('Reset password',
-                            style: TextStyle(fontSize: 20, color: Colors.black)),
+                        child: const Text('Reset password', style: TextStyle(fontSize: 20, color: Colors.black)),
                         onPressed: () async {
                           showCustomLoadding();
 
@@ -98,7 +97,7 @@ class _ForgotPageState extends State<ForgotPage> {
                             Navigator.pushNamed(context, '/Forgot_action');
                             EasyLoading.dismiss();
                           } else {
-                            (thongBaoScaffoldMessenger(context, "Wrong Username or Password"));
+                            (thongBaoScaffoldMessenger(context, "Wrong Username or Email"));
                             EasyLoading.dismiss();
                           }
                         },

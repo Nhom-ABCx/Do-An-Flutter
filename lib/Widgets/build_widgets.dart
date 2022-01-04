@@ -1,12 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; //text input
-import 'package:flutter_application_1/Modals/khuyen_mai.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:intl/intl.dart';
 import '../Modals/cart_model.dart';
-import 'package:flutter_application_1/Controller/cart_provider.dart';
 import 'package:flutter_application_1/DB/database_mb.dart';
 import 'package:provider/provider.dart';
 import '../all_page.dart';
@@ -14,39 +12,12 @@ import '../all_page.dart';
 final formatNumber = NumberFormat("#,##0", "en_US");
 final formatStar = NumberFormat("#0.0");
 
-//   @override
-//   _PhonePageState createState() => _PhonePageState();
-// }
+class ValidationItem {
+  final String value;
+  late final String error;
+  ValidationItem(this.value, this.error);
+}
 
-// class _PhonePageState extends State<PhoneScreen> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Padding(padding: const EdgeInsets.all(10.0),
-//       child: ClipRRect(
-//         borderRadius: BorderRadius.circular(15),
-//         child: Container(
-//           width: 100,
-//           height: 80,
-//           color: Colors.white,
-//           child: Column(
-//             children: [
-//               IconButton(
-//                   onPressed: () {
-//                    Navigator.push(context,MaterialPageRoute(builder: (context)=>const PhonePage()));
-//                   },
-//                   icon: const Icon(
-//                    Icons.phone_android_rounded,
-//                     size: 30.0,
-//                     color:  Colors.red,
-//                   )),
-//               const Text("Phone"),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
 Widget buildIconButton(BuildContext context, IconData iconItem, Color? colorItem, String? textItem, String routeting) => Padding(
       padding: const EdgeInsets.all(10),
       child: ClipRRect(
@@ -347,7 +318,7 @@ class _buildItemState extends State<buildItem> {
           //               color: Colors.red,
           //               child: const Text("Sale"),
           //             );
-                    
+
           //         }
           //        return const Text("");
           //       }),
@@ -704,4 +675,3 @@ Widget buildListSanPham(BuildContext context, Future<List<SanPham>> listSanPham)
               child: CircularProgressIndicator(),
             );
     });
-

@@ -15,6 +15,9 @@ DiaChi _$DiaChiFromJson(Map<String, dynamic> json) => DiaChi(
       quanHuyen: json['QuanHuyen'] as String?,
       phuongXa: json['PhuongXa'] as String?,
       diaChiChiTiet: json['DiaChiChiTiet'] as String,
+      codeTinhThanhPho: json['CodeTinhThanhPho'] as int?,
+      codeQuanHuyen: json['CodeQuanHuyen'] as int?,
+      codePhuongXa: json['CodePhuongXa'] as int?,
     );
 
 Map<String, dynamic> _$DiaChiToJson(DiaChi instance) => <String, dynamic>{
@@ -26,4 +29,7 @@ Map<String, dynamic> _$DiaChiToJson(DiaChi instance) => <String, dynamic>{
       'QuanHuyen': instance.quanHuyen,
       'PhuongXa': instance.phuongXa,
       'DiaChiChiTiet': instance.diaChiChiTiet,
+      'CodeTinhThanhPho': instance.codeTinhThanhPho,
+      'CodeQuanHuyen': instance.codeQuanHuyen,
+      'CodePhuongXa': instance.codePhuongXa,
     };

@@ -21,6 +21,7 @@ export 'Controller/auth.dart';
 export 'Controller/edit_myprofile_controller.dart';
 export 'Controller/file_controller.dart';
 export 'Controller/cart_provider.dart';
+export 'Controller/diachi_controller.dart';
 //View/Page
 export 'View/Pages/wellcome_page.dart';
 export 'View/Pages/signin_page.dart';

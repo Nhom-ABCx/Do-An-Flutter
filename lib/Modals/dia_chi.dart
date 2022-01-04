@@ -14,6 +14,9 @@ class DiaChi {
   String? quanHuyen;
   String? phuongXa;
   late String diaChiChiTiet;
+  int? codeTinhThanhPho;
+  int? codeQuanHuyen;
+  int? codePhuongXa;
 
   DiaChi(
       {this.id,
@@ -23,7 +26,10 @@ class DiaChi {
       this.tinhThanhPho,
       this.quanHuyen,
       this.phuongXa,
-      required this.diaChiChiTiet});
+      required this.diaChiChiTiet,
+      this.codeTinhThanhPho,
+      this.codeQuanHuyen,
+      this.codePhuongXa});
 
   factory DiaChi.fromJson(dynamic json) => _$DiaChiFromJson(json);
   Map<String, dynamic> toJson() => _$DiaChiToJson(this);
@@ -37,5 +43,8 @@ class DiaChi {
     quanHuyen = "";
     phuongXa = "";
     diaChiChiTiet = "";
+    codeTinhThanhPho = -1;
+    codeQuanHuyen = -1;
+    codePhuongXa = -1;
   }
 }
