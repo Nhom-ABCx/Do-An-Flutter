@@ -29,7 +29,7 @@ class MyWishlistPageState extends State<MyWishlistPage> {
                 ),
               ),
               // //Hide
-              // drawer: const NavigationDrawer(),
+              drawer: const NavigationDrawer(),
               //Body
               body: RefreshIndicator(
                 onRefresh: () async {

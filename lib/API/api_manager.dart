@@ -450,9 +450,9 @@ Future<List<DiaChi>> api_GetAll_DiaChi(int khachHangId) async {
   return lst;
 }
 
-Future<bool> api_Insert_DiaChi(DiaChi diaChi) async {
+Future<dynamic> api_Insert_DiaChi(DiaChi diaChi) async {
   final uri = Uri.parse(urlBaseAPI + "DiaChi/add");
-  bool success = false;
+
   try {
     final response = await http.post(
       uri,
@@ -461,16 +461,17 @@ Future<bool> api_Insert_DiaChi(DiaChi diaChi) async {
     );
 
     if (response.statusCode == 200) {
-      return success = true;
+      //neu nhu them thanh cong thi return true
+      return true;
+    } else if (response.statusCode == 400) {
+      return json.decode(response.body);
     }
     // ignore: empty_catches
   } catch (e) {}
-  return success;
 }
 
-Future<bool> api_Update_DiaChi(DiaChi diaChi) async {
+Future<dynamic> api_Update_DiaChi(DiaChi diaChi) async {
   final uri = Uri.parse(urlBaseAPI + "DiaChi/update/${diaChi.id}?_method=PUT");
-  bool success = false;
 
   try {
     final response = await http.post(
@@ -479,17 +480,27 @@ Future<bool> api_Update_DiaChi(DiaChi diaChi) async {
       headers: {"accept": "application/json", "content-type": "application/json"},
     );
     if (response.statusCode == 200) {
-      return success = true;
-    }
-    // else if (response.statusCode == 400) {
-    //   return json.decode(response.body);
-    // }
-    else {
+      //neu nhu update thanh cong thi return true
+      return true;
+    } else if (response.statusCode == 400) {
+      return json.decode(response.body);
+    } else {
       throw Exception("Something get wrong! Status code ${response.statusCode}");
     }
     // ignore: empty_catches
   } catch (e) {}
+}
 
+Future<bool> api_Delete_DiaChi(int diaChiId) async {
+  final uri = Uri.parse(urlBaseAPI + "DiaChi/delete/$diaChiId?_method=DELETE");
+  bool success = false;
+  try {
+    final response = await http.post(uri);
+    if (response.statusCode == 200) {
+      return success = true;
+    }
+    // ignore: empty_catches
+  } catch (e) {}
   return success;
 }
 

@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => ChangeLayOut()),
         ChangeNotifierProvider(create: (_) => CartProvider()),
+        ChangeNotifierProvider(create: (_) => DiaChiController()),
         Provider(create: (_) => FileController())
       ],
       child: MaterialApp(
