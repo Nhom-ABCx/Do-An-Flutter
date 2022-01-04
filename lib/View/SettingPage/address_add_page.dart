@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_1/View/SettingPage/phuong_xa_page.dart';
@@ -67,38 +69,6 @@ class _HomeState extends State<AddressAddPage> {
   @override
   Widget build(BuildContext context) {
     final diaChiController = Provider.of<DiaChiController>(context, listen: false);
-
-    Future<String?> openInputDialog(TextEditingController txtColtroller, title, String labelText, [bool? inputNumberOnly = false]) =>
-        showDialog<String>(
-            barrierDismissible: false,
-            context: context,
-            builder: (context) => AlertDialog(
-                  title: Text(title),
-                  content: TextFormField(
-                      autofocus: true,
-                      controller: txtColtroller, //gan gia tri cua text vao bien'
-                      decoration: InputDecoration(
-                        border: const UnderlineInputBorder(),
-                        labelText: labelText,
-                      ),
-                      inputFormatters: inputNumberOnly!
-                          ? <TextInputFormatter>[
-                              //only number
-                              FilteringTextInputFormatter.digitsOnly
-                            ]
-                          : null,
-                      keyboardType: inputNumberOnly ? TextInputType.phone : null),
-                  actions: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      child: ElevatedButton(
-                        onPressed: () => Navigator.of(context).pop(txtColtroller.text),
-                        child: const Text("Submit"),
-                      ),
-                    )
-                  ],
-                ));
-
     return GestureDetector(
       //huy keyboard khi bam ngoai man hinh
       onTap: () => FocusScope.of(context).unfocus(),
@@ -121,7 +91,7 @@ class _HomeState extends State<AddressAddPage> {
                   textCustoms: _fullName,
                   onClicked: () async {
                     //tao 1 bien nhan gia tri tu trang tiep theo gui ve`
-                    final name = await openInputDialog(_txtFullname, "Input your full name", "Your name");
+                    final name = await openInputDialog(context,_txtFullname, "Input your full name", "Your name");
                     if (name!.isEmpty) return;
                     setState(() => _fullName = name);
                   }),
@@ -137,7 +107,7 @@ class _HomeState extends State<AddressAddPage> {
                   textCustoms: _phone,
                   onClicked: () async {
                     //tao 1 bien nhan gia tri tu trang tiep theo gui ve`
-                    final phone = await openInputDialog(_txtPhone, "Input your phone number", "Your phone", true);
+                    final phone = await openInputDialog(context,_txtPhone, "Input your phone number", "Your phone", true);
                     if (phone!.isEmpty) return;
                     setState(() => _phone = phone);
                   }),
