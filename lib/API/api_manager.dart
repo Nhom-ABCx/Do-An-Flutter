@@ -517,7 +517,7 @@ Future<List<BinhLuan>> api_GetAll_BinhLuan(int idSanPham) async {
   } catch (_) {}
   return lstBinhLuan;
 }
-//create binh luan
+//add binh luan
 Future<bool> api_Add_BinhLuan(String noiDung,int khachHangId,int sanPhamId) async{
   final uri =Uri.parse(urlBaseAPI+"binh-luan/add");
   bool status=false;

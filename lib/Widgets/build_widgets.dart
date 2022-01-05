@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; //text input
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -170,7 +171,7 @@ class _buildItemState extends State<buildItem> {
                       width: 100,
                       height: 120,
                       placeholder: (context, url) => const Center(
-                        child: CircularProgressIndicator(),
+                        child: CupertinoActivityIndicator(),
                       ),
                       errorWidget: (context, url, error) => Container(
                         color: Colors.black12,
@@ -197,11 +198,11 @@ class _buildItemState extends State<buildItem> {
                     if (snap.hasData) {
                       _giamGia = snap.data!.giamGia ?? _giamGia;
                       if (_giamGia == 0) {
-                        return Text("Giá: " + widget.sanPham.giaBan.toString(),
+                        return Text("Giá: " + formatNumber.format(widget.sanPham.giaBan) ,
                             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.blueAccent));
                       }
                     }
-                    return Text("Giá slae:" + (widget.sanPham.giaBan! - _giamGia).toString(),
+                    return Text("Giá slae: " + (formatNumber.format(widget.sanPham.giaBan! - _giamGia)),
                         style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.red));
                   }),
 
@@ -302,27 +303,6 @@ class _buildItemState extends State<buildItem> {
                             })
                         : const Text("");
                   })),
-          // Positioned(
-          //   left: 0.0,
-          //   top: 3.0,
-          //   child: FutureBuilder(
-          //       future: checkSale(),
-          //       builder: (contect, snap) {
-          //         if (snap.hasData) {
-          //           if (snap.data == true) {
-          //             return const Text("");
-          //           }
-          //             return Container(
-          //               width: 50,
-          //               height: 30,
-          //               color: Colors.red,
-          //               child: const Text("Sale"),
-          //             );
-
-          //         }
-          //        return const Text("");
-          //       }),
-          // ),
         ],
       ),
     );

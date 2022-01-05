@@ -123,6 +123,13 @@ class Db {
       WHERE id=?
     ''', [newPrice, quantity, cart.id]);
   }
+  //truy van san pham trong gio hang
+  Future<Cart> queryItemCart(Cart cart) async{
+    var dbclient =await database;
+    final raw = await dbclient.query('cart',where :'id=?',whereArgs: [cart.id]);
+    final crt =raw.map((e) => Cart.fromMap(e)).toList();
+    return crt[0];
+  }
 
   //xoá tất cả các item trong giỏ hàng
   Future<bool> deleteAllCart() async {

@@ -23,6 +23,7 @@ class CartProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+//lloi! goi lien tuc
   void _getPrefItems() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     _totalPrice = prefs.getDouble('total_price') ?? 0.0;
@@ -62,9 +63,9 @@ class CartProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setQuantity() {
-    _quantity = 1;
-    // notifyListeners();
+  void setQuantity(int value) {
+    _quantity = value;
+     notifyListeners();
   }
 
   int getQuantity() => _quantity;

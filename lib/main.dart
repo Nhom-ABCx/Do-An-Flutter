@@ -1,7 +1,6 @@
 // ignore_for_file: unnecessary_const
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/Controller/cart_provider.dart';
 import 'package:provider/provider.dart';
 import 'all_page.dart'; //lam` v cho no' nho? ra
 
