@@ -6,26 +6,28 @@ import 'package:shared_preferences/shared_preferences.dart';
 class CartProvider extends ChangeNotifier {
   double _totalPrice = 0.0;
   double get totalPrice => _totalPrice;
+  //tong so luong
+  int tongSoLuong = 0;
   Db db = Db();
 
-  late Future<List<Cart>> _cart;
-  Future<List<Cart>> get cart => _cart;
+  List<Cart> _cart = [];
+  List<Cart> get cart => _cart;
 
-  Future<List<Cart>> getData() async {
-    _cart = db.getCartList();
-    //notifyListeners();
+  Future<List<Cart>> getData(String a) async {
+    _cart = await db.getCartList();
     return _cart;
   }
 
   void _setPrefItems() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setDouble('total_price', _totalPrice);
+    //SharedPreferences prefs = await SharedPreferences.getInstance();
+    //prefs.setDouble('total_price', _totalPrice);
     notifyListeners();
   }
 
   void _getPrefItems() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    _totalPrice = prefs.getDouble('total_price') ?? 0.0;
+    print("_getPrefItems");
+    //SharedPreferences prefs = await SharedPreferences.getInstance();
+    //_totalPrice = prefs.getDouble('total_price') ?? 0.0;
     notifyListeners();
   }
 
@@ -38,11 +40,13 @@ class CartProvider extends ChangeNotifier {
   void removeTotalPrice(double productPrice) {
     _totalPrice = _totalPrice - productPrice;
     if (_totalPrice < 0) _totalPrice = 0;
+
     _setPrefItems();
     notifyListeners();
   }
 
   double getTotalPrice() {
+    print("gettotal");
     _getPrefItems();
     return _totalPrice;
   }
@@ -72,6 +76,7 @@ class CartProvider extends ChangeNotifier {
   //xoá total price
   Future<bool> deleteAllCart() {
     _totalPrice = 0;
+    tongSoLuong = 0;
     _setPrefItems();
     notifyListeners();
     return db.deleteAllCart();

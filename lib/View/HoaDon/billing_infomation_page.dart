@@ -53,7 +53,6 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           child: Column(children: [
             Container(
-              padding: const EdgeInsets.all(10),
               color: Colors.blue[100],
               child: ListTile(
                 leading: const Icon(Icons.message_outlined, color: Colors.blue),
@@ -65,281 +64,233 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
                             "Orders are likely to be shipped outside of business hours or on weekends to reach you as soon as possible. If possible, please choose to deliver at your home address to ensure successful delivery")),
               ),
             ),
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-              margin: const EdgeInsets.fromLTRB(15, 10, 15, 0),
-              alignment: Alignment.center,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              ), // Set rounded corner radius
-
-              child: Column(
-                children: [
-                  Align(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Icon(
-                          Icons.location_on,
-                          color: Colors.indigo,
-                          size: 30,
-                        ),
-                        //ten khach hang nhan
-                        Text(
-                          _diaChi.tenNguoiNhan,
-                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                        ),
-                        // so dien thoai
-                        Text(_diaChi.phone, style: const TextStyle(color: Colors.grey, fontSize: 15)),
-                      ],
-                    ), //so big text
-                    alignment: FractionalOffset.topLeft,
-                  ),
-                  const Divider(
-                    color: Colors.indigo,
-                  ),
-                  Align(
-                    //dia chi
-                    child: Text((_diaChi.phuongXa ?? "") + ", " + (_diaChi.quanHuyen ?? "") + ", " + (_diaChi.tinhThanhPho ?? "")),
-                    alignment: FractionalOffset.topLeft,
-                  ),
-                  const Divider(
-                    color: Colors.indigo,
-                  ),
-                  Align(
-                    child: Text(_diaChi.diaChiChiTiet),
-                    alignment: FractionalOffset.topLeft,
-                  ),
-                  const Divider(
-                    color: Colors.indigo,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      const Icon(Icons.favorite, color: Colors.red),
-                      const SizedBox(width: 10),
-                      const Icon(Icons.favorite, color: Colors.red),
-                      const SizedBox(width: 10),
-                      const Icon(Icons.favorite, color: Colors.red),
-                      const SizedBox(width: 10),
-                      const Icon(Icons.favorite, color: Colors.red),
-                      const SizedBox(width: 10),
-                      const Icon(Icons.favorite, color: Colors.red),
-                      const SizedBox(width: 10),
-                      const Icon(Icons.favorite, color: Colors.red),
-                      const SizedBox(width: 10),
-                      ElevatedButton.icon(
-                        onPressed: () async {
-                          //tao 1 bien nhan gia tri tu trang tiep theo gui ve`
-                          final value = await Navigator.push<DiaChi>(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const AddressPage(),
-                              ));
-                          if (value == null) return;
-                          //xu ly gan' lai gia tri
-                          setState(() => _diaChi = value);
-                        },
-                        icon: const Icon(
-                          Icons.change_circle,
-                          color: Colors.white,
-                        ),
-                        label: const Text(
-                          'Change',
-                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                        ),
-                        style: ButtonStyle(
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                            //side: const BorderSide(color: Colors.pink)
-                          )),
-                          backgroundColor: MaterialStateProperty.all(Colors.green),
-                        ),
-                      )
-                    ],
-                  )
-                ],
-              ),
-            ),
-            //----------------sanPham
-            FutureBuilder<List<Cart>>(
-                future: cartprd.getData(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    return Center(
-                      child: Text(snapshot.error.toString()),
-                    );
-                  }
-                  return snapshot.hasData
-                      ? ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: snapshot.data!.length,
-                          itemBuilder: (context, index) => Column(
-                            children: [
-                              Container(
-                                decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                                ), // Set rounded corner radius
-                                margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                                width: MediaQuery.of(context).size.width,
-                                height: 125,
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      padding: const EdgeInsets.all(10),
-                                      width: 130,
-                                      child: CachedNetworkImage(
-                                        imageUrl: "http://10.0.2.2:8000/storage/assets/images/product-image/" + snapshot.data![index].productImg,
-                                        placeholder: (context, url) => const Center(
-                                          child: CircularProgressIndicator(),
-                                        ),
-                                        errorWidget: (context, url, error) => Container(
-                                          color: Colors.black12,
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                        child: Padding(
-                                      padding: const EdgeInsets.all(10),
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                        children: [
-                                          RichText(
-                                              text: TextSpan(style: const TextStyle(color: Colors.black), text: snapshot.data![index].productName)),
-                                          Text(
-                                            snapshot.data![index].id.toString(),
-                                            style: const TextStyle(color: Colors.grey),
-                                          ),
-                                          Row(
-                                            children: [
-                                              Text(snapshot.data![index].productPrice.toString(),
-                                                  style: const TextStyle(fontWeight: FontWeight.bold)),
-                                              const Spacer(),
-                                              Text("Quantily: ${snapshot.data![index].quantity}", style: const TextStyle(fontWeight: FontWeight.bold))
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                    ))
-                                  ],
-                                ),
-                              ),
-                              const Divider()
-                            ],
-                          ),
-                        )
-                      : const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                }),
-            //bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-            Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(15.0)),
-              ), // Set rounded corner radius
-              margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-              padding: const EdgeInsets.all(10),
-              width: MediaQuery.of(context).size.width,
-              height: 75,
-              child: Stack(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text(_shippingMethod.tenLoaiShip, style: const TextStyle(fontWeight: FontWeight.bold)),
-                      Row(
-                        children: [
-                          const Icon(Icons.local_shipping_sharp, color: Colors.blue),
-                          const SizedBox(width: 10),
-                          Text(_shippingMethod.moTa),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Align(
-                      alignment: Alignment.centerRight,
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          TextButton(
-                            onPressed: () async {
-                              final value = await showModalBottomSheet<ShippingMethod>(
-                                  context: context, builder: ((builder) => ShippingMethodSheet(_shippingMethod.shipMethodRadio)));
-
-                              setState(() => _shippingMethod = value!);
-                            },
-                            child: Row(
-                              children: [
-                                Text("${_shippingMethod.soTienShip} VNĐ", style: const TextStyle(fontWeight: FontWeight.bold)),
-                                const Icon(Icons.arrow_right)
-                              ],
-                            ),
-                          ),
-                        ],
-                      ))
-                ],
-              ),
-            ),
             Padding(
                 padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                 child: Column(
                   children: [
                     Container(
-                      margin: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                      height: 75,
+                      padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                       alignment: Alignment.center,
                       decoration: const BoxDecoration(
-                          color: Colors.redAccent,
-                          borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)) // Set rounded corner radius
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      ), // Set rounded corner radius
+                      child: Column(
+                        children: [
+                          Align(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Icon(
+                                  Icons.location_on,
+                                  color: Colors.indigo,
+                                  size: 30,
+                                ),
+                                //ten khach hang nhan
+                                Text(
+                                  _diaChi.tenNguoiNhan,
+                                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                                ),
+                                // so dien thoai
+                                Text(_diaChi.phone, style: const TextStyle(color: Colors.grey, fontSize: 15)),
+                              ],
+                            ), //so big text
+                            alignment: FractionalOffset.topLeft,
                           ),
-                      child: const Text(
-                        "Billing Information",
-                        style: TextStyle(fontSize: 20, color: Colors.white),
+                          //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                          const Divider(
+                            color: Colors.indigo,
+                          ),
+                          Align(
+                            //dia chi
+                            child: Text((_diaChi.phuongXa ?? "") + ", " + (_diaChi.quanHuyen ?? "") + ", " + (_diaChi.tinhThanhPho ?? "")),
+                            alignment: FractionalOffset.topLeft,
+                          ),
+                          const Divider(
+                            color: Colors.indigo,
+                          ),
+                          Align(
+                            child: Text(_diaChi.diaChiChiTiet),
+                            alignment: FractionalOffset.topLeft,
+                          ),
+                          const Divider(
+                            color: Colors.indigo,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              const Icon(Icons.favorite, color: Colors.red),
+                              const SizedBox(width: 10),
+                              const Icon(Icons.favorite, color: Colors.red),
+                              const SizedBox(width: 10),
+                              const Icon(Icons.favorite, color: Colors.red),
+                              const SizedBox(width: 10),
+                              const Icon(Icons.favorite, color: Colors.red),
+                              const SizedBox(width: 10),
+                              const Icon(Icons.favorite, color: Colors.red),
+                              const SizedBox(width: 10),
+                              const Icon(Icons.favorite, color: Colors.red),
+                              const SizedBox(width: 10),
+                              ElevatedButton.icon(
+                                onPressed: () async {
+                                  //tao 1 bien nhan gia tri tu trang tiep theo gui ve`
+                                  final value = await Navigator.push<DiaChi>(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => const AddressPage(),
+                                      ));
+                                  if (value == null) return;
+                                  //xu ly gan' lai gia tri
+                                  setState(() => _diaChi = value);
+                                },
+                                icon: const Icon(
+                                  Icons.change_circle,
+                                  color: Colors.white,
+                                ),
+                                label: const Text(
+                                  'Change',
+                                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                                ),
+                                style: ButtonStyle(
+                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    //side: const BorderSide(color: Colors.pink)
+                                  )),
+                                  backgroundColor: MaterialStateProperty.all(Colors.green),
+                                ),
+                              )
+                            ],
+                          )
+                        ],
                       ),
                     ),
+                    const Divider(),
+                    FutureBuilder<List<Cart>>(
+                        future: cartprd.getData("a"),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasError) {
+                            return Center(
+                              child: Text(snapshot.error.toString()),
+                            );
+                          }
+                          return snapshot.hasData
+                              ? ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: snapshot.data!.length,
+                                  itemBuilder: (context, index) => Column(
+                                    children: [
+                                      Container(
+                                        decoration: const BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                                        ), // Set rounded corner radius
+                                        width: MediaQuery.of(context).size.width,
+                                        height: 125,
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              padding: const EdgeInsets.all(10),
+                                              width: 130,
+                                              child: CachedNetworkImage(
+                                                imageUrl:
+                                                    "http://10.0.2.2:8000/storage/assets/images/product-image/" + snapshot.data![index].productImg,
+                                                placeholder: (context, url) => const Center(
+                                                  child: CircularProgressIndicator(),
+                                                ),
+                                                errorWidget: (context, url, error) => Container(
+                                                  color: Colors.black12,
+                                                ),
+                                              ),
+                                            ),
+                                            //bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+                                            Expanded(
+                                                child: Padding(
+                                              padding: const EdgeInsets.all(10),
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                children: [
+                                                  RichText(
+                                                      text: TextSpan(
+                                                          style: const TextStyle(color: Colors.black), text: snapshot.data![index].productName)),
+                                                  Text(
+                                                    snapshot.data![index].id.toString(),
+                                                    style: const TextStyle(color: Colors.grey),
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Text(formatNumber.format(snapshot.data![index].productPrice),
+                                                          style: const TextStyle(fontWeight: FontWeight.bold)),
+                                                      const Spacer(),
+                                                      Text("Quantily: ${snapshot.data![index].quantity}",
+                                                          style: const TextStyle(fontWeight: FontWeight.bold))
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
+                                            ))
+                                          ],
+                                        ),
+                                      ),
+                                      const Divider()
+                                    ],
+                                  ),
+                                )
+                              : const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                        }),
                     Container(
-                      margin: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                      color: Colors.white70,
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                        child: Column(children: [
-                          buildTextMyProfile(icon: Icons.contact_page, title: 'Full Name', lable: Auth.khachHang.hoTen!),
-                          buildTextMyProfile(icon: Icons.email, title: 'Email Address', lable: Auth.khachHang.email),
-                          buildTextMyProfile(icon: Icons.phone, title: 'Phone', lable: '+' + Auth.khachHang.phone!),
-                          buildTextMyProfile(icon: Icons.gps_fixed, title: 'Address', lable: Auth.khachHang.diaChi!),
-                          SizedBox(
-                            //tu dong canh le`tu thiet bi
-                            width: MediaQuery.of(context).size.width,
-                            child: ElevatedButton.icon(
-                              onPressed: () => Navigator.pushNamed(context, '/EditMyProfile'),
-                              icon: const Icon(
-                                Icons.edit,
-                                color: Colors.white,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                      ), // Set rounded corner radius
+                      padding: const EdgeInsets.all(10),
+                      width: MediaQuery.of(context).size.width,
+                      height: 75,
+                      child: Stack(
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Text(_shippingMethod.tenLoaiShip, style: const TextStyle(fontWeight: FontWeight.bold)),
+                              Row(
+                                children: [
+                                  const Icon(Icons.local_shipping_sharp, color: Colors.blue),
+                                  const SizedBox(width: 10),
+                                  Text(_shippingMethod.moTa),
+                                ],
                               ),
-                              label: const Text(
-                                'Edit Billing Information',
-                                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                              ),
-                              style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(Colors.redAccent),
-                              ),
-                            ),
+                            ],
                           ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                        ]),
+                          Align(
+                              alignment: Alignment.centerRight,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  TextButton(
+                                    onPressed: () async {
+                                      final value = await showModalBottomSheet<ShippingMethod>(
+                                          context: context, builder: ((builder) => ShippingMethodSheet(_shippingMethod.shipMethodRadio)));
+
+                                      setState(() => _shippingMethod = value!);
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Text("${formatNumber.format(_shippingMethod.soTienShip)} VNĐ",
+                                            style: const TextStyle(fontWeight: FontWeight.bold)),
+                                        const Icon(Icons.arrow_right)
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ))
+                        ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 30,
-                    ),
+                    const Divider(),
                     Container(
                       margin: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                       height: 75,
@@ -492,6 +443,16 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
                         ),
                       ),
                     ),
+                    //cccccccccccccccccccccccccccccccccccccccccccccccccccccc
+                    ListTile(
+                      title: Text("Cash item: ${Provider.of<CartProvider>(context).tongSoLuong} product"),
+                      trailing: Text("${formatNumber.format(Provider.of<CartProvider>(context).getTotalPrice())} VNĐ"),
+                    ),
+                    ListTile(
+                      title: const Text("Transportation cost"),
+                      trailing: Text("${formatNumber.format(_shippingMethod.soTienShip)} VNĐ"),
+                    ),
+                    //const ListTile(title: Text("Voucher cost"), trailing: Text("0 VNĐ")),
                     Container(
                       margin: const EdgeInsets.fromLTRB(5, 20, 5, 0),
                       alignment: Alignment.center,
@@ -501,7 +462,7 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
                               ),
                       child: ListTile(
                         title: Text(
-                          Provider.of<CartProvider>(context).getTotalPrice().toString(),
+                          "Total: ${formatNumber.format(Provider.of<CartProvider>(context).totalPrice + _shippingMethod.soTienShip)}",
                           style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                         ),
                         trailing: ElevatedButton(
@@ -529,9 +490,9 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
                             )),
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    const Divider(),
                   ],
-                ))
+                )),
           ]),
         ),
         bottomNavigationBar: const BottomNavBar(0),
@@ -619,7 +580,7 @@ class _ShippingMethodSheetState extends State<ShippingMethodSheet> {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text("${_ship.soTienShip} VNĐ", style: const TextStyle(fontWeight: FontWeight.bold)),
+                    Text("${formatNumber.format(_ship.soTienShip)} VNĐ", style: const TextStyle(fontWeight: FontWeight.bold)),
                     Radio<_ShipMethodRadio>(
                         value: _shipMethod, groupValue: _shipMethodddradio, onChanged: (value) => Navigator.pop<ShippingMethod>(context, _ship))
                   ],
