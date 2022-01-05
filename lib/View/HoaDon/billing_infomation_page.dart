@@ -11,12 +11,10 @@ class BillingInfomationPage extends StatefulWidget {
   State<StatefulWidget> createState() => BillingInfomationPageState();
 }
 
-enum ShipMethod { fast, reguler, courier }
-
 class BillingInfomationPageState extends State<BillingInfomationPage> {
   //cac bien' de dung`, de? tam
-  ShipMethod _shipMethod = ShipMethod.fast;
   late DiaChi _diaChi;
+  late ShippingMethod _shippingMethod;
 
   @override
   void initState() {
@@ -24,6 +22,7 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
     super.initState();
     _diaChi = DiaChi(
         khachHangId: Auth.khachHang.id!, tenNguoiNhan: Auth.khachHang.hoTen!, phone: Auth.khachHang.phone!, diaChiChiTiet: Auth.khachHang.diaChi!);
+    _shippingMethod = ShippingMethod.courier();
   }
 
   @override
@@ -237,6 +236,56 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
                           child: CircularProgressIndicator(),
                         );
                 }),
+            //bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+            Container(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(15.0)),
+              ), // Set rounded corner radius
+              margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+              padding: const EdgeInsets.all(10),
+              width: MediaQuery.of(context).size.width,
+              height: 75,
+              child: Stack(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(_shippingMethod.tenLoaiShip, style: const TextStyle(fontWeight: FontWeight.bold)),
+                      Row(
+                        children: [
+                          const Icon(Icons.local_shipping_sharp, color: Colors.blue),
+                          const SizedBox(width: 10),
+                          Text(_shippingMethod.moTa),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Align(
+                      alignment: Alignment.centerRight,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          TextButton(
+                            onPressed: () async {
+                              final value = await showModalBottomSheet<ShippingMethod>(
+                                  context: context, builder: ((builder) => ShippingMethodSheet(_shippingMethod.shipMethodRadio)));
+
+                              setState(() => _shippingMethod = value!);
+                            },
+                            child: Row(
+                              children: [
+                                Text("${_shippingMethod.soTienShip} VNĐ", style: const TextStyle(fontWeight: FontWeight.bold)),
+                                const Icon(Icons.arrow_right)
+                              ],
+                            ),
+                          ),
+                        ],
+                      ))
+                ],
+              ),
+            ),
             Padding(
                 padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                 child: Column(
@@ -286,68 +335,6 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
                             height: 20,
                           ),
                         ]),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    Container(
-                      margin: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                      height: 75,
-                      alignment: Alignment.center,
-                      decoration: const BoxDecoration(
-                          color: Colors.green,
-                          borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)) // Set rounded corner radius
-                          ),
-                      child: const Text(
-                        "Shipping Method Choose",
-                        style: TextStyle(fontSize: 20, color: Colors.white),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                      color: Colors.white70,
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                        child: Column(
-                          children: [
-                            RadioListTile(
-                                activeColor: Colors.red,
-                                value: ShipMethod.fast,
-                                groupValue: _shipMethod,
-                                onChanged: (ShipMethod? value) {
-                                  setState(() {
-                                    _shipMethod = value!;
-                                  });
-                                },
-                                title: const Text("Fast Shipping"),
-                                subtitle: const Text("1 days delivary for 1.0")),
-                            RadioListTile(
-                                activeColor: Colors.orangeAccent,
-                                value: ShipMethod.reguler,
-                                groupValue: _shipMethod,
-                                onChanged: (ShipMethod? value) {
-                                  setState(() {
-                                    _shipMethod = value!;
-                                  });
-                                },
-                                title: const Text("Reguler"),
-                                subtitle: const Text("3-7 days delivary for 0.4")),
-                            RadioListTile(
-                              activeColor: Colors.green,
-                              value: ShipMethod.courier,
-                              groupValue: _shipMethod,
-                              onChanged: (ShipMethod? value) {
-                                setState(() {
-                                  _shipMethod = value!;
-                                });
-                              },
-                              title: const Text("Courier"),
-                              subtitle: const Text("5-8 days delivary for 0.3"),
-                            ),
-                            const SizedBox(height: 20),
-                          ],
-                        ),
                       ),
                     ),
                     const SizedBox(
@@ -548,6 +535,138 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
           ]),
         ),
         bottomNavigationBar: const BottomNavBar(0),
+      ),
+    );
+  }
+}
+
+class ShippingMethodSheet extends StatefulWidget {
+  final _ShipMethodRadio ship;
+  const ShippingMethodSheet(this.ship, {Key? key}) : super(key: key);
+
+  @override
+  _ShippingMethodSheetState createState() => _ShippingMethodSheetState();
+}
+
+//enum mini cua ship
+enum _ShipMethodRadio { fast, reguler, courier }
+
+//modal mini ship
+class ShippingMethod {
+  late String tenLoaiShip;
+  late String moTa;
+  late double soTienShip;
+  late _ShipMethodRadio shipMethodRadio;
+  ShippingMethod({
+    required this.tenLoaiShip,
+    required this.moTa,
+    required this.soTienShip,
+    required this.shipMethodRadio,
+  });
+  ShippingMethod.fast() {
+    tenLoaiShip = "Shipping fast";
+    moTa = "1 days delivery";
+    soTienShip = 22000;
+    shipMethodRadio = _ShipMethodRadio.fast;
+  }
+  ShippingMethod.reguler() {
+    tenLoaiShip = "Shipping reguler";
+    moTa = "3-5 days delivery";
+    soTienShip = 30000;
+    shipMethodRadio = _ShipMethodRadio.reguler;
+  }
+  ShippingMethod.courier() {
+    tenLoaiShip = "Shipping courier";
+    moTa = "5-7 days delivery";
+    soTienShip = 50000;
+    shipMethodRadio = _ShipMethodRadio.courier;
+  }
+}
+
+class _ShippingMethodSheetState extends State<ShippingMethodSheet> {
+  @override
+  Widget build(BuildContext context) {
+    _ShipMethodRadio? _shipMethodddradio = widget.ship;
+
+    Widget _radioShippingMethod(ShippingMethod _ship, _ShipMethodRadio _shipMethod) {
+      return Container(
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+        ), // Set rounded corner radius
+        margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+        padding: const EdgeInsets.all(10),
+        width: MediaQuery.of(context).size.width,
+        height: 75,
+        child: Stack(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text(_ship.tenLoaiShip, style: const TextStyle(fontWeight: FontWeight.bold)),
+                Row(
+                  children: [
+                    const Icon(Icons.local_shipping_sharp, color: Colors.blue),
+                    const SizedBox(width: 10),
+                    Text(_ship.moTa),
+                  ],
+                ),
+              ],
+            ),
+            Align(
+                alignment: Alignment.centerRight,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text("${_ship.soTienShip} VNĐ", style: const TextStyle(fontWeight: FontWeight.bold)),
+                    Radio<_ShipMethodRadio>(
+                        value: _shipMethod, groupValue: _shipMethodddradio, onChanged: (value) => Navigator.pop<ShippingMethod>(context, _ship))
+                  ],
+                ))
+          ],
+        ),
+      );
+    }
+
+    return Material(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Center(child: Text('Shipping Method', style: TextStyle(color: Colors.indigo))),
+          actions: [
+            GestureDetector(
+              onTap: () => Navigator.of(context).pop(),
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: Container(
+                  margin: const EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.1),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    Icons.close,
+                    size: 24,
+                    color: Colors.black54,
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
+        body: SafeArea(
+          child: Column(
+            children: [
+              const Divider(),
+              _radioShippingMethod(ShippingMethod.fast(), _ShipMethodRadio.fast),
+              const Divider(),
+              _radioShippingMethod(ShippingMethod.reguler(), _ShipMethodRadio.reguler),
+              const Divider(),
+              _radioShippingMethod(ShippingMethod.courier(), _ShipMethodRadio.courier),
+            ],
+          ),
+        ),
       ),
     );
   }

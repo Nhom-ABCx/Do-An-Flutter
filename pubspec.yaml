@@ -31,8 +31,10 @@ dependencies:
     sdk: flutter
   json_annotation: ^4.4.0
   json_serializable: ^6.1.1
+  #chon hinh` anh?
   image_picker: ^0.8.4+4
   path_provider: ^2.0.8
+  #chon datime picker theo mau~
   datetime_picker_formfield: ^2.0.0
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -54,9 +56,13 @@ dependencies:
   #Bloc
   flutter_bloc: ^8.0.0
   equatable: ^2.0.3
+  #try cach hinh` network
   cached_network_image: ^3.2.0
+  #hinh anh? theo dang svg
   flutter_svg: ^1.0.0
+  #hien loading page
   flutter_easyloading: ^3.0.3
+  #format number
   intl: ^0.17.0
 
 dev_dependencies:

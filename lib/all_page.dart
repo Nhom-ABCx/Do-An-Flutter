@@ -57,7 +57,6 @@ export 'View/ProductDetail/product_page_detail.dart';
 export 'View/SearchPage/search_page.dart';
 //View/HoaDon
 export 'View/HoaDon/billing_infomation_page.dart';
-export 'View/HoaDon/select_payment_page.dart';
 export 'View/HoaDon/successfully_page.dart';
 export 'View/HoaDon/quanly_donhang_page.dart';
 //View/SettingPage
