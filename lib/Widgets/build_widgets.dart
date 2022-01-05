@@ -424,31 +424,6 @@ Widget buildListTitleSetting({IconData? icons, required String text, required St
     ),
   );
 }
-// class _MainScreenState extends State<MainScreen> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Main Screen'),
-//       ),
-//       body: GestureDetector(
-//         child: Hero(
-//             tag: 'imageHero',
-//             child: CachedNetworkImage(
-//               imageUrl:
-//                   'https://raw.githubusercontent.com/flutter/website/master/src/_includes/code/layout/lakes/images/lake.jpg',
-//               placeholder: new CircularProgressIndicator(),
-//               errorWidget: new Icon(Icons.error),
-//             )),
-//         onTap: () {
-//           Navigator.push(context, MaterialPageRoute(builder: (_) {
-//             return DetailScreen();
-//           }));
-//         },
-//       ),
-//     );
-//   }
-// }
 
 List<Widget> hienThiDanhMucDrawer(BuildContext context) {
   return [

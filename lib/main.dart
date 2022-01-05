@@ -53,7 +53,6 @@ class MyApp extends StatelessWidget {
           '/PhonePage': (context) => const PhonePage(),
           '/LapTopPage': (context) => const LapTopPage(),
           '/BillingPage': (context) => const BillingInfomationPage(),
-          '/SelectPaymentPage': (context) => const SelectPaymentPage(),
           '/SuccessfullyPage': (context) => const SuccessfullyPage(),
           '/QuanLyDonHangPage': (context) => const QuanLyDonHangPage(),
           '/MyWishlist': (context) => const MyWishlistPage(),

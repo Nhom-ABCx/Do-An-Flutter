@@ -210,7 +210,7 @@ Future<bool> api_HoaDon_LapHoaDon(int khachHangId) async {
 
   try {
     final cartProvider = CartProvider();
-    final cart = await cartProvider.getData();
+    final cart = await cartProvider.getData("b");
 
     if (cart.isEmpty) return false;
 

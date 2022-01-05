@@ -16,6 +16,7 @@ export 'Modals/khuyen_mai.dart';
 export 'Modals/phuong_xa.dart';
 export 'Modals/quan_huyen.dart';
 export 'Modals/tinh_thanhpho.dart';
+export 'Modals/cart_model.dart';
 //Controller
 export 'Controller/auth.dart';
 export 'Controller/edit_myprofile_controller.dart';
@@ -56,7 +57,6 @@ export 'View/ProductDetail/product_page_detail.dart';
 export 'View/SearchPage/search_page.dart';
 //View/HoaDon
 export 'View/HoaDon/billing_infomation_page.dart';
-export 'View/HoaDon/select_payment_page.dart';
 export 'View/HoaDon/successfully_page.dart';
 export 'View/HoaDon/quanly_donhang_page.dart';
 //View/SettingPage

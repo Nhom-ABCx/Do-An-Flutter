@@ -123,8 +123,28 @@ class _HomeState extends State<AddressPage> {
                                           color: Colors.indigo,
                                         ),
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          //mainAxisAlignment: MainAxisAlignment.end,
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
+                                            ElevatedButton.icon(
+                                              onPressed: () => Navigator.pop<DiaChi>(context, snapshot.data![index]),
+                                              icon: const Icon(
+                                                Icons.beenhere,
+                                                color: Colors.white,
+                                              ),
+                                              label: const Text(
+                                                'Select',
+                                                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                                              ),
+                                              style: ButtonStyle(
+                                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(10.0),
+                                                  //side: const BorderSide(color: Colors.pink)
+                                                )),
+                                                backgroundColor: MaterialStateProperty.all(Colors.blue),
+                                              ),
+                                            ),
+                                            //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
                                             ElevatedButton.icon(
                                               onPressed: () async {
                                                 Provider.of<DiaChiController>(context, listen: false).deleteData(context, snapshot.data![index]);
@@ -145,7 +165,7 @@ class _HomeState extends State<AddressPage> {
                                                 backgroundColor: MaterialStateProperty.all(Colors.redAccent),
                                               ),
                                             ),
-                                            const SizedBox(width: 10),
+                                            //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
                                             ElevatedButton.icon(
                                               onPressed: () async {
                                                 Navigator.push(

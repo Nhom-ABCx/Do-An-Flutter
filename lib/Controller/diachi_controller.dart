@@ -13,7 +13,6 @@ class DiaChiController extends ChangeNotifier {
   //   if (tenNguoiNhan.value.isEmpty && phone.value.isEmpty && diaChiCHiTiet.value.isEmpty) return true;
   //   return false;
   // }
-
   Future<List<DiaChi>> getData() async {
     diaChi = await api_GetAll_DiaChi(Auth.khachHang.id!);
     return diaChi;
