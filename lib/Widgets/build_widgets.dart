@@ -5,7 +5,6 @@ import 'package:flutter/services.dart'; //text input
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:intl/intl.dart';
-import '../Modals/cart_model.dart';
 import 'package:flutter_application_1/DB/database_mb.dart';
 import 'package:provider/provider.dart';
 import '../all_page.dart';
@@ -13,13 +12,7 @@ import '../all_page.dart';
 final formatNumber = NumberFormat("#,##0", "en_US");
 final formatStar = NumberFormat("#0.0");
 
-class ValidationItem {
-  final String value;
-  late final String error;
-  ValidationItem(this.value, this.error);
-}
-
-Widget buildIconButton(BuildContext context, IconData iconItem, Color? colorItem, String? textItem, String routeting) => Padding(
+Widget buildIconButton(BuildContext context, IconData iconItem, Color? colorItem, String? textItem, Widget routetingPage) => Padding(
       padding: const EdgeInsets.all(10),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(15),
@@ -30,9 +23,11 @@ Widget buildIconButton(BuildContext context, IconData iconItem, Color? colorItem
           child: Column(
             children: [
               IconButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, routeting);
-                  },
+                  onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => routetingPage,
+                      )),
                   icon: Icon(
                     iconItem,
                     size: 30.0,
@@ -198,7 +193,7 @@ class _buildItemState extends State<buildItem> {
                     if (snap.hasData) {
                       _giamGia = snap.data!.giamGia ?? _giamGia;
                       if (_giamGia == 0) {
-                        return Text("Giá: " + formatNumber.format(widget.sanPham.giaBan) ,
+                        return Text("Giá: " + formatNumber.format(widget.sanPham.giaBan),
                             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.blueAccent));
                       }
                     }
@@ -435,7 +430,6 @@ List<Widget> hienThiDanhMucDrawer(BuildContext context) {
     ),
     //const SizedBox(height: 16),
     buildListTitleDrawer(text: 'Notifications', icon: Icons.notifications, onClicked: () => Navigator.pushNamed(context, '/Notifications')),
-    buildListTitleDrawer(text: 'My Wishlist', icon: Icons.favorite_sharp, onClicked: () => Navigator.pushNamed(context, '/MyWishlist')),
     //const SizedBox(height: 16),
     buildListTitleDrawer(text: 'ChangePass', icon: Icons.lock_outline_rounded, onClicked: () => Navigator.pushNamed(context, '/ChangePW')),
     //const SizedBox(height: 16),

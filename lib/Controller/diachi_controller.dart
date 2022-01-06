@@ -5,9 +5,9 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class DiaChiController extends ChangeNotifier {
   List<DiaChi> diaChi = [];
-  ValidationItem tenNguoiNhan = ValidationItem("", "");
-  ValidationItem phone = ValidationItem("", "");
-  ValidationItem diaChiCHiTiet = ValidationItem("", "");
+  final tenNguoiNhan = StreamController();
+  final phone = StreamController();
+  final diaChiCHiTiet = StreamController();
 
   // bool get isEmpty {
   //   if (tenNguoiNhan.value.isEmpty && phone.value.isEmpty && diaChiCHiTiet.value.isEmpty) return true;
@@ -20,23 +20,9 @@ class DiaChiController extends ChangeNotifier {
 
 //dia chi cu? cap nhat thanh dia chi moi'
   Future<bool> updateData(BuildContext context, DiaChi _diaChiMoi, int idDiaChiHienTaiCapNhat) async {
-    tenNguoiNhan = ValidationItem("", "");
-    phone = ValidationItem("", "");
-    diaChiCHiTiet = ValidationItem("", "");
-    if (_diaChiMoi.tenNguoiNhan.isEmpty) {
-      tenNguoiNhan = ValidationItem("", "Không được bỏ trống !");
-      return false;
-    }
-
-    if (_diaChiMoi.phone.isEmpty) {
-      phone = ValidationItem("", "Không được bỏ trống !");
-      return false;
-    }
-
-    if (_diaChiMoi.diaChiChiTiet.isEmpty) {
-      diaChiCHiTiet = ValidationItem("", "Không được bỏ trống !");
-      return false;
-    }
+    tenNguoiNhan.sink.add("");
+    phone.sink.add("");
+    diaChiCHiTiet.sink.add("");
 
     //neu nhu id ko phai la -1 cua ham khoi tao empty()
     _diaChiMoi.id = idDiaChiHienTaiCapNhat; //cap nhat cai dia chi
@@ -45,15 +31,15 @@ class DiaChiController extends ChangeNotifier {
     //neu' no' tra ve ko phai la true/false thi` kiem tra no' tra? ve` loi~ nao` de hien thi
     if (validate is! bool) {
       if (validate["TenNguoiNhan"].toString() != "null") {
-        tenNguoiNhan.error = validate["TenNguoiNhan"];
+        tenNguoiNhan.addError(validate["TenNguoiNhan"]);
         return false;
       }
       if (validate["Phone"].toString() != "null") {
-        phone.error = validate["Phone"];
+        phone.addError(validate["Phone"]);
         return false;
       }
       if (validate["DiaChiChiTiet"].toString() != "null") {
-        diaChiCHiTiet.error = validate["DiaChiChiTiet"];
+        diaChiCHiTiet.addError(validate["DiaChiChiTiet"]);
         return false;
       }
     }
@@ -63,38 +49,24 @@ class DiaChiController extends ChangeNotifier {
   }
 
   Future<bool> addData(BuildContext context, DiaChi _diaChiMoi) async {
-    tenNguoiNhan = ValidationItem("", "");
-    phone = ValidationItem("", "");
-    diaChiCHiTiet = ValidationItem("", "");
-    if (_diaChiMoi.tenNguoiNhan.isEmpty) {
-      tenNguoiNhan = ValidationItem("", "Không được bỏ trống !");
-      return false;
-    }
-
-    if (_diaChiMoi.phone.isEmpty) {
-      phone = ValidationItem("", "Không được bỏ trống !");
-      return false;
-    }
-
-    if (_diaChiMoi.diaChiChiTiet.isEmpty) {
-      diaChiCHiTiet = ValidationItem("", "Không được bỏ trống !");
-      return false;
-    }
+    tenNguoiNhan.sink.add("");
+    phone.sink.add("");
+    diaChiCHiTiet.sink.add("");
 
     //lay du lieu ve`
     final validate = await api_Insert_DiaChi(_diaChiMoi);
     //neu' no' tra ve ko phai la true/false thi` kiem tra no' tra? ve` loi~ nao` de hien thi
     if (validate is! bool) {
       if (validate["TenNguoiNhan"].toString() != "null") {
-        tenNguoiNhan.error = validate["TenNguoiNhan"];
+        tenNguoiNhan.addError(validate["TenNguoiNhan"]);
         return false;
       }
       if (validate["Phone"].toString() != "null") {
-        phone.error = validate["Phone"];
+        phone.addError(validate["Phone"]);
         return false;
       }
       if (validate["DiaChiChiTiet"].toString() != "null") {
-        diaChiCHiTiet.error = validate["DiaChiChiTiet"];
+        diaChiCHiTiet.addError(validate["DiaChiChiTiet"]);
         return false;
       }
     }

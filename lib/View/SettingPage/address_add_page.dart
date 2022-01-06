@@ -94,13 +94,16 @@ class _HomeState extends State<AddressAddPage> {
                     if (name!.isEmpty) return;
                     setState(() => _fullName = name);
                   }),
-              SizedBox(
-                  child: diaChiController.tenNguoiNhan.error.isNotEmpty //tuc co chuoi~ loi~
-                      ? Text(
-                          diaChiController.tenNguoiNhan.error,
-                          style: const TextStyle(color: Colors.red, fontSize: 15),
-                        )
-                      : null),
+              //validate
+              StreamBuilder(
+                stream: diaChiController.tenNguoiNhan.stream,
+                builder: (context, snapshot) => snapshot.hasError
+                    ? Text(
+                        snapshot.error.toString(),
+                        style: const TextStyle(color: Colors.red, fontSize: 15),
+                      )
+                    : const SizedBox(),
+              ),
               buildListTitleSetting(
                   text: 'Phone',
                   textCustoms: _phone,
@@ -110,13 +113,16 @@ class _HomeState extends State<AddressAddPage> {
                     if (phone!.isEmpty) return;
                     setState(() => _phone = phone);
                   }),
-              SizedBox(
-                  child: diaChiController.phone.error.isNotEmpty //tuc co chuoi~ loi~
-                      ? Text(
-                          diaChiController.phone.error,
-                          style: const TextStyle(color: Colors.red, fontSize: 15),
-                        )
-                      : null),
+              //validate
+              StreamBuilder(
+                stream: diaChiController.phone.stream,
+                builder: (context, snapshot) => snapshot.hasError
+                    ? Text(
+                        snapshot.error.toString(),
+                        style: const TextStyle(color: Colors.red, fontSize: 15),
+                      )
+                    : const SizedBox(),
+              ),
               buildListTitleSetting(
                   text: 'Province / City',
                   textCustoms: _tinhThanhPho.name ?? "",
@@ -201,13 +207,16 @@ class _HomeState extends State<AddressAddPage> {
                         labelText: 'Apartment number, Street...',
                       ),
                     ),
-                    SizedBox(
-                        child: diaChiController.tenNguoiNhan.error.isNotEmpty //tuc co chuoi~ loi~
-                            ? Text(
-                                diaChiController.tenNguoiNhan.error,
-                                style: const TextStyle(color: Colors.red, fontSize: 15),
-                              )
-                            : null),
+                    //validate
+                    StreamBuilder(
+                      stream: diaChiController.diaChiCHiTiet.stream,
+                      builder: (context, snapshot) => snapshot.hasError
+                          ? Text(
+                              snapshot.error.toString(),
+                              style: const TextStyle(color: Colors.red, fontSize: 15),
+                            )
+                          : const SizedBox(),
+                    ),
                   ],
                 ),
               ),

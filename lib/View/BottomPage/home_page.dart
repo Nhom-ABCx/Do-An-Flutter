@@ -146,12 +146,12 @@ Widget buildIconProductCategori(BuildContext context) => Padding(
       padding: const EdgeInsets.all(15.0),
       child: Wrap(
         children: [
-          buildIconButton(context, Icons.phone_android_rounded, Colors.red, "Phone", "/PhonePage"),
-          buildIconButton(context, Icons.laptop_chromebook_sharp, Colors.blue, "LapTop", "/LapTopPage"),
-          buildIconButton(context, Icons.microwave, Colors.pink, "Refrigeration", "/DienLanhPage"),
-          buildIconButton(context, Icons.photo_camera, Colors.green, "Camera", "/CameraPage"),
-          buildIconButton(context, Icons.tablet_mac, Colors.black, "IPAD", "/IpadPage"),
-          buildIconButton(context, Icons.sports_esports, Colors.cyan, "Accessory", "/AccessoryPage"),
+          buildIconButton(context, Icons.phone_android_rounded, Colors.red, "Phone", const PhonePage()),
+          buildIconButton(context, Icons.laptop_chromebook_sharp, Colors.blue, "LapTop", const ProductCategoriesPage("LapTop", 3)),
+          buildIconButton(context, Icons.microwave, Colors.pink, "Refrigeration", const ProductCategoriesPage("Refrigeration", 1)),
+          buildIconButton(context, Icons.photo_camera, Colors.green, "Camera", const ProductCategoriesPage("Camera", 4)),
+          buildIconButton(context, Icons.tablet_mac, Colors.black, "IPAD", const ProductCategoriesPage("IPAD", 5)),
+          buildIconButton(context, Icons.sports_esports, Colors.cyan, "Accessory", const ProductCategoriesPage("Accessory", 6)),
         ],
       ),
     );

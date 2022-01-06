@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import '../../all_page.dart';
 
-class DienLanhPage extends StatefulWidget {
-  const DienLanhPage({Key? key}) : super(key: key);
+class ProductCategoriesPage extends StatefulWidget {
+  final int loaiSanPhamId;
+  final String tenLoaiSanPham;
+  const ProductCategoriesPage(this.tenLoaiSanPham, this.loaiSanPhamId, {Key? key}) : super(key: key);
 
   @override
-  _DienLanhPageState createState() => _DienLanhPageState();
+  _ProductCategoriesPageState createState() => _ProductCategoriesPageState();
 }
 
-class _DienLanhPageState extends State<DienLanhPage> {
+class _ProductCategoriesPageState extends State<ProductCategoriesPage> {
   late Future<List<SanPham>> apiSanPhamLoaiSanPham;
   @override
   void initState() {
     super.initState();
-    apiSanPhamLoaiSanPham = api_SanPham_LoaiSanPham(1);
+    apiSanPhamLoaiSanPham = api_SanPham_LoaiSanPham(widget.loaiSanPhamId);
   }
 
   @override
@@ -29,7 +31,7 @@ class _DienLanhPageState extends State<DienLanhPage> {
           //body
           body: SingleChildScrollView(
             child: Column(
-              children: [titlePageCategory("Refrigeration"), buildListSanPham(context, apiSanPhamLoaiSanPham)],
+              children: [titlePageCategory(widget.tenLoaiSanPham), buildListSanPham(context, apiSanPhamLoaiSanPham)],
             ),
           ),
           //Footer

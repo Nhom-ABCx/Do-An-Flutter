@@ -17,7 +17,7 @@ class FileController extends ChangeNotifier {
     } catch (e) {
       print("Failed to pick image: $e");
     }
-    notifyListeners();
+    //notifyListeners();
     //setState no ko thay doi~, no ko build lai widget, sau khi gop nhanh' voi Vinh thi bi the'
     //chua~ chay' bang` cach' reload lai Page
     (context as Element).reassemble();

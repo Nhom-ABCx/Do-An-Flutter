@@ -32,25 +32,12 @@ class Auth {
   }
 
   Future<bool> ktDangKy(String username, String email, String pass) async {
-    if (username.isEmpty) {
-      nameController.sink.addError("Nhập Username");
-      return false;
-    }
-    nameController.sink.add("");
-
-    if (email.isEmpty) {
-      emailController.sink.addError("Nhập email");
-      return false;
-    } else if (!isValidEmail(email)) {
+    if (!isValidEmail(email)) {
       emailController.sink.addError("Nhập đúng định dạng email");
       return false;
     }
+    nameController.sink.add("");
     emailController.sink.add("");
-
-    if (pass.isEmpty) {
-      passController.sink.addError("Nhập mật khẩu");
-      return false;
-    }
     passController.sink.add("");
 
     //lay' du lieu API dang ky'
