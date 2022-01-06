@@ -209,16 +209,13 @@ List<Widget> hienThiDanhMucDrawer(BuildContext context) {
       icon: Icons.account_circle,
       onClicked: () => Navigator.pushNamed(context, '/MyProfile'),
     ),
-    //const SizedBox(height: 16),
     buildListTitleDrawer(text: 'Notifications', icon: Icons.notifications, onClicked: () => Navigator.pushNamed(context, '/Notifications')),
-    //const SizedBox(height: 16),
     buildListTitleDrawer(text: 'ChangePass', icon: Icons.lock_outline_rounded, onClicked: () => Navigator.pushNamed(context, '/ChangePW')),
-    //const SizedBox(height: 16),
+    buildListTitleDrawer(text: 'My orders', icon: Icons.library_books, onClicked: () => Navigator.pushNamed(context, '/QuanLyDonHangPage')),
     buildListTitleDrawer(
       text: 'Settings',
       icon: Icons.settings,
     ),
-    //const SizedBox(height: 16),
     buildListTitleDrawer(
       text: 'Sign Out',
       icon: Icons.logout,

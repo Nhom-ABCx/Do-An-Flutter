@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/Modals/quan_huyen.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import '/all_page.dart';
 
 class QuanHuyenPage extends StatefulWidget {
   final int _code;
-  const QuanHuyenPage(this._code,{Key? key}) : super(key: key);
+  const QuanHuyenPage(this._code, {Key? key}) : super(key: key);
   @override
   _HomeState createState() => _HomeState();
 }
@@ -26,31 +26,41 @@ class _HomeState extends State<QuanHuyenPage> {
           //Hide
           //drawer: const NavigationDrawer(),
           //Body
-          body: FutureBuilder<List<QuanHuyen>>(
-              future: api_GetAll_QuanHuyen(widget._code),
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  // ignore: avoid_print
-                  print(snapshot.error);
-                }
-                return snapshot.hasData
-                    ? ListView.builder(
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: (context, index) => Column(
-                              children: [
-                                const Divider(),
-                                ListTile(
-                                  title: Text(
-                                    snapshot.data![index].name!,
-                                  ),
-                                  tileColor: Colors.white,
-                                  //khi click vao thi se tra ve Nguyen 1 tinh/ThanhPho de query ra phan`sau
-                                  onTap: () => Navigator.pop<QuanHuyen>(context, snapshot.data![index]),
-                                ),
-                              ],
-                            ))
-                    : const Center(child: Padding(padding: EdgeInsets.only(top: 250), child: CircularProgressIndicator()));
-              }),
+          body: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(15),
+              child: TypeAheadField<QuanHuyen>(
+                hideSuggestionsOnKeyboardHide: false, //huy? viec an? query khi tat' ban`phim'
+                textFieldConfiguration: const TextFieldConfiguration(
+                  autofocus: true, //tu dong forcus vo
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.search),
+                    border: OutlineInputBorder(),
+                    hintText: 'Search',
+                  ),
+                ),
+                //goi api
+                suggestionsCallback: (pattern) => api_GetAll_QuanHuyen(widget._code, pattern),
+                //build ra widget
+                itemBuilder: (context, suggestion) => ListTile(
+                  title: Text(suggestion.name!),
+                  tileColor: Colors.white,
+                ),
+                //neu tim` kiem' ko ra
+                noItemsFoundBuilder: (context) => const SizedBox(
+                  height: 100,
+                  child: Center(
+                    child: Text(
+                      'No Item Found.',
+                      style: TextStyle(fontSize: 24),
+                    ),
+                  ),
+                ),
+                //khi click vao thi se tra ve Nguyen 1 tinh/ThanhPho de query ra phan`sau
+                onSuggestionSelected: (suggestion) => Navigator.pop<QuanHuyen>(context, suggestion),
+              ),
+            ),
+          ),
           //nho' thay doi? lai con so' truyen du~ lieu
           //bottomNavigationBar: const BottomNavBar(0),
         ),

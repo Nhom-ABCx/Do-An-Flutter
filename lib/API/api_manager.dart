@@ -375,7 +375,7 @@ Future<KhuyenMai> api_Price_Sale(int idSanPham) async {
   return ctKhuyenMai;
 }
 
-Future<List<TinhThanhPho>> api_GetAll_TinhThanhPho() async {
+Future<List<TinhThanhPho>> api_GetAll_TinhThanhPho(String search) async {
   List<TinhThanhPho> lst = [];
 
   try {
@@ -383,7 +383,11 @@ Future<List<TinhThanhPho>> api_GetAll_TinhThanhPho() async {
         await http.get(Uri.parse(urlProvincesOpenApi + "p/"), headers: {"accept": "application/json", "content-type": "application/json"});
     if (response.statusCode == 200) {
       List jsonRaw = json.decode(utf8.decode(response.bodyBytes)); //utf8 cho json ko bi lỗi font
-      lst = jsonRaw.map((data) => TinhThanhPho.fromJson(data)).toList();
+      lst = jsonRaw.map((data) => TinhThanhPho.fromJson(data)).where((element) {
+        final nameLower = element.name!.toLowerCase(); //chuyen cai ten thanh chu thuong` het
+        final queryLower = search.toLowerCase();
+        return nameLower.contains(queryLower); //tra ve ton` tai
+      }).toList();
     } else {
       throw Exception("Something get wrong! Status code ${response.statusCode}");
     }
@@ -393,7 +397,7 @@ Future<List<TinhThanhPho>> api_GetAll_TinhThanhPho() async {
   return lst;
 }
 
-Future<List<QuanHuyen>> api_GetAll_QuanHuyen(int codeTinhThanhPho) async {
+Future<List<QuanHuyen>> api_GetAll_QuanHuyen(int codeTinhThanhPho, String search) async {
   List<QuanHuyen> lst = [];
 
   try {
@@ -402,7 +406,11 @@ Future<List<QuanHuyen>> api_GetAll_QuanHuyen(int codeTinhThanhPho) async {
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonRaw = json.decode(utf8.decode(response.bodyBytes)); //cho json ko bị lỗi font
       final List _quanHuyen = jsonRaw['districts'];
-      lst = _quanHuyen.map((data) => QuanHuyen.fromJson(data)).toList();
+      lst = _quanHuyen.map((data) => QuanHuyen.fromJson(data)).where((element) {
+        final nameLower = element.name!.toLowerCase(); //chuyen cai ten thanh chu thuong` het
+        final queryLower = search.toLowerCase();
+        return nameLower.contains(queryLower); //tra ve ton` tai
+      }).toList();
     } else {
       throw Exception("Something get wrong! Status code ${response.statusCode}");
     }
@@ -412,7 +420,7 @@ Future<List<QuanHuyen>> api_GetAll_QuanHuyen(int codeTinhThanhPho) async {
   return lst;
 }
 
-Future<List<PhuongXa>> api_GetAll_PhuongXa(int codeQuanHuyen) async {
+Future<List<PhuongXa>> api_GetAll_PhuongXa(int codeQuanHuyen, String search) async {
   List<PhuongXa> lst = [];
 
   try {
@@ -421,7 +429,11 @@ Future<List<PhuongXa>> api_GetAll_PhuongXa(int codeQuanHuyen) async {
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonRaw = json.decode(utf8.decode(response.bodyBytes)); //utf8 cho json ko bị lỗi font
       final List _phuongXa = jsonRaw['wards'];
-      lst = _phuongXa.map((data) => PhuongXa.fromJson(data)).toList();
+      lst = _phuongXa.map((data) => PhuongXa.fromJson(data)).where((element) {
+        final nameLower = element.name!.toLowerCase(); //chuyen cai ten thanh chu thuong` het
+        final queryLower = search.toLowerCase();
+        return nameLower.contains(queryLower); //tra ve ton` tai
+      }).toList();
     } else {
       throw Exception("Something get wrong! Status code ${response.statusCode}");
     }

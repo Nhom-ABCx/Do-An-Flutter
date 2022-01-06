@@ -23,25 +23,28 @@ class _ToPayTabState extends State<ToPayTab> {
               "There are no orders place yet.",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
             ),
-            Container(
-                margin: const EdgeInsets.only(top: 30),
-                alignment: Alignment.center,
-                width: 200,
-                height: 50.0,
-                decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(30)),
-                    gradient: LinearGradient(colors: [
-                      Colors.red,
-                      Colors.orange,
-                    ]),
-                    boxShadow: [
-                      BoxShadow(
-                        offset: Offset(0, 0),
-                        color: Colors.pink,
-                        blurRadius: 16.0,
-                      ),
-                    ]),
-                child: const Text("Continute Shopping", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15))),
+            GestureDetector(
+              onTap: () => Navigator.pushNamedAndRemoveUntil(context, "/Home", (route) => false),
+              child: Container(
+                  margin: const EdgeInsets.only(top: 30),
+                  alignment: Alignment.center,
+                  width: 200,
+                  height: 50.0,
+                  decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
+                      gradient: LinearGradient(colors: [
+                        Colors.red,
+                        Colors.orange,
+                      ]),
+                      boxShadow: [
+                        BoxShadow(
+                          offset: Offset(0, 0),
+                          color: Colors.pink,
+                          blurRadius: 16.0,
+                        ),
+                      ]),
+                  child: const Text("Continute Shopping", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15))),
+            ),
           ],
         ),
       ));

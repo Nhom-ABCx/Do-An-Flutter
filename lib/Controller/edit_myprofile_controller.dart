@@ -17,16 +17,7 @@ class EditMyProfileController {
   final confirmmatkhauController = StreamController();
 
   Future<bool> ktUpdateKhachHang(KhachHang _khachHang) async {
-    //kt rong~
-    if (_khachHang.username.isEmpty) {
-      usernameController.sink.addError("Nhập Username");
-      return false;
-    }
-
-    if (_khachHang.email.isEmpty) {
-      emailController.sink.addError("Nhập email");
-      return false;
-    } else if (!Auth.isValidEmail(_khachHang.email)) {
+    if (!Auth.isValidEmail(_khachHang.email)) {
       emailController.sink.addError("Nhập đúng định dạng email");
       return false;
     }
@@ -96,8 +87,8 @@ class EditMyProfileController {
     return (Auth.khachHang.username.isNotEmpty) ? true : false;
   }
 
-  Future<bool> ktUpdateKhachHang_MatKhau(
-      String oldPassword, String newPassword, String confirmPassword) async {
+  // ignore: non_constant_identifier_names
+  Future<bool> ktUpdateKhachHang_MatKhau(String oldPassword, String newPassword, String confirmPassword) async {
     //kt rong~
     if (oldPassword.isEmpty) {
       oldmatkhauController.sink.addError("Nhập Mật khẩu củ");
@@ -119,8 +110,7 @@ class EditMyProfileController {
     confirmmatkhauController.sink.add("");
 
     //lay du lieu tu SV, neu co loi~ thi` validate
-    final validate = await api_Update_KhachHang_MatKhau(
-        Auth.khachHang, oldPassword, newPassword, confirmPassword);
+    final validate = await api_Update_KhachHang_MatKhau(Auth.khachHang, oldPassword, newPassword, confirmPassword);
 
     //neu' no' tra ve ko phai la class thi` kiem tra no' tra? ve` loi~ nao` de hien thi
     if (validate is! KhachHang) {

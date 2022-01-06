@@ -64,6 +64,8 @@ dependencies:
   flutter_easyloading: ^3.0.3
   #format number
   intl: ^0.17.0
+  #autocomplete query API, co su dung thu? cho Chon dia Chi
+  flutter_typeahead: ^3.2.4
 
 dev_dependencies:
   build_runner: ^2.0.0
