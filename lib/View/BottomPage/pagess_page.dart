@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/View/SettingPage/address_add_page.dart';
 import '/all_page.dart';
 
 class Pages extends StatefulWidget {
@@ -66,7 +67,14 @@ class _PagesState extends State<Pages> {
               buildListTitleSetting(
                 text: 'Address Add Page',
                 textCustoms: '',
-                onClicked: () => Navigator.pushNamed(context, "/AddressAddPage"),
+                onClicked: () => Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (BuildContext context) => AddressAddPage(
+                      DiaChi.empty(),
+                    ),
+                  ),
+                ),
               ),
             ],
           ),

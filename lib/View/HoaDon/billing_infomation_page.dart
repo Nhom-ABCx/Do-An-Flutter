@@ -166,7 +166,7 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
                     ),
                     const Divider(),
                     FutureBuilder<List<Cart>>(
-                        future: cartprd.getData("a"),
+                        future: cartprd.getData(),
                         builder: (context, snapshot) {
                           if (snapshot.hasError) {
                             return Center(
@@ -445,7 +445,7 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
                     ),
                     //cccccccccccccccccccccccccccccccccccccccccccccccccccccc
                     ListTile(
-                      title: Text("Cash item: ${Provider.of<CartProvider>(context).tongSoLuong} product"),
+                      title: const Text("Cash item: 00000 product"),
                       trailing: Text("${formatNumber.format(Provider.of<CartProvider>(context).getTotalPrice())} VNĐ"),
                     ),
                     ListTile(

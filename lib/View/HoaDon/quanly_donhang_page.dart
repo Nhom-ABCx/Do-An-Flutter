@@ -8,54 +8,68 @@ class QuanLyDonHangPage extends StatefulWidget {
 }
 
 //trang nay la layout de copy custom, ko co xai`
-class _QuanLyDonHangPageState extends State<QuanLyDonHangPage> {
+class _QuanLyDonHangPageState extends State<QuanLyDonHangPage> with SingleTickerProviderStateMixin {
+  late TabController tabController;
   @override
-  Widget build(BuildContext context) => DefaultTabController(
-        length: 3,
-        child: Scaffold(
-          //TopHeader
-          appBar: AppBar(
-            iconTheme: const IconThemeData(color: Colors.indigo),
-            title: const Text(
-              "TabBar",
-              style: TextStyle(color: Colors.indigo),
-            ),
-            centerTitle: true,
-            bottom: const TabBar(
-              tabs: [
-                Tab(
-                  text: "Tab 1",
-                  icon: Icon(Icons.ac_unit),
-                ),
-                Tab(
-                  text: "Tab 2",
-                  icon: Icon(Icons.ac_unit),
-                ),
-                Tab(
-                  text: "Tab 3",
-                  icon: Icon(Icons.ac_unit),
-                ),
-              ],
-            ),
-          ),
-          //Hide
-          //drawer: const NavigationDrawer(),
-          //Body
-          body: const TabBarView(
-            children: [
-              Center(
-                child: Text("Page 1"),
-              ),
-              Center(
-                child: Text("Page 2"),
-              ),
-              Center(
-                child: Text("Page 3"),
-              ),
-            ],
-          ),
-          //nho' thay doi? lai con so' truyen du~ lieu
-          bottomNavigationBar: const BottomNavBar(0),
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    tabController = TabController(length: 4, vsync: this);
+    //tabController.addListener(() => setState(() {}));
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    tabController.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      //TopHeader
+      appBar: AppBar(
+        iconTheme: const IconThemeData(color: Colors.indigo),
+        title: const Text(
+          "My orders",
+          style: TextStyle(color: Colors.indigo),
         ),
-      );
+        centerTitle: true,
+        bottom: TabBar(
+          controller: tabController,
+          labelStyle: const TextStyle(fontSize: 20),
+          isScrollable: true,
+          tabs: const [
+            Tab(
+              text: "To Pay",
+            ),
+            Tab(
+              text: "To Ship",
+            ),
+            Tab(
+              text: "To Receive",
+            ),
+            Tab(
+              text: "To Review",
+            ),
+          ],
+        ),
+      ),
+      //Hide
+      //drawer: const NavigationDrawer(),
+      //Body
+      body: TabBarView(
+        controller: tabController,
+        children: const [
+          ToPayTab(),
+          ToPayTab(),
+          ToPayTab(),
+          ToPayTab(),
+        ],
+      ),
+      //nho' thay doi? lai con so' truyen du~ lieu
+      //bottomNavigationBar: const BottomNavBar(0),
+    );
+  }
 }

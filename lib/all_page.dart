@@ -5,6 +5,7 @@ export 'Widgets/drawer.dart';
 export 'Widgets/appbar.dart';
 export 'Widgets/bottombar.dart';
 export 'Widgets/build_widgets.dart';
+export 'Widgets/builditem_product.dart';
 //Models
 export 'Modals/san_pham.dart';
 export 'Modals/khach_hang.dart';
@@ -55,5 +56,6 @@ export 'View/SearchPage/search_page.dart';
 export 'View/HoaDon/billing_infomation_page.dart';
 export 'View/HoaDon/successfully_page.dart';
 export 'View/HoaDon/quanly_donhang_page.dart';
+export 'View/HoaDon/topay_tab.dart';
 //View/SettingPage
 export 'View/SettingPage/address_page.dart';

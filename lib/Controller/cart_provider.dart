@@ -6,15 +6,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 class CartProvider extends ChangeNotifier {
   double _totalPrice = 0.0;
   double get totalPrice => _totalPrice;
-  //tong so luong
-  int tongSoLuong = 0;
   Db db = Db();
 
   List<Cart> _cart = [];
   List<Cart> get cart => _cart;
 
-  Future<List<Cart>> getData(String a) async {
+  Future<List<Cart>> getData() async {
     _cart = await db.getCartList();
+    print("getCartData");
     return _cart;
   }
 
@@ -26,7 +25,6 @@ class CartProvider extends ChangeNotifier {
 
   //da~ fix
   void _getPrefItems() async {
-    print("_getPrefItems");
     SharedPreferences prefs = await SharedPreferences.getInstance();
     _totalPrice = prefs.getDouble('total_price') ?? 0.0;
   }
@@ -75,8 +73,8 @@ class CartProvider extends ChangeNotifier {
 
   //xoá total price
   Future<bool> deleteAllCart() {
+    print("deleteAllCart");
     _totalPrice = 0;
-    tongSoLuong = 0;
     _setPrefItems();
     notifyListeners();
     return db.deleteAllCart();

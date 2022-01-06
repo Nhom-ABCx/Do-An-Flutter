@@ -206,11 +206,11 @@ Future<bool> api_sendEmail_User_Reset(String username) async {
 //them du lieu vao gio hang
 
 Future<bool> api_HoaDon_LapHoaDon(int khachHangId) async {
-  final url = urlBaseAPI + 'HoaDon/LapHoaDon';
+  const url = urlBaseAPI + 'HoaDon/LapHoaDon';
 
   try {
     final cartProvider = CartProvider();
-    final cart = await cartProvider.getData("b");
+    final cart = await cartProvider.getData();
 
     if (cart.isEmpty) return false;
 
@@ -375,7 +375,6 @@ Future<KhuyenMai> api_Price_Sale(int idSanPham) async {
   return ctKhuyenMai;
 }
 
-
 Future<List<TinhThanhPho>> api_GetAll_TinhThanhPho() async {
   List<TinhThanhPho> lst = [];
 
@@ -517,12 +516,13 @@ Future<List<BinhLuan>> api_GetAll_BinhLuan(int idSanPham) async {
   } catch (_) {}
   return lstBinhLuan;
 }
+
 //add binh luan
-Future<bool> api_Add_BinhLuan(String noiDung,int khachHangId,int sanPhamId) async{
-  final uri =Uri.parse(urlBaseAPI+"binh-luan/add");
-  bool status=false;
+Future<bool> api_Add_BinhLuan(String noiDung, int khachHangId, int sanPhamId) async {
+  final uri = Uri.parse(urlBaseAPI + "binh-luan/add");
+  bool status = false;
   try {
-    final response = await http.post(uri, body: {"NoiDung":noiDung,"KhachHangId": "$khachHangId", "SanPhamId": "$sanPhamId"});
+    final response = await http.post(uri, body: {"NoiDung": noiDung, "KhachHangId": "$khachHangId", "SanPhamId": "$sanPhamId"});
     if (response.statusCode == 200) {
       return status = true;
     }

@@ -167,16 +167,14 @@ class _HomeState extends State<AddressPage> {
                                             ),
                                             //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
                                             ElevatedButton.icon(
-                                              onPressed: () async {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute<void>(
-                                                    builder: (BuildContext context) => AddressAddPage(
-                                                      snapshot.data![index],
-                                                    ),
+                                              onPressed: () => Navigator.push(
+                                                context,
+                                                MaterialPageRoute<void>(
+                                                  builder: (BuildContext context) => AddressAddPage(
+                                                    snapshot.data![index],
                                                   ),
-                                                );
-                                              },
+                                                ),
+                                              ),
                                               icon: const Icon(
                                                 Icons.edit,
                                                 color: Colors.white,

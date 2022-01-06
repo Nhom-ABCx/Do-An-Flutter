@@ -205,7 +205,7 @@ class _CartPageState extends State<CartPage> {
                   padding: const EdgeInsets.only(right: 8.0),
                   child: ElevatedButton(
                       onPressed: () async {
-                        ((await CartProvider().getData("d")).isNotEmpty) ? Navigator.pushNamed(context, "/BillingPage") : null;
+                        ((await CartProvider().getData()).isNotEmpty) ? Navigator.pushNamed(context, "/BillingPage") : null;
                       },
                       child: const Text(
                         "Checkout Now",
