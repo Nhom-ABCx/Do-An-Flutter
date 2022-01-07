@@ -1,4 +1,3 @@
-import 'package:flutter_application_1/all_page.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'san_pham.g.dart';
@@ -17,6 +16,7 @@ class SanPham {
   int? hangSanXuatId;
   int? loaiSanPhamId;
   int? isFavorite;
+  double? star;
 
   SanPham({
     this.id,
@@ -30,6 +30,7 @@ class SanPham {
     this.hangSanXuatId,
     this.loaiSanPhamId,
     this.isFavorite,
+    this.star
   });
   factory SanPham.fromJson(dynamic json) => _$SanPhamFromJson(json);
   Map<String, dynamic> toJson() => _$SanPhamToJson(this);

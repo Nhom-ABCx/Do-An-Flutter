@@ -18,6 +18,7 @@ SanPham _$SanPhamFromJson(Map<String, dynamic> json) => SanPham(
       hangSanXuatId: json['HangSanXuatId'] as int?,
       loaiSanPhamId: json['LoaiSanPhamId'] as int?,
       isFavorite: json['isFavorite'] == null ? 0 : json['isFavorite'] as int?,
+      star: json['Star'] * 1.0 ?? 0, //chuyen ve sang double
     );
 
 Map<String, dynamic> _$SanPhamToJson(SanPham instance) => <String, dynamic>{
@@ -32,4 +33,5 @@ Map<String, dynamic> _$SanPhamToJson(SanPham instance) => <String, dynamic>{
       'HangSanXuatId': instance.hangSanXuatId,
       'LoaiSanPhamId': instance.loaiSanPhamId,
       'isFavorite': instance.isFavorite,
+      'Star': instance.star,
     };

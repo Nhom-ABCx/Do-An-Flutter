@@ -262,27 +262,6 @@ Widget buildImageSanPham(SanPham sanPham) {
 }
 
 Widget buildProductData(SanPham sanPham) {
-  //ham tra ve so sao cua san pham
-  Future<double> setStar() async {
-    final dsStar = await api_To_Star(sanPham.id!);
-    double star = 0.0;
-    double z = 1;
-    int s = 0;
-    if (dsStar.isNotEmpty) {
-      for (var i = 0; i < dsStar.length; i++) {
-        if (dsStar[i].Star != 0) {
-          s += dsStar[i].Star!;
-          z++;
-        }
-      }
-    }
-    if (z > 1) {
-      return double.parse((s / (z - 1)).toString());
-    } else {
-      return star;
-    }
-  }
-
   return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
     Text(
       sanPham.tenSanPham,
@@ -307,29 +286,22 @@ Widget buildProductData(SanPham sanPham) {
     SizedBox(
       height: 5.0,
     ),
-    FutureBuilder(
-      future: setStar(),
-      builder: (context, snap) {
-        return snap.hasData
-            ? Row(
-                children: [
-                  RatingBarIndicator(
-                      rating: double.parse(snap.data.toString()),
-                      itemSize: 30.0,
-                      itemBuilder: (context, index) {
-                        return const Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                        );
-                      }),
-                  Text(
-                    snap.data.toString() + " ratings",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  )
-                ],
-              )
-            : const Text("");
-      },
+    Row(
+      children: [
+        RatingBarIndicator(
+            rating: sanPham.star!,
+            itemSize: 30.0,
+            itemBuilder: (context, index) {
+              return const Icon(
+                Icons.star,
+                color: Colors.amber,
+              );
+            }),
+        Text(
+          "${sanPham.star} ratings",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        )
+      ],
     )
   ]);
 }
