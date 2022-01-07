@@ -45,9 +45,11 @@ class _WellcomePageState extends State<WellcomePage> {
                         Navigator.pushReplacementNamed(context, '/Home');
                         EasyLoading.dismiss();
                       } else {
+                        
                         Navigator.pushReplacementNamed(context, '/Sign_In');
                         EasyLoading.dismiss();
                       }
+                      
                     },
                   ),
                 ),

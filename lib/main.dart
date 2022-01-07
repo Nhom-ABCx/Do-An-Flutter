@@ -1,4 +1,5 @@
 // ignore_for_file: unnecessary_const
+import 'package:flutter_application_1/Controller/binh_luan_controller.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ChangeLayOut()),
         ChangeNotifierProvider(create: (_) => CartProvider()),
         ChangeNotifierProvider(create: (_) => DiaChiController()),
+        ChangeNotifierProvider(create: (_) => BinhLuanController()),
         Provider(create: (_) => FileController())
       ],
       child: MaterialApp(

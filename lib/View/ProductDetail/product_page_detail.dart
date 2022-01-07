@@ -3,10 +3,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/Modals/binh_luan.dart';
+import 'package:flutter_application_1/Controller/binh_luan_controller.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import '../../Modals/cart_model.dart';
 import 'package:flutter_application_1/DB/database_mb.dart';
 import 'package:provider/provider.dart';
 import '../../all_page.dart';
@@ -23,8 +22,10 @@ class ProductDetail extends StatelessWidget {
     );
   }
 
-  createNewComment(BuildContext context, int khachHangId, int sanPhamId) {
+  createNewComment(BuildContext context, int sanPhamId) {
     final commentController = TextEditingController();
+    final binhLuanController = Provider.of<BinhLuanController>(context, listen: false);
+
     return showDialog(
         //barrierDismissible: false, //ko cho nhap ra ngoai
         context: context,
@@ -43,8 +44,10 @@ class ProductDetail extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () async {
                       showCustomLoadding();
-                      final success = await api_Add_BinhLuan(commentController.text, khachHangId, sanPhamId);
-                      if (success) {
+
+                      final addbl = await binhLuanController.addBinhLuan(commentController.text, sanPhamId);
+                      // ignore: unrelated_type_equality_checks
+                      if (addbl) {
                         thongBaoScaffoldMessenger(context, "Add Success");
                         Navigator.pop(context);
                         EasyLoading.dismiss();
@@ -76,165 +79,172 @@ class ProductDetail extends StatelessWidget {
         //drawer: const NavigationDrawer(),
         body: Stack(
           children: [
-            ListView(
-              children: [
-                Container(
-                  height: 250,
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(90),
+            ListView(children: [
+              Container(
+                height: 250,
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(90),
+                    )),
+                child: FutureBuilder<SanPham>(
+                    future: fetchProductData(sanPham.id.toString()),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) {
+                        // ignore: avoid_print
+                        print(snapshot.error);
+                      }
+                      return snapshot.hasData
+                          ? _sanPhamImg(snapshot.data!)
+                          : const Center(
+                              child: CupertinoActivityIndicator(),
+                            );
+                    }),
+              ),
+              Container(
+                decoration: const BoxDecoration(color: Colors.white),
+                child: Container(
+                  height: 170,
+                  decoration: const BoxDecoration(color: Color(0xFFD6D6D6), borderRadius: BorderRadius.only(topLeft: Radius.circular(50))),
+                  child: Padding(
+                      padding: const EdgeInsets.fromLTRB(15.0, 10.0, 0, 5.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          FutureBuilder<SanPham>(
+                              future: fetchProductData(sanPham.id.toString()),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasError) {
+                                  // ignore: avoid_print
+                                  print(snapshot.error);
+                                }
+                                return snapshot.hasData
+                                    ? buildProductData(snapshot.data!)
+                                    : Center(
+                                        child: CupertinoActivityIndicator(),
+                                      );
+                              })
+                        ],
                       )),
-                  child: FutureBuilder<SanPham>(
-                      future: fetchProductData(sanPham.id.toString()),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasError) {
-                          // ignore: avoid_print
-                          print(snapshot.error);
-                        }
-                        return snapshot.hasData
-                            ? _sanPhamImg(snapshot.data!)
-                            : const Center(
-                                child: CupertinoActivityIndicator(),
-                              );
-                      }),
                 ),
-                Container(
-                  decoration: const BoxDecoration(color: Colors.white),
-                  child: Container(
-                    height: 170,
-                    decoration: const BoxDecoration(color: Color(0xFFD6D6D6), borderRadius: BorderRadius.only(topLeft: Radius.circular(50))),
-                    child: Padding(
-                        padding: const EdgeInsets.fromLTRB(15.0, 10.0, 0, 5.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            FutureBuilder<SanPham>(
-                                future: fetchProductData(sanPham.id.toString()),
-                                builder: (context, snapshot) {
-                                  if (snapshot.hasError) {
-                                    // ignore: avoid_print
-                                    print(snapshot.error);
-                                  }
-                                  return snapshot.hasData
-                                      ? buildProductData(snapshot.data!)
-                                      : Center(
-                                          child: CupertinoActivityIndicator(),
-                                        );
-                                })
-                          ],
-                        )),
-                  ),
-                ),
-                buildTimeSale(),
-                // const SizedBox(
-                //   height: 10.0,
-                // ),
-                buildStockProduct(context, sanPham),
-                SizedBox(
-                  height: 10.0,
-                ),
-                Container(
-                  height: 100,
-                  decoration: BoxDecoration(
-                      color: Color(0xFFD6D6D6), borderRadius: BorderRadius.only(topLeft: Radius.circular(15.0), topRight: Radius.circular(15.0))),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          'Decription product',
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                        ),
+              ),
+              buildTimeSale(),
+              buildStockProduct(context, sanPham),
+              SizedBox(
+                height: 10.0,
+              ),
+              Container(
+                height: 100,
+                decoration: BoxDecoration(
+                    color: Color(0xFFD6D6D6), borderRadius: BorderRadius.only(topLeft: Radius.circular(15.0), topRight: Radius.circular(15.0))),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'Decription product',
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                       ),
-                      SizedBox(height: 10.0),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
-                        child: Text(sanPham.moTa!),
-                      )
+                    ),
+                    SizedBox(height: 10.0),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10.0),
+                      child: Text(sanPham.moTa!),
+                    )
+                  ],
+                ),
+              ),
+              //binh luan
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  width: 100,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Product Reviews',
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                      FutureBuilder(
+                          future: api_Kiem_Tra_Auth_BinhLuan(sanPham.id!),
+                          builder: (context, snap) {
+                            if (snap.hasError) {
+                              return Text(snap.error.toString());
+                            }
+                            if (snap.data == true) {
+                              return Container(
+                                height: 45,
+                                //color:Colors.amber,
+                                decoration: BoxDecoration(color: Colors.grey[300], borderRadius: BorderRadius.circular(10)),
+                                child: TextButton(
+                                    onPressed: () async {
+                                      await createNewComment(context, sanPham.id!);
+                                    },
+                                    child: Row(
+                                      children: const [
+                                        Text(
+                                          "Add comment",
+                                          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.blue),
+                                        ),
+                                        Icon(
+                                          Icons.create_sharp,
+                                          size: 20,
+                                          color: Colors.teal,
+                                        )
+                                      ],
+                                    )),
+                              );
+                            } else {
+                              return Text("");
+                            }
+                          })
                     ],
                   ),
                 ),
-                //binh luan
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: 100,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Product Reviews',
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                        ),
-                        Container(
-                          height: 45,
-                          //color:Colors.amber,
-                          decoration: BoxDecoration(color: Colors.grey[300], borderRadius: BorderRadius.circular(10)),
-                          child: TextButton(
-                              onPressed: () {
-                                createNewComment(context, Auth.khachHang.id!, sanPham.id!);
-                              },
-                              child: Row(
-                                children: const [
-                                  Text(
-                                    "Add comment",
-                                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.blue),
-                                  ),
-                                  Icon(
-                                    Icons.create_sharp,
-                                    size: 20,
-                                    color: Colors.teal,
-                                  )
-                                ],
-                              )),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                FutureBuilder<List<BinhLuan>>(
-                    future: api_GetAll_BinhLuan(sanPham.id!),
-                    builder: (context, snap) {
-                      if (snap.hasError) {
-                        return Text(snap.error.toString());
-                      }
-                      if (snap.hasData) {
-                        return ListView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: snap.data!.length,
-                            itemBuilder: (context, index) {
-                              return ListTile(
-                                leading: ClipRRect(
-                                  borderRadius: BorderRadius.circular(100),
-                                  child: CachedNetworkImage(
-                                    width: 60,
-                                    height: 60,
-                                    imageUrl: "http://10.0.2.2:8000/storage/assets/images/avatar/User/${snap.data![index].khachHangId}/" +
-                                        snap.data![index].hinhAnhKh!,
-                                    placeholder: (context, url) => const Center(
-                                      child: CupertinoActivityIndicator(),
-                                    ),
-                                    errorWidget: (context, url, error) => const Icon(
-                                      Icons.error,
-                                      color: Colors.red,
-                                      size: 50,
+              ),
+              Consumer<BinhLuanController>(
+                  builder: (context, binhluanController, child) => FutureBuilder<List<BinhLuan>>(
+                      future: binhluanController.getData(sanPham.id!),
+                      builder: (context, snap) {
+                        if (snap.hasError) {
+                          return Text(snap.error.toString());
+                        }
+                        if (snap.hasData) {
+                          return ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: snap.data!.length,
+                              itemBuilder: (context, index) {
+                                return ListTile(
+                                  leading: ClipRRect(
+                                    borderRadius: BorderRadius.circular(100),
+                                    child: CachedNetworkImage(
+                                      width: 60,
+                                      height: 60,
+                                      imageUrl: "http://10.0.2.2:8000/storage/assets/images/avatar/User/${snap.data![index].khachHangId}/" +
+                                          snap.data![index].hinhAnhKh!,
+                                      placeholder: (context, url) => const Center(
+                                        child: CupertinoActivityIndicator(),
+                                      ),
+                                      errorWidget: (context, url, error) => const Icon(
+                                        Icons.error,
+                                        color: Colors.red,
+                                        size: 50,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                title: Text(snap.data![index].userName!),
-                                subtitle: Text(snap.data![index].noiDung!),
-                              );
-                            });
-                      }
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    })
-              ],
-            ),
+                                  title: Text(snap.data![index].userName!),
+                                  subtitle: Text(snap.data![index].noiDung!),
+                                );
+                              });
+                        }
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      })),
+            ]),
           ],
         ),
         bottomNavigationBar: const BottomNavBar(0),
@@ -283,11 +293,10 @@ Widget buildProductData(SanPham sanPham) {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-           "Price: "+formatNumber.format(sanPham.giaBan) ,
+          "Price: " + formatNumber.format(sanPham.giaBan),
           style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.blue),
         ),
-        IconButton(onPressed: (){},
-         icon: Icon(Icons.favorite_border))
+        IconButton(onPressed: () {}, icon: Icon(Icons.favorite_border))
       ],
     ),
     const SizedBox(height: 5),
@@ -295,27 +304,30 @@ Widget buildProductData(SanPham sanPham) {
       "Stock: " + sanPham.soLuongTon.toString(),
       style: TextStyle(color: Colors.red, fontSize: 20.0, fontWeight: FontWeight.bold),
     ),
-    SizedBox(height: 5.0,),
+    SizedBox(
+      height: 5.0,
+    ),
     FutureBuilder(
       future: setStar(),
       builder: (context, snap) {
         return snap.hasData
             ? Row(
-              children: [
-                RatingBarIndicator(
-                    rating: double.parse(snap.data.toString()),
-                    itemSize: 30.0,
-                    itemBuilder: (context, index) {
-                      return const Icon(
-                        Icons.star,
-                        color: Colors.amber,
-                      );
-                    }),
-                Text(snap.data.toString()+" ratings",style: TextStyle(
-                  fontWeight: FontWeight.bold
-                ),)
-              ],
-            )
+                children: [
+                  RatingBarIndicator(
+                      rating: double.parse(snap.data.toString()),
+                      itemSize: 30.0,
+                      itemBuilder: (context, index) {
+                        return const Icon(
+                          Icons.star,
+                          color: Colors.amber,
+                        );
+                      }),
+                  Text(
+                    snap.data.toString() + " ratings",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  )
+                ],
+              )
             : const Text("");
       },
     )
@@ -324,12 +336,9 @@ Widget buildProductData(SanPham sanPham) {
 
 Widget buildTimeSale() {
   return Container(
-    
     margin: EdgeInsets.only(top: 15.0, bottom: 15.0),
     height: 50,
-    decoration: BoxDecoration(color: Color(0xFFD6D6D6),
-    borderRadius: BorderRadius.circular(10)
-    ),
+    decoration: BoxDecoration(color: Color(0xFFD6D6D6), borderRadius: BorderRadius.circular(10)),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -357,7 +366,7 @@ Widget buildTimeSale() {
 Widget buildStockProduct(BuildContext context, SanPham sanPham) {
   Db dbCart = Db();
   final cartprd = Provider.of<CartProvider>(context);
-  
+
   Row stock = Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
@@ -392,7 +401,7 @@ Widget buildStockProduct(BuildContext context, SanPham sanPham) {
                 //     productImg: sanPham.hinhAnh!);
                 // bool check = await dbCart.checkStocProduct(sanPham.soLuongTon!, crt);
                 // if (check) {
-                  cartprd.addQuantity();
+                cartprd.addQuantity();
                 // } else {
                 //   thongBaoScaffoldMessenger(context, "Limited quantity");
                 // }
@@ -407,13 +416,13 @@ Widget buildStockProduct(BuildContext context, SanPham sanPham) {
   );
   return Container(
     height: 50,
-    decoration: BoxDecoration(color: Color(0xFFD6D6D6),
-      borderRadius: BorderRadius.circular(10)
-    ),
+    decoration: BoxDecoration(color: Color(0xFFD6D6D6), borderRadius: BorderRadius.circular(10)),
     child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
       stock,
-      
-      SizedBox(width: 50,),
+
+      SizedBox(
+        width: 50,
+      ),
       // ignore: deprecated_member_use
       FlatButton(
           textColor: Colors.white,
@@ -424,7 +433,7 @@ Widget buildStockProduct(BuildContext context, SanPham sanPham) {
                 productId: sanPham.id!,
                 productName: sanPham.tenSanPham,
                 inintPrice: sanPham.giaBan!,
-                productPrice: (cartprd.getQuantity()*sanPham.giaBan!),
+                productPrice: (cartprd.getQuantity() * sanPham.giaBan!),
                 quantity: cartprd.getQuantity(),
                 productImg: sanPham.hinhAnh!);
             bool check = await dbCart.ifPrdExitsCart(crt);
@@ -441,11 +450,11 @@ Widget buildStockProduct(BuildContext context, SanPham sanPham) {
                 print(error.toString());
               });
             }
-            int newPrice=sanPham.giaBan!*cartprd.getQuantity();
+            int newPrice = sanPham.giaBan! * cartprd.getQuantity();
             dbCart
                 .insertItemCart(Cart(
-                  id: sanPham.id,
-                  productId: sanPham.id!,
+                    id: sanPham.id,
+                    productId: sanPham.id!,
                     productName: sanPham.tenSanPham,
                     inintPrice: sanPham.giaBan!,
                     productPrice: newPrice,

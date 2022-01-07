@@ -517,17 +517,43 @@ Future<List<BinhLuan>> api_GetAll_BinhLuan(int idSanPham) async {
   } catch (_) {}
   return lstBinhLuan;
 }
-
+//tra ve khi ds binh luan co thay doi
+Stream<List<BinhLuan>> getBinhLuans(Duration refreshTime,int idSanPham) async*{
+  while(true){
+    await Future.delayed(refreshTime);
+    yield await api_GetAll_BinhLuan(idSanPham);
+  }
+}
 //add binh luan
-Future<bool> api_Add_BinhLuan(String noiDung, int khachHangId, int sanPhamId) async {
+Future<dynamic> api_Add_BinhLuan(String noiDung, int khachHangId, int sanPhamId) async {
   final uri = Uri.parse(urlBaseAPI + "binh-luan/add");
   bool status = false;
   try {
     final response = await http.post(uri, body: {"NoiDung": noiDung, "KhachHangId": "$khachHangId", "SanPhamId": "$sanPhamId"});
     if (response.statusCode == 200) {
       return status = true;
+    }else if(response.statusCode==400){
+      return json.decode(response.body);
     }
+    
     // ignore: empty_catches
   } catch (e) {}
   return status;
+}
+//kiem tra tk duoc binh luan san pham
+Future<bool> api_Kiem_Tra_Auth_BinhLuan(int idSanPham) async{
+  final uri =Uri.parse(urlBaseAPI+"binh-luan?KhachHangId=${Auth.khachHang.id}");
+  bool check=false;
+  try {
+    final response=await http.get(uri);
+   if (response.statusCode==200) {
+     List jsonRaw = json.decode(response.body);
+      final lstSanPham = jsonRaw.map((e) => SanPham.fromJson(e)).toList();
+      final ss = lstSanPham.where((element) => element.id == idSanPham).toList();
+      if (ss.isNotEmpty) {
+        check = true;
+      }
+   }
+  } catch (_) {}
+  return check;
 }
