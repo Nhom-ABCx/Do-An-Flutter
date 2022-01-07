@@ -16,9 +16,7 @@ class SanPham {
   int? luotMua;
   int? hangSanXuatId;
   int? loaiSanPhamId;
-  DateTime? createdAt;
-  DateTime? updatedAt;
-  DateTime? deletedAt;
+  int? isFavorite;
 
   SanPham({
     this.id,
@@ -31,9 +29,7 @@ class SanPham {
     this.luotMua,
     this.hangSanXuatId,
     this.loaiSanPhamId,
-    this.createdAt,
-    this.updatedAt,
-    this.deletedAt,
+    this.isFavorite,
   });
   factory SanPham.fromJson(dynamic json) => _$SanPhamFromJson(json);
   Map<String, dynamic> toJson() => _$SanPhamToJson(this);

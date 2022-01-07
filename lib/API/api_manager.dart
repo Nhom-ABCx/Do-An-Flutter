@@ -14,7 +14,7 @@ Future<List<SanPham>> api_GetAll_SanPham() async {
   List<SanPham> lstSanPham = [];
 
   try {
-    final response = await http.get(Uri.parse(urlBaseAPI + "SanPham"));
+    final response = await http.get(Uri.parse(urlBaseAPI + "SanPham?KhachHangId=${Auth.khachHang.id}"));
     if (response.statusCode == 200) {
       //nay` von' dang o dang List, ep kieu no' thanh List de co them phuong thuc'
       List jsonRaw = json.decode(response.body);
@@ -34,7 +34,7 @@ Future<List<SanPham>> api_GetAll_SanPham() async {
 Future<List<SanPham>> api_SanPham_LoaiSanPham(int loaiSanPhamId) async {
   List<SanPham> lstSanPhamTheoLoai = [];
   try {
-    final response = await http.get(Uri.parse(urlBaseAPI + 'SanPham/LoaiSanPham/$loaiSanPhamId'));
+    final response = await http.get(Uri.parse(urlBaseAPI + 'SanPham/LoaiSanPham/$loaiSanPhamId?KhachHangId=${Auth.khachHang.id}'));
     if (response.statusCode == 200) {
       List jsonlst = [];
       jsonlst = json.decode(response.body);
@@ -50,7 +50,8 @@ Future<List<SanPham>> api_SanPham_LoaiSanPham(int loaiSanPhamId) async {
 Future<List<SanPham>> api_SanPham_GiaBan(int loaiSanPhamId, int priceFrom, int priceTo) async {
   List<SanPham> lstSanPham = [];
   try {
-    final response = await http.get(Uri.parse(urlBaseAPI + 'SanPham/GiaBan?id=$loaiSanPhamId&PriceFrom=$priceFrom&PriceTo=$priceTo'));
+    final response = await http
+        .get(Uri.parse(urlBaseAPI + 'SanPham/GiaBan?KhachHangId=${Auth.khachHang.id}&id=$loaiSanPhamId&PriceFrom=$priceFrom&PriceTo=$priceTo'));
     if (response.statusCode == 200) {
       List jsonlst = json.decode(response.body);
       lstSanPham = jsonlst.map((data) => SanPham.fromJson(data)).toList();
@@ -77,7 +78,7 @@ Future<SanPham> fetchProductData(String id) async {
 
 // sản phẩm bán chạy
 Future<List<SanPham>> fecthSanPhamBanChay() async {
-  const url = urlBaseAPI + 'san-pham-top';
+  final url = urlBaseAPI + 'san-pham-top?KhachHangId=${Auth.khachHang.id}';
   List<SanPham> sanPhamTop = [];
   try {
     final response = await http.get(Uri.parse(url));
@@ -92,7 +93,7 @@ Future<List<SanPham>> fecthSanPhamBanChay() async {
 
 // San pham dang khuyen mai~
 Future<List<SanPham>> fetchSanPhamSale() async {
-  String url = urlBaseAPI + 'SanPham/GiamGia';
+  String url = urlBaseAPI + 'SanPham/GiamGia?KhachHangId=${Auth.khachHang.id}';
   List<SanPham> lstSanPhamSale = [];
   try {
     final response = await http.get(Uri.parse(url));
@@ -107,7 +108,7 @@ Future<List<SanPham>> fetchSanPhamSale() async {
 
 //tiềm kiếm
 Future<List<SanPham>> ftechSanPhamSearch(String tenSanPhamTiemKiem) async {
-  final url = urlBaseAPI + "search-product?TenSanPham=$tenSanPhamTiemKiem";
+  final url = urlBaseAPI + "search-product?TenSanPham=$tenSanPhamTiemKiem&KhachHangId=${Auth.khachHang.id}";
   List<SanPham> lstSanPhamSearch = [];
   try {
     final response = await http.post(Uri.parse(url));
@@ -294,7 +295,7 @@ Future<List<SanPham>> api_Get_SanPham_YeuThich(int khachHangId) async {
   List<SanPham> lstSanPham = [];
 
   try {
-    final response = await http.get(Uri.parse(urlBaseAPI + "SanPham/YeuThich/$khachHangId"));
+    final response = await http.get(Uri.parse(urlBaseAPI + "SanPham/YeuThich?KhachHangId=$khachHangId"));
     if (response.statusCode == 200) {
       //nay` von' dang o dang List, ep kieu no' thanh List de co them phuong thuc'
       List jsonRaw = json.decode(response.body);
@@ -307,18 +308,6 @@ Future<List<SanPham>> api_Get_SanPham_YeuThich(int khachHangId) async {
   } catch (e) {}
 
   return lstSanPham;
-}
-
-Future<bool> api_Get_YeuThich(int khachHangId, int SanPhamId) async {
-  bool isYeuThich = false;
-  try {
-    final response = await http.get(Uri.parse(urlBaseAPI + "YeuThich?KhachHangId=$khachHangId&SanPhamId=$SanPhamId"));
-    if (response.statusCode == 200) {
-      isYeuThich = true;
-    }
-    // ignore: empty_catches
-  } catch (e) {}
-  return isYeuThich;
 }
 
 Future<bool> api_Insert_KhachHang_YeuThich_SanPham(int khachHangId, int sanPhamId) async {

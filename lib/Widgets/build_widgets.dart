@@ -384,20 +384,7 @@ Widget buildListSanPham(BuildContext context, Future<List<SanPham>> listSanPham)
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
               ),
-              itemBuilder: (context, index) => FutureBuilder<bool>(
-                  future: api_Get_YeuThich(Auth.khachHang.id!, snapshot.data![index].id!),
-                  builder: (context, isFavorite) => snapshot.hasData
-                      ? Container(
-                          height: 600,
-                          margin: const EdgeInsets.all(2.0),
-                          child: buildItem(
-                            snapshot.data![index],
-                            isFavorite: isFavorite.data ?? false,
-                          ),
-                        )
-                      : const Center(
-                          child: CircularProgressIndicator(),
-                        )))
+              itemBuilder: (context, index) => buildItem(snapshot.data![index]))
           : const Center(
               child: CircularProgressIndicator(),
             );

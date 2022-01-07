@@ -8,8 +8,7 @@ import '../all_page.dart';
 
 class buildItem extends StatefulWidget {
   SanPham sanPham;
-  bool? isFavorite;
-  buildItem(this.sanPham, {Key? key, this.isFavorite = false}) : super(key: key);
+  buildItem(this.sanPham, {Key? key}) : super(key: key);
   @override
   _buildItemState createState() => _buildItemState();
 }
@@ -131,17 +130,17 @@ class _buildItemState extends State<buildItem> {
               top: 0.0,
               child: IconButton(
                 onPressed: () async {
-                  if (widget.isFavorite!) {
+                  if (widget.sanPham.isFavorite!.isOdd) {
                     await api_Delete_KhachHang_YeuThich_SanPham(Auth.khachHang.id!, widget.sanPham.id!)
-                        ? setState(() => widget.isFavorite = false)
+                        ? setState(() => widget.sanPham.isFavorite = 0)
                         : null;
                   } else {
                     await api_Insert_KhachHang_YeuThich_SanPham(Auth.khachHang.id!, widget.sanPham.id!)
-                        ? setState(() => widget.isFavorite = true)
+                        ? setState(() => widget.sanPham.isFavorite = 1)
                         : null;
                   }
                 },
-                icon: widget.isFavorite!
+                icon: widget.sanPham.isFavorite!.isOdd
                     ? const Icon(
                         Icons.favorite,
                         color: Colors.red,
