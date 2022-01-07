@@ -252,27 +252,6 @@ Widget buildImageSanPham(SanPham sanPham) {
 }
 
 Widget buildProductData(SanPham sanPham) {
-  //ham tra ve so sao cua san pham
-  Future<double> setStar() async {
-    final dsStar = await api_To_Star(sanPham.id!);
-    double star = 0.0;
-    double z = 1;
-    int s = 0;
-    if (dsStar.isNotEmpty) {
-      for (var i = 0; i < dsStar.length; i++) {
-        if (dsStar[i].Star != 0) {
-          s += dsStar[i].Star!;
-          z++;
-        }
-      }
-    }
-    if (z > 1) {
-      return double.parse((s / (z - 1)).toString());
-    } else {
-      return star;
-    }
-  }
-
   return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
     Text(
       sanPham.tenSanPham,
@@ -283,11 +262,10 @@ Widget buildProductData(SanPham sanPham) {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-           "Price: "+formatNumber.format(sanPham.giaBan) ,
+          "Price: " + formatNumber.format(sanPham.giaBan),
           style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.blue),
         ),
-        IconButton(onPressed: (){},
-         icon: Icon(Icons.favorite_border))
+        IconButton(onPressed: () {}, icon: Icon(Icons.favorite_border))
       ],
     ),
     const SizedBox(height: 5),
@@ -295,41 +273,34 @@ Widget buildProductData(SanPham sanPham) {
       "Stock: " + sanPham.soLuongTon.toString(),
       style: TextStyle(color: Colors.red, fontSize: 20.0, fontWeight: FontWeight.bold),
     ),
-    SizedBox(height: 5.0,),
-    FutureBuilder(
-      future: setStar(),
-      builder: (context, snap) {
-        return snap.hasData
-            ? Row(
-              children: [
-                RatingBarIndicator(
-                    rating: double.parse(snap.data.toString()),
-                    itemSize: 30.0,
-                    itemBuilder: (context, index) {
-                      return const Icon(
-                        Icons.star,
-                        color: Colors.amber,
-                      );
-                    }),
-                Text(snap.data.toString()+" ratings",style: TextStyle(
-                  fontWeight: FontWeight.bold
-                ),)
-              ],
-            )
-            : const Text("");
-      },
+    SizedBox(
+      height: 5.0,
+    ),
+    Row(
+      children: [
+        RatingBarIndicator(
+            rating: sanPham.star!,
+            itemSize: 30.0,
+            itemBuilder: (context, index) {
+              return const Icon(
+                Icons.star,
+                color: Colors.amber,
+              );
+            }),
+        Text(
+          "${sanPham.star} ratings",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        )
+      ],
     )
   ]);
 }
 
 Widget buildTimeSale() {
   return Container(
-    
     margin: EdgeInsets.only(top: 15.0, bottom: 15.0),
     height: 50,
-    decoration: BoxDecoration(color: Color(0xFFD6D6D6),
-    borderRadius: BorderRadius.circular(10)
-    ),
+    decoration: BoxDecoration(color: Color(0xFFD6D6D6), borderRadius: BorderRadius.circular(10)),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -357,7 +328,7 @@ Widget buildTimeSale() {
 Widget buildStockProduct(BuildContext context, SanPham sanPham) {
   Db dbCart = Db();
   final cartprd = Provider.of<CartProvider>(context);
-  
+
   Row stock = Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
@@ -392,7 +363,7 @@ Widget buildStockProduct(BuildContext context, SanPham sanPham) {
                 //     productImg: sanPham.hinhAnh!);
                 // bool check = await dbCart.checkStocProduct(sanPham.soLuongTon!, crt);
                 // if (check) {
-                  cartprd.addQuantity();
+                cartprd.addQuantity();
                 // } else {
                 //   thongBaoScaffoldMessenger(context, "Limited quantity");
                 // }
@@ -407,13 +378,13 @@ Widget buildStockProduct(BuildContext context, SanPham sanPham) {
   );
   return Container(
     height: 50,
-    decoration: BoxDecoration(color: Color(0xFFD6D6D6),
-      borderRadius: BorderRadius.circular(10)
-    ),
+    decoration: BoxDecoration(color: Color(0xFFD6D6D6), borderRadius: BorderRadius.circular(10)),
     child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
       stock,
-      
-      SizedBox(width: 50,),
+
+      SizedBox(
+        width: 50,
+      ),
       // ignore: deprecated_member_use
       FlatButton(
           textColor: Colors.white,
@@ -424,7 +395,7 @@ Widget buildStockProduct(BuildContext context, SanPham sanPham) {
                 productId: sanPham.id!,
                 productName: sanPham.tenSanPham,
                 inintPrice: sanPham.giaBan!,
-                productPrice: (cartprd.getQuantity()*sanPham.giaBan!),
+                productPrice: (cartprd.getQuantity() * sanPham.giaBan!),
                 quantity: cartprd.getQuantity(),
                 productImg: sanPham.hinhAnh!);
             bool check = await dbCart.ifPrdExitsCart(crt);
@@ -441,11 +412,11 @@ Widget buildStockProduct(BuildContext context, SanPham sanPham) {
                 print(error.toString());
               });
             }
-            int newPrice=sanPham.giaBan!*cartprd.getQuantity();
+            int newPrice = sanPham.giaBan! * cartprd.getQuantity();
             dbCart
                 .insertItemCart(Cart(
-                  id: sanPham.id,
-                  productId: sanPham.id!,
+                    id: sanPham.id,
+                    productId: sanPham.id!,
                     productName: sanPham.tenSanPham,
                     inintPrice: sanPham.giaBan!,
                     productPrice: newPrice,

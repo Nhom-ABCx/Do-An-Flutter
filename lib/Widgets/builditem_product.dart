@@ -15,37 +15,6 @@ class buildItem extends StatefulWidget {
 
 // ignore: camel_case_types
 class _buildItemState extends State<buildItem> {
-  //ham tra ve so sao cua san pham
-  Future<double> setStar() async {
-    final dsStar = await api_To_Star(widget.sanPham.id!);
-    double star = 0.0;
-    double z = 1;
-    int s = 0;
-    if (dsStar.isNotEmpty) {
-      for (var i = 0; i < dsStar.length; i++) {
-        if (dsStar[i].Star != 0) {
-          s += dsStar[i].Star!;
-          z++;
-        }
-      }
-    }
-    if (z > 1) {
-      return double.parse((s / (z - 1)).toString());
-    } else {
-      return star;
-    }
-  }
-
-  // //KIỂM TRA SẢN PHẨM CÓ KHUYẾN MÃI?
-  // Future<bool> checkSale() async {
-  //   final check = await api_Price_Sale(widget.sanPham.id!);
-  //   // ignore: unnecessary_null_comparison
-  //   if (api_Price_Sale(widget.sanPham.id!).) {
-  //     return true;
-  //   }
-  //   return false;
-  // }
-
   late Future<KhuyenMai> khuyenMai;
   @override
   void initState() {
@@ -130,7 +99,8 @@ class _buildItemState extends State<buildItem> {
               top: 0.0,
               child: IconButton(
                 onPressed: () async {
-                  if (widget.sanPham.isFavorite!.isOdd) {
+                  if (widget.sanPham.isFavorite != 0) {
+                    //neu dang check
                     await api_Delete_KhachHang_YeuThich_SanPham(Auth.khachHang.id!, widget.sanPham.id!)
                         ? setState(() => widget.sanPham.isFavorite = 0)
                         : null;
@@ -197,23 +167,17 @@ class _buildItemState extends State<buildItem> {
                   ),
                 )),
           ),
-          // //rating
+          //rating
           Positioned(
               bottom: 0.0,
-              child: FutureBuilder(
-                  future: setStar(),
-                  builder: (context, snap) {
-                    return snap.hasData
-                        ? RatingBarIndicator(
-                            rating: double.parse(snap.data.toString()),
-                            itemSize: 20.0,
-                            itemBuilder: (context, index) {
-                              return const Icon(
-                                Icons.star,
-                                color: Colors.amber,
-                              );
-                            })
-                        : const Text("");
+              child: RatingBarIndicator(
+                  rating: widget.sanPham.star!,
+                  itemSize: 20.0,
+                  itemBuilder: (context, index) {
+                    return const Icon(
+                      Icons.star,
+                      color: Colors.amber,
+                    );
                   })),
         ],
       ),

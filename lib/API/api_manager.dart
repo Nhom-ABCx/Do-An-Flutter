@@ -336,20 +336,6 @@ Future<bool> api_Delete_KhachHang_YeuThich_SanPham(int khachHangId, int sanPhamI
   return success;
 }
 
-//danh gia
-Future<List<CT_HoaDon>> api_To_Star(int idSanPham) async {
-  final uri = Uri.parse(urlBaseAPI + "danh-gia/$idSanPham");
-  List<CT_HoaDon> ctHoaDon = [];
-  try {
-    final response = await http.get(uri);
-    if (response.statusCode == 200) {
-      List jSonRaw = json.decode(response.body);
-      ctHoaDon = jSonRaw.map((e) => CT_HoaDon.fromJson(e)).toList();
-    }
-  } catch (_) {}
-  return ctHoaDon;
-}
-
 //Gia giam
 Future<KhuyenMai> api_Price_Sale(int idSanPham) async {
   final uri = Uri.parse(urlBaseAPI + "khuyen-mai/$idSanPham");
