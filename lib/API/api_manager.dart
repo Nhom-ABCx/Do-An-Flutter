@@ -206,7 +206,7 @@ Future<bool> api_sendEmail_User_Reset(String username) async {
 
 //them du lieu vao gio hang
 
-Future<bool> api_HoaDon_LapHoaDon(int khachHangId) async {
+Future<bool> api_HoaDon_LapHoaDon(int diaChiId) async {
   const url = urlBaseAPI + 'HoaDon/LapHoaDon';
 
   try {
@@ -219,7 +219,7 @@ Future<bool> api_HoaDon_LapHoaDon(int khachHangId) async {
     for (var item in cart) {
       value.add({"SanPhamId": "${item.productId}", "SoLuong": "${item.quantity}"});
     }
-    final body = json.encode({"KhachHangId": "$khachHangId", "Data": value});
+    final body = json.encode({"DiaChiId": "$diaChiId", "Data": value});
     final response = await http.post(Uri.parse(url), body: body, headers: {"accept": "application/json", "content-type": "application/json"});
     if (response.statusCode == 200) {
       return await cartProvider.deleteAllCart();

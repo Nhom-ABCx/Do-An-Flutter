@@ -469,7 +469,7 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
                             onPressed: () async {
                               showCustomLoadding();
 
-                              if (await api_HoaDon_LapHoaDon(Auth.khachHang.id!)) {
+                              if (await api_HoaDon_LapHoaDon(_diaChi.id ?? 1)) {
                                 Navigator.pushNamed(context, "/SuccessfullyPage");
                                 EasyLoading.dismiss();
                               } else {
