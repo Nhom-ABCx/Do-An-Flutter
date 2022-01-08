@@ -18,7 +18,7 @@ class CT_HoaDon {
   DateTime? createdAt;
   DateTime? updatedAt;
   DateTime? deletedAt;
-    SanPham? sanPham;
+  SanPham? sanPham;
 
   CT_HoaDon(
       {this.HoaDonId,

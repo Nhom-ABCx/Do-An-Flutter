@@ -17,6 +17,7 @@ class SanPham {
   int? loaiSanPhamId;
   int? isFavorite;
   double? star;
+  double? giamGia;
 
   SanPham({
     this.id,
@@ -30,7 +31,8 @@ class SanPham {
     this.hangSanXuatId,
     this.loaiSanPhamId,
     this.isFavorite,
-    this.star
+    this.star,
+    this.giamGia,
   });
   factory SanPham.fromJson(dynamic json) => _$SanPhamFromJson(json);
   Map<String, dynamic> toJson() => _$SanPhamToJson(this);

@@ -61,11 +61,11 @@ class _QuanLyDonHangPageState extends State<QuanLyDonHangPage> with SingleTicker
       //Body
       body: TabBarView(
         controller: tabController,
-        children: const [
-          ToPayTab(),
-          ToPayTab(),
-          ToPayTab(),
-          ToPayTab(),
+        children:  [
+          ToPayTab(TrangThai: 0,),
+          ToPayTab(TrangThai: 1),
+          ToPayTab(TrangThai: 2),
+          ToPayTab(TrangThai: 2),
         ],
       ),
       //nho' thay doi? lai con so' truyen du~ lieu

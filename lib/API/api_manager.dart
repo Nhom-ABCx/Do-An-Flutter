@@ -336,20 +336,6 @@ Future<bool> api_Delete_KhachHang_YeuThich_SanPham(int khachHangId, int sanPhamI
   return success;
 }
 
-//Gia giam
-Future<KhuyenMai> api_Price_Sale(int idSanPham) async {
-  final uri = Uri.parse(urlBaseAPI + "khuyen-mai/$idSanPham");
-  KhuyenMai ctKhuyenMai = KhuyenMai();
-  try {
-    final response = await http.get(uri);
-    if (response.statusCode == 200) {
-      final jsonRaw = json.decode(response.body);
-      ctKhuyenMai = KhuyenMai.fromJson(jsonRaw);
-    }
-  } catch (_) {}
-  return ctKhuyenMai;
-}
-
 Future<List<TinhThanhPho>> api_GetAll_TinhThanhPho(String search) async {
   List<TinhThanhPho> lst = [];
 
@@ -503,13 +489,15 @@ Future<List<BinhLuan>> api_GetAll_BinhLuan(int idSanPham) async {
   } catch (_) {}
   return lstBinhLuan;
 }
+
 //tra ve khi ds binh luan co thay doi
-Stream<List<BinhLuan>> getBinhLuans(Duration refreshTime,int idSanPham) async*{
-  while(true){
+Stream<List<BinhLuan>> getBinhLuans(Duration refreshTime, int idSanPham) async* {
+  while (true) {
     await Future.delayed(refreshTime);
     yield await api_GetAll_BinhLuan(idSanPham);
   }
 }
+
 //add binh luan
 Future<dynamic> api_Add_BinhLuan(String noiDung, int khachHangId, int sanPhamId) async {
   final uri = Uri.parse(urlBaseAPI + "binh-luan/add");
@@ -518,41 +506,44 @@ Future<dynamic> api_Add_BinhLuan(String noiDung, int khachHangId, int sanPhamId)
     final response = await http.post(uri, body: {"NoiDung": noiDung, "KhachHangId": "$khachHangId", "SanPhamId": "$sanPhamId"});
     if (response.statusCode == 200) {
       return status = true;
-    }else if(response.statusCode==400){
+    } else if (response.statusCode == 400) {
       return json.decode(response.body);
     }
-    
+
     // ignore: empty_catches
   } catch (e) {}
   return status;
 }
+
 //kiem tra tk duoc binh luan san pham
-Future<bool> api_Kiem_Tra_Auth_BinhLuan(int idSanPham) async{
-  final uri =Uri.parse(urlBaseAPI+"binh-luan?KhachHangId=${Auth.khachHang.id}");
-  bool check=false;
+Future<bool> api_Kiem_Tra_Auth_BinhLuan(int idSanPham) async {
+  final uri = Uri.parse(urlBaseAPI + "binh-luan?KhachHangId=${Auth.khachHang.id}");
+  bool check = false;
   try {
-    final response=await http.get(uri);
-   if (response.statusCode==200) {
-     List jsonRaw = json.decode(response.body);
+    final response = await http.get(uri);
+    if (response.statusCode == 200) {
+      List jsonRaw = json.decode(response.body);
       final lstSanPham = jsonRaw.map((e) => SanPham.fromJson(e)).toList();
       final ss = lstSanPham.where((element) => element.id == idSanPham).toList();
       if (ss.isNotEmpty) {
         check = true;
       }
-   }
+    }
   } catch (_) {}
   return check;
 }
 //ds san pham da mua
-Future<List<SanPham>> api_ListProduct_Auth_Buy() async {
-  final uri = Uri.parse(urlBaseAPI + "binh-luan?KhachHangId=${Auth.khachHang.id}");
-  List<SanPham> lstSanPham=[];
+Future<List<CT_HoaDon>> api_Get_SanPham_Pay(int trangThai) async{
+  final uri=Uri.parse(urlBaseAPI+"hoa-don?KhachHangId=${Auth.khachHang.id}&TrangThai=$trangThai");
+  List<CT_HoaDon> lstcthd=[];
   try {
-    final response = await http.get(uri);
-    if (response.statusCode == 200) {
-      List jsonRaw = json.decode(response.body);
-       lstSanPham = jsonRaw.map((e) => SanPham.fromJson(e)).toList();
+    final response=await http.get(uri);
+    if (response.statusCode==200) {
+      List jsonRaw=json.decode(response.body);
+      //print(json.decode(response.body));
+      lstcthd=jsonRaw.map((e) => CT_HoaDon.fromJson(e)).toList();
+      //print(lstcthd.length);
     }
   } catch (_) {}
-  return lstSanPham;
+  return lstcthd;
 }
