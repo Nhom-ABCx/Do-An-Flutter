@@ -125,8 +125,8 @@ class _buildItemState extends State<buildItem> {
                     // tạo biến kiểm tra sản phẩm thêm vào cart có tồn tại chưa
                     if (check) {
                       // tạo biến kiểm tra số lượng tồn và số lượng trong cart
-                      final sp = await fetchProductData(widget.sanPham.id.toString());
-                      bool checkStock = await db.checkStocProduct(sp.soLuongTon!, crt);
+                      // final sp = await fetchProductData(widget.sanPham.id!);
+                      bool checkStock = await db.checkStocProduct(widget.sanPham.soLuongTon!, crt);
                       //nếu true =>số lượng tồn sản phẩm > số lượng trong item trong cart
                       if (checkStock) {
                         thongBaoScaffoldMessenger(context, "Product exits cart");
