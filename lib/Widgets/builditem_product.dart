@@ -15,11 +15,9 @@ class buildItem extends StatefulWidget {
 
 // ignore: camel_case_types
 class _buildItemState extends State<buildItem> {
-  late Future<KhuyenMai> khuyenMai;
   @override
   void initState() {
     super.initState();
-    khuyenMai = api_Price_Sale(widget.sanPham.id!);
   }
 
   @override
@@ -69,23 +67,11 @@ class _buildItemState extends State<buildItem> {
                 widget.sanPham.tenSanPham,
                 style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
               ),
-              FutureBuilder<KhuyenMai>(
-                  future: khuyenMai,
-                  builder: (context, snap) {
-                    var _giamGia = 0;
-                    if (snap.hasError) {
-                      //return Text(snap.error.toString());
-                    }
-                    if (snap.hasData) {
-                      _giamGia = snap.data!.giamGia ?? _giamGia;
-                      if (_giamGia == 0) {
-                        return Text("Giá: " + formatNumber.format(widget.sanPham.giaBan),
-                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.blueAccent));
-                      }
-                    }
-                    return Text("Giá slae: " + (formatNumber.format(widget.sanPham.giaBan! - _giamGia)),
-                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.red));
-                  }),
+              widget.sanPham.giamGia == 0
+                  ? Text("Giá: " + formatNumber.format(widget.sanPham.giaBan),
+                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.blueAccent))
+                  : Text("Giá slae: " + (formatNumber.format(widget.sanPham.giaBan! - widget.sanPham.giamGia!)),
+                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.red)),
 
               Text(
                 'Còn:' + widget.sanPham.soLuongTon.toString(),
