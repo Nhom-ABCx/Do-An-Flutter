@@ -62,7 +62,7 @@ Future<List<SanPham>> api_SanPham_GiaBan(int loaiSanPhamId, int priceFrom, int p
 }
 
 //Chi tiết sản phẩm
-Future<SanPham> fetchProductData(String id) async {
+Future<SanPham> fetchProductData(int id) async {
   final url = urlBaseAPI + 'san-pham/$id';
   SanPham sanPhamChiTiet = SanPham(tenSanPham: "");
   try {
@@ -542,4 +542,17 @@ Future<bool> api_Kiem_Tra_Auth_BinhLuan(int idSanPham) async{
    }
   } catch (_) {}
   return check;
+}
+//ds san pham da mua
+Future<List<SanPham>> api_ListProduct_Auth_Buy() async {
+  final uri = Uri.parse(urlBaseAPI + "binh-luan?KhachHangId=${Auth.khachHang.id}");
+  List<SanPham> lstSanPham=[];
+  try {
+    final response = await http.get(uri);
+    if (response.statusCode == 200) {
+      List jsonRaw = json.decode(response.body);
+       lstSanPham = jsonRaw.map((e) => SanPham.fromJson(e)).toList();
+    }
+  } catch (_) {}
+  return lstSanPham;
 }

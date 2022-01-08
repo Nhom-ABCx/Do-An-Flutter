@@ -23,6 +23,7 @@ CT_HoaDon _$CT_HoaDonFromJson(Map<String, dynamic> json) => CT_HoaDon(
       deletedAt: json['deleted_at'] == null
           ? null
           : DateTime.parse(json['deleted_at'] as String),
+          sanPham: json['SanPham'] as SanPham,
     );
 
 Map<String, dynamic> _$CT_HoaDonToJson(CT_HoaDon instance) => <String, dynamic>{
@@ -36,4 +37,5 @@ Map<String, dynamic> _$CT_HoaDonToJson(CT_HoaDon instance) => <String, dynamic>{
       'created_at': instance.createdAt?.toIso8601String(),
       'updated_at': instance.updatedAt?.toIso8601String(),
       'deleted_at': instance.deletedAt?.toIso8601String(),
+      'SanPham': instance.sanPham,
     };

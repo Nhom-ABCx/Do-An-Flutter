@@ -18,6 +18,7 @@ class CT_HoaDon {
   DateTime? createdAt;
   DateTime? updatedAt;
   DateTime? deletedAt;
+    SanPham? sanPham;
 
   CT_HoaDon(
       {this.HoaDonId,
@@ -29,7 +30,9 @@ class CT_HoaDon {
       this.Star,
       this.createdAt,
       this.updatedAt,
-      this.deletedAt});
+      this.deletedAt,
+       this.sanPham,
+      });
   factory CT_HoaDon.fromJson(dynamic json) => _$CT_HoaDonFromJson(json);
   Map<String, dynamic> toJson() => _$CT_HoaDonToJson(this);
 }

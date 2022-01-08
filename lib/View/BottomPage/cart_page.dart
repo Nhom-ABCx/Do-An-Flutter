@@ -143,7 +143,7 @@ class _CartPageState extends State<CartPage> {
                                             InkWell(
                                               onTap: () async {
                                                 // tạo biến kiểm tra sản phẩm thêm vào cart có tồn tại chưa
-                                                final sp = await fetchProductData(snap.data![index].productId.toString());
+                                                final sp = await fetchProductData(snap.data![index].productId);
                                                 bool check = await dbCart.checkStocProduct(sp.soLuongTon!, snap.data![index]);
                                                 if (check) {
                                                   int quantity = snap.data![index].quantity;

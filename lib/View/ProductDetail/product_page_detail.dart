@@ -16,11 +16,11 @@ class ProductDetail extends StatelessWidget {
   // ignore: prefer_typing_uninitialized_variables
   SanPham sanPham;
 
-  _sanPhamImg(SanPham sanPham) {
-    return SizedBox(
-      child: CachedNetworkImage(height: 150, imageUrl: 'http://10.0.2.2:8000/storage/assets/images/product-image/' + sanPham.hinhAnh!),
-    );
-  }
+  // _sanPhamImg(SanPham sanPham) {
+  //   return SizedBox(
+  //     child: CachedNetworkImage(height: 150, imageUrl: 'http://10.0.2.2:8000/storage/assets/images/product-image/' + sanPham.hinhAnh!),
+  //   );
+  // }
 
   createNewComment(BuildContext context, int sanPhamId) {
     final commentController = TextEditingController();
@@ -31,20 +31,23 @@ class ProductDetail extends StatelessWidget {
         context: context,
         builder: (context) => AlertDialog(
               title: Text("Add comment"),
-              content: TextFormField(
-                autofocus: true, //tu dong hien cai ban`phim'
-                controller: commentController, //gan gia tri cua text vao bien'
-                decoration: InputDecoration(
-                  border: const UnderlineInputBorder(),
-                ),
-              ),
+              content: //validate
+                 StreamBuilder(
+                      stream: binhLuanController.noiDungBinhLuan.stream,
+                      builder: (context, snapshot) => TextField(
+                            autofocus: true, //tu dong hien cai ban`phim'
+                            controller: commentController, //gan gia tri cua text vao bien'
+                            decoration: InputDecoration(
+                              border: const UnderlineInputBorder(),
+                            ),
+                            // validator: (value) => snapshot.hasError ? snapshot.error.toString() : null,
+                          )),
               actions: [
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child: ElevatedButton(
                     onPressed: () async {
                       showCustomLoadding();
-
                       final addbl = await binhLuanController.addBinhLuan(commentController.text, sanPhamId);
                       // ignore: unrelated_type_equality_checks
                       if (addbl) {
@@ -87,19 +90,14 @@ class ProductDetail extends StatelessWidget {
                     borderRadius: BorderRadius.only(
                       bottomRight: Radius.circular(90),
                     )),
-                child: FutureBuilder<SanPham>(
-                    future: fetchProductData(sanPham.id.toString()),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasError) {
-                        // ignore: avoid_print
-                        print(snapshot.error);
-                      }
-                      return snapshot.hasData
-                          ? _sanPhamImg(snapshot.data!)
-                          : const Center(
-                              child: CupertinoActivityIndicator(),
-                            );
-                    }),
+                child: CachedNetworkImage(
+                      imageUrl: "http://10.0.2.2:8000/storage/assets/images/product-image/" + sanPham.hinhAnh!,
+                      width: 100,
+                      height: 120,
+                      placeholder: (context, url) => const Center(
+                        child: CupertinoActivityIndicator(),
+                      ),
+                ),
               ),
               Container(
                 decoration: const BoxDecoration(color: Colors.white),
@@ -111,19 +109,8 @@ class ProductDetail extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          FutureBuilder<SanPham>(
-                              future: fetchProductData(sanPham.id.toString()),
-                              builder: (context, snapshot) {
-                                if (snapshot.hasError) {
-                                  // ignore: avoid_print
-                                  print(snapshot.error);
-                                }
-                                return snapshot.hasData
-                                    ? buildProductData(snapshot.data!)
-                                    : Center(
-                                        child: CupertinoActivityIndicator(),
-                                      );
-                              })
+                          buildProductData(sanPham)
+                          
                         ],
                       )),
                 ),
@@ -173,7 +160,7 @@ class ProductDetail extends StatelessWidget {
                             if (snap.hasError) {
                               return Text(snap.error.toString());
                             }
-                            if (snap.data == true) {
+                            if (snap.data==true) {
                               return Container(
                                 height: 45,
                                 //color:Colors.amber,
@@ -252,15 +239,6 @@ class ProductDetail extends StatelessWidget {
     );
   }
 }
-
-Widget buildImageSanPham(SanPham sanPham) {
-  return Image.asset(
-    'images/product-image/' + sanPham.hinhAnh!,
-    height: 280.0,
-    width: 280.0,
-  );
-}
-
 Widget buildProductData(SanPham sanPham) {
   return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
     Text(
