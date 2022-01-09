@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Modals/message.dart';
+import 'package:flutter_application_1/all_page.dart';
 
 const String _name = "Hanh Vu";
 
@@ -131,9 +133,9 @@ class ChatPageState extends State<ChatPage> with TickerProviderStateMixin {
             child: ListView.builder(
               controller: _controller,
               padding: const EdgeInsets.all(8.0),
-              reverse: true,
-              itemBuilder: (_, int index) => _messages[index],
+              reverse: true, //tu duoi' len
               itemCount: _messages.length,
+              itemBuilder: (context, index) => _messages[index],
             ),
           ),
           // Divider(height: 1.0),
@@ -176,6 +178,7 @@ class ChatMessage extends StatelessWidget {
               children: [
                 const Text(_name), //ten
                 Container(
+                  width: MediaQuery.of(context).size.width / (1.3),
                   margin: const EdgeInsets.only(top: 5.0),
                   child: Text(text), //noi dung chat
                 ),

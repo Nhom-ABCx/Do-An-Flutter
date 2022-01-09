@@ -4,6 +4,7 @@ import 'dart:io';
 import 'dart:convert';
 import 'dart:core';
 import 'package:flutter_application_1/Modals/binh_luan.dart';
+import 'package:flutter_application_1/Modals/message.dart';
 import 'package:http/http.dart' as http;
 import '../all_page.dart';
 
@@ -490,14 +491,6 @@ Future<List<BinhLuan>> api_GetAll_BinhLuan(int idSanPham) async {
   return lstBinhLuan;
 }
 
-//tra ve khi ds binh luan co thay doi
-Stream<List<BinhLuan>> getBinhLuans(Duration refreshTime, int idSanPham) async* {
-  while (true) {
-    await Future.delayed(refreshTime);
-    yield await api_GetAll_BinhLuan(idSanPham);
-  }
-}
-
 //add binh luan
 Future<dynamic> api_Add_BinhLuan(String noiDung, int khachHangId, int sanPhamId) async {
   final uri = Uri.parse(urlBaseAPI + "binh-luan/add");
@@ -532,18 +525,32 @@ Future<bool> api_Kiem_Tra_Auth_BinhLuan(int idSanPham) async {
   } catch (_) {}
   return check;
 }
+
 //ds san pham da mua
-Future<List<CT_HoaDon>> api_Get_SanPham_Pay(int trangThai) async{
-  final uri=Uri.parse(urlBaseAPI+"hoa-don?KhachHangId=${Auth.khachHang.id}&TrangThai=$trangThai");
-  List<CT_HoaDon> lstcthd=[];
+Future<List<CT_HoaDon>> api_Get_SanPham_Pay(int trangThai) async {
+  final uri = Uri.parse(urlBaseAPI + "hoa-don?KhachHangId=${Auth.khachHang.id}&TrangThai=$trangThai");
+  List<CT_HoaDon> lstcthd = [];
   try {
-    final response=await http.get(uri);
-    if (response.statusCode==200) {
-      List jsonRaw=json.decode(response.body);
+    final response = await http.get(uri);
+    if (response.statusCode == 200) {
+      List jsonRaw = json.decode(response.body);
       //print(json.decode(response.body));
-      lstcthd=jsonRaw.map((e) => CT_HoaDon.fromJson(e)).toList();
+      lstcthd = jsonRaw.map((e) => CT_HoaDon.fromJson(e)).toList();
       //print(lstcthd.length);
     }
   } catch (_) {}
   return lstcthd;
+}
+
+Future<List<Message>> api_GetAll_Message_Admin(int khachHangId) async {
+  final uri = Uri.parse(urlBaseAPI + "Message");
+  List<Message> lst = [];
+  try {
+    final response = await http.post(uri, body: {"KhachHangId": "$khachHangId"});
+    if (response.statusCode == 200) {
+      List jsonRaw = json.decode(response.body);
+      lst = jsonRaw.map((e) => Message.fromJson(e)).toList();
+    }
+  } catch (_) {}
+  return lst;
 }
