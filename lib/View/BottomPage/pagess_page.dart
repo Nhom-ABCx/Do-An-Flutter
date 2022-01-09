@@ -76,6 +76,16 @@ class _PagesState extends State<Pages> {
                   ),
                 ),
               ),
+              buildListTitleSetting(
+                text: 'Chat',
+                textCustoms: '',
+                onClicked: () => Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (BuildContext context) => const ChatPage(),
+                  ),
+                ),
+              ),
             ],
           ),
         ),

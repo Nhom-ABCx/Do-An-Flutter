@@ -1,5 +1,3 @@
-// ignore_for_file: unnecessary_null_comparison
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +10,8 @@ class ToPayTab extends StatefulWidget {
   // ignore: non_constant_identifier_names
   int TrangThai;
   // ignore: non_constant_identifier_names
-   ToPayTab({Key? key,required this.TrangThai}) : super(key: key);
-  
+  ToPayTab({Key? key, required this.TrangThai}) : super(key: key);
+
   @override
   _ToPayTabState createState() => _ToPayTabState();
 }
@@ -30,61 +28,61 @@ class _ToPayTabState extends State<ToPayTab> {
                   if (snap.hasError) {
                     return Text(snap.error.toString());
                   }
-                  // if (snap.data!.isEmpty) {
-                  // return ListView(
-                  //   children: [
-                  //       Expanded(
-                  //         child: SvgPicture.asset(
-                  //           "assets/icons/idea.svg",
-                  //           width: 200,
-                  //           height: 200,
-                  //         ),
-                  //       ),
-                  //       const Text(
-                  //         "There are no orders place yet.",
-                  //         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                  //       ),
-                  //       GestureDetector(
-                  //         onTap: () => Navigator.pushNamedAndRemoveUntil(context, "/Home", (route) => false),
-                  //         child: Container(
-                  //             margin: const EdgeInsets.only(top: 30),
-                  //             alignment: Alignment.center,
-                  //             width: 200,
-                  //             height: 50.0,
-                  //             decoration: const BoxDecoration(
-                  //                 borderRadius: BorderRadius.all(Radius.circular(30)),
-                  //                 gradient: LinearGradient(colors: [
-                  //                   Colors.red,
-                  //                   Colors.orange,
-                  //                 ]),
-                  //                 boxShadow: [
-                  //                   BoxShadow(
-                  //                     offset: Offset(0, 0),
-                  //                     color: Colors.pink,
-                  //                     blurRadius: 16.0,
-                  //                   ),
-                  //                 ]),
-                  //             child:
-                  //                 const Text("Continute Shopping", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15))),
-                  //       )
-                  //     ],
-                  // ) ;
-                  // }
-                  return snap.hasData
-                      ? ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: snap.data!.length,
-                          itemBuilder: (context, index) {
-                            return buildSanPhamQuanLyHoaDon(snap.data![index]);
-                          })
-                      : const Center(child: CupertinoActivityIndicator(),);
+                  if (snap.hasData) {
+                    if (snap.data!.isEmpty) {
+                      return Center(
+                        child: Column(
+                          children: [
+                            SvgPicture.asset(
+                              "assets/icons/idea.svg",
+                              width: 200,
+                              height: 200,
+                            ),
+                            const Text(
+                              "There are no orders place yet.",
+                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                            ),
+                            Container(
+                                margin: const EdgeInsets.only(top: 30),
+                                alignment: Alignment.center,
+                                width: 200,
+                                height: 50.0,
+                                decoration: const BoxDecoration(
+                                    borderRadius: BorderRadius.all(Radius.circular(30)),
+                                    gradient: LinearGradient(colors: [
+                                      Colors.red,
+                                      Colors.orange,
+                                    ]),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        offset: Offset(0, 0),
+                                        color: Colors.pink,
+                                        blurRadius: 16.0,
+                                      ),
+                                    ]),
+                                child: const Text("Continute Shopping",
+                                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15))),
+                          ],
+                        ),
+                      );
+                    }
+                    return ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: snap.data!.length,
+                        itemBuilder: (context, index) {
+                          return _buildSanPhamQuanLyHoaDon(snap.data![index]);
+                        });
+                  }
+                  return const Center(
+                    child: CupertinoActivityIndicator(),
+                  );
                 })
           ],
         ),
       ));
 }
 
-Widget buildSanPhamQuanLyHoaDon(CT_HoaDon ctHd) {
+Widget _buildSanPhamQuanLyHoaDon(CT_HoaDon ctHd) {
   return ListTile(
     leading: CachedNetworkImage(
       width: 100,
@@ -103,10 +101,7 @@ Widget buildSanPhamQuanLyHoaDon(CT_HoaDon ctHd) {
     subtitle: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(formatNumber.format(ctHd.GiaBan)),
-        Text("Quty: ${ctHd.SoLuong}")
-      ],
+      children: [Text(formatNumber.format(ctHd.GiaBan)), Text("Quty: ${ctHd.SoLuong}")],
     ),
   );
 }
