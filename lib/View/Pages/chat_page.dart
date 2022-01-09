@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Modals/message.dart';
 import 'package:flutter_application_1/all_page.dart';
+import 'package:provider/provider.dart';
 
 //code layout tham khao tu` google https://viblo.asia/p/flutter-viet-ung-dung-chat-voi-flutter-p1-GrLZD8GOZk0
 class ChatPage extends StatefulWidget {
@@ -11,7 +12,6 @@ class ChatPage extends StatefulWidget {
 }
 
 class ChatPageState extends State<ChatPage> {
-  final List<ChatMessage> _messages = [];
   final TextEditingController _textController = TextEditingController();
   bool _isComposing = false; //dang nhap chu~=false
   late ScrollController _controller; //ko biet'
@@ -54,9 +54,8 @@ class ChatPageState extends State<ChatPage> {
                 controller: _textController,
                 onChanged: (String text) {
                   //neu' co' du lieu trong text thi` nut gui~ se~ dc hien
-                  setState(() {
-                    _isComposing = text.isNotEmpty;
-                  });
+                  if (!_isComposing) setState(() => _isComposing = text.isNotEmpty);
+                  if (text.isEmpty) setState(() => _isComposing = false);
                 },
                 keyboardType: TextInputType.multiline, //co the dc nhieu` dong`
                 maxLines: 10, //do dai` toi' da =10
@@ -94,18 +93,20 @@ class ChatPageState extends State<ChatPage> {
   }
 
   //ham` khi nhan' gui~
-  void _handleSubmitted(String text) {
+  void _handleSubmitted(String text) async {
     //textField sẽ clear chu~
     _textController.clear();
     //dat lai trang thai' dang soan =false
     setState(() => _isComposing = false);
     if (text.isNotEmpty) {
       //neu' textField ko rong~ thi` tao 1 widget tin nhan' moi'
-      ChatMessage message = ChatMessage(
-        message: Message(), //noi dung tin nhan'
-      );
+      final mess = Message(khachHangId: Auth.khachHang.id, body: text);
       //them vao` danh sach tin nhan' o phan tu? dau` tien
-      setState(() => _messages.insert(0, message));
+      final sucssess = await Provider.of<MessageController>(context, listen: false).addData(mess);
+      if (sucssess)
+        print("Them thanh cong");
+      else
+        print("Them that bai");
     }
   }
 
@@ -119,7 +120,7 @@ class ChatPageState extends State<ChatPage> {
           Flexible(
             // Flexible dua theo widget, size cua thiet bi ma` thay doi?
             child: FutureBuilder<List<Message>>(
-                future: api_GetAll_Message_Admin(Auth.khachHang.id!),
+                future: Provider.of<MessageController>(context, listen: false).getData(),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
                     return Center(child: Text(snapshot.error.toString()));

@@ -554,3 +554,15 @@ Future<List<Message>> api_GetAll_Message_Admin(int khachHangId) async {
   } catch (_) {}
   return lst;
 }
+
+Future<bool> api_Them_Message_Admin(Message _message) async {
+  final uri = Uri.parse(urlBaseAPI + "Message/add");
+  bool success = false;
+  try {
+    final response = await http.post(uri, body: {"Body": "${_message.body}", "KhachHangId": "${_message.khachHangId}"});
+    if (response.statusCode == 200) {
+      return success = true;
+    }
+  } catch (_) {}
+  return success;
+}
