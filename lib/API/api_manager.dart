@@ -4,6 +4,7 @@ import 'dart:io';
 import 'dart:convert';
 import 'dart:core';
 import 'package:flutter_application_1/Modals/binh_luan.dart';
+import 'package:flutter_application_1/Modals/message.dart';
 import 'package:http/http.dart' as http;
 import '../all_page.dart';
 
@@ -560,4 +561,28 @@ Future<bool> api_Danh_Gia_SanPham(int hoaDonId, int idSanPham, int soSao) async 
     }
   } catch (_) {}
   return check;
+}
+Future<List<Message>> api_GetAll_Message_Admin(int khachHangId) async {
+  final uri = Uri.parse(urlBaseAPI + "Message");
+  List<Message> lst = [];
+  try {
+    final response = await http.post(uri, body: {"KhachHangId": "$khachHangId"});
+    if (response.statusCode == 200) {
+      List jsonRaw = json.decode(response.body);
+      lst = jsonRaw.map((e) => Message.fromJson(e)).toList();
+    }
+  } catch (_) {}
+  return lst;
+}
+
+Future<bool> api_Them_Message_Admin(Message _message) async {
+  final uri = Uri.parse(urlBaseAPI + "Message/add");
+  bool success = false;
+  try {
+    final response = await http.post(uri, body: {"Body": "${_message.body}", "KhachHangId": "${_message.khachHangId}"});
+    if (response.statusCode == 200) {
+      return success = true;
+    }
+  } catch (_) {}
+  return success;
 }

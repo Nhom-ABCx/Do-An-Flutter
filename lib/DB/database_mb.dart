@@ -2,7 +2,6 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 import 'dart:io';
-import '../Modals/cart_model.dart';
 import 'package:flutter_application_1/all_page.dart';
 // import 'package:sqflite/sqflite.dart';
 // import 'package:path_provider/path_provider.dart';

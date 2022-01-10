@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => DiaChiController()),
         ChangeNotifierProvider(create: (_) => BinhLuanController()),
         ChangeNotifierProvider(create: (_) => QuanLyHoaDonController()),
+        ChangeNotifierProvider(create: (_) => MessageController()),
         Provider(create: (_) => FileController())
       ],
       child: MaterialApp(

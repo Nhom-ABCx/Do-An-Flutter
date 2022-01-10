@@ -26,6 +26,7 @@ export 'Controller/file_controller.dart';
 export 'Controller/cart_provider.dart';
 export 'Controller/diachi_controller.dart';
 export 'Controller/quanlyhoadon_controller.dart';
+export 'Controller/message_controller.dart';
 //View/Page
 export 'View/Pages/wellcome_page.dart';
 export 'View/Pages/signin_page.dart';
@@ -34,6 +35,7 @@ export 'View/Pages/signup_page.dart';
 export 'View/Pages/forgot_page.dart';
 export 'View/Pages/forgot_action.dart';
 export 'View/Pages/layout.dart';
+export 'View/Pages/chat_page.dart';
 //View/Bottom
 export 'View/BottomPage/home_page.dart';
 export 'View/BottomPage/support_page.dart.dart';
