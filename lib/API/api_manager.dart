@@ -490,13 +490,13 @@ Future<List<BinhLuan>> api_GetAll_BinhLuan(int idSanPham) async {
   return lstBinhLuan;
 }
 
-//tra ve khi ds binh luan co thay doi
-Stream<List<BinhLuan>> getBinhLuans(Duration refreshTime, int idSanPham) async* {
-  while (true) {
-    await Future.delayed(refreshTime);
-    yield await api_GetAll_BinhLuan(idSanPham);
-  }
-}
+// //tra ve khi ds binh luan co thay doi
+// Stream<List<BinhLuan>> getBinhLuans(Duration refreshTime, int idSanPham) async* {
+//   while (true) {
+//     await Future.delayed(refreshTime);
+//     yield await api_GetAll_BinhLuan(idSanPham);
+//   }
+// }
 
 //add binh luan
 Future<dynamic> api_Add_BinhLuan(String noiDung, int khachHangId, int sanPhamId) async {
@@ -532,18 +532,32 @@ Future<bool> api_Kiem_Tra_Auth_BinhLuan(int idSanPham) async {
   } catch (_) {}
   return check;
 }
+
 //ds san pham da mua
-Future<List<CT_HoaDon>> api_Get_SanPham_Pay(int trangThai) async{
-  final uri=Uri.parse(urlBaseAPI+"hoa-don?KhachHangId=${Auth.khachHang.id}&TrangThai=$trangThai");
-  List<CT_HoaDon> lstcthd=[];
+Future<List<CT_HoaDon>> api_Get_SanPham_Pay(int trangThai) async {
+  final uri = Uri.parse(urlBaseAPI + "hoa-don?KhachHangId=${Auth.khachHang.id}&TrangThai=$trangThai");
+  List<CT_HoaDon> lstcthd = [];
   try {
-    final response=await http.get(uri);
-    if (response.statusCode==200) {
-      List jsonRaw=json.decode(response.body);
+    final response = await http.get(uri);
+    if (response.statusCode == 200) {
+      List jsonRaw = json.decode(response.body);
       //print(json.decode(response.body));
-      lstcthd=jsonRaw.map((e) => CT_HoaDon.fromJson(e)).toList();
+      lstcthd = jsonRaw.map((e) => CT_HoaDon.fromJson(e)).toList();
       //print(lstcthd.length);
     }
   } catch (_) {}
   return lstcthd;
+}
+
+//update star trong hoa don
+Future<bool> api_Danh_Gia_SanPham(int hoaDonId, int idSanPham, int soSao) async {
+  final uri = Uri.parse(urlBaseAPI + "danh-gia-san-pham");
+  bool check = false;
+  try {
+    final response = await http.post(uri, body: {"HoaDonId": "$hoaDonId", "SanPhamId": "$idSanPham", "Star": "$soSao"});
+    if (response.statusCode == 200) {
+      check = true;
+    }
+  } catch (_) {}
+  return check;
 }

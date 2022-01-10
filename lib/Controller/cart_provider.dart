@@ -44,7 +44,7 @@ class CartProvider extends ChangeNotifier {
   }
 
   double getTotalPrice() {
-    print("gettotal");
+   // print("gettotal");
     _getPrefItems();
     return _totalPrice;
   }
@@ -73,7 +73,7 @@ class CartProvider extends ChangeNotifier {
 
   //xoá total price
   Future<bool> deleteAllCart() {
-    print("deleteAllCart");
+    //print("deleteAllCart");
     _totalPrice = 0;
     _setPrefItems();
     notifyListeners();

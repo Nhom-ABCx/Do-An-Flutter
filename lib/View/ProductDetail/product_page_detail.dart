@@ -222,7 +222,21 @@ class ProductDetail extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  title: Text(snap.data![index].userName!),
+                                  title: 
+                                  // Row(
+                                  //   children: [
+                                      Text(snap.data![index].userName!),
+                                    //    RatingBarIndicator(
+                                    //       rating: sanPham.star!,
+                                    //       itemSize: 30.0,
+                                    //       itemBuilder: (context, index) {
+                                    //         return const Icon(
+                                    //           Icons.star,
+                                    //           color: Colors.amber,
+                                    //         );
+                                    //       }),
+                                    // ],
+                                  //),
                                   subtitle: Text(snap.data![index].noiDung!),
                                 );
                               });
