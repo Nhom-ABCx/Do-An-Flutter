@@ -3,7 +3,6 @@
 import 'dart:io';
 import 'dart:convert';
 import 'dart:core';
-import 'package:flutter_application_1/Modals/binh_luan.dart';
 import 'package:flutter_application_1/Modals/message.dart';
 import 'package:http/http.dart' as http;
 import '../all_page.dart';

@@ -64,15 +64,12 @@ class _QuanLyDonHangPageState extends State<QuanLyDonHangPage> with SingleTicker
         children: [
           ToPayTab(
             TrangThai: 0,
-            check: false,
           ),
           ToPayTab(
             TrangThai: 1,
-            check: false,
           ),
           ToPayTab(
             TrangThai: 2,
-            check: false,
           ),
           ToPayTab(
             TrangThai: 2,

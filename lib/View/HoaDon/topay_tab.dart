@@ -11,9 +11,9 @@ import '../../all_page.dart';
 class ToPayTab extends StatefulWidget {
   // ignore: non_constant_identifier_names
   int TrangThai;
-  bool check;
+  bool? check=false;
   // ignore: non_constant_identifier_names
-  ToPayTab({Key? key, required this.TrangThai, required this.check}) : super(key: key);
+  ToPayTab({Key? key, required this.TrangThai,  this.check}) : super(key: key);
 
   @override
   _ToPayTabState createState() => _ToPayTabState();
@@ -130,57 +130,55 @@ class _ToPayTabState extends State<ToPayTab> {
                                 )
                               ],
                             );
-                          } else {
-                            return Padding(
-                              padding: const EdgeInsets.only(top: 80.0),
-                              child: Column(
-                                children: [
-                                  Center(
-                                    child: Expanded(
-                                      child: SvgPicture.asset(
-                                        "assets/icons/idea.svg",
-                                        width: 200,
-                                        height: 200,
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  TextButton(
-                                    onPressed: () => Navigator.pushNamedAndRemoveUntil(context, "/Home", (route) => false),
-                                    child: Container(
-                                        width: 150,
-                                        height: 50,
-                                        decoration:
-                                            BoxDecoration(color: Colors.amber[900], borderRadius: BorderRadius.circular(30), boxShadow: const [
-                                          BoxShadow(
-                                            offset: Offset(0, 0),
-                                            color: Colors.pink,
-                                            blurRadius: 16.0,
-                                          ),
-                                        ]),
-                                        child: const Align(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            "Continute Shopping",
-                                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15),
-                                          ),
-                                        )),
-                                  ),
-                                ],
-                              ),
-                            );
                           }
+                          return const Text("");
+                          // return Padding(
+                          //   padding: const EdgeInsets.only(top: 80.0),
+                          //   child: Column(
+                          //     children: [
+                          //       Center(
+                          //         child: Expanded(
+                          //           child: SvgPicture.asset(
+                          //             "assets/icons/idea.svg",
+                          //             width: 200,
+                          //             height: 200,
+                          //           ),
+                          //         ),
+                          //       ),
+                          //       const SizedBox(
+                          //         height: 10,
+                          //       ),
+                          //       TextButton(
+                          //         onPressed: () => Navigator.pushNamedAndRemoveUntil(context, "/Home", (route) => false),
+                          //         child: Container(
+                          //             width: 150,
+                          //             height: 50,
+                          //             decoration: BoxDecoration(color: Colors.amber[900], borderRadius: BorderRadius.circular(30), boxShadow: const [
+                          //               BoxShadow(
+                          //                 offset: Offset(0, 0),
+                          //                 color: Colors.pink,
+                          //                 blurRadius: 16.0,
+                          //               ),
+                          //             ]),
+                          //             child: const Align(
+                          //               alignment: Alignment.center,
+                          //               child: Text(
+                          //                 "Continute Shopping",
+                          //                 style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15),
+                          //               ),
+                          //             )),
+                          //       ),
+                          //     ],
+                          //   ),
+                          // );
                         } else {
                           return buildSanPhamQuanLyHoaDon(snap.data![index], context, check: false);
                         }
                         //return buildSanPhamQuanLyHoaDon(snap.data![index]);
                       });
                 }
-                return const Center(
-                  child: CupertinoActivityIndicator(),
-                );
+
+                return const Text("");
               })
         ],
       ),
@@ -190,17 +188,22 @@ class _ToPayTabState extends State<ToPayTab> {
 
 Widget buildSanPhamQuanLyHoaDon(CT_HoaDon ctHd, BuildContext context, {required bool check}) {
   return ListTile(
-    leading: CachedNetworkImage(
-      width: 100,
-      height: 100,
-      imageUrl: "http://10.0.2.2:8000/storage/assets/images/product-image/${ctHd.sanPham!.hinhAnh}",
-      placeholder: (context, url) => const Center(
-        child: CupertinoActivityIndicator(),
-      ),
-      errorWidget: (context, url, error) => const Icon(
-        Icons.error,
-        color: Colors.red,
-        size: 50,
+    leading: InkWell(
+      onTap: (){
+         Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetail(sanPham: ctHd.sanPham!)));
+      },
+      child: CachedNetworkImage(
+        width: 100,
+        height: 100,
+        imageUrl: "http://10.0.2.2:8000/storage/assets/images/product-image/${ctHd.sanPham!.hinhAnh}",
+        placeholder: (context, url) => const Center(
+          child: CupertinoActivityIndicator(),
+        ),
+        errorWidget: (context, url, error) => const Icon(
+          Icons.error,
+          color: Colors.red,
+          size: 50,
+        ),
       ),
     ),
     title: Text(
@@ -212,14 +215,14 @@ Widget buildSanPhamQuanLyHoaDon(CT_HoaDon ctHd, BuildContext context, {required 
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          "price :" + formatNumber.format(ctHd.GiaBan),
+          "price: " + formatNumber.format(ctHd.GiaBan),
           style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
         ),
         Builder(builder: (context) {
           if (check == true) {
             return RatingBarIndicator(
                 rating: double.parse(ctHd.Star.toString()),
-                itemSize: 25.0,
+                itemSize: 15.0,
                 itemBuilder: (context, index) {
                   return const Icon(
                     Icons.star,

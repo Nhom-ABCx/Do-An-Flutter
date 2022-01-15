@@ -31,17 +31,15 @@ class ProductDetail extends StatelessWidget {
         context: context,
         builder: (context) => AlertDialog(
               title: Text("Add comment"),
-              content: //validate
-                 StreamBuilder(
-                      stream: binhLuanController.noiDungBinhLuan.stream,
-                      builder: (context, snapshot) => TextField(
-                            autofocus: true, //tu dong hien cai ban`phim'
-                            controller: commentController, //gan gia tri cua text vao bien'
-                            decoration: InputDecoration(
-                              border: const UnderlineInputBorder(),
-                            ),
-                            // validator: (value) => snapshot.hasError ? snapshot.error.toString() : null,
-                          )),
+              content: TextField(
+                autofocus: true, //tu dong hien cai ban`phim'
+                controller: commentController, //gan gia tri cua text vao bien'
+                decoration: InputDecoration(
+                  border: const UnderlineInputBorder(),
+                ),
+                // validator: (value) => snapshot.hasError ? snapshot.error.toString() : null,
+              ),
+              // ),
               actions: [
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
@@ -56,6 +54,7 @@ class ProductDetail extends StatelessWidget {
                         EasyLoading.dismiss();
                       } else {
                         (thongBaoScaffoldMessenger(context, "Fails add"));
+                        Navigator.pop(context);
                         //(context as Element).reassemble();
                         EasyLoading.dismiss();
                       }
@@ -91,12 +90,12 @@ class ProductDetail extends StatelessWidget {
                       bottomRight: Radius.circular(90),
                     )),
                 child: CachedNetworkImage(
-                      imageUrl: "http://10.0.2.2:8000/storage/assets/images/product-image/" + sanPham.hinhAnh!,
-                      width: 100,
-                      height: 120,
-                      placeholder: (context, url) => const Center(
-                        child: CupertinoActivityIndicator(),
-                      ),
+                  imageUrl: "http://10.0.2.2:8000/storage/assets/images/product-image/" + sanPham.hinhAnh!,
+                  width: 100,
+                  height: 120,
+                  placeholder: (context, url) => const Center(
+                    child: CupertinoActivityIndicator(),
+                  ),
                 ),
               ),
               Container(
@@ -108,10 +107,7 @@ class ProductDetail extends StatelessWidget {
                       padding: const EdgeInsets.fromLTRB(15.0, 10.0, 0, 5.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          buildProductData(sanPham)
-                          
-                        ],
+                        children: [buildProductData(sanPham)],
                       )),
                 ),
               ),
@@ -160,7 +156,7 @@ class ProductDetail extends StatelessWidget {
                             if (snap.hasError) {
                               return Text(snap.error.toString());
                             }
-                            if (snap.data==true) {
+                            if (snap.data == true) {
                               return Container(
                                 height: 45,
                                 //color:Colors.amber,
@@ -222,20 +218,20 @@ class ProductDetail extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  title: 
-                                  // Row(
-                                  //   children: [
+                                  title:
+                                      // Row(
+                                      //   children: [
                                       Text(snap.data![index].userName!),
-                                    //    RatingBarIndicator(
-                                    //       rating: sanPham.star!,
-                                    //       itemSize: 30.0,
-                                    //       itemBuilder: (context, index) {
-                                    //         return const Icon(
-                                    //           Icons.star,
-                                    //           color: Colors.amber,
-                                    //         );
-                                    //       }),
-                                    // ],
+                                  //    RatingBarIndicator(
+                                  //       rating: sanPham.star!,
+                                  //       itemSize: 30.0,
+                                  //       itemBuilder: (context, index) {
+                                  //         return const Icon(
+                                  //           Icons.star,
+                                  //           color: Colors.amber,
+                                  //         );
+                                  //       }),
+                                  // ],
                                   //),
                                   subtitle: Text(snap.data![index].noiDung!),
                                 );
@@ -253,6 +249,7 @@ class ProductDetail extends StatelessWidget {
     );
   }
 }
+
 Widget buildProductData(SanPham sanPham) {
   return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
     Text(
