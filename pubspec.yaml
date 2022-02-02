@@ -42,7 +42,7 @@ dependencies:
   custom_navigator: ^0.3.0
 
   shared_preferences: ^2.0.11
-  #sql 
+  #sql
   sqflite: ^2.0.1
   #image carousel slider
   carousel_slider: ^4.0.0
@@ -51,7 +51,7 @@ dependencies:
   smooth_page_indicator: ^0.3.0-nullsafety.0
   # prodiver
   provider: ^6.0.1
-  #ratting 
+  #ratting
   flutter_rating_bar: ^4.0.0
   #Bloc
   flutter_bloc: ^8.0.0
@@ -66,11 +66,14 @@ dependencies:
   intl: ^0.17.0
   #autocomplete query API, co su dung thu? cho Chon dia Chi
   flutter_typeahead: ^3.2.4
+  #google,facebook login
+  firebase_auth: ^3.3.6
+  google_sign_in: ^5.2.3
 
 dev_dependencies:
   build_runner: ^2.0.0
   http: ^0.13.4
-  flutter_test: 
+  flutter_test:
     sdk: flutter
 
   # The "flutter_lints" package below contains a set of recommended lints to
@@ -94,7 +97,6 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/
-
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

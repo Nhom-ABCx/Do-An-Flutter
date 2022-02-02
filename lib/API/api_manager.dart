@@ -149,6 +149,7 @@ Future<KhachHang> api_DangNhap(String email, String matkhau) async {
 
 Future<dynamic> api_DangKy(String username, String email, String matkhau) async {
   try {
+    //neu' dang nhap bang social thi gui request dang ky'
     final response = await http.post(Uri.parse(urlBaseAPI + "DangKy"), body: {"Username": username, "Email": email, "MatKhau": matkhau});
     if (response.statusCode == 200) {
       //nay` von' dang o dang List, ep kieu no' thanh List de co them phuong thuc'
@@ -157,6 +158,21 @@ Future<dynamic> api_DangKy(String username, String email, String matkhau) async 
       return KhachHang.fromJson(jsonRaw);
     } else if (response.statusCode == 400) {
       return json.decode(response.body);
+    } else {
+      throw Exception("Something get wrong! Status code ${response.statusCode}");
+    }
+    // ignore: empty_catches
+  } catch (e) {}
+}
+
+Future<dynamic> api_DangKy_Social(String hoTen, String email, String hinhAnh) async {
+  try {
+    //neu' dang nhap bang social thi gui request dang ky'
+    final response = await http.post(Uri.parse(urlBaseAPI + "DangKy/Social"), body: {"HoTen": hoTen, "Email": email, "HinhAnh": hinhAnh});
+    if (response.statusCode == 200) {
+      //nay` von' dang o dang List, ep kieu no' thanh List de co them phuong thuc'
+      final jsonRaw = json.decode(response.body);
+      return KhachHang.fromJson(jsonRaw);
     } else {
       throw Exception("Something get wrong! Status code ${response.statusCode}");
     }

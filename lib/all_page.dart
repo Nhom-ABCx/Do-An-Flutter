@@ -20,7 +20,7 @@ export 'Modals/tinh_thanhpho.dart';
 export 'Modals/cart_model.dart';
 export 'Modals/binh_luan.dart';
 //Controller
-export 'Controller/auth.dart';
+export 'Controller/auth_controller.dart';
 export 'Controller/edit_myprofile_controller.dart';
 export 'Controller/file_controller.dart';
 export 'Controller/cart_provider.dart';

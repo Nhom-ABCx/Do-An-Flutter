@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../all_page.dart';
 
 class NavigationDrawer extends StatelessWidget {
@@ -43,6 +44,7 @@ class NavigationDrawer extends StatelessWidget {
                 text: 'Loggin Now',
                 icon: Icons.login_outlined,
                 onClicked: () async {
+                  Provider.of<SocialLogin>(context, listen: false).logOut();
                   Auth.khachHang.LogOut();
                   Navigator.pushNamedAndRemoveUntil(context, "/Sign_In", (route) => false);
                 },

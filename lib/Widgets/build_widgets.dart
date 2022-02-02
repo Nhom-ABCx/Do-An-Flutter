@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; //text input
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import '../all_page.dart';
 
 final formatNumber = NumberFormat("#,##0", "en_US");
@@ -220,6 +221,7 @@ List<Widget> hienThiDanhMucDrawer(BuildContext context) {
       text: 'Sign Out',
       icon: Icons.logout,
       onClicked: () {
+        Provider.of<SocialLogin>(context, listen: false).logOut();
         Auth.khachHang.LogOut();
         Navigator.pushNamedAndRemoveUntil(context, "/Sign_In", (route) => false);
       },
@@ -228,9 +230,7 @@ List<Widget> hienThiDanhMucDrawer(BuildContext context) {
 }
 
 String avtImageLogOut() {
-  return (Auth.khachHang.hinhAnh!.isEmpty)
-      ? "http://10.0.2.2:8000/storage/assets/images/avatar/empty.png"
-      : "http://10.0.2.2:8000/storage/assets/images/avatar/User/${Auth.khachHang.id!}/" + Auth.khachHang.hinhAnh!;
+  return (Auth.khachHang.hinhAnh!.isEmpty) ? "http://10.0.2.2:8000/storage/assets/images/avatar/empty.png" : Auth.khachHang.hinhAnh!;
 }
 
 Widget buildCircle({
