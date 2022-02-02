@@ -243,6 +243,7 @@ Future<dynamic> api_Update_KhachHang_HinhAnh(KhachHang khachHang, File imageFile
       final jsonRaw = json.decode(response.body);
       return KhachHang.fromJson(jsonRaw);
     } else if (streamedResponse.statusCode == 400) {
+      //neu co' loi~ tu` sv tra~ ve` thi` nhan cai loi~ do'
       return json.decode(response.body);
     } else {
       throw Exception("Something get wrong! Status code ${streamedResponse.statusCode}");
@@ -561,6 +562,7 @@ Future<bool> api_Danh_Gia_SanPham(int hoaDonId, int idSanPham, int soSao) async 
   } catch (_) {}
   return check;
 }
+
 Future<List<Message>> api_GetAll_Message_Admin(int khachHangId) async {
   final uri = Uri.parse(urlBaseAPI + "Message");
   List<Message> lst = [];

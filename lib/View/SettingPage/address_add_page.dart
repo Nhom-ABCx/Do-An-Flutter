@@ -95,15 +95,11 @@ class _HomeState extends State<AddressAddPage> {
                     setState(() => _fullName = name);
                   }),
               //validate
-              StreamBuilder(
-                stream: diaChiController.tenNguoiNhan.stream,
-                builder: (context, snapshot) => snapshot.hasError
-                    ? Text(
-                        snapshot.error.toString(),
-                        style: const TextStyle(color: Colors.red, fontSize: 15),
-                      )
-                    : const SizedBox(),
-              ),
+              if (diaChiController.tenNguoiNhan.isNotEmpty)
+                Text(
+                  diaChiController.tenNguoiNhan,
+                  style: const TextStyle(color: Colors.red, fontSize: 15),
+                ),
               buildListTitleSetting(
                   text: 'Phone',
                   textCustoms: _phone,
@@ -114,15 +110,11 @@ class _HomeState extends State<AddressAddPage> {
                     setState(() => _phone = phone);
                   }),
               //validate
-              StreamBuilder(
-                stream: diaChiController.phone.stream,
-                builder: (context, snapshot) => snapshot.hasError
-                    ? Text(
-                        snapshot.error.toString(),
-                        style: const TextStyle(color: Colors.red, fontSize: 15),
-                      )
-                    : const SizedBox(),
-              ),
+              if (diaChiController.phone.isNotEmpty)
+                Text(
+                  diaChiController.phone,
+                  style: const TextStyle(color: Colors.red, fontSize: 15),
+                ),
               buildListTitleSetting(
                   text: 'Province / City',
                   textCustoms: _tinhThanhPho.name ?? "",
@@ -208,15 +200,11 @@ class _HomeState extends State<AddressAddPage> {
                       ),
                     ),
                     //validate
-                    StreamBuilder(
-                      stream: diaChiController.diaChiCHiTiet.stream,
-                      builder: (context, snapshot) => snapshot.hasError
-                          ? Text(
-                              snapshot.error.toString(),
-                              style: const TextStyle(color: Colors.red, fontSize: 15),
-                            )
-                          : const SizedBox(),
-                    ),
+                    if (diaChiController.diaChiCHiTiet.isNotEmpty)
+                      Text(
+                        diaChiController.diaChiCHiTiet,
+                        style: const TextStyle(color: Colors.red, fontSize: 15),
+                      ),
                   ],
                 ),
               ),
