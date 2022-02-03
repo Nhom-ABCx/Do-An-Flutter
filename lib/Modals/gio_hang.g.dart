@@ -13,6 +13,7 @@ GioHang _$GioHangFromJson(Map<String, dynamic> json) => GioHang(
       soLuong: json['SoLuong'] as int,
       createdAt: json['created_at'] == null ? null : DateTime.parse(json['created_at'] as String),
       updatedAt: json['updated_at'] == null ? null : DateTime.parse(json['updated_at'] as String),
+      sanPham: SanPham.fromJson(json['san_pham']),
     );
 
 Map<String, dynamic> _$GioHangToJson(GioHang instance) => <String, dynamic>{

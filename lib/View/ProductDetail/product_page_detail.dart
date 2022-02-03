@@ -325,8 +325,6 @@ Widget buildTimeSale() {
 }
 
 Widget buildStockProduct(BuildContext context, SanPham sanPham) {
-  Db dbCart = Db();
-  final cartprd = Provider.of<CartProvider>(context);
 
   Row stock = Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -335,7 +333,8 @@ Widget buildStockProduct(BuildContext context, SanPham sanPham) {
         padding: const EdgeInsets.only(left: 8.0),
         child: ElevatedButton(
           onPressed: () {
-            cartprd.removeQuantity();
+            //gioHang
+            //cartprd.removeQuantity();
           },
           child: Icon(
             Icons.remove,
@@ -346,12 +345,13 @@ Widget buildStockProduct(BuildContext context, SanPham sanPham) {
       ),
       Padding(
         padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-        child: Text(cartprd.getQuantity().toString()),
+        child: Text("//gioHang"),
       ),
       Padding(
           padding: const EdgeInsets.only(right: 40.0),
           child: ElevatedButton(
               onPressed: () async {
+                //gioHang
                 // Cart crt = Cart(
                 //     id: sanPham.id,
                 //     productId: sanPham.id!,
@@ -362,7 +362,7 @@ Widget buildStockProduct(BuildContext context, SanPham sanPham) {
                 //     productImg: sanPham.hinhAnh!);
                 // bool check = await dbCart.checkStocProduct(sanPham.soLuongTon!, crt);
                 // if (check) {
-                cartprd.addQuantity();
+                //cartprd.addQuantity();
                 // } else {
                 //   thongBaoScaffoldMessenger(context, "Limited quantity");
                 // }
@@ -389,46 +389,47 @@ Widget buildStockProduct(BuildContext context, SanPham sanPham) {
           textColor: Colors.white,
           color: Colors.red,
           onPressed: () async {
-            final crt = Cart(
-                id: sanPham.id,
-                productId: sanPham.id!,
-                productName: sanPham.tenSanPham,
-                inintPrice: sanPham.giaBan!,
-                productPrice: (cartprd.getQuantity() * sanPham.giaBan!),
-                quantity: cartprd.getQuantity(),
-                productImg: sanPham.hinhAnh!);
-            bool check = await dbCart.ifPrdExitsCart(crt);
-            if (check) {
-              thongBaoScaffoldMessenger(context, "Product exits cart");
-              dbCart.updateQuantity(crt);
-              cartprd.addTotalPrice(double.parse(crt.productPrice.toString()));
-            } else {
-              dbCart.insertItemCart(crt).then((value) {
-                thongBaoScaffoldMessenger(context, "Add cart complete");
-                cartprd.addTotalPrice(double.parse(sanPham.giaBan.toString()));
-              }).onError((error, stackTrace) {
-                // ignore: avoid_print
-                print(error.toString());
-              });
-            }
-            int newPrice = sanPham.giaBan! * cartprd.getQuantity();
-            dbCart
-                .insertItemCart(Cart(
-                    id: sanPham.id,
-                    productId: sanPham.id!,
-                    productName: sanPham.tenSanPham,
-                    inintPrice: sanPham.giaBan!,
-                    productPrice: newPrice,
-                    quantity: cartprd.getQuantity(),
-                    productImg: sanPham.hinhAnh!))
-                .then((value) {
-              thongBaoScaffoldMessenger(context, "Add cart complete");
-              cartprd.addTotalPrice(double.parse(newPrice.toString()));
-            }).onError((error, stackTrace) {
-              // ignore: avoid_print
-              print(error.toString());
-            });
-            ;
+            //gioHang
+            // final crt = Cart(
+            //     id: sanPham.id,
+            //     productId: sanPham.id!,
+            //     productName: sanPham.tenSanPham,
+            //     inintPrice: sanPham.giaBan!,
+            //     productPrice: (cartprd.getQuantity() * sanPham.giaBan!),
+            //     quantity: cartprd.getQuantity(),
+            //     productImg: sanPham.hinhAnh!);
+            // bool check = await dbCart.ifPrdExitsCart(crt);
+            // if (check) {
+            //   thongBaoScaffoldMessenger(context, "Product exits cart");
+            //   dbCart.updateQuantity(crt);
+            //   cartprd.addTotalPrice(double.parse(crt.productPrice.toString()));
+            // } else {
+            //   dbCart.insertItemCart(crt).then((value) {
+            //     thongBaoScaffoldMessenger(context, "Add cart complete");
+            //     cartprd.addTotalPrice(double.parse(sanPham.giaBan.toString()));
+            //   }).onError((error, stackTrace) {
+            //     // ignore: avoid_print
+            //     print(error.toString());
+            //   });
+            // }
+            // int newPrice = sanPham.giaBan! * cartprd.getQuantity();
+            // dbCart
+            //     .insertItemCart(Cart(
+            //         id: sanPham.id,
+            //         productId: sanPham.id!,
+            //         productName: sanPham.tenSanPham,
+            //         inintPrice: sanPham.giaBan!,
+            //         productPrice: newPrice,
+            //         quantity: cartprd.getQuantity(),
+            //         productImg: sanPham.hinhAnh!))
+            //     .then((value) {
+            //   thongBaoScaffoldMessenger(context, "Add cart complete");
+            //   cartprd.addTotalPrice(double.parse(newPrice.toString()));
+            // }).onError((error, stackTrace) {
+            //   // ignore: avoid_print
+            //   print(error.toString());
+            // });
+            // ;
           },
           child: Text(
             'Add to card',

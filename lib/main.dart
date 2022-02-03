@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ChangeLayOut()),
-        ChangeNotifierProvider(create: (_) => CartProvider()),
+        ChangeNotifierProvider(create: (_) => GioHangController()),
         ChangeNotifierProvider(create: (_) => DiaChiController()),
         ChangeNotifierProvider(create: (_) => BinhLuanController()),
         ChangeNotifierProvider(create: (_) => QuanLyHoaDonController()),

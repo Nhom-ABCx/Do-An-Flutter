@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:flutter_application_1/DB/database_mb.dart';
 import 'package:provider/provider.dart';
 import '../all_page.dart';
 
@@ -22,10 +21,6 @@ class _buildItemState extends State<buildItem> {
 
   @override
   Widget build(BuildContext context) {
-    Db db = Db();
-    final cart = Provider.of<CartProvider>(context);
-    //  final id=Provider.of<CartModel>(context).id;
-    //var autoId=id++;
     return Container(
       width: 200,
       height: 750,
@@ -110,41 +105,9 @@ class _buildItemState extends State<buildItem> {
             child: Align(
                 alignment: const Alignment(3, 0),
                 child: InkWell(
-                  onTap: () async {
-                    Cart crt = Cart(
-                      id: widget.sanPham.id,
-                      productId: widget.sanPham.id!,
-                      productName: widget.sanPham.tenSanPham,
-                      inintPrice: widget.sanPham.giaBan!,
-                      productPrice: widget.sanPham.giaBan!,
-                      quantity: 1,
-                      productImg: widget.sanPham.hinhAnh!,
-                    );
-                    // tạo biến kiểm tra sản phẩm thêm vào cart có tồn tại chưa
-                    bool check = await db.ifPrdExitsCart(crt);
-                    // tạo biến kiểm tra sản phẩm thêm vào cart có tồn tại chưa
-                    if (check) {
-                      // tạo biến kiểm tra số lượng tồn và số lượng trong cart
-                      // final sp = await fetchProductData(widget.sanPham.id!);
-                      bool checkStock = await db.checkStocProduct(widget.sanPham.soLuongTon!, crt);
-                      //nếu true =>số lượng tồn sản phẩm > số lượng trong item trong cart
-                      if (checkStock) {
-                        thongBaoScaffoldMessenger(context, "Product exits cart");
-                        db.updateQuantity(crt);
-                        cart.addTotalPrice(double.parse(crt.productPrice.toString()));
-                      }
-                      // số lượng tồn = số lượng trong cart
-                      else {
-                        thongBaoScaffoldMessenger(context, "Limited quantity");
-                      }
-                    } else {
-                      db.insertItemCart(crt).then((value) {
-                        thongBaoScaffoldMessenger(context, "Add cart complete");
-                        cart.addTotalPrice(double.parse(widget.sanPham.giaBan.toString()));
-                      }).onError((error, stackTrace) {
-                        print(error.toString());
-                      });
-                    }
+                  onTap: () {
+                    //them san pham vao gio hang` voi so luong la 1, neu click lan` nua thi so luong tu cong don`
+                    Provider.of<GioHangController>(context, listen: false).addData(context, widget.sanPham.id!, 1);
                   },
                   child: const Icon(
                     Icons.add_circle,

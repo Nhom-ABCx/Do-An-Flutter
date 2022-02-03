@@ -1,3 +1,4 @@
+import 'package:flutter_application_1/all_page.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'gio_hang.g.dart';
@@ -12,6 +13,7 @@ class GioHang {
   int soLuong;
   DateTime? createdAt;
   DateTime? updatedAt;
+  SanPham sanPham;
 
   GioHang({
     this.id,
@@ -20,6 +22,7 @@ class GioHang {
     required this.soLuong,
     this.createdAt,
     this.updatedAt,
+    required this.sanPham,
   });
 
   factory GioHang.fromJson(dynamic json) => _$GioHangFromJson(json);

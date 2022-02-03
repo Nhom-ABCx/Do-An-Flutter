@@ -224,21 +224,19 @@ Future<bool> api_sendEmail_User_Reset(String username) async {
 
 Future<bool> api_HoaDon_LapHoaDon(int diaChiId) async {
   const url = urlBaseAPI + 'HoaDon/LapHoaDon';
-
+  if (diaChiId <= 0) return false;
   try {
-    final cartProvider = CartProvider();
-    final cart = await cartProvider.getData();
+    //giuu code nay lai de doc
+    // List<Map<String, dynamic>> value = [];
+    // for (var item in cart) {
+    //   value.add({"SanPhamId": "${item.productId}", "SoLuong": "${item.quantity}"});
+    // }
+    // final body = json.encode({"DiaChiId": "$diaChiId", "Data": value});
+    // final response = await http.post(Uri.parse(url), body: body, headers: {"accept": "application/json", "content-type": "application/json"});
 
-    if (cart.isEmpty) return false;
-
-    List<Map<String, dynamic>> value = [];
-    for (var item in cart) {
-      value.add({"SanPhamId": "${item.productId}", "SoLuong": "${item.quantity}"});
-    }
-    final body = json.encode({"DiaChiId": "$diaChiId", "Data": value});
-    final response = await http.post(Uri.parse(url), body: body, headers: {"accept": "application/json", "content-type": "application/json"});
+    final response = await http.post(Uri.parse(url), body: {"DiaChiId": "$diaChiId"});
     if (response.statusCode == 200) {
-      return await cartProvider.deleteAllCart();
+      return true;
     }
     // ignore: empty_catches
   } catch (e) {}
@@ -601,5 +599,63 @@ Future<bool> api_Them_Message_Admin(Message _message) async {
       return success = true;
     }
   } catch (_) {}
+  return success;
+}
+
+Future<List<GioHang>> api_Get_GioHang(int khachHangId) async {
+  List<GioHang> lstGioHang = [];
+
+  try {
+    final response = await http.get(Uri.parse(urlBaseAPI + "GioHang/$khachHangId"));
+    if (response.statusCode == 200) {
+      //nay` von' dang o dang List, ep kieu no' thanh List de co them phuong thuc'
+      List jsonRaw = json.decode(response.body);
+      //print(jsonRaw[0]['TenSanPham']); //truy xuat no' bang cach nhu nay`
+      lstGioHang = jsonRaw.map((data) => GioHang.fromJson(data)).toList();
+    } else {
+      throw Exception("Something get wrong! Status code ${response.statusCode}");
+    }
+    // ignore: empty_catches
+  } catch (e) {}
+
+  return lstGioHang;
+}
+
+Future<bool> api_Insert_SanPham_GioHang(int khachHangId, int sanPhamId, int soLuong) async {
+  final uri = Uri.parse(urlBaseAPI + "GioHang/add");
+  bool success = false;
+  try {
+    final response = await http.post(uri, body: {"KhachHangId": "$khachHangId", "SanPhamId": "$sanPhamId", "SoLuong": "$soLuong"});
+    if (response.statusCode == 200) {
+      return success = true;
+    }
+    // ignore: empty_catches
+  } catch (e) {}
+  return success;
+}
+
+Future<bool> api_Update_SanPham_GioHang(int khachHangId, int sanPhamId, int soLuong) async {
+  final uri = Uri.parse(urlBaseAPI + "GioHang/update?_method=PUT");
+  bool success = false;
+  try {
+    final response = await http.post(uri, body: {"KhachHangId": "$khachHangId", "SanPhamId": "$sanPhamId", "SoLuong": "$soLuong"});
+    if (response.statusCode == 200) {
+      return success = true;
+    }
+    // ignore: empty_catches
+  } catch (e) {}
+  return success;
+}
+
+Future<bool> api_Delete_SanPham_GioHang(int khachHangId, int sanPhamId) async {
+  final uri = Uri.parse(urlBaseAPI + "GioHang/delete?_method=DELETE");
+  bool success = false;
+  try {
+    final response = await http.post(uri, body: {"KhachHangId": "$khachHangId", "SanPhamId": "$sanPhamId"});
+    if (response.statusCode == 200) {
+      return success = true;
+    }
+    // ignore: empty_catches
+  } catch (e) {}
   return success;
 }
