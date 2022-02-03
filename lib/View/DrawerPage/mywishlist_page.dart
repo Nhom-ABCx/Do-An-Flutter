@@ -72,7 +72,7 @@ class MyWishlistPageState extends State<MyWishlistPage> {
                           ],
                         ),
                       ),
-                      buildListSanPham(context, api_Get_SanPham_YeuThich(Auth.khachHang.id!)),
+                      buildListSanPham(context, api_Get_YeuThich(Auth.khachHang.id!)),
                     ],
                   ),
                 ),
