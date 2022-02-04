@@ -4,11 +4,19 @@ import '../all_page.dart';
 
 class GioHangController extends ChangeNotifier {
   List<GioHang> gioHang = [];
+  int tongTien = 0;
 
   int i = 0;
   Future<List<GioHang>> getData() async {
     print("get GioHang $i");
-    gioHang = await api_Get_GioHang(Auth.khachHang.id!);
+    gioHang = await api_Get_GioHang(Auth.khachHang.id!).then((value) {
+      int tt = 0;
+      for (var item in value) {
+        tt += item.soLuong * item.sanPham.giaBan!;
+      }
+      tongTien = tt;
+      return value;
+    });
     i++;
     return gioHang;
   }
