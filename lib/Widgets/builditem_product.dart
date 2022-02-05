@@ -107,6 +107,7 @@ class _buildItemState extends State<buildItem> {
                 child: InkWell(
                   onTap: () {
                     //them san pham vao gio hang` voi so luong la 1, neu click lan` nua thi so luong tu cong don`
+                    //xu ly tu cong don` la o ben sever
                     Provider.of<GioHangController>(context, listen: false).addData(context, widget.sanPham.id!, 1);
                   },
                   child: const Icon(

@@ -120,7 +120,7 @@ class _CartPageState extends State<CartPage> {
                                                     ),
                                                   ),
                                                   Text(
-                                                    "Giá: ${formatNumber.format(snapshot.data![index].sanPham.giaBan)}",
+                                                    "Giá: ${formatNumber.format(snapshot.data![index].soLuong * snapshot.data![index].sanPham.giaBan!)}",
                                                     style: const TextStyle(
                                                       fontWeight: FontWeight.bold,
                                                       color: Colors.red,
@@ -154,7 +154,7 @@ class _CartPageState extends State<CartPage> {
                                                     ),
                                                   ),
                                                   InkWell(
-                                                    onTap: () async {
+                                                    onTap: () {
                                                       gioHangController.updateData(
                                                           context, snapshot.data![index].sanPhamId, snapshot.data![index].soLuong + 1);
                                                     },

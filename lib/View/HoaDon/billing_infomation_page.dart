@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
@@ -164,83 +163,7 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
                         ),
                       ),
                       const Divider(),
-                      FutureBuilder<List<GioHang>>(
-                          future: gioHangController.getData(),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasError) {
-                              return Center(
-                                child: Text(snapshot.error.toString()),
-                              );
-                            }
-                            return snapshot.hasData
-                                ? ListView.builder(
-                                    shrinkWrap: true,
-                                    physics: const NeverScrollableScrollPhysics(),
-                                    itemCount: snapshot.data!.length,
-                                    itemBuilder: (context, index) => Column(
-                                      children: [
-                                        Container(
-                                          decoration: const BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                                          ), // Set rounded corner radius
-                                          width: MediaQuery.of(context).size.width,
-                                          height: 125,
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                padding: const EdgeInsets.all(10),
-                                                width: 130,
-                                                child: CachedNetworkImage(
-                                                  imageUrl: "http://10.0.2.2:8000/storage/assets/images/product-image/" +
-                                                      snapshot.data![index].sanPham.hinhAnh!,
-                                                  placeholder: (context, url) => const Center(
-                                                    child: CircularProgressIndicator(),
-                                                  ),
-                                                  errorWidget: (context, url, error) => Container(
-                                                    color: Colors.black12,
-                                                  ),
-                                                ),
-                                              ),
-                                              //bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-                                              Expanded(
-                                                  child: Padding(
-                                                padding: const EdgeInsets.all(10),
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                  children: [
-                                                    RichText(
-                                                        text: TextSpan(
-                                                            style: const TextStyle(color: Colors.black),
-                                                            text: snapshot.data![index].sanPham.tenSanPham)),
-                                                    Text(
-                                                      snapshot.data![index].id.toString(),
-                                                      style: const TextStyle(color: Colors.grey),
-                                                    ),
-                                                    Row(
-                                                      children: [
-                                                        Text(formatNumber.format(snapshot.data![index].sanPham.giaBan),
-                                                            style: const TextStyle(fontWeight: FontWeight.bold)),
-                                                        const Spacer(),
-                                                        Text("Quantily: ${snapshot.data![index].soLuong}",
-                                                            style: const TextStyle(fontWeight: FontWeight.bold))
-                                                      ],
-                                                    )
-                                                  ],
-                                                ),
-                                              ))
-                                            ],
-                                          ),
-                                        ),
-                                        const Divider()
-                                      ],
-                                    ),
-                                  )
-                                : const Center(
-                                    child: CircularProgressIndicator(),
-                                  );
-                          }),
+                      gioHangController.buildListGioHang(),
                       Container(
                         decoration: const BoxDecoration(
                           color: Colors.white,
@@ -411,31 +334,41 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
                                 padding: const EdgeInsets.all(10),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(15),
-                                  child: Container(
-                                    width: 160,
-                                    height: 100,
-                                    color: Colors.white,
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                                      children: [
-                                        IconButton(
-                                            onPressed: () {
-                                              Navigator.pushNamed(context, "routeting");
-                                            },
-                                            icon: const Icon(
-                                              Icons.price_change,
-                                              size: 50,
-                                              color: Colors.blue,
-                                            )),
-                                        const Padding(
-                                          padding: EdgeInsets.only(left: 60, top: 20),
-                                          child: Text(
-                                            "Cash",
-                                            style: TextStyle(fontSize: 20),
-                                          ),
+                                  child: Stack(
+                                    alignment: Alignment.topRight,
+                                    children: [
+                                      Container(
+                                        width: 160,
+                                        height: 100,
+                                        color: Colors.white,
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                                          children: [
+                                            IconButton(
+                                                onPressed: () {
+                                                  Navigator.pushNamed(context, "routeting");
+                                                },
+                                                icon: const Icon(
+                                                  Icons.price_change,
+                                                  size: 50,
+                                                  color: Colors.blue,
+                                                )),
+                                            const Padding(
+                                              padding: EdgeInsets.only(left: 60, top: 20),
+                                              child: Text(
+                                                "Cash",
+                                                style: TextStyle(fontSize: 20),
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                      const Icon(
+                                        Icons.check_circle,
+                                        size: 30,
+                                        color: Colors.green,
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
@@ -445,8 +378,8 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
                       ),
                       //cccccccccccccccccccccccccccccccccccccccccccccccccccccc
                       ListTile(
-                        title: const Text("Cash item: 00000 product"),
-                        trailing: Text("${formatNumber.format(111111111111111)} VNĐ"),
+                        title: Text("Cash item: ${gioHangController.tongSoLuong} product"),
+                        trailing: Text("${formatNumber.format(gioHangController.tongTien)} VNĐ"),
                       ),
                       ListTile(
                         title: const Text("Transportation cost"),
@@ -462,7 +395,7 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
                             ),
                         child: ListTile(
                           title: Text(
-                            "Total: ${formatNumber.format(1111111111111111 + _shippingMethod.soTienShip)}",
+                            "Total: ${formatNumber.format(gioHangController.tongTien + _shippingMethod.soTienShip)}",
                             style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                           ),
                           trailing: ElevatedButton(
@@ -474,7 +407,7 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
                                   Navigator.pushNamed(context, "/SuccessfullyPage");
                                   EasyLoading.dismiss();
                                 } else {
-                                  thongBaoScaffoldMessenger(context, "Sometime fails, check your my cart");
+                                  thongBaoScaffoldMessenger(context, "Sometime fails, check your cart or address");
                                   EasyLoading.dismiss();
                                 }
                               },

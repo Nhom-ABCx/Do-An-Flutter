@@ -516,18 +516,17 @@ Future<List<BinhLuan>> api_GetAll_BinhLuan(int idSanPham) async {
 //add binh luan
 Future<dynamic> api_Add_BinhLuan(String noiDung, int khachHangId, int sanPhamId) async {
   final uri = Uri.parse(urlBaseAPI + "binh-luan/add");
-  bool status = false;
   try {
     final response = await http.post(uri, body: {"NoiDung": noiDung, "KhachHangId": "$khachHangId", "SanPhamId": "$sanPhamId"});
     if (response.statusCode == 200) {
-      return status = true;
+      return true;
     } else if (response.statusCode == 400) {
       return json.decode(response.body);
     }
 
     // ignore: empty_catches
   } catch (e) {}
-  return status;
+  return false;
 }
 
 //kiem tra tk duoc binh luan san pham
@@ -621,30 +620,30 @@ Future<List<GioHang>> api_Get_GioHang(int khachHangId) async {
   return lstGioHang;
 }
 
-Future<bool> api_Insert_SanPham_GioHang(int khachHangId, int sanPhamId, int soLuong) async {
+Future<dynamic> api_Insert_SanPham_GioHang(int khachHangId, int sanPhamId, int soLuong) async {
   final uri = Uri.parse(urlBaseAPI + "GioHang/add");
-  bool success = false;
   try {
     final response = await http.post(uri, body: {"KhachHangId": "$khachHangId", "SanPhamId": "$sanPhamId", "SoLuong": "$soLuong"});
     if (response.statusCode == 200) {
-      return success = true;
+      return true;
+    } else if (response.statusCode == 400) {
+      return json.decode(response.body);
     }
     // ignore: empty_catches
   } catch (e) {}
-  return success;
 }
 
-Future<bool> api_Update_SanPham_GioHang(int khachHangId, int sanPhamId, int soLuong) async {
+Future<dynamic> api_Update_SanPham_GioHang(int khachHangId, int sanPhamId, int soLuong) async {
   final uri = Uri.parse(urlBaseAPI + "GioHang/update?_method=PUT");
-  bool success = false;
   try {
     final response = await http.post(uri, body: {"KhachHangId": "$khachHangId", "SanPhamId": "$sanPhamId", "SoLuong": "$soLuong"});
     if (response.statusCode == 200) {
-      return success = true;
+      return true;
+    } else if (response.statusCode == 400) {
+      return json.decode(response.body);
     }
     // ignore: empty_catches
   } catch (e) {}
-  return success;
 }
 
 Future<bool> api_Delete_SanPham_GioHang(int khachHangId, int sanPhamId) async {
