@@ -87,6 +87,7 @@ class GioHangController extends ChangeNotifier {
           return snapshot.hasData
               ? ListView.builder(
                   shrinkWrap: true,
+                  //ngan chan ListView no' cuon xuong' duoc, xai` cho SingleChildScrollView-column
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: snapshot.data!.length,
                   itemBuilder: (context, index) => Column(
@@ -141,7 +142,7 @@ class GioHangController extends ChangeNotifier {
                           ],
                         ),
                       ),
-                      const Divider()
+                      const Divider(height: 5)
                     ],
                   ),
                 )

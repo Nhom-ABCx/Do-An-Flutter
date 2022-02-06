@@ -222,9 +222,10 @@ Future<bool> api_sendEmail_User_Reset(String username) async {
 
 //them du lieu vao gio hang
 
-Future<bool> api_HoaDon_LapHoaDon(int diaChiId) async {
+Future<bool> api_HoaDon_LapHoaDon(int diaChiId, int phuongThucThanhToan) async {
   const url = urlBaseAPI + 'HoaDon/LapHoaDon';
-  if (diaChiId <= 0) return false;
+  if (diaChiId < 0) return false;
+  if (phuongThucThanhToan < 0) return false;
   try {
     //giuu code nay lai de doc
     // List<Map<String, dynamic>> value = [];
@@ -234,7 +235,7 @@ Future<bool> api_HoaDon_LapHoaDon(int diaChiId) async {
     // final body = json.encode({"DiaChiId": "$diaChiId", "Data": value});
     // final response = await http.post(Uri.parse(url), body: body, headers: {"accept": "application/json", "content-type": "application/json"});
 
-    final response = await http.post(Uri.parse(url), body: {"DiaChiId": "$diaChiId"});
+    final response = await http.post(Uri.parse(url), body: {"DiaChiId": "$diaChiId", "PhuongThucThanhToan": "$phuongThucThanhToan"});
     if (response.statusCode == 200) {
       return true;
     }

@@ -14,7 +14,7 @@ class _QuanLyDonHangPageState extends State<QuanLyDonHangPage> with SingleTicker
   void initState() {
     // TODO: implement initState
     super.initState();
-    tabController = TabController(length: 5, vsync: this);
+    tabController = TabController(length: 6, vsync: this);
     //tabController.addListener(() => setState(() {}));
   }
 
@@ -35,6 +35,15 @@ class _QuanLyDonHangPageState extends State<QuanLyDonHangPage> with SingleTicker
           "My orders",
           style: TextStyle(color: Colors.indigo),
         ),
+        actions: [
+          IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.auto_delete,
+                color: Colors.black,
+                size: 30,
+              ))
+        ],
         centerTitle: true,
         bottom: TabBar(
           controller: tabController,
@@ -43,6 +52,9 @@ class _QuanLyDonHangPageState extends State<QuanLyDonHangPage> with SingleTicker
           tabs: const [
             Tab(
               text: "To Pay",
+            ),
+            Tab(
+              text: "Waiting for handling",
             ),
             Tab(
               text: "To Processed",
@@ -78,7 +90,10 @@ class _QuanLyDonHangPageState extends State<QuanLyDonHangPage> with SingleTicker
             TrangThai: 4,
           ),
           TabDonHang(
-            TrangThai: 4,
+            TrangThai: 5,
+          ),
+          TabDonHang(
+            TrangThai: 5,
             check: true,
           ),
         ],

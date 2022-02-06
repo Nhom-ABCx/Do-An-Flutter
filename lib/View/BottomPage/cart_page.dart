@@ -43,7 +43,7 @@ class _CartPageState extends State<CartPage> {
                             child: Column(
                               children: [
                                 SvgPicture.asset(
-                                  "assets/icons/idea.svg",
+                                  "assets/icons/cart.svg",
                                   width: 200,
                                   height: 200,
                                 ),
@@ -82,6 +82,7 @@ class _CartPageState extends State<CartPage> {
                                 height: 475,
                                 child: ListView.builder(
                                     shrinkWrap: true,
+                                    //ngan chan ListView no' cuon xuong' duoc, xai` cho SingleChildScrollView-column
                                     //physics: const NeverScrollableScrollPhysics(),
                                     itemCount: snapshot.data!.length,
                                     itemBuilder: (context, index) {

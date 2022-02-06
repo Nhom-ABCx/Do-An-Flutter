@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +16,7 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
   //cac bien' de dung`, de? tam
   late DiaChi _diaChi;
   late ShippingMethod _shippingMethod;
+  late int _phuongThucThanhToan;
 
   @override
   void initState() {
@@ -22,6 +25,7 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
     _diaChi = DiaChi(
         khachHangId: Auth.khachHang.id!, tenNguoiNhan: Auth.khachHang.hoTen!, phone: Auth.khachHang.phone!, diaChiChiTiet: Auth.khachHang.diaChi!);
     _shippingMethod = ShippingMethod.courier();
+    _phuongThucThanhToan = -1;
   }
 
   @override
@@ -119,16 +123,6 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
                               children: [
                                 const Icon(Icons.favorite, color: Colors.red),
                                 const SizedBox(width: 10),
-                                const Icon(Icons.favorite, color: Colors.red),
-                                const SizedBox(width: 10),
-                                const Icon(Icons.favorite, color: Colors.red),
-                                const SizedBox(width: 10),
-                                const Icon(Icons.favorite, color: Colors.red),
-                                const SizedBox(width: 10),
-                                const Icon(Icons.favorite, color: Colors.red),
-                                const SizedBox(width: 10),
-                                const Icon(Icons.favorite, color: Colors.red),
-                                const SizedBox(width: 10),
                                 ElevatedButton.icon(
                                   onPressed: () async {
                                     //tao 1 bien nhan gia tri tu trang tiep theo gui ve`
@@ -169,10 +163,12 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
                           color: Colors.white,
                           borderRadius: BorderRadius.all(Radius.circular(15.0)),
                         ), // Set rounded corner radius
+                        margin: const EdgeInsets.only(top: 10),
                         padding: const EdgeInsets.all(10),
                         width: MediaQuery.of(context).size.width,
                         height: 75,
-                        child: Stack(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -188,194 +184,94 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
                                 ),
                               ],
                             ),
-                            Align(
-                                alignment: Alignment.centerRight,
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    TextButton(
-                                      onPressed: () async {
-                                        final value = await showModalBottomSheet<ShippingMethod>(
-                                            context: context, builder: ((builder) => ShippingMethodSheet(_shippingMethod.shipMethodRadio)));
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                TextButton(
+                                  onPressed: () async {
+                                    final value = await showModalBottomSheet<ShippingMethod>(
+                                        context: context, builder: ((builder) => _ShippingMethodSheet(_shippingMethod.shipMethodRadio)));
 
-                                        setState(() => _shippingMethod = value!);
-                                      },
-                                      child: Row(
-                                        children: [
-                                          Text("${formatNumber.format(_shippingMethod.soTienShip)} VNĐ",
-                                              style: const TextStyle(fontWeight: FontWeight.bold)),
-                                          const Icon(Icons.arrow_right)
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ))
+                                    setState(() => _shippingMethod = value!);
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Text("${formatNumber.format(_shippingMethod.soTienShip)} VNĐ",
+                                          style: const TextStyle(fontWeight: FontWeight.bold)),
+                                      const Icon(Icons.arrow_right)
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            )
                           ],
                         ),
                       ),
                       const Divider(),
                       Container(
-                        margin: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                        height: 75,
-                        alignment: Alignment.center,
                         decoration: const BoxDecoration(
-                            color: Colors.blue,
-                            borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)) // Set rounded corner radius
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                        ), // Set rounded corner radius
+                        padding: const EdgeInsets.all(10),
+                        width: MediaQuery.of(context).size.width,
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text("Choose Payment Method", style: TextStyle(fontWeight: FontWeight.bold)),
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    TextButton(
+                                      onPressed: () {},
+                                      child: Row(
+                                        children: const [Text("View more", style: TextStyle(fontWeight: FontWeight.bold)), Icon(Icons.arrow_right)],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
-                        child: const Text(
-                          "Choose Payment Method",
-                          style: TextStyle(fontSize: 20, color: Colors.white),
+                            SizedBox(
+                              height: 80,
+                              //cho nay` xai` StreamBuilder de load cai ListView cho no giong cai RadioCheck
+                              //ko biet xai` Radio nhu nao` nen tu che' no' thanh` Streambuilder
+                              //xai` provider kem` FutureBuilder cung dc nhung ma` mat cong tao class,extend r Notifi...
+                              child: StreamBuilder<int>(
+                                  stream: _streamPhuongThucThanhToanController.stream,
+                                  builder: (context, snapshot) {
+                                    if (snapshot.hasError) {
+                                      print(snapshot.error);
+                                    }
+                                    if (snapshot.hasData) {
+                                      _phuongThucThanhToan = snapshot.data!;
+                                      return ListView.separated(
+                                        //view nam` ngang
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: 5,
+                                        separatorBuilder: (context, _) => const SizedBox(
+                                          width: 15, //khoang cach giua cac'layout
+                                        ),
+                                        itemBuilder: (context, index) => _PaymentMethod(index + 1, indexCheck: snapshot.data!),
+                                      );
+                                    }
+                                    return ListView.separated(
+                                      //view nam` ngang
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: 5,
+                                      separatorBuilder: (context, _) => const SizedBox(
+                                        width: 15, //khoang cach giua cac'layout
+                                      ),
+                                      itemBuilder: (context, index) => _PaymentMethod(index + 1, indexCheck: -1),
+                                    );
+                                  }),
+                            ),
+                          ],
                         ),
                       ),
-                      Container(
-                        margin: const EdgeInsets.fromLTRB(5, 0, 5, 0),
-                        color: Colors.white70,
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                          child: Wrap(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(15),
-                                  child: Container(
-                                    width: 160,
-                                    height: 100,
-                                    color: Colors.white,
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                                      children: [
-                                        IconButton(
-                                            onPressed: () {
-                                              Navigator.pushNamed(context, "routeting");
-                                            },
-                                            icon: const Icon(
-                                              Icons.credit_card,
-                                              size: 50,
-                                              color: Colors.blue,
-                                            )),
-                                        const Padding(
-                                          padding: EdgeInsets.only(left: 27, top: 20),
-                                          child: Text(
-                                            "Credit Card",
-                                            style: TextStyle(fontSize: 20),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(15),
-                                  child: Container(
-                                    width: 160,
-                                    height: 100,
-                                    color: Colors.white,
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                                      children: [
-                                        IconButton(
-                                            onPressed: () {
-                                              Navigator.pushNamed(context, "routeting");
-                                            },
-                                            icon: const Icon(
-                                              Icons.account_balance,
-                                              size: 50,
-                                              color: Colors.blue,
-                                            )),
-                                        const Padding(
-                                          padding: EdgeInsets.only(left: 60, top: 20),
-                                          child: Text(
-                                            "Bank",
-                                            style: TextStyle(fontSize: 20),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(15),
-                                  child: Container(
-                                    width: 160,
-                                    height: 100,
-                                    color: Colors.white,
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                                      children: [
-                                        IconButton(
-                                            onPressed: () {
-                                              Navigator.pushNamed(context, "routeting");
-                                            },
-                                            icon: const Icon(
-                                              Icons.payments,
-                                              size: 50,
-                                              color: Colors.blue,
-                                            )),
-                                        const Padding(
-                                          padding: EdgeInsets.only(left: 50, top: 20),
-                                          child: Text(
-                                            "PayPal",
-                                            style: TextStyle(fontSize: 20),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(15),
-                                  child: Stack(
-                                    alignment: Alignment.topRight,
-                                    children: [
-                                      Container(
-                                        width: 160,
-                                        height: 100,
-                                        color: Colors.white,
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                                          children: [
-                                            IconButton(
-                                                onPressed: () {
-                                                  Navigator.pushNamed(context, "routeting");
-                                                },
-                                                icon: const Icon(
-                                                  Icons.price_change,
-                                                  size: 50,
-                                                  color: Colors.blue,
-                                                )),
-                                            const Padding(
-                                              padding: EdgeInsets.only(left: 60, top: 20),
-                                              child: Text(
-                                                "Cash",
-                                                style: TextStyle(fontSize: 20),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      const Icon(
-                                        Icons.check_circle,
-                                        size: 30,
-                                        color: Colors.green,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                      const Divider(),
                       //cccccccccccccccccccccccccccccccccccccccccccccccccccccc
                       ListTile(
                         title: Text("Cash item: ${gioHangController.tongSoLuong} product"),
@@ -403,7 +299,7 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
                                 showCustomLoadding();
 
                                 //neu' ko rong~ va` lap hoa don duoc
-                                if (gioHangController.gioHang.isNotEmpty && await api_HoaDon_LapHoaDon(_diaChi.id ?? -1)) {
+                                if (gioHangController.gioHang.isNotEmpty && await api_HoaDon_LapHoaDon(_diaChi.id ?? -1, _phuongThucThanhToan)) {
                                   Navigator.pushNamed(context, "/SuccessfullyPage");
                                   EasyLoading.dismiss();
                                 } else {
@@ -416,8 +312,8 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
                                 style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                               ),
                               style: ButtonStyle(
-                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
+                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
                                   //side: const BorderSide(color: Colors.pink)
                                 )),
                                 backgroundColor: MaterialStateProperty.all(Colors.amber),
@@ -436,9 +332,9 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
   }
 }
 
-class ShippingMethodSheet extends StatefulWidget {
+class _ShippingMethodSheet extends StatefulWidget {
   final _ShipMethodRadio ship;
-  const ShippingMethodSheet(this.ship, {Key? key}) : super(key: key);
+  const _ShippingMethodSheet(this.ship, {Key? key}) : super(key: key);
 
   @override
   _ShippingMethodSheetState createState() => _ShippingMethodSheetState();
@@ -479,7 +375,7 @@ class ShippingMethod {
   }
 }
 
-class _ShippingMethodSheetState extends State<ShippingMethodSheet> {
+class _ShippingMethodSheetState extends State<_ShippingMethodSheet> {
   @override
   Widget build(BuildContext context) {
     _ShipMethodRadio? _shipMethodddradio = widget.ship;
@@ -565,5 +461,125 @@ class _ShippingMethodSheetState extends State<ShippingMethodSheet> {
         ),
       ),
     );
+  }
+}
+
+final _streamPhuongThucThanhToanController = StreamController<int>();
+
+class _PaymentMethod extends StatefulWidget {
+  const _PaymentMethod(this.index, {Key? key, required this.indexCheck}) : super(key: key);
+  final int index;
+  final int indexCheck;
+
+  @override
+  State<_PaymentMethod> createState() => _PaymentMethodState();
+}
+
+class _PaymentMethodState extends State<_PaymentMethod> {
+  late String tieuDe;
+  late Widget tieuDeWidget; //icon
+  late String ghiChu;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    //cai nay` la` phai lay tu bang? phuong thuc thanh toan' tu` sever tra? ve`
+    //admin se co the tuy` chinh phuong thuc thanh toan' den' so tai khoan cua ho
+
+    switch (widget.index) {
+      case 2:
+        tieuDe = "Credit Card";
+        tieuDeWidget = const Icon(
+          Icons.credit_card,
+          color: Colors.blue,
+        );
+        ghiChu = "Chose to add $tieuDe";
+
+        break;
+      case 3:
+        tieuDe = "MOMO";
+        tieuDeWidget = const Icon(
+          Icons.price_change,
+          color: Colors.blue,
+        );
+        ghiChu = "Chose to add $tieuDe";
+
+        break;
+      case 4:
+        tieuDe = "Viettel Pay";
+        tieuDeWidget = const Icon(
+          Icons.price_change,
+          color: Colors.blue,
+        );
+        ghiChu = "Chose to add $tieuDe";
+
+        break;
+      case 5:
+        tieuDe = "ZaloPay";
+        tieuDeWidget = const Icon(
+          Icons.price_change,
+          color: Colors.blue,
+        );
+        ghiChu = "Chose to add $tieuDe";
+
+        break;
+      default:
+        tieuDe = "Payment on delivery";
+        tieuDeWidget = const Icon(
+          Icons.price_change,
+          color: Colors.blue,
+        );
+        ghiChu = tieuDe;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    const Color colorText = Colors.black;
+    return ElevatedButton(
+        style: ButtonStyle(
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
+              borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+              side: BorderSide(color: widget.indexCheck == widget.index ? Colors.green : Colors.blue))),
+          backgroundColor: widget.indexCheck == widget.index ? MaterialStateProperty.all(Colors.green[50]) : MaterialStateProperty.all(Colors.white),
+        ),
+        onPressed: () async {
+          print(widget.index);
+          _streamPhuongThucThanhToanController.sink.add(widget.index);
+        },
+        child: Padding(
+            padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    tieuDeWidget,
+                    const SizedBox(width: 5),
+                    Text(
+                      tieuDe,
+                      style: const TextStyle(fontWeight: FontWeight.bold, color: colorText),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text(
+                      ghiChu,
+                      style: const TextStyle(fontStyle: FontStyle.italic, color: colorText),
+                    ),
+                    const SizedBox(width: 10),
+                    //neu nhu dang chon o so nao` thi` chinh lai
+                    (widget.indexCheck == widget.index)
+                        ? const Icon(
+                            Icons.check_circle,
+                            color: Colors.green,
+                          )
+                        : const SizedBox(width: 10),
+                  ],
+                )
+              ],
+            )));
   }
 }
