@@ -37,7 +37,11 @@ class _QuanLyDonHangPageState extends State<QuanLyDonHangPage> with SingleTicker
         ),
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const DonHangHuyPage(),
+                  )),
               icon: const Icon(
                 Icons.auto_delete,
                 color: Colors.black,

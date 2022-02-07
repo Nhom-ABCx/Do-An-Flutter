@@ -60,5 +60,6 @@ export 'View/HoaDon/billing_infomation_page.dart';
 export 'View/HoaDon/successfully_page.dart';
 export 'View/HoaDon/quanly_donhang_page.dart';
 export 'View/HoaDon/tab_donhang.dart';
+export 'View/HoaDon/donhang_huy_page.dart';
 //View/SettingPage
 export 'View/SettingPage/address_page.dart';

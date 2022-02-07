@@ -39,44 +39,7 @@ class _CartPageState extends State<CartPage> {
                 }
                 return snapshot.hasData
                     ? (snapshot.data!.isEmpty)
-                        ? Center(
-                            child: Column(
-                              children: [
-                                SvgPicture.asset(
-                                  "assets/icons/cart.svg",
-                                  width: 200,
-                                  height: 200,
-                                ),
-                                const Text(
-                                  "There are no orders place yet.",
-                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                                ),
-                                GestureDetector(
-                                  onTap: () => Navigator.pushNamedAndRemoveUntil(context, "/Home", (route) => false),
-                                  child: Container(
-                                      margin: const EdgeInsets.only(top: 30),
-                                      alignment: Alignment.center,
-                                      width: 200,
-                                      height: 50.0,
-                                      decoration: const BoxDecoration(
-                                          borderRadius: BorderRadius.all(Radius.circular(30)),
-                                          gradient: LinearGradient(colors: [
-                                            Colors.red,
-                                            Colors.orange,
-                                          ]),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              offset: Offset(0, 0),
-                                              color: Colors.pink,
-                                              blurRadius: 16.0,
-                                            ),
-                                          ]),
-                                      child: const Text("Continute Shopping",
-                                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15))),
-                                ),
-                              ],
-                            ),
-                          )
+                        ? khongCoGiHet(context, "assets/icons/cart.svg")
                         : Column(children: [
                             SizedBox(
                                 height: 475,

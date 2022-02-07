@@ -564,6 +564,22 @@ Future<List<HoaDon>> api_GET_HoaDon_KhachHang_Theo_TrangThai(int trangThai) asyn
   return lstcthd;
 }
 
+//hoa don huy
+Future<List<HoaDon>> api_GET_HoaDon_KhachHang_DaHuy() async {
+  final uri = Uri.parse(urlBaseAPI + "HoaDon/KhachHang/${Auth.khachHang.id}/DaHuy");
+  List<HoaDon> lstcthd = [];
+  try {
+    final response = await http.get(uri);
+    if (response.statusCode == 200) {
+      List jsonRaw = json.decode(response.body);
+      //print(json.decode(response.body));
+      lstcthd = jsonRaw.map((e) => HoaDon.fromJson(e)).toList();
+      //print(lstcthd.length);
+    }
+  } catch (_) {}
+  return lstcthd;
+}
+
 //update star trong hoa don
 Future<bool> api_Danh_Gia_SanPham(int hoaDonId, int idSanPham, int soSao) async {
   final uri = Uri.parse(urlBaseAPI + "danh-gia-san-pham");
@@ -658,4 +674,28 @@ Future<bool> api_Delete_SanPham_GioHang(int khachHangId, int sanPhamId) async {
     // ignore: empty_catches
   } catch (e) {}
   return success;
+}
+
+Future<bool> api_Delete_HoaDon(int hoaDonId) async {
+  final uri = Uri.parse(urlBaseAPI + "HoaDon/delete?_method=DELETE");
+  try {
+    final response = await http.post(uri, body: {"HoaDonId": "$hoaDonId"});
+    if (response.statusCode == 200) {
+      return true;
+    }
+    // ignore: empty_catches
+  } catch (e) {}
+  return false;
+}
+
+Future<bool> api_Restore_HoaDon(int hoaDonId) async {
+  final uri = Uri.parse(urlBaseAPI + "HoaDon/restore");
+  try {
+    final response = await http.post(uri, body: {"HoaDonId": "$hoaDonId"});
+    if (response.statusCode == 200) {
+      return true;
+    }
+    // ignore: empty_catches
+  } catch (e) {}
+  return false;
 }

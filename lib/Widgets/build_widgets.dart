@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; //text input
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../all_page.dart';
@@ -443,3 +444,41 @@ Widget buildItemGioHang({required BuildContext context, String? hinhAnh, require
     ),
   );
 }
+
+Widget khongCoGiHet(BuildContext context, String svgPicAsset) => Center(
+      child: Column(
+        children: [
+          SvgPicture.asset(
+            svgPicAsset,
+            width: 200,
+            height: 200,
+          ),
+          const Text(
+            "There are no orders place yet.",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          ),
+          GestureDetector(
+            onTap: () => Navigator.pushNamedAndRemoveUntil(context, "/Home", (route) => false),
+            child: Container(
+                margin: const EdgeInsets.only(top: 30),
+                alignment: Alignment.center,
+                width: 200,
+                height: 50.0,
+                decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(30)),
+                    gradient: LinearGradient(colors: [
+                      Colors.red,
+                      Colors.orange,
+                    ]),
+                    boxShadow: [
+                      BoxShadow(
+                        offset: Offset(0, 0),
+                        color: Colors.pink,
+                        blurRadius: 16.0,
+                      ),
+                    ]),
+                child: const Text("Continute Shopping", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15))),
+          ),
+        ],
+      ),
+    );
