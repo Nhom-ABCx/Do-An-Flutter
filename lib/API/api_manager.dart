@@ -549,15 +549,15 @@ Future<bool> api_Kiem_Tra_Auth_BinhLuan(int idSanPham) async {
 }
 
 //ds san pham da mua
-Future<List<CT_HoaDon>> api_Get_SanPham_Pay(int trangThai) async {
-  final uri = Uri.parse(urlBaseAPI + "hoa-don?KhachHangId=${Auth.khachHang.id}&TrangThai=$trangThai");
-  List<CT_HoaDon> lstcthd = [];
+Future<List<HoaDon>> api_GET_HoaDon_KhachHang_Theo_TrangThai(int trangThai) async {
+  final uri = Uri.parse(urlBaseAPI + "HoaDon/KhachHang/${Auth.khachHang.id}?TrangThai=$trangThai");
+  List<HoaDon> lstcthd = [];
   try {
     final response = await http.get(uri);
     if (response.statusCode == 200) {
       List jsonRaw = json.decode(response.body);
       //print(json.decode(response.body));
-      lstcthd = jsonRaw.map((e) => CT_HoaDon.fromJson(e)).toList();
+      lstcthd = jsonRaw.map((e) => HoaDon.fromJson(e)).toList();
       //print(lstcthd.length);
     }
   } catch (_) {}

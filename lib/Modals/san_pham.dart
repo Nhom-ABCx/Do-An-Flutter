@@ -9,8 +9,8 @@ class SanPham {
   String tenSanPham;
   String? moTa;
   int? soLuongTon;
-  int? giaNhap;
-  int? giaBan;
+  double? giaNhap;
+  double? giaBan;
   String? hinhAnh;
   int? luotMua;
   int? hangSanXuatId;

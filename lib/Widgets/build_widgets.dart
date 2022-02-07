@@ -389,3 +389,57 @@ Widget buildListSanPham(BuildContext context, Future<List<SanPham>> listSanPham)
               child: CircularProgressIndicator(),
             );
     });
+
+Widget buildItemGioHang({required BuildContext context, String? hinhAnh, required String tenSanPham, String? moTa, double? giaBan, int? soLuong}) {
+  return Container(
+    decoration: const BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.all(Radius.circular(15.0)),
+    ), // Set rounded corner radius
+    width: MediaQuery.of(context).size.width,
+    //height: 125,
+    //constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.width / (3)),
+    child: Row(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(10),
+          width: 130,
+          child: CachedNetworkImage(
+            imageUrl: "http://10.0.2.2:8000/storage/assets/images/product-image/" + hinhAnh!,
+            placeholder: (context, url) => const Center(
+              child: CircularProgressIndicator(),
+            ),
+            errorWidget: (context, url, error) => Container(
+              color: Colors.black12,
+            ),
+          ),
+        ),
+        //bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+        Expanded(
+            child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            //mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              RichText(text: TextSpan(style: const TextStyle(color: Colors.black), text: tenSanPham)),
+              const SizedBox(height: 20),
+              Text(
+                moTa ?? "",
+                style: const TextStyle(color: Colors.grey),
+              ),
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  Text(formatNumber.format(giaBan) + " VNĐ", style: const TextStyle(fontWeight: FontWeight.bold)),
+                  const Spacer(),
+                  Text("Quantily: $soLuong", style: const TextStyle(fontWeight: FontWeight.bold))
+                ],
+              )
+            ],
+          ),
+        ))
+      ],
+    ),
+  );
+}

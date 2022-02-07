@@ -464,7 +464,7 @@ class _ShippingMethodSheetState extends State<_ShippingMethodSheet> {
   }
 }
 
-final _streamPhuongThucThanhToanController = StreamController<int>();
+final _streamPhuongThucThanhToanController = StreamController<int>.broadcast();
 
 class _PaymentMethod extends StatefulWidget {
   const _PaymentMethod(this.index, {Key? key, required this.indexCheck}) : super(key: key);

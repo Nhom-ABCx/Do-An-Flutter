@@ -1,19 +1,17 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '../all_page.dart';
 
 class GioHangController extends ChangeNotifier {
   List<GioHang> gioHang = [];
-  int tongTien = 0;
+  double tongTien = 0;
   int tongSoLuong = 0;
 
   int i = 0;
   Future<List<GioHang>> getData() async {
     print("get GioHang $i");
     gioHang = await api_Get_GioHang(Auth.khachHang.id!).then((value) {
-      int tt = 0;
+      double tt = 0;
       int tsl = 0;
       for (var item in value) {
         tt += item.soLuong * item.sanPham.giaBan!;
@@ -85,66 +83,19 @@ class GioHangController extends ChangeNotifier {
             );
           }
           return snapshot.hasData
-              ? ListView.builder(
+              ? ListView.separated(
                   shrinkWrap: true,
                   //ngan chan ListView no' cuon xuong' duoc, xai` cho SingleChildScrollView-column
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: snapshot.data!.length,
-                  itemBuilder: (context, index) => Column(
-                    children: [
-                      Container(
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                        ), // Set rounded corner radius
-                        width: MediaQuery.of(context).size.width,
-                        height: 125,
-                        child: Row(
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(10),
-                              width: 130,
-                              child: CachedNetworkImage(
-                                imageUrl: "http://10.0.2.2:8000/storage/assets/images/product-image/" + snapshot.data![index].sanPham.hinhAnh!,
-                                placeholder: (context, url) => const Center(
-                                  child: CircularProgressIndicator(),
-                                ),
-                                errorWidget: (context, url, error) => Container(
-                                  color: Colors.black12,
-                                ),
-                              ),
-                            ),
-                            //bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-                            Expanded(
-                                child: Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  RichText(
-                                      text: TextSpan(style: const TextStyle(color: Colors.black), text: snapshot.data![index].sanPham.tenSanPham)),
-                                  Text(
-                                    snapshot.data![index].id.toString(),
-                                    style: const TextStyle(color: Colors.grey),
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text(formatNumber.format(snapshot.data![index].sanPham.giaBan),
-                                          style: const TextStyle(fontWeight: FontWeight.bold)),
-                                      const Spacer(),
-                                      Text("Quantily: ${snapshot.data![index].soLuong}", style: const TextStyle(fontWeight: FontWeight.bold))
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ))
-                          ],
-                        ),
-                      ),
-                      const Divider(height: 5)
-                    ],
-                  ),
+                  separatorBuilder: (context, index) => const Divider(height: 5),
+                  itemBuilder: (context, index) => buildItemGioHang(
+                      context: context,
+                      tenSanPham: snapshot.data![index].sanPham.tenSanPham,
+                      hinhAnh: snapshot.data![index].sanPham.hinhAnh!,
+                      moTa: snapshot.data![index].sanPham.moTa,
+                      giaBan: snapshot.data![index].sanPham.giaBan,
+                      soLuong: snapshot.data![index].soLuong),
                 )
               : const Center(
                   child: CircularProgressIndicator(),

@@ -11,16 +11,15 @@ SanPham _$SanPhamFromJson(Map<String, dynamic> json) => SanPham(
       tenSanPham: json['TenSanPham'] as String,
       moTa: json['MoTa'] as String?,
       soLuongTon: json['SoLuongTon'] as int?,
-      giaNhap: json['GiaNhap'] as int?,
-      giaBan: json['GiaBan'] as int?,
+      giaNhap: (json['GiaNhap'] as num?)?.toDouble(),
+      giaBan: (json['GiaBan'] as num?)?.toDouble(),
       hinhAnh: json['HinhAnh'] as String?,
       luotMua: json['LuotMua'] as int?,
       hangSanXuatId: json['HangSanXuatId'] as int?,
       loaiSanPhamId: json['LoaiSanPhamId'] as int?,
       isFavorite: json['isFavorite'] == null ? 0 : json['isFavorite'] as int?,
-      star: json['Star'] ==null? 0:json['Star']*1.0, //chuyen ve sang double
-      giamGia: json['GiamGia'] ==null?0:json["GiamGia"]*1.0, //chuyen ve sang double
-      
+      star: json['Star'] == null ? 0 : json['Star'] * 1.0, //chuyen ve sang double
+      giamGia: json['GiamGia'] == null ? 0 : json["GiamGia"] * 1.0, //chuyen ve sang double
     );
 
 Map<String, dynamic> _$SanPhamToJson(SanPham instance) => <String, dynamic>{
