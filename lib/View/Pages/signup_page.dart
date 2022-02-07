@@ -39,183 +39,196 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
           ),
           child: Scaffold(
-            backgroundColor: const Color(0xFF0d3bd1),
-            body: SingleChildScrollView(
-                keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-                padding: const EdgeInsets.only(top: 100),
-                child: Column(
-                  children: [
-                    CachedNetworkImage(
-                      imageUrl: 'http://10.0.2.2:8000/storage/assets/images/logo/logo-white.png',
-                      width: 80,
-                      fit: BoxFit.cover,
-                      placeholder: (context, url) => const Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                      errorWidget: (context, url, error) => Container(
-                        color: Colors.black12,
-                      ),
+            body: Container(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.centerLeft,
+                  stops: [0.1, 0.6, 0.8, 1],
+                  colors: [
+                    //xin cai nen` tu` google
+                    Color(0xFF3594DD),
+                    Color(0xFF4563DB),
+                    Color(0xFF5036D5),
+                    Color(0xFF5B16D0),
+                  ],
+                ),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CachedNetworkImage(
+                    imageUrl: 'http://10.0.2.2:8000/storage/assets/images/logo/logo-white.png',
+                    width: 80,
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) => const Center(
+                      child: CircularProgressIndicator(),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 20,
-                        top: 10,
-                        right: 20,
-                        bottom: 10,
-                      ),
-                      child: StreamBuilder(
-                          stream: _auth.nameController.stream,
-                          builder: (context, snapshot) => TextField(
-                                decoration: InputDecoration(
-                                  //border: OutlineInputBorder(),
-                                  enabledBorder: const OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.grey),
-                                  ),
-                                  labelText: "Username",
-                                  hintText: "create username",
-                                  errorText: snapshot.hasError ? snapshot.error.toString() : null,
-                                  labelStyle: const TextStyle(color: Colors.white),
-                                  hintStyle: const TextStyle(color: Colors.grey),
-                                  prefixIcon: const Icon(Icons.supervisor_account, color: Colors.white),
+                    errorWidget: (context, url, error) => Container(
+                      color: Colors.black12,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 20,
+                      top: 10,
+                      right: 20,
+                      bottom: 10,
+                    ),
+                    child: StreamBuilder(
+                        stream: _auth.nameController.stream,
+                        builder: (context, snapshot) => TextField(
+                              decoration: InputDecoration(
+                                //border: OutlineInputBorder(),
+                                enabledBorder: const OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey),
                                 ),
-                                controller: txtUsername, //gan gia tri cua text vao bien'
-                                textInputAction: TextInputAction.next,
-                                inputFormatters: <TextInputFormatter>[
-                                  LengthLimitingTextInputFormatter(255), //gioi han do dai`
-                                ],
-                              )),
+                                labelText: "Username",
+                                hintText: "create username",
+                                errorText: snapshot.hasError ? snapshot.error.toString() : null,
+                                labelStyle: const TextStyle(color: Colors.white),
+                                hintStyle: const TextStyle(color: Colors.grey),
+                                prefixIcon: const Icon(Icons.supervisor_account, color: Colors.white),
+                              ),
+                              controller: txtUsername, //gan gia tri cua text vao bien'
+                              textInputAction: TextInputAction.next,
+                              inputFormatters: <TextInputFormatter>[
+                                LengthLimitingTextInputFormatter(255), //gioi han do dai`
+                              ],
+                            )),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 20,
+                      top: 10,
+                      right: 20,
+                      bottom: 10,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 20,
-                        top: 10,
-                        right: 20,
-                        bottom: 10,
-                      ),
-                      child: StreamBuilder(
-                          stream: _auth.emailController.stream,
-                          builder: (context, snapshot) => TextField(
-                                decoration: InputDecoration(
-                                  //border: OutlineInputBorder(),
-                                  enabledBorder: const OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.grey),
-                                  ),
-                                  labelText: "Email",
-                                  hintText: "yourEmail@gmail.com",
-                                  errorText: snapshot.hasError ? snapshot.error.toString() : null,
-                                  labelStyle: const TextStyle(color: Colors.white),
-                                  hintStyle: const TextStyle(color: Colors.grey),
-                                  prefixIcon: const Icon(Icons.email, color: Colors.white),
+                    child: StreamBuilder(
+                        stream: _auth.emailController.stream,
+                        builder: (context, snapshot) => TextField(
+                              decoration: InputDecoration(
+                                //border: OutlineInputBorder(),
+                                enabledBorder: const OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey),
                                 ),
-                                controller: txtEmail, //gan gia tri cua text vao bien'
-                                keyboardType: TextInputType.emailAddress,
-                                textInputAction: TextInputAction.next,
-                                inputFormatters: <TextInputFormatter>[
-                                  LengthLimitingTextInputFormatter(255), //gioi han do dai`
-                                ],
-                              )),
+                                labelText: "Email",
+                                hintText: "yourEmail@gmail.com",
+                                errorText: snapshot.hasError ? snapshot.error.toString() : null,
+                                labelStyle: const TextStyle(color: Colors.white),
+                                hintStyle: const TextStyle(color: Colors.grey),
+                                prefixIcon: const Icon(Icons.email, color: Colors.white),
+                              ),
+                              controller: txtEmail, //gan gia tri cua text vao bien'
+                              keyboardType: TextInputType.emailAddress,
+                              textInputAction: TextInputAction.next,
+                              inputFormatters: <TextInputFormatter>[
+                                LengthLimitingTextInputFormatter(255), //gioi han do dai`
+                              ],
+                            )),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 20,
+                      top: 10,
+                      right: 20,
+                      bottom: 10,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 20,
-                        top: 10,
-                        right: 20,
-                        bottom: 10,
-                      ),
-                      child: StreamBuilder(
-                          stream: _auth.passController.stream,
-                          builder: (context, snapshot) => Stack(
-                                alignment: AlignmentDirectional.centerEnd,
-                                children: [
-                                  TextField(
-                                    obscureText: notShowPassword, //hien * khi nhap text
-                                    decoration: InputDecoration(
-                                      //border: OutlineInputBorder(),
-                                      enabledBorder: const OutlineInputBorder(
-                                        borderSide: BorderSide(color: Colors.grey),
-                                      ),
-                                      labelText: "Password",
-                                      errorText: snapshot.hasError ? snapshot.error.toString() : null,
-                                      labelStyle: const TextStyle(color: Colors.white),
-                                      prefixIcon: const Icon(
-                                        Icons.vpn_key,
-                                        color: Colors.white,
-                                      ),
+                    child: StreamBuilder(
+                        stream: _auth.passController.stream,
+                        builder: (context, snapshot) => Stack(
+                              alignment: AlignmentDirectional.centerEnd,
+                              children: [
+                                TextField(
+                                  obscureText: notShowPassword, //hien * khi nhap text
+                                  decoration: InputDecoration(
+                                    //border: OutlineInputBorder(),
+                                    enabledBorder: const OutlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.grey),
                                     ),
-                                    controller: txtPassword, //gan gia tri cua text vao bien'
-                                    textInputAction: TextInputAction.go,
-                                    inputFormatters: <TextInputFormatter>[
-                                      LengthLimitingTextInputFormatter(255), //gioi han do dai`
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 15),
-                                    child: GestureDetector(
-                                      onTap: () => setState(() => notShowPassword = !notShowPassword),
-                                      child: notShowPassword
-                                          ? const Icon(
-                                              Icons.visibility,
-                                              color: Colors.white,
-                                            )
-                                          : const Icon(
-                                              Icons.visibility_off,
-                                              color: Colors.white,
-                                            ),
+                                    labelText: "Password",
+                                    errorText: snapshot.hasError ? snapshot.error.toString() : null,
+                                    labelStyle: const TextStyle(color: Colors.white),
+                                    prefixIcon: const Icon(
+                                      Icons.vpn_key,
+                                      color: Colors.white,
                                     ),
                                   ),
-                                ],
-                              )),
+                                  controller: txtPassword, //gan gia tri cua text vao bien'
+                                  textInputAction: TextInputAction.go,
+                                  inputFormatters: <TextInputFormatter>[
+                                    LengthLimitingTextInputFormatter(255), //gioi han do dai`
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 15),
+                                  child: GestureDetector(
+                                    onTap: () => setState(() => notShowPassword = !notShowPassword),
+                                    child: notShowPassword
+                                        ? const Icon(
+                                            Icons.visibility,
+                                            color: Colors.white,
+                                          )
+                                        : const Icon(
+                                            Icons.visibility_off,
+                                            color: Colors.white,
+                                          ),
+                                  ),
+                                ),
+                              ],
+                            )),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(
+                      top: 10,
+                      bottom: 10,
                     ),
-                    Container(
-                      margin: const EdgeInsets.only(
-                        top: 10,
-                        bottom: 10,
-                      ),
-                      decoration: const BoxDecoration(
-                        color: Colors.green,
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                      ),
-                      width: 300,
-                      child: TextButton(
-                        child: const Text('Sign Up', style: TextStyle(fontSize: 20, color: Colors.white)),
-                        onPressed: () async {
-                          showCustomLoadding();
+                    decoration: const BoxDecoration(
+                      color: Colors.green,
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                    ),
+                    width: 300,
+                    child: TextButton(
+                      child: const Text('Sign Up', style: TextStyle(fontSize: 20, color: Colors.white)),
+                      onPressed: () async {
+                        showCustomLoadding();
 
-                          if (await (_auth.ktDangKy(txtUsername.text, txtEmail.text, txtPassword.text))) {
+                        if (await (_auth.ktDangKy(txtUsername.text, txtEmail.text, txtPassword.text))) {
+                          Navigator.pushReplacementNamed(context, '/Home');
+                          EasyLoading.dismiss();
+                        } else {
+                          (thongBaoScaffoldMessenger(context, "Create account Fails !"));
+                          EasyLoading.dismiss();
+                        }
+                      },
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Already have an account?",
+                        style: TextStyle(fontSize: 15, color: Colors.grey[300]),
+                      ),
+                      TextButton(
+                        child: const Text(
+                          "Sign In",
+                          style: TextStyle(fontSize: 17, color: Colors.white),
+                        ),
+                        onPressed: () async {
+                          if (await Auth.ktDaCoTaiKhoanDangNhap()) {
                             Navigator.pushReplacementNamed(context, '/Home');
-                            EasyLoading.dismiss();
                           } else {
-                            (thongBaoScaffoldMessenger(context, "Create account Fails !"));
-                            EasyLoading.dismiss();
+                            Navigator.pushReplacementNamed(context, '/Sign_In');
                           }
                         },
                       ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Already have an account?",
-                          style: TextStyle(fontSize: 15, color: Colors.grey[300]),
-                        ),
-                        TextButton(
-                          child: const Text(
-                            "Sign In",
-                            style: TextStyle(fontSize: 17, color: Colors.white),
-                          ),
-                          onPressed: () async {
-                            if (await Auth.ktDaCoTaiKhoanDangNhap()) {
-                              Navigator.pushReplacementNamed(context, '/Home');
-                            } else {
-                              Navigator.pushReplacementNamed(context, '/Sign_In');
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ],
-                )),
+                    ],
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       );

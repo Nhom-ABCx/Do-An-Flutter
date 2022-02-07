@@ -378,14 +378,16 @@ Widget buildListSanPham(BuildContext context, Future<List<SanPham>> listSanPham)
         return Center(child: Text(snapshot.error.toString()));
       }
       return snapshot.hasData
-          ? GridView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: snapshot.data!.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-              ),
-              itemBuilder: (context, index) => buildItem(snapshot.data![index]))
+          ? (snapshot.data!.isEmpty)
+              ? khongCoGiHet(context, "There are not found.", "assets/icons/search_2.svg")
+              : GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: snapshot.data!.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                  ),
+                  itemBuilder: (context, index) => buildItem(snapshot.data![index]))
           : const Center(
               child: CircularProgressIndicator(),
             );
@@ -445,22 +447,16 @@ Widget buildItemGioHang({required BuildContext context, String? hinhAnh, require
   );
 }
 
-Widget khongCoGiHet(BuildContext context, String svgPicAsset) => Center(
+Widget khongCoGiHet(BuildContext context, String text, String svgPicAsset) => Center(
       child: Column(
         children: [
-          SvgPicture.asset(
-            svgPicAsset,
-            width: 200,
-            height: 200,
-          ),
-          const Text(
-            "There are no orders place yet.",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-          ),
+          SvgPicture.asset(svgPicAsset, width: 200, height: 200),
+          const SizedBox(height: 25),
+          Text(text, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+          const SizedBox(height: 25),
           GestureDetector(
             onTap: () => Navigator.pushNamedAndRemoveUntil(context, "/Home", (route) => false),
             child: Container(
-                margin: const EdgeInsets.only(top: 30),
                 alignment: Alignment.center,
                 width: 200,
                 height: 50.0,

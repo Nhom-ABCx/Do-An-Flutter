@@ -33,7 +33,7 @@ class _TabDonHangState extends State<TabDonHang> {
             }
             if (snapshot.hasData) {
               if (snapshot.data!.isEmpty) {
-                return khongCoGiHet(context, "assets/icons/idea.svg");
+                return khongCoGiHet(context, "There are no orders place yet.", "assets/icons/idea.svg");
               }
               return ListView.separated(
                   shrinkWrap: true,

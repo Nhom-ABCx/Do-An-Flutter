@@ -310,39 +310,77 @@ class _ProductDetailState extends State<ProductDetail> {
                               physics: const NeverScrollableScrollPhysics(),
                               itemCount: snap.data!.length,
                               itemBuilder: (context, index) {
-                                return ListTile(
-                                  leading: ClipRRect(
-                                    borderRadius: BorderRadius.circular(100),
-                                    child: CachedNetworkImage(
-                                      width: 60,
-                                      height: 60,
-                                      imageUrl: snap.data![index].hinhAnhKh!,
-                                      placeholder: (context, url) => const Center(
-                                        child: CupertinoActivityIndicator(),
-                                      ),
-                                      errorWidget: (context, url, error) => const Icon(
-                                        Icons.error,
-                                        color: Colors.red,
-                                        size: 50,
-                                      ),
+                                return Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  decoration: BoxDecoration(
+                                    //color: Colors.white,
+                                    // boxShadow: const [
+                                    //   BoxShadow(
+                                    //     blurRadius: 3,
+                                    //     color: Color(0x41000000),
+                                    //     offset: Offset(0, 1),
+                                    //   )
+                                    // ],
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(8, 12, 8, 12),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          width: 40,
+                                          height: 40,
+                                          clipBehavior: Clip.antiAlias,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: CachedNetworkImage(
+                                            fit: BoxFit.cover,
+                                            imageUrl: snap.data![index].hinhAnhKh!,
+                                            placeholder: (context, url) => const Center(
+                                              child: CupertinoActivityIndicator(),
+                                            ),
+                                            errorWidget: (context, url, error) => const Icon(
+                                              Icons.error,
+                                              color: Colors.red,
+                                              size: 50,
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Padding(
+                                            padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(snap.data![index].userName!),
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+                                                  child: Text(snap.data![index].noiDung!),
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+                                                  child: Row(
+                                                    mainAxisSize: MainAxisSize.max,
+                                                    children: const [
+                                                      Padding(
+                                                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 4, 0),
+                                                        child: Text('Posted'),
+                                                      ),
+                                                      Text('A few moments ago'),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  title:
-                                      // Row(
-                                      //   children: [
-                                      Text(snap.data![index].userName!),
-                                  //    RatingBarIndicator(
-                                  //       rating: widget.sanPham.star!,
-                                  //       itemSize: 30.0,
-                                  //       itemBuilder: (context, index) {
-                                  //         return const Icon(
-                                  //           Icons.star,
-                                  //           color: Colors.amber,
-                                  //         );
-                                  //       }),
-                                  // ],
-                                  //),
-                                  subtitle: Text(snap.data![index].noiDung!),
                                 );
                               });
                         }

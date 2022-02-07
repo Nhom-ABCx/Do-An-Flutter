@@ -39,7 +39,7 @@ class _CartPageState extends State<CartPage> {
                 }
                 return snapshot.hasData
                     ? (snapshot.data!.isEmpty)
-                        ? khongCoGiHet(context, "assets/icons/cart.svg")
+                        ? khongCoGiHet(context, "There are no orders place yet.", "assets/icons/cart.svg")
                         : Column(children: [
                             SizedBox(
                                 height: 475,
