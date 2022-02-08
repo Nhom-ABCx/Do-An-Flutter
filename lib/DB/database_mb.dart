@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
@@ -42,6 +44,18 @@ class Db {
         created_at TEXT,
         updated_at TEXT,
         deleted_at TEXT
+      )
+      ''');
+    //tao gio hang
+    await db.execute('''
+    CREATE TABLE gio_hangs (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        KhachHangId INTEGER,
+        SanPhamId INTEGER,
+        SoLuong INTEGER,
+        created_at TEXT,
+        updated_at  TEXT,
+        san_pham TEXT
       )
       ''');
   }

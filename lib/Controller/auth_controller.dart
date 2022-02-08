@@ -27,8 +27,14 @@ class Auth {
 
     khachHang = await api_DangNhap(email, pass);
 
+    //sau khi dang nhap thanh cong
     if (khachHang.email.isNotEmpty) {
+      //them vao DB local
       khachHang = await Db().insertIfExistItemKH(khachHang);
+      //gom gio? hang` lai
+      final _gH = await GioHangController().getAllItemsGH();
+      if (_gH.isNotEmpty) api_Insert_ListSanPham_GioHang(_gH);
+
       return true;
     }
     return false;

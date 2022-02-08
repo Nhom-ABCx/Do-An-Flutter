@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_application_1/DB/database_mb.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 import '../all_page.dart';
 
+// ignore: camel_case_types, must_be_immutable
 class buildItem extends StatefulWidget {
   SanPham sanPham;
   buildItem(this.sanPham, {Key? key}) : super(key: key);
@@ -105,10 +107,16 @@ class _buildItemState extends State<buildItem> {
             child: Align(
                 alignment: const Alignment(3, 0),
                 child: InkWell(
-                  onTap: () {
-                    //them san pham vao gio hang` voi so luong la 1, neu click lan` nua thi so luong tu cong don`
-                    //xu ly tu cong don` la o ben sever
-                    Provider.of<GioHangController>(context, listen: false).addData(context, widget.sanPham.id!, 1);
+                  onTap: () async {
+                    //neu chua dang nhap thi insert no' vao trong DB cua may'
+                    if (Auth.khachHang.id! < 1) {
+                      final _gioHang = GioHang(khachHangId: -1, sanPhamId: widget.sanPham.id!, soLuong: 1, sanPham: widget.sanPham);
+                      Provider.of<GioHangController>(context, listen: false).insertItemGH(context, _gioHang);
+                    } else {
+                      //them san pham vao gio hang` voi so luong la 1, neu click lan` nua thi so luong tu cong don`
+                      //xu ly tu cong don` la o ben sever
+                      Provider.of<GioHangController>(context, listen: false).addData(context, widget.sanPham.id!, 1);
+                    }
                   },
                   child: const Icon(
                     Icons.add_circle,

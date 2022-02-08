@@ -1,5 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_application_1/DB/database_mb.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:provider/provider.dart';
+
+import '../Controller/auth_controller.dart';
 
 part 'khach_hang.g.dart';
 
@@ -53,9 +57,10 @@ class KhachHang {
     deletedAt = DateTime.now();
   }
   // ignore: non_constant_identifier_names
-  void LogOut() {
+  void LogOut(BuildContext context) {
     final db = Db();
     db.deleteItemKH(id!);
+    Provider.of<SocialLogin>(context, listen: false).logOut();
 
     id = -1;
     username = "";
@@ -70,5 +75,7 @@ class KhachHang {
     createdAt = DateTime.now();
     updatedAt = DateTime.now();
     deletedAt = DateTime.now();
+
+    Navigator.pushNamedAndRemoveUntil(context, "/Sign_In", (route) => false);
   }
 }

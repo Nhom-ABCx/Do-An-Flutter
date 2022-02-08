@@ -9,7 +9,7 @@ class NavigationDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool _chuaDangNhap = (Auth.khachHang.id! < 0);
+    bool _chuaDangNhap = (Auth.khachHang.id! < 1);
 
     return Theme(
       data: Theme.of(context).copyWith(
@@ -44,9 +44,7 @@ class NavigationDrawer extends StatelessWidget {
                 text: 'Loggin Now',
                 icon: Icons.login_outlined,
                 onClicked: () async {
-                  Provider.of<SocialLogin>(context, listen: false).logOut();
-                  Auth.khachHang.LogOut();
-                  Navigator.pushNamedAndRemoveUntil(context, "/Sign_In", (route) => false);
+                  Auth.khachHang.LogOut(context);
                 },
               )
             else

@@ -699,3 +699,24 @@ Future<bool> api_Restore_HoaDon(int hoaDonId) async {
   } catch (e) {}
   return false;
 }
+
+Future<dynamic> api_Insert_ListSanPham_GioHang(List<GioHang> _gioHang) async {
+  final uri = Uri.parse(urlBaseAPI + "GioHang/addList");
+  try {
+    List<Map<String, dynamic>> value = [];
+    for (var item in _gioHang) {
+      value.add({"SanPhamId": "${item.sanPhamId}", "SoLuong": "${item.soLuong}"});
+    }
+
+    final body = json.encode({"KhachHangId": "${Auth.khachHang.id}", "Data": value});
+    final response = await http.post(uri, body: body, headers: {"accept": "application/json", "content-type": "application/json"});
+
+    if (response.statusCode == 200) {
+      GioHangController().deleteAllCart();
+      return true;
+    } else if (response.statusCode == 400) {
+      return json.decode(response.body);
+    }
+    // ignore: empty_catches
+  } catch (e) {}
+}

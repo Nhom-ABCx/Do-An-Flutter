@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_application_1/all_page.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -8,9 +10,9 @@ part 'gio_hang.g.dart';
 
 class GioHang {
   int? id;
-  int khachHangId;
-  int sanPhamId;
-  int soLuong;
+  late int khachHangId;
+  late int sanPhamId;
+  late int soLuong;
   DateTime? createdAt;
   DateTime? updatedAt;
   SanPham sanPham;

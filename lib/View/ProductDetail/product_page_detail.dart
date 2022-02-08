@@ -361,19 +361,19 @@ class _ProductDetailState extends State<ProductDetail> {
                                                   padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
                                                   child: Text(snap.data![index].noiDung!),
                                                 ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
-                                                  child: Row(
-                                                    mainAxisSize: MainAxisSize.max,
-                                                    children: const [
-                                                      Padding(
-                                                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 4, 0),
-                                                        child: Text('Posted'),
-                                                      ),
-                                                      Text('A few moments ago'),
-                                                    ],
-                                                  ),
-                                                ),
+                                                // Padding(
+                                                //   padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+                                                //   child: Row(
+                                                //     mainAxisSize: MainAxisSize.max,
+                                                //     children: const [
+                                                //       Padding(
+                                                //         padding: EdgeInsetsDirectional.fromSTEB(0, 0, 4, 0),
+                                                //         child: Text('Posted'),
+                                                //       ),
+                                                //       Text('A few moments ago'),
+                                                //     ],
+                                                //   ),
+                                                // ),
                                               ],
                                             ),
                                           ),

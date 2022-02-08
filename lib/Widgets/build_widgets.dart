@@ -222,9 +222,7 @@ List<Widget> hienThiDanhMucDrawer(BuildContext context) {
       text: 'Sign Out',
       icon: Icons.logout,
       onClicked: () {
-        Provider.of<SocialLogin>(context, listen: false).logOut();
-        Auth.khachHang.LogOut();
-        Navigator.pushNamedAndRemoveUntil(context, "/Sign_In", (route) => false);
+        Auth.khachHang.LogOut(context);
       },
     ),
   ];

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
+import '../../DB/database_mb.dart';
 import '../../all_page.dart';
 
 class CartPage extends StatefulWidget {
@@ -15,6 +16,7 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
+    final bool _chuaDangNhap = (Auth.khachHang.id! < 1);
     return GestureDetector(
       //huy keyboard khi bam ngoai man hinh
       onTap: () => FocusScope.of(context).unfocus(),
@@ -31,7 +33,7 @@ class _CartPageState extends State<CartPage> {
         //Body
         body: Consumer<GioHangController>(
           builder: (context, gioHangController, child) => FutureBuilder<List<GioHang>>(
-            future: gioHangController.getData(),
+            future: (_chuaDangNhap) ? gioHangController.getAllItemsGH() : gioHangController.getData(),
             builder: (context, snapshot) {
               {
                 if (snapshot.hasError) {
@@ -54,7 +56,13 @@ class _CartPageState extends State<CartPage> {
                                         child: Row(
                                           children: [
                                             InkWell(
-                                              onTap: () => gioHangController.deleteData(context, snapshot.data![index].sanPhamId),
+                                              onTap: () {
+                                                if (_chuaDangNhap) {
+                                                  gioHangController.deleteItemGH(context, snapshot.data![index].sanPhamId);
+                                                } else {
+                                                  gioHangController.deleteData(context, snapshot.data![index].sanPhamId);
+                                                }
+                                              },
                                               child: const Icon(
                                                 Icons.cancel,
                                                 color: Colors.red,
@@ -104,7 +112,12 @@ class _CartPageState extends State<CartPage> {
                                                       int soLuong = snapshot.data![index].soLuong - 1;
                                                       //kiem tra tai client, de do~ khoi phai gui request them
                                                       if (soLuong < 1) return;
-                                                      gioHangController.updateData(context, snapshot.data![index].sanPhamId, soLuong);
+                                                      if (_chuaDangNhap) {
+                                                        snapshot.data![index].soLuong = soLuong;
+                                                        gioHangController.updateItemGH(snapshot.data![index]);
+                                                      } else {
+                                                        gioHangController.updateData(context, snapshot.data![index].sanPhamId, soLuong);
+                                                      }
                                                     },
                                                     child: const Icon(
                                                       Icons.remove,
@@ -119,8 +132,15 @@ class _CartPageState extends State<CartPage> {
                                                   ),
                                                   InkWell(
                                                     onTap: () {
-                                                      gioHangController.updateData(
-                                                          context, snapshot.data![index].sanPhamId, snapshot.data![index].soLuong + 1);
+                                                      if (_chuaDangNhap) {
+                                                        //hoi mac' cong
+                                                        int soLuong = snapshot.data![index].soLuong + 1;
+                                                        snapshot.data![index].soLuong = soLuong;
+                                                        gioHangController.updateItemGH(snapshot.data![index]);
+                                                      } else {
+                                                        gioHangController.updateData(
+                                                            context, snapshot.data![index].sanPhamId, snapshot.data![index].soLuong + 1);
+                                                      }
                                                     },
                                                     child: const Icon(
                                                       Icons.add,
@@ -149,7 +169,12 @@ class _CartPageState extends State<CartPage> {
                                   padding: const EdgeInsets.only(right: 8.0),
                                   child: ElevatedButton(
                                       onPressed: () async {
-                                        gioHangController.gioHang.isNotEmpty ? Navigator.pushNamed(context, "/BillingPage") : null;
+                                        if (_chuaDangNhap) {
+                                          Auth.khachHang.LogOut(context);
+                                          thongBaoScaffoldMessenger(context, "Please login to continue checkout");
+                                        } else {
+                                          gioHangController.gioHang.isNotEmpty ? Navigator.pushNamed(context, "/BillingPage") : null;
+                                        }
                                       },
                                       child: const Text(
                                         "Checkout Now",

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/DB/database_mb.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '../all_page.dart';
 
@@ -101,5 +102,93 @@ class GioHangController extends ChangeNotifier {
                   child: CircularProgressIndicator(),
                 );
         });
+  }
+
+  Future<dynamic> getItemGH(int sanPhamId) async {
+    final dbclient = await Db().database;
+    List<Map> result = await dbclient.rawQuery("SELECT * FROM gio_hangs WHERE SanPhamId=?", [sanPhamId]);
+
+    if (result.isNotEmpty) {
+      return GioHang.fromJson(result.first);
+    }
+    return false;
+  }
+
+  Future<List<GioHang>> getAllItemsGH() async {
+    print("get GioHang $i");
+    final dbclient = await Db().database;
+    final result = await dbclient.query("gio_hangs");
+    gioHang = result.map((json) => GioHang.fromJson(json)).toList();
+
+    double tt = 0;
+    int tsl = 0;
+    for (var item in gioHang) {
+      tt += item.soLuong * item.sanPham.giaBan!;
+      tsl += item.soLuong;
+    }
+    tongTien = tt;
+    tongSoLuong = tsl;
+
+    i++;
+    return gioHang;
+  }
+
+  void insertItemGH(BuildContext context, GioHang gioHang) async {
+    showCustomLoadding();
+
+    final dbclient = await Db().database;
+    final _gh = await getItemGH(gioHang.sanPhamId);
+    if (_gh is GioHang) //neu' no' tra ve duoc gio? hang` thi`cap nhat so' luong len
+    {
+      _gh.soLuong += 1;
+      if (await updateItemGH(_gh)) {
+        thongBaoScaffoldMessenger(context, "Add Success");
+        EasyLoading.dismiss();
+      }
+    } else {
+      final result = await dbclient.insert('gio_hangs', gioHang.toJson());
+      if (result != 0) {
+        thongBaoScaffoldMessenger(context, "Add Success");
+        EasyLoading.dismiss();
+      } else {
+        thongBaoScaffoldMessenger(context, "Add Fails");
+        EasyLoading.dismiss();
+      }
+    }
+    notifyListeners();
+  }
+
+  Future<bool> updateItemGH(GioHang gioHang) async {
+    var dbclient = await Db().database;
+    final result = await dbclient.update(
+      'gio_hangs',
+      gioHang.toJson(),
+      where: 'SanPhamId=?',
+      whereArgs: [gioHang.sanPhamId],
+    );
+    notifyListeners();
+    return result != 0;
+  }
+
+  void deleteItemGH(BuildContext context, int sanPhamId) async {
+    showCustomLoadding();
+
+    final dbclient = await Db().database;
+    final result = await dbclient.delete('gio_hangs', where: 'SanPhamId=?', whereArgs: [sanPhamId]);
+    if (result != 0) {
+      thongBaoScaffoldMessenger(context, "Delete Success");
+      EasyLoading.dismiss();
+    } else {
+      (thongBaoScaffoldMessenger(context, "Fails Delete"));
+      EasyLoading.dismiss();
+    }
+    notifyListeners();
+  }
+
+  Future<bool> deleteAllCart() async {
+    var dbclient = await Db().database;
+    final result = await dbclient.delete('gio_hangs');
+    notifyListeners();
+    return result != 0;
   }
 }
