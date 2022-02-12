@@ -131,47 +131,15 @@ class _ProductDetailState extends State<ProductDetail> {
               textColor: Colors.white,
               color: Colors.red,
               onPressed: () async {
-                //gioHang
-                // final crt = Cart(
-                //     id: sanPham.id,
-                //     productId: sanPham.id!,
-                //     productName: sanPham.tenSanPham,
-                //     inintPrice: sanPham.giaBan!,
-                //     productPrice: (cartprd.getQuantity() * sanPham.giaBan!),
-                //     quantity: cartprd.getQuantity(),
-                //     productImg: sanPham.hinhAnh!);
-                // bool check = await dbCart.ifPrdExitsCart(crt);
-                // if (check) {
-                //   thongBaoScaffoldMessenger(context, "Product exits cart");
-                //   dbCart.updateQuantity(crt);
-                //   cartprd.addTotalPrice(double.parse(crt.productPrice.toString()));
-                // } else {
-                //   dbCart.insertItemCart(crt).then((value) {
-                //     thongBaoScaffoldMessenger(context, "Add cart complete");
-                //     cartprd.addTotalPrice(double.parse(sanPham.giaBan.toString()));
-                //   }).onError((error, stackTrace) {
-                //     // ignore: avoid_print
-                //     print(error.toString());
-                //   });
-                // }
-                // int newPrice = sanPham.giaBan! * cartprd.getQuantity();
-                // dbCart
-                //     .insertItemCart(Cart(
-                //         id: sanPham.id,
-                //         productId: sanPham.id!,
-                //         productName: sanPham.tenSanPham,
-                //         inintPrice: sanPham.giaBan!,
-                //         productPrice: newPrice,
-                //         quantity: cartprd.getQuantity(),
-                //         productImg: sanPham.hinhAnh!))
-                //     .then((value) {
-                //   thongBaoScaffoldMessenger(context, "Add cart complete");
-                //   cartprd.addTotalPrice(double.parse(newPrice.toString()));
-                // }).onError((error, stackTrace) {
-                //   // ignore: avoid_print
-                //   print(error.toString());
-                // });
-                // ;
+                //neu chua dang nhap thi insert no' vao trong DB cua may'
+                if (Auth.khachHang.id! < 1) {
+                  final _gioHang = GioHang(khachHangId: -1, sanPhamId: widget.sanPham.id!, soLuong: 1, sanPham: widget.sanPham);
+                  Provider.of<GioHangController>(context, listen: false).insertItemGH(context, _gioHang);
+                } else {
+                  //them san pham vao gio hang` voi so luong la 1, neu click lan` nua thi so luong tu cong don`
+                  //xu ly tu cong don` la o ben sever
+                  Provider.of<GioHangController>(context, listen: false).addData(context, widget.sanPham.id!, 1);
+                }
               },
               child: Text(
                 'Add to card',
@@ -391,7 +359,7 @@ class _ProductDetailState extends State<ProductDetail> {
             ]),
           ],
         ),
-        bottomNavigationBar: const BottomNavBar(0),
+        //bottomNavigationBar: const BottomNavBar(0),
       ),
     );
   }
