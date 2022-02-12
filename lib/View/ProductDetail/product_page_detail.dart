@@ -434,7 +434,7 @@ Widget buildProductData(SanPham sanPham) {
               );
             }),
         Text(
-          "${sanPham.star} ratings",
+          ("${formatStar.format(sanPham.star)} ratings"),
           style: TextStyle(fontWeight: FontWeight.bold),
         )
       ],
