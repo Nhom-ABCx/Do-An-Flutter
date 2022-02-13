@@ -128,6 +128,10 @@ class _TabDonHangState extends State<TabDonHang> {
                                     ))
                                 : null,
                           ),
+                          ListTile(
+                            title: const Text("Payment Method:"),
+                            trailing: Text(_phuongThucThanhToan(snapshot.data![index].phuongThucThanhToan!)),
+                          ),
                           //hien thi tung phan tu ct hoa don cua hoa don
                           ListView.builder(
                             shrinkWrap: true,
@@ -171,5 +175,20 @@ class _TabDonHangState extends State<TabDonHang> {
             );
           }),
     ));
+  }
+}
+
+String _phuongThucThanhToan(int phuongThuc) {
+  switch (phuongThuc) {
+    case 2:
+      return "Credit Card";
+    case 3:
+      return "MOMO";
+    case 4:
+      return "Viettel Pay";
+    case 5:
+      return "ZaloPay";
+    default:
+      return "Payment on delivery";
   }
 }
