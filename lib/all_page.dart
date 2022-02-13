@@ -6,6 +6,7 @@ export 'Widgets/appbar.dart';
 export 'Widgets/bottombar.dart';
 export 'Widgets/build_widgets.dart';
 export 'Widgets/builditem_product.dart';
+export 'Widgets/builditem_giohang.dart';
 //Models
 export 'Modals/san_pham.dart';
 export 'Modals/khach_hang.dart';

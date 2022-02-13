@@ -91,13 +91,13 @@ class GioHangController extends ChangeNotifier {
                   itemCount: snapshot.data!.length,
                   separatorBuilder: (context, index) => const Divider(height: 5),
                   itemBuilder: (context, index) => buildItemGioHang(
-                      context: context,
-                      tenSanPham: snapshot.data![index].sanPham.tenSanPham,
-                      hinhAnh: snapshot.data![index].sanPham.hinhAnh!,
-                      moTa: snapshot.data![index].sanPham.moTa,
-                      giaBan: snapshot.data![index].sanPham.giaBan,
-                      soLuong: snapshot.data![index].soLuong,
-                      ),
+                    context: context,
+                    tenSanPham: snapshot.data![index].sanPham.tenSanPham,
+                    hinhAnh: snapshot.data![index].sanPham.hinhAnh!,
+                    moTa: snapshot.data![index].sanPham.moTa,
+                    giaBan: snapshot.data![index].sanPham.giaBan,
+                    soLuong: snapshot.data![index].soLuong,
+                  ),
                 )
               : const Center(
                   child: CircularProgressIndicator(),
