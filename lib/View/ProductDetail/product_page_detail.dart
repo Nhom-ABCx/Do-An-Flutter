@@ -359,7 +359,7 @@ class _ProductDetailState extends State<ProductDetail> {
             ]),
           ],
         ),
-        //bottomNavigationBar: const BottomNavBar(0),
+        // bottomNavigationBar: const BottomNavBar(0),
       ),
     );
   }

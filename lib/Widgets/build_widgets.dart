@@ -391,7 +391,7 @@ Widget buildListSanPham(BuildContext context, Future<List<SanPham>> listSanPham)
             );
     });
 
-Widget buildItemGioHang({required BuildContext context, String? hinhAnh, required String tenSanPham, String? moTa, double? giaBan, int? soLuong}) {
+Widget buildItemGioHang({required BuildContext context, String? hinhAnh, required String tenSanPham, String? moTa, double? giaBan, int? soLuong,int? soSao}) {
   return Container(
     decoration: const BoxDecoration(
       color: Colors.white,
@@ -423,7 +423,20 @@ Widget buildItemGioHang({required BuildContext context, String? hinhAnh, require
             crossAxisAlignment: CrossAxisAlignment.start,
             //mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              RichText(text: TextSpan(style: const TextStyle(color: Colors.black), text: tenSanPham)),
+              Row(
+                children: [
+                  RichText(text: TextSpan(style: const TextStyle(color: Colors.black), text: tenSanPham)),
+                  InkWell(
+                    onTap: (){
+                      if(soSao!=0){}
+                      else{
+                        
+                      }
+
+                    },
+                  )
+                ],
+              ),
               const SizedBox(height: 20),
               Text(
                 moTa ?? "",

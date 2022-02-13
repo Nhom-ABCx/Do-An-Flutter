@@ -1,9 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import '../../all_page.dart';
 
@@ -130,6 +128,7 @@ class _TabDonHangState extends State<TabDonHang> {
                                     ))
                                 : null,
                           ),
+                          //hien thi tung phan tu ct hoa don cua hoa don
                           ListView.builder(
                             shrinkWrap: true,
                             //ngan chan ListView no' cuon xuong' duoc, xai` cho SingleChildScrollView-column
