@@ -1,5 +1,3 @@
-import 'dart:async';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -239,15 +237,16 @@ class _SignInPageState extends State<SignInPage> {
                       ],
                       iconURL: "assets/icons/facebook.svg",
                       onPressed: () async {
+                        showCustomLoadding();
                         print("facebook");
 
-                        final result = await FacebookAuth.i.login();
-
-                        if (result.status == LoginStatus.success) {
-                          final userData = await FacebookAuth.i.getUserData();
-                          print(result);
+                        if (await socialLogin.facebookLogin()) {
+                          Navigator.pushReplacementNamed(context, '/Home');
+                          EasyLoading.dismiss();
+                        } else {
+                          (thongBaoScaffoldMessenger(context, "Fail to Login"));
+                          EasyLoading.dismiss();
                         }
-                        FacebookAuth.i.logOut();
                       },
                     ),
                     _SocialIcon(

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_application_1/DB/database_mb.dart';
 import 'package:flutter_application_1/all_page.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 class Auth {
   static KhachHang khachHang = KhachHang.empty();
@@ -128,7 +129,28 @@ class SocialLogin extends ChangeNotifier {
     return true;
   }
 
+  Future<bool> facebookLogin() async {
+    try {
+      //hien thi facebook dang nhap, doi ket qua tra ve
+
+      final result = await FacebookAuth.i.login();
+      //neu' kq tra ve voi trang thai dang nhap thanh cong thi xu ly dang nhap
+      if (result.status == LoginStatus.success) {
+        final user = await FacebookAuth.i.getUserData();
+        //tien thanh` dang ky', neu' da~ co' roi` thi` ko can` dk lai
+        Auth.khachHang = await api_DangKy_Social(user["name"], user["email"], user["picture"]["data"]["url"]);
+        Db().insertIfExistItemKH(Auth.khachHang);
+        return true;
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+    notifyListeners();
+    return false;
+  }
+
   Future<void> logOut() async {
-    await GoogleSignIn().disconnect();
+    GoogleSignIn().disconnect();
+    FacebookAuth.i.logOut();
   }
 }
