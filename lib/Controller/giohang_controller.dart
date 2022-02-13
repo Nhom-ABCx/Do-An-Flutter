@@ -96,7 +96,8 @@ class GioHangController extends ChangeNotifier {
                       hinhAnh: snapshot.data![index].sanPham.hinhAnh!,
                       moTa: snapshot.data![index].sanPham.moTa,
                       giaBan: snapshot.data![index].sanPham.giaBan,
-                      soLuong: snapshot.data![index].soLuong),
+                      soLuong: snapshot.data![index].soLuong,
+                      ),
                 )
               : const Center(
                   child: CircularProgressIndicator(),

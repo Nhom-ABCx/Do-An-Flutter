@@ -429,9 +429,7 @@ Widget buildItemGioHang({required BuildContext context, String? hinhAnh, require
                   InkWell(
                     onTap: (){
                       if(soSao!=0){}
-                      else{
-                        
-                      }
+                      else{}
 
                     },
                   )
