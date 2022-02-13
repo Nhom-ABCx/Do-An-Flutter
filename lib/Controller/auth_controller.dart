@@ -1,9 +1,9 @@
 import 'dart:async';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_application_1/DB/database_mb.dart';
 import 'package:flutter_application_1/all_page.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 class Auth {
   static KhachHang khachHang = KhachHang.empty();
@@ -111,30 +111,16 @@ class Auth {
 }
 
 class SocialLogin extends ChangeNotifier {
-  final googleSignIn = GoogleSignIn(); //bien' google
-  GoogleSignInAccount? ggkhachHang; //tai khoan dang nhap
-
   //ham` xu ly dang nhap
   Future<bool> googleLogin() async {
     try {
       //hien thi google dang nhap, doi ket qua tra ve
-      final user = await googleSignIn.signIn();
+      final user = await GoogleSignIn().signIn();
       //neu' kq tra ve la null thi return false => dang nhap that bai
       if (user == null) return false;
       //nguoc lai thi` xu ly dang nhap
-      ggkhachHang = user;
-      //xac thuc dang nhap
-      final googleAuth = await user.authentication;
-
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-      //FirebaseAuth.instance.currentUser
-      //dang nhap tai khoan google vao firebase
-      final userCredential = await FirebaseAuth.instance.signInWithCredential(credential).then((value) => value.user);
       //tien thanh` dang ky', neu' da~ co' roi` thi` ko can` dk lai
-      Auth.khachHang = await api_DangKy_Social(userCredential!.displayName!, userCredential.email!, userCredential.photoURL!);
+      Auth.khachHang = await api_DangKy_Social(user.displayName!, user.email, user.photoUrl!);
       Db().insertIfExistItemKH(Auth.khachHang);
     } catch (e) {
       print(e.toString());
@@ -143,8 +129,28 @@ class SocialLogin extends ChangeNotifier {
     return true;
   }
 
+  Future<bool> facebookLogin() async {
+    try {
+      //hien thi facebook dang nhap, doi ket qua tra ve
+
+      final result = await FacebookAuth.i.login();
+      //neu' kq tra ve voi trang thai dang nhap thanh cong thi xu ly dang nhap
+      if (result.status == LoginStatus.success) {
+        final user = await FacebookAuth.i.getUserData();
+        //tien thanh` dang ky', neu' da~ co' roi` thi` ko can` dk lai
+        Auth.khachHang = await api_DangKy_Social(user["name"], user["email"], user["picture"]["data"]["url"]);
+        Db().insertIfExistItemKH(Auth.khachHang);
+        return true;
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+    notifyListeners();
+    return false;
+  }
+
   Future<void> logOut() async {
-    await googleSignIn.disconnect();
-    FirebaseAuth.instance.signOut();
+    GoogleSignIn().disconnect();
+    FacebookAuth.i.logOut();
   }
 }

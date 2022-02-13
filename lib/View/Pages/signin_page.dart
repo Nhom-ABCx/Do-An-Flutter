@@ -1,6 +1,3 @@
-import 'dart:async';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -76,7 +73,7 @@ class _SignInPageState extends State<SignInPage> {
               ),
             ),
             child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // RotationTransition(
                 //   turns: animation_rotation,
@@ -239,8 +236,17 @@ class _SignInPageState extends State<SignInPage> {
                         Color(0xFF00eaf8),
                       ],
                       iconURL: "assets/icons/facebook.svg",
-                      onPressed: () {
+                      onPressed: () async {
+                        showCustomLoadding();
                         print("facebook");
+
+                        if (await socialLogin.facebookLogin()) {
+                          Navigator.pushReplacementNamed(context, '/Home');
+                          EasyLoading.dismiss();
+                        } else {
+                          (thongBaoScaffoldMessenger(context, "Fail to Login"));
+                          EasyLoading.dismiss();
+                        }
                       },
                     ),
                     _SocialIcon(

@@ -67,8 +67,9 @@ dependencies:
   #autocomplete query API, co su dung thu? cho Chon dia Chi
   flutter_typeahead: ^3.2.4
   #google,facebook login
-  firebase_auth: ^3.3.6
+  # firebase_auth: ^3.3.6
   google_sign_in: ^5.2.3
+  flutter_facebook_auth: ^4.0.1
 
 dev_dependencies:
   build_runner: ^2.0.0

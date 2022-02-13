@@ -3,13 +3,11 @@ import 'package:flutter_application_1/Controller/binh_luan_controller.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'all_page.dart'; //lam` v cho no' nho? ra
 
 Future<void> main() async {
   //google flutter
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
 
   Provider.debugCheckInvalidValueType = null;
   runApp(const MyApp());
