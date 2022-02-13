@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -76,7 +76,7 @@ class _SignInPageState extends State<SignInPage> {
               ),
             ),
             child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // RotationTransition(
                 //   turns: animation_rotation,
@@ -239,8 +239,16 @@ class _SignInPageState extends State<SignInPage> {
                         Color(0xFF00eaf8),
                       ],
                       iconURL: "assets/icons/facebook.svg",
-                      onPressed: () {
+                      onPressed: () async {
                         print("facebook");
+
+                        final result = await FacebookAuth.i.login(permissions: ["public_profile", "email"]);
+
+                        if (result.status == LoginStatus.success) {
+                          final userData = await FacebookAuth.i.getUserData();
+                          print(result);
+                        }
+                        FacebookAuth.i.logOut();
                       },
                     ),
                     _SocialIcon(
