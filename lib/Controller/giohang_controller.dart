@@ -90,7 +90,7 @@ class GioHangController extends ChangeNotifier {
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: snapshot.data!.length,
                   separatorBuilder: (context, index) => const Divider(height: 5),
-                  itemBuilder: (context, index) => buildItemGioHang(
+                  itemBuilder: (context, index) => buildItemHoaDon(
                     context: context,
                     tenSanPham: snapshot.data![index].sanPham.tenSanPham,
                     hinhAnh: snapshot.data![index].sanPham.hinhAnh!,

@@ -43,4 +43,19 @@ class QuanLyHoaDonController extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+  void danhGiaSanPham(BuildContext context, int hoaDonId, int idSanPham, int soSao) async {
+    showCustomLoadding();
+    final addStar = await api_Danh_Gia_SanPham(hoaDonId, idSanPham, soSao);
+
+    if (addStar) {
+      thongBaoScaffoldMessenger(context, "Add Success");
+      EasyLoading.dismiss();
+    } else {
+      (thongBaoScaffoldMessenger(context, "Fails add"));
+      EasyLoading.dismiss();
+    }
+    Navigator.pop(context);
+    notifyListeners();
+  }
 }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../all_page.dart';
 
 // ignore: camel_case_types, must_be_immutable
-class buildItemGioHang extends StatefulWidget {
+class buildItemHoaDon extends StatefulWidget {
   BuildContext context;
   String? hinhAnh;
   String tenSanPham;
@@ -11,14 +11,14 @@ class buildItemGioHang extends StatefulWidget {
   double? giaBan;
   int? soLuong;
   int? soSao;
-  buildItemGioHang({Key? key, required this.context, required this.tenSanPham, this.hinhAnh, this.moTa, this.giaBan, this.soLuong, this.soSao})
+  buildItemHoaDon({Key? key, required this.context, required this.tenSanPham, this.hinhAnh, this.moTa, this.giaBan, this.soLuong, this.soSao})
       : super(key: key);
 
   @override
-  State<buildItemGioHang> createState() => _buildItemGioHangState();
+  State<buildItemHoaDon> createState() => _buildItemHoaDonState();
 }
 
-class _buildItemGioHangState extends State<buildItemGioHang> {
+class _buildItemHoaDonState extends State<buildItemHoaDon> {
   @override
   Widget build(BuildContext context) {
     return Container(

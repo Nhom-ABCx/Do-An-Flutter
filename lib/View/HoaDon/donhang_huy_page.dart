@@ -75,7 +75,7 @@ class _DonHangHuyPageState extends State<DonHangHuyPage> {
                                 //ngan chan ListView no' cuon xuong' duoc, xai` cho SingleChildScrollView-column
                                 physics: const NeverScrollableScrollPhysics(),
                                 itemCount: snapshot.data![index].ctHoaDon.length,
-                                itemBuilder: (context, indexCT) => buildItemGioHang(
+                                itemBuilder: (context, indexCT) => buildItemHoaDon(
                                     context: context,
                                     tenSanPham: snapshot.data![index].ctHoaDon[indexCT].sanPham.tenSanPham,
                                     hinhAnh: snapshot.data![index].ctHoaDon[indexCT].sanPham.hinhAnh,
