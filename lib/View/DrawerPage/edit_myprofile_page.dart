@@ -19,7 +19,7 @@ class EditMyProfileState extends State<EditMyProfile> {
   final txtHoTen = TextEditingController(text: Auth.khachHang.hoTen!);
   final txtPhone = TextEditingController(text: Auth.khachHang.phone!);
   final txtEmail = TextEditingController(text: Auth.khachHang.email);
-  final txtDiaChi = TextEditingController(text: Auth.khachHang.diaChi!);
+  final txtDiaChi = TextEditingController(text: Auth.khachHang.diaChi ?? "");
   DateTime txtNgaySinh = Auth.khachHang.ngaySinh!;
   bool txtGioiTinh = Auth.khachHang.gioiTinh!.isOdd;
 
@@ -52,17 +52,13 @@ class EditMyProfileState extends State<EditMyProfile> {
                                     border: Border.all(
                                       color: Colors.red.shade100,
                                     ),
-                                    borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(10),
-                                        topRight: Radius.circular(10))),
+                                    borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
                                 child: Row(children: [
                                   Padding(
                                     padding: const EdgeInsets.fromLTRB(20, 20, 10, 20),
                                     child: GestureDetector(
                                       onTap: () => showModalBottomSheet(
-                                          context: context,
-                                          builder: ((builder) =>
-                                              fileController.bottomSheetPickImage(context))),
+                                          context: context, builder: ((builder) => fileController.bottomSheetPickImage(context))),
                                       child: Stack(
                                         children: [
                                           ClipOval(
@@ -106,22 +102,18 @@ class EditMyProfileState extends State<EditMyProfile> {
                                       children: [
                                         Text(
                                           '@' + Auth.khachHang.username,
-                                          style: const TextStyle(
-                                              color: Colors.white, fontWeight: FontWeight.bold),
+                                          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                                         ),
                                         Text(
                                           Auth.khachHang.hoTen!,
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold, fontSize: 20),
+                                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                                         ),
                                         StreamBuilder(
                                             stream: _editMyController.hinhanhController.stream,
                                             builder: (context, snapshot) => snapshot.hasError
                                                 ? Text(
                                                     snapshot.hasError.toString(),
-                                                    style: const TextStyle(
-                                                        fontWeight: FontWeight.bold,
-                                                        color: Colors.white),
+                                                    style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
                                                   )
                                                 : const SizedBox()),
                                       ],
@@ -136,22 +128,15 @@ class EditMyProfileState extends State<EditMyProfile> {
                                   child: Column(children: [
                                     StreamBuilder(
                                         stream: _editMyController.usernameController.stream,
-                                        builder: (context, snapshot) => buildInputTextMyProfile(
-                                            snapshot,
-                                            icon: Icons.account_circle_sharp,
-                                            title: 'Username',
-                                            txtController: txtUsername)),
+                                        builder: (context, snapshot) => buildInputTextMyProfile(snapshot,
+                                            icon: Icons.account_circle_sharp, title: 'Username', txtController: txtUsername)),
                                     StreamBuilder(
                                         stream: _editMyController.hotenController.stream,
-                                        builder: (context, snapshot) => buildInputTextMyProfile(
-                                            snapshot,
-                                            icon: Icons.contact_page,
-                                            title: 'Full Name',
-                                            txtController: txtHoTen)),
+                                        builder: (context, snapshot) =>
+                                            buildInputTextMyProfile(snapshot, icon: Icons.contact_page, title: 'Full Name', txtController: txtHoTen)),
                                     StreamBuilder(
                                         stream: _editMyController.phoneController.stream,
-                                        builder: (context, snapshot) => buildInputTextMyProfile(
-                                            snapshot,
+                                        builder: (context, snapshot) => buildInputTextMyProfile(snapshot,
                                             icon: Icons.phone,
                                             title: 'Phone',
                                             txtController: txtPhone,
@@ -159,19 +144,15 @@ class EditMyProfileState extends State<EditMyProfile> {
                                             inputNumberOnly: true)),
                                     StreamBuilder(
                                         stream: _editMyController.emailController.stream,
-                                        builder: (context, snapshot) => buildInputTextMyProfile(
-                                            snapshot,
+                                        builder: (context, snapshot) => buildInputTextMyProfile(snapshot,
                                             txtInputType: TextInputType.emailAddress,
                                             icon: Icons.email,
                                             title: 'Email Address',
                                             txtController: txtEmail)),
                                     StreamBuilder(
                                         stream: _editMyController.diachiController.stream,
-                                        builder: (context, snapshot) => buildInputTextMyProfile(
-                                            snapshot,
-                                            icon: Icons.gps_fixed,
-                                            title: 'Address',
-                                            txtController: txtDiaChi)),
+                                        builder: (context, snapshot) =>
+                                            buildInputTextMyProfile(snapshot, icon: Icons.gps_fixed, title: 'Address', txtController: txtDiaChi)),
                                     Column(
                                       children: [
                                         Row(
@@ -183,9 +164,7 @@ class EditMyProfileState extends State<EditMyProfile> {
                                             ),
                                             Padding(
                                               padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                                              child: Text("Birthday",
-                                                  style: TextStyle(
-                                                      fontSize: 15, fontWeight: FontWeight.bold)),
+                                              child: Text("Birthday", style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
                                             )
                                           ],
                                         ),
@@ -215,9 +194,7 @@ class EditMyProfileState extends State<EditMyProfile> {
                                             ),
                                             Padding(
                                               padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                                              child: Text("Gender",
-                                                  style: TextStyle(
-                                                      fontSize: 15, fontWeight: FontWeight.bold)),
+                                              child: Text("Gender", style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
                                             )
                                           ],
                                         ),
@@ -251,20 +228,15 @@ class EditMyProfileState extends State<EditMyProfile> {
                                           _khachHang.ngaySinh = txtNgaySinh;
                                           _khachHang.gioiTinh = txtGioiTinh ? 1 : 0;
 
-                                          if (await _editMyController
-                                              .ktUpdateKhachHang(_khachHang)) {
-                                            thongBaoScaffoldMessenger(
-                                                context, "Update Profile Successful");
+                                          if (await _editMyController.ktUpdateKhachHang(_khachHang)) {
+                                            thongBaoScaffoldMessenger(context, "Update Profile Successful");
                                             //reload page
                                             (context as Element).reassemble();
                                           } else {
-                                            thongBaoScaffoldMessenger(
-                                                context, "Update Profile Fails");
+                                            thongBaoScaffoldMessenger(context, "Update Profile Fails");
                                           }
-                                          if (await _editMyController.ktUpdateKhachHang_HinhAnh(
-                                              _khachHang, fileController.image!)) {
-                                            thongBaoScaffoldMessenger(
-                                                context, "Update Image Successful");
+                                          if (await _editMyController.ktUpdateKhachHang_HinhAnh(fileController.image!)) {
+                                            thongBaoScaffoldMessenger(context, "Update Image Successful");
                                           }
                                         },
                                         icon: const Icon(
@@ -273,8 +245,7 @@ class EditMyProfileState extends State<EditMyProfile> {
                                         ),
                                         label: const Text(
                                           'Save All Change',
-                                          style: TextStyle(
-                                              color: Colors.white, fontWeight: FontWeight.bold),
+                                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                                         ),
                                       ),
                                     ),
