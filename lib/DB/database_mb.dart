@@ -73,6 +73,12 @@ class Db {
     return result != 0;
   }
 
+  Future<bool> deleteAllKH() async {
+    var dbclient = await Db().database;
+    final result = await dbclient.delete('khach_hangs');
+    return result != 0;
+  }
+
   Future<int> updateItemKH(KhachHang khachHang) async {
     var dbclient = await database;
     return dbclient.update(
