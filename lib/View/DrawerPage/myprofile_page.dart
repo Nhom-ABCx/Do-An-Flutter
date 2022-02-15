@@ -72,7 +72,7 @@ class MyProfileState extends State<MyProfile> {
                                     )
                                   ]),
                                   TextButton(
-                                    onPressed: () {},
+                                    onPressed: () => Navigator.pushNamed(context, '/QuanLyDonHangPage'),
                                     child: Container(
                                         decoration: const BoxDecoration(
                                             color: Colors.red, shape: BoxShape.rectangle, borderRadius: BorderRadius.all(Radius.circular(8))),

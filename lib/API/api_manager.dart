@@ -720,3 +720,18 @@ Future<dynamic> api_Insert_ListSanPham_GioHang(List<GioHang> _gioHang) async {
     // ignore: empty_catches
   } catch (e) {}
 }
+
+
+//ds sản phẩm cần đánh giá
+Future<List<CT_HoaDon>> api_San_Pham_Can_Danh_Gia() async{
+  final uri=Uri.parse(urlBaseAPI+"san-pham-can-danh-gia?KhachHangId=${Auth.khachHang.id}");
+  List<CT_HoaDon> lst_ctHoaDon=[];
+  try {
+    final response=await http.get(uri);
+    if (response.statusCode==200) {
+      List jsonRaw=json.decode(response.body);
+      lst_ctHoaDon=jsonRaw.map((e) => CT_HoaDon.fromJson(e)).toList();
+    }
+  } catch (_) {}
+  return lst_ctHoaDon;
+}
