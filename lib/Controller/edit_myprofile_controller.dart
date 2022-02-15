@@ -69,7 +69,7 @@ class EditMyProfileController {
   }
 
   // ignore: non_constant_identifier_names
-  Future<bool> ktUpdateKhachHang_HinhAnh(KhachHang _khachHang, File imageFile) async {
+  Future<bool> ktUpdateKhachHang_HinhAnh(File imageFile) async {
     hinhanhController.sink.add("");
 
     //lay du lieu tu SV, neu co loi~ thi` validate

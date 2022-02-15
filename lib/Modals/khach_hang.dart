@@ -58,8 +58,8 @@ class KhachHang {
   }
   // ignore: non_constant_identifier_names
   void LogOut(BuildContext context) {
-    final db = Db();
-    db.deleteItemKH(id!);
+    //Db().deleteItemKH(id!); //nay` la` xoa' 1 tai` khoan?
+    Db().deleteAllKH(); //xoa' het',tai dang bi loi social login
     Provider.of<SocialLogin>(context, listen: false).logOut();
 
     id = -1;

@@ -45,7 +45,7 @@ class MyProfileState extends State<MyProfile> {
                                 buildTextMyProfile(icon: Icons.contact_page, title: 'Full Name', lable: Auth.khachHang.hoTen!),
                                 buildTextMyProfile(icon: Icons.phone, title: 'Phone', lable: '+' + Auth.khachHang.phone!),
                                 buildTextMyProfile(icon: Icons.email, title: 'Email Address', lable: Auth.khachHang.email),
-                                buildTextMyProfile(icon: Icons.gps_fixed, title: 'Address', lable: Auth.khachHang.diaChi!),
+                                buildTextMyProfile(icon: Icons.gps_fixed, title: 'Address', lable: Auth.khachHang.diaChi ?? ""),
                                 buildTextMyProfile(
                                     icon: Icons.date_range, title: 'Birthday', lable: DateFormat('yyyy-MM-dd').format(Auth.khachHang.ngaySinh!)),
                                 buildTextMyProfile(
