@@ -24,6 +24,7 @@ class FileController extends ChangeNotifier {
   }
 
   Widget bottomSheetPickImage(BuildContext context) {
+    //hien thi bottomSheet chon hinh anh o phia duoi'
     return Container(
       height: 100,
       width: MediaQuery.of(context).size.width,

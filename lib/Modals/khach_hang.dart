@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/DB/database_mb.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:provider/provider.dart';
 
 import '../Controller/auth_controller.dart';
 
@@ -60,7 +59,7 @@ class KhachHang {
   void LogOut(BuildContext context) {
     //Db().deleteItemKH(id!); //nay` la` xoa' 1 tai` khoan?
     Db().deleteAllKH(); //xoa' het',tai dang bi loi social login
-    Provider.of<SocialLogin>(context, listen: false).logOut();
+    SocialLogin().logOut();
 
     id = -1;
     username = "";

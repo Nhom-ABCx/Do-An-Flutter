@@ -23,7 +23,10 @@ class BillingInfomationPageState extends State<BillingInfomationPage> {
     // TODO: implement initState
     super.initState();
     _diaChi = DiaChi(
-        khachHangId: Auth.khachHang.id!, tenNguoiNhan: Auth.khachHang.hoTen!, phone: Auth.khachHang.phone!, diaChiChiTiet: Auth.khachHang.diaChi!);
+        khachHangId: Auth.khachHang.id!,
+        tenNguoiNhan: Auth.khachHang.hoTen!,
+        phone: Auth.khachHang.phone!,
+        diaChiChiTiet: Auth.khachHang.diaChi ?? "");
     _shippingMethod = ShippingMethod.courier();
     _phuongThucThanhToan = -1;
   }

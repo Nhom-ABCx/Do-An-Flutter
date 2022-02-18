@@ -31,10 +31,7 @@ class Auth {
     if (khachHang.email.isNotEmpty) {
       //them vao DB local
       khachHang = await Db().insertIfExistItemKH(khachHang);
-      //gom gio? hang` lai
-      final _gH = await GioHangController().getAllItemsGH();
-      if (_gH.isNotEmpty) api_Insert_ListSanPham_GioHang(_gH);
-
+      _gomGioHang();
       return true;
     }
     return false;
@@ -110,7 +107,13 @@ class Auth {
   }
 }
 
-class SocialLogin extends ChangeNotifier {
+void _gomGioHang() async {
+  //gom gio? hang` lai
+  final _gH = await GioHangController().getAllItemsGH();
+  if (_gH.isNotEmpty) api_Insert_ListSanPham_GioHang(_gH);
+}
+
+class SocialLogin {
   //ham` xu ly dang nhap
   Future<bool> googleLogin() async {
     try {
@@ -122,10 +125,10 @@ class SocialLogin extends ChangeNotifier {
       //tien thanh` dang ky', neu' da~ co' roi` thi` ko can` dk lai
       Auth.khachHang = await api_DangKy_Social(user.displayName!, user.email, user.photoUrl!);
       Db().insertIfExistItemKH(Auth.khachHang);
+      _gomGioHang();
     } catch (e) {
       print(e.toString());
     }
-    notifyListeners();
     return true;
   }
 
@@ -140,12 +143,12 @@ class SocialLogin extends ChangeNotifier {
         //tien thanh` dang ky', neu' da~ co' roi` thi` ko can` dk lai
         Auth.khachHang = await api_DangKy_Social(user["name"], user["email"], user["picture"]["data"]["url"]);
         Db().insertIfExistItemKH(Auth.khachHang);
+        _gomGioHang();
         return true;
       }
     } catch (e) {
       print(e.toString());
     }
-    notifyListeners();
     return false;
   }
 

@@ -28,7 +28,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => BinhLuanController()),
         ChangeNotifierProvider(create: (_) => QuanLyHoaDonController()),
         ChangeNotifierProvider(create: (_) => MessageController()),
-        ChangeNotifierProvider(create: (_) => SocialLogin()),
         Provider(create: (_) => FileController())
       ],
       child: MaterialApp(
