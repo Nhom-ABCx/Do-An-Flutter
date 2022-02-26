@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_application_1/Modals/message.dart';

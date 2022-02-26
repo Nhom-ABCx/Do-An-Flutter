@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_application_1/DB/database_mb.dart';
 import 'package:flutter_application_1/all_page.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -127,6 +126,7 @@ class SocialLogin {
       Db().insertIfExistItemKH(Auth.khachHang);
       _gomGioHang();
     } catch (e) {
+      // ignore: avoid_print
       print(e.toString());
     }
     return true;
@@ -147,6 +147,7 @@ class SocialLogin {
         return true;
       }
     } catch (e) {
+      // ignore: avoid_print
       print(e.toString());
     }
     return false;

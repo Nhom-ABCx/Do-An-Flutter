@@ -1,9 +1,9 @@
+// ignore_for_file: avoid_print
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
-import '../../DB/database_mb.dart';
 import '../../all_page.dart';
 
 class CartPage extends StatefulWidget {

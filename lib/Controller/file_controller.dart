@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
@@ -20,6 +22,7 @@ class FileController extends ChangeNotifier {
     //notifyListeners();
     //setState no ko thay doi~, no ko build lai widget, sau khi gop nhanh' voi Vinh thi bi the'
     //chua~ chay' bang` cach' reload lai Page
+    // ignore: invalid_use_of_protected_member
     (context as Element).reassemble();
   }
 

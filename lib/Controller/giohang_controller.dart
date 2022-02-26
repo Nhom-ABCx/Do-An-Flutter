@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/DB/database_mb.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -85,7 +87,7 @@ class GioHangController extends ChangeNotifier {
           }
           return snapshot.hasData
               ? ListView.separated(
-                  shrinkWrap: true,
+                  shrinkWrap: true, //tranh' loi~ view SingleChildScrollView-column
                   //ngan chan ListView no' cuon xuong' duoc, xai` cho SingleChildScrollView-column
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: snapshot.data!.length,

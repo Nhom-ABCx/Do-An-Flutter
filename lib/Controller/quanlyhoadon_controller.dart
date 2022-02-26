@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:core';
 
 import 'package:flutter/cupertino.dart';

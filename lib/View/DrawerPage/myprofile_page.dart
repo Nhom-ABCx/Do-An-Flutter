@@ -26,6 +26,7 @@ class MyProfileState extends State<MyProfile> {
           body: RefreshIndicator(
             onRefresh: () async {
               //reload
+              // ignore: invalid_use_of_protected_member
               (context as Element).reassemble();
             },
             child: SingleChildScrollView(

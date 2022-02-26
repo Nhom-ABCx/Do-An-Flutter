@@ -34,6 +34,7 @@ class MyWishlistPageState extends State<MyWishlistPage> {
               body: RefreshIndicator(
                 onRefresh: () async {
                   //reload
+                  // ignore: invalid_use_of_protected_member
                   (context as Element).reassemble();
                 },
                 child: SingleChildScrollView(
@@ -67,6 +68,7 @@ class MyWishlistPageState extends State<MyWishlistPage> {
                               icon: const Icon(
                                 Icons.refresh,
                               ),
+                              // ignore: invalid_use_of_protected_member
                               onPressed: () => (context as Element).reassemble(),
                             ),
                           ],

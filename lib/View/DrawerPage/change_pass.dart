@@ -70,6 +70,7 @@ class ChangePassState extends State<ChangePass> {
                                       thongBaoScaffoldMessenger(
                                           context, "Update Password Successful");
                                       //reload page
+                                      // ignore: invalid_use_of_protected_member
                                       (context as Element).reassemble();
                                     } else {
                                       thongBaoScaffoldMessenger(context, "Update Password Fails");

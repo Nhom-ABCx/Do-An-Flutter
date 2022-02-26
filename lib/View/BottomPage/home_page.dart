@@ -1,6 +1,5 @@
 // ignore_for_file: unnecessary_this
 
-import 'dart:ui';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
