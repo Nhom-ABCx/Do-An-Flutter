@@ -24,7 +24,8 @@ Hướng dẫn cài đặt:
 
 B1: Clone sever laravel về tại: https://github.com/Nhom-ABCx/Do-An-Laravel   nhánh chuẩn master-commit (c3be048ad14478ec07ad35090569c02c188d40a9)
 
-B2: sử dụng lần lượt 2 câu lệnh sau: //composer update   //composer dump-autoload
+B2: sử dụng lần lượt 2 câu lệnh sau tại terminal: //composer update   //composer dump-autoload
+nếu có lỗi trong lúc này thi hãy tìm hiểu về laravel trước đi
 
 B3: tại terminal gõ lệnh "php artisan serve" để chạy sever api
 
