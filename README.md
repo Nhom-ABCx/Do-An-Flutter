@@ -21,9 +21,15 @@ Kết quả đạt được
 Còn nữa...
 
 Hướng dẫn cài đặt:
+
 B1: Clone sever laravel về tại: https://github.com/Nhom-ABCx/Do-An-Laravel   nhánh chuẩn master-commit (c3be048ad14478ec07ad35090569c02c188d40a9)
+
 B2: sử dụng lần lượt 2 câu lệnh sau: //composer update   //composer dump-autoload
+
 B3: tại terminal gõ lệnh "php artisan serve" để chạy sever api
+
 B4: clone project Flutter này về
+
 B5: bấm và chạy luôn, nếu có lỗi version update thì google tự fix
+
 B6: enjoy ✔️
