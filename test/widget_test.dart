@@ -1,74 +1,30 @@
-// import 'package:flutter/material.dart';
-// import 'package:intl/intl.dart';
-// import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+// This is a basic Flutter widget test.
+//
+// To perform an interaction with a widget in your test, use the WidgetTester
+// utility that Flutter provides. For example, you can send tap and scroll
+// gestures. You can also use WidgetTester to find child widgets in the widget
+// tree, read text, and verify that the values of widget properties are correct.
 
-// // ...
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
 
-// class BasicDateField extends StatelessWidget {
-//   final format = DateFormat("yyyy-MM-dd");
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(children: <Widget>[
-//       Text('Basic date field (${format.pattern})'),
-//       DateTimeField(
-//         format: format,
-//         onShowPicker: (context, currentValue) {
-//           return showDatePicker(
-//               context: context,
-//               firstDate: DateTime(1900),
-//               initialDate: currentValue ?? DateTime.now(),
-//               lastDate: DateTime(2100));
-//         },
-//       ),
-//     ]);
-//   }
-// }
+import 'package:do_an_flutter/main.dart';
 
-// class BasicTimeField extends StatelessWidget {
-//   final format = DateFormat("HH:mm");
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(children: <Widget>[
-//       Text('Basic time field (${format.pattern})'),
-//       DateTimeField(
-//         format: format,
-//         onShowPicker: (context, currentValue) async {
-//           final time = await showTimePicker(
-//             context: context,
-//             initialTime: TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
-//           );
-//           return DateTimeField.convert(time);
-//         },
-//       ),
-//     ]);
-//   }
-// }
+void main() {
+  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+    // Build our app and trigger a frame.
+    await tester.pumpWidget(const MyApp());
 
-// class BasicDateTimeField extends StatelessWidget {
-//   final format = DateFormat("yyyy-MM-dd HH:mm");
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(children: <Widget>[
-//       Text('Basic date & time field (${format.pattern})'),
-//       DateTimeField(
-//         format: format,
-//         onShowPicker: (context, currentValue) async {
-//           final date = await showDatePicker(
-//               context: context,
-//               firstDate: DateTime(1900),
-//               initialDate: currentValue ?? DateTime.now(),
-//               lastDate: DateTime(2100));
-//           if (date != null) {
-//             final time = await showTimePicker(
-//               context: context,
-//               initialTime: TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
-//             );
-//             return DateTimeField.combine(date, time);
-//           } else {
-//             return currentValue;
-//           }
-//         },
-//       ),
-//     ]);
-//   }
-// }
+    // Verify that our counter starts at 0.
+    expect(find.text('0'), findsOneWidget);
+    expect(find.text('1'), findsNothing);
+
+    // Tap the '+' icon and trigger a frame.
+    await tester.tap(find.byIcon(Icons.add));
+    await tester.pump();
+
+    // Verify that our counter has incremented.
+    expect(find.text('0'), findsNothing);
+    expect(find.text('1'), findsOneWidget);
+  });
+}
