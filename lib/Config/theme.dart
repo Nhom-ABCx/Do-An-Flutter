@@ -4,9 +4,16 @@ class ThemeConfig {
   static ThemeData get lightTheme {
     final theme = ThemeData.light();
     return theme.copyWith(
-      brightness: Brightness.light,
-      primaryColor: Colors.green,
+      //primaryColor: Colors.green,
       colorScheme: const ColorScheme.light(),
+
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        //backgroundColor: ColorConstants.blue800,
+        type: BottomNavigationBarType.fixed, //ko cho no thu nho? mat chu~
+        //selectedIconTheme: const IconThemeData(size: 30),
+        // selectedItemColor: Colors.white,
+        // unselectedItemColor: Colors.white,
+      ),
     );
   }
 

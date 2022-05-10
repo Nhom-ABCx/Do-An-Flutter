@@ -1,7 +1,7 @@
 import 'package:do_an_flutter/Config/language/translation_service.dart';
 import 'package:do_an_flutter/Config/theme.dart';
+import 'package:do_an_flutter/Route/pages.dart';
 import 'package:do_an_flutter/app_binding.dart';
-import 'package:do_an_flutter/routes/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

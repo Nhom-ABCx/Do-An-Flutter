@@ -40,7 +40,7 @@ class BaseGetConnect extends GetConnect {
     return null;
   }
 
-  Future<List<T>?> onGetList<T>(BaseModel<T> baseModel, String path) async {
+  Future<List<T>> onGetList<T>(BaseModel<T> baseModel, String path) async {
     try {
       final res = await get<List>(path).timeout(httpClient.timeout, onTimeout: onTimeout);
       if (res.statusCode == 200) {
@@ -55,6 +55,6 @@ class BaseGetConnect extends GetConnect {
     } catch (e) {
       //EasyLoading.dismiss();
     }
-    return null;
+    return [];
   }
 }

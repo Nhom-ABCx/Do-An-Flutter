@@ -11,12 +11,12 @@ class AppBinding extends Bindings {
 
 class Service extends GetxService {
   static final formatNumber = NumberFormat("#,##0", "en_US");
-  static const String defaultBaseUrl = "http://103.140.248.249:8080";
+  static const String defaultBaseUrl = "http://10.0.2.2:8000";
   late String baseUrl;
   late final SharedPreferences sharedPreferences;
 
   Future<Service> init() async {
-    baseUrl = defaultBaseUrl;
+    baseUrl = defaultBaseUrl + "/api";
     sharedPreferences = await SharedPreferences.getInstance();
     return this;
   }

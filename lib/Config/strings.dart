@@ -2,6 +2,11 @@
 
 class StringConstant {
   static const String Login = 'Login';
+  //bottom Appbar
+  static String Home = 'Home';
+  static String Myorder = 'Myorder';
+  static String Favorite = 'Favorite';
+  static String Setting = 'Setting';
 }
 
 extension StringExtension on String {
