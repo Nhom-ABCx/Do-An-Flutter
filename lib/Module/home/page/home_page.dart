@@ -17,7 +17,7 @@ class HomePage extends GetView<HomeController> {
             Padding(
               padding: EdgeInsets.only(right: ThemeConfig.defaultPaddingAll),
               child: CircleAvatar(
-                backgroundImage: NetworkImage("https://randomuser.me/api/portraits/men/22.jpg"),
+                backgroundImage: NetworkImage("https://randomuser.me/api/portraits/men/3.jpg"),
               ),
             ),
           ],
@@ -54,6 +54,20 @@ class HomePage extends GetView<HomeController> {
                 ),
               ),
             ),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 5),
+                child: Container(
+                    margin: const EdgeInsets.only(right: ThemeConfig.defaultPaddingAll),
+                    padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+                    decoration: BoxDecoration(
+                      color: Get.theme.colorScheme.onPrimary,
+                      //shape: BoxShape.circle,
+                      borderRadius: const BorderRadius.all(Radius.circular(7.0)),
+                    ),
+                    child: const Icon(Icons.tune)),
+              )
+            ],
           ),
         ),
         SliverPadding(
