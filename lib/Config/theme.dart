@@ -8,6 +8,17 @@ class ThemeConfig {
       //primaryColor: Colors.green,
       colorScheme: const ColorScheme.light(),
 
+      //scaffoldBackgroundColor: const Color(0xFFEEEEEE),
+      appBarTheme: AppBarTheme(
+          iconTheme: IconThemeData(color: theme.colorScheme.onSurface),
+          titleTextStyle: TextStyle(color: theme.colorScheme.onSurface),
+          backgroundColor: Colors.white,
+          elevation: 2),
+      // AppBarTheme(
+      //     iconTheme: IconThemeData(color: theme.colorScheme.onPrimary),
+      //     titleTextStyle: TextStyle(color: theme.colorScheme.onPrimary, fontWeight: FontWeight.bold),
+      //     backgroundColor: Colors.white,
+      //     elevation: 2),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         //backgroundColor: ColorConstants.blue800,
         type: BottomNavigationBarType.fixed, //ko cho no thu nho? mat chu~
