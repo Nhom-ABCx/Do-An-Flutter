@@ -5,7 +5,7 @@ class StringConstant {
   static const String titleWellcome = "titleWellcome";
   static const String subTitleWellcome = "subTitleWellcome";
   static const String Login = "Login";
-  //intro_screen
+  //intro_page
   static const String introTitle1 = "introTitle1";
   static const String introBody1 = "introBody1";
   static const String introTitle2 = "introTitle2";
@@ -21,6 +21,19 @@ class StringConstant {
   static const String Myorder = "Myorder";
   static const String Favorite = "Favorite";
   static const String Setting = "Setting";
+  //setting_page
+  static String Language = 'Language';
+  static String English = 'English';
+  static String Vietnamese = 'Vietnamese';
+  static String Japanese = 'Japanese';
+  static String Notify = 'Notify';
+  static String UserManual = 'UserManual';
+  static String FrequentlyAskedQuestions = 'FrequentlyAskedQuestions';
+  static String Juridical = 'Juridical';
+  static String GeneralAssessment = 'GeneralAssessment';
+  static String DarkMode = 'DarkMode';
+  static String Logout = 'Logout';
+
   //
   static const String Skip = "Skip";
   static const String Done = "Done";

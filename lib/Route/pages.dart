@@ -1,5 +1,4 @@
-import 'package:do_an_flutter/Module/container/container_binding.dart';
-import 'package:do_an_flutter/Module/container/container_page.dart';
+import 'package:do_an_flutter/Module/home/page/container_page.dart';
 import 'package:do_an_flutter/Module/home/home_binding.dart';
 import 'package:do_an_flutter/Module/wellcome/intro_page.dart';
 import 'package:do_an_flutter/Module/wellcome/wellcome_page.dart';
@@ -17,11 +16,7 @@ class Pages {
     GetPage(
       name: Routes.Home,
       page: () => const ContainerPage(),
-      bindings: [
-        ContainerBinding(),
-        HomeBinding(),
-        //SettingBinding(),
-      ],
+      binding: HomeBinding(),
     ),
   ];
 }

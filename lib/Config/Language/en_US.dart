@@ -8,7 +8,7 @@ Map<String, String> en_US = {
   StringConstant.titleWellcome: "Welcome to Shop",
   StringConstant.subTitleWellcome: "Your shopping solution",
   StringConstant.Login: "Login",
-  //intro_screen
+  //intro_page
   StringConstant.introTitle1: "Fractional Shares",
   StringConstant.introBody1: "Instead of having to buy an entire share, invest any amount you want.",
   StringConstant.introTitle2: "Biggest Sell At Your Fingerprint",
@@ -25,6 +25,18 @@ Map<String, String> en_US = {
   StringConstant.Myorder: "Myorder",
   StringConstant.Favorite: "Favorite",
   StringConstant.Setting: "Setting",
+  //setting_page
+  StringConstant.Language: 'Language',
+  StringConstant.English: 'English',
+  StringConstant.Vietnamese: 'Vietnamese',
+  StringConstant.Japanese: 'Japanese',
+  StringConstant.Notify: 'Notify',
+  StringConstant.UserManual: 'User Manual',
+  StringConstant.FrequentlyAskedQuestions: 'Frequently Asked Questions',
+  StringConstant.Juridical: 'Juridical',
+  StringConstant.GeneralAssessment: 'General Assessment',
+  StringConstant.DarkMode: 'Theme dark mode',
+  StringConstant.Logout: 'Logout',
   //
   StringConstant.Skip: "Skip",
   StringConstant.Done: "Done",

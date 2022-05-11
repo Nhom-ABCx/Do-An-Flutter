@@ -43,7 +43,7 @@ dependencies:
   shared_preferences:
   #tranh loi image
   cached_network_image:
-  #mini package tao cai intro luc' khoi chay
+  #mini package tao cai intro luc' khoi chay cho de~
   introduction_screen:
 
   # The following adds the Cupertino Icons font to your application.

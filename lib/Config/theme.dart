@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ThemeConfig {
+  static const double defaultPaddingAll = 10;
   static ThemeData get lightTheme {
     final theme = ThemeData.light();
     return theme.copyWith(
@@ -14,6 +15,17 @@ class ThemeConfig {
         // selectedItemColor: Colors.white,
         // unselectedItemColor: Colors.white,
       ),
+
+      elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          //side: const BorderSide(color: Colors.pink)
+        )),
+        //shadowColor: MaterialStateProperty.all<Color>(Colors.red),
+        //elevation: MaterialStateProperty.all<double>(0),
+        //backgroundColor: MaterialStateProperty.all(ColorConstants.blue800),
+      )),
     );
   }
 

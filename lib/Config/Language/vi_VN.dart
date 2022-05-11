@@ -8,7 +8,7 @@ Map<String, String> vi_VN = {
   StringConstant.titleWellcome: "Chào mừng đến với Cửa hàng",
   StringConstant.subTitleWellcome: "Giải pháp mua sắm của bạn",
   StringConstant.Login: "Đăng nhập",
-  // intro_screen
+  // intro_page
   StringConstant.introTitle1: "Chia sẻ Phân đoạn",
   StringConstant.introBody1: "Thay vì phải mua toàn bộ cổ phiếu, hãy đầu tư bất kỳ số tiền nào bạn muốn.",
   StringConstant.introTitle2: "Bán nhiều nhất theo dấu vân tay của bạn",
@@ -22,7 +22,7 @@ Map<String, String> vi_VN = {
   StringConstant.lastBodyIntro: "Hãy thử sử dụng ứng dụng ngay bây giờ.",
   // bottom_Appbar
   StringConstant.Home: "Trang chủ",
-  StringConstant.Myorder: "Myorder",
+  StringConstant.Myorder: "Đơn của tôi",
   StringConstant.Favorite: "Yêu thích",
   StringConstant.Setting: "Cài đặt",
   //

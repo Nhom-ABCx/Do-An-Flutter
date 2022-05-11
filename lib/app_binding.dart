@@ -14,6 +14,7 @@ class Service extends GetxService {
   static const String defaultBaseUrl = "http://10.0.2.2:8000";
   late String baseUrl;
   late final SharedPreferences sharedPreferences;
+  static RxBool themeDarkMode = false.obs;
 
   Future<Service> init() async {
     baseUrl = defaultBaseUrl + "/api";
