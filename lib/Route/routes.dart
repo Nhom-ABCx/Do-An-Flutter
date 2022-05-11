@@ -4,7 +4,7 @@ part of 'pages.dart';
 
 class Routes {
   static const Wellcome = '/';
-  static const Container = '/container';
-  static const Home = '/home';
+  static const Intro = '/intro';
   static const Login = '/Login';
+  static const Home = '/home';
 }

@@ -10,7 +10,7 @@ class AppBinding extends Bindings {
 }
 
 class Service extends GetxService {
-  static final formatNumber = NumberFormat("#,##0", "en_US");
+  static final formatNumber = NumberFormat.simpleCurrency(); //("#,##0", "en_US");
   static const String defaultBaseUrl = "http://10.0.2.2:8000";
   late String baseUrl;
   late final SharedPreferences sharedPreferences;
