@@ -1,4 +1,3 @@
-import 'package:do_an_flutter/Config/theme.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:do_an_flutter/Widget/build_widgets.dart';
 import 'package:flutter/material.dart';

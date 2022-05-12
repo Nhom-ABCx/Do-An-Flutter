@@ -56,6 +56,12 @@ class SearchPage extends SearchDelegate<String> {
       return name.toLowerCase().contains(query.toLowerCase());
     }).toList();
 
+    //limit suggest
+    // const int limitSuggest = 5;
+    // if (suggestions.length > limitSuggest) {
+    //   suggestions.removeRange(limitSuggest, suggestions.length);
+    // }
+
     return ListView.builder(
       itemCount: suggestions.length,
       itemBuilder: (BuildContext context, int index) {
@@ -75,35 +81,25 @@ class SearchPage extends SearchDelegate<String> {
   }
 }
 
-//copy tu` google
-List<TextSpan> _highlightOccurrences(String source, String query) {
-  if (query.isEmpty || !source.toLowerCase().contains(query.toLowerCase())) {
-    return [TextSpan(text: source)];
+//hight light occurrentces
+List<TextSpan> _highlightOccurrences(String text, String query) {
+  final List<TextSpan> spans = [];
+  final String lowercaseText = text.toLowerCase();
+  final String lowercaseQuery = query.toLowerCase();
+
+  int lastIndex = 0;
+  int index = lowercaseText.indexOf(lowercaseQuery);
+
+  while (index != -1) {
+    spans.add(TextSpan(text: text.substring(lastIndex, index)));
+    spans.add(TextSpan(text: text.substring(index, index + query.length), style: const TextStyle(fontWeight: FontWeight.bold)));
+    lastIndex = index + query.length;
+    index = lowercaseText.indexOf(lowercaseQuery, lastIndex);
   }
-  final matches = query.toLowerCase().allMatches(source.toLowerCase());
 
-  int lastMatchEnd = 0;
+  spans.add(TextSpan(text: text.substring(lastIndex, text.length)));
 
-  final List<TextSpan> children = [];
-  for (var i = 0; i < matches.length; i++) {
-    final match = matches.elementAt(i);
-
-    if (match.start != lastMatchEnd) {
-      children.add(TextSpan(text: source.substring(lastMatchEnd, match.start)));
-    }
-
-    children.add(TextSpan(
-      text: source.substring(match.start, match.end),
-      style: const TextStyle(fontWeight: FontWeight.bold),
-    ));
-
-    if (i == matches.length - 1 && match.end != source.length) {
-      children.add(TextSpan(text: source.substring(match.end, source.length)));
-    }
-
-    lastMatchEnd = match.end;
-  }
-  return children;
+  return spans;
 }
 
 final List<String> lstString = [

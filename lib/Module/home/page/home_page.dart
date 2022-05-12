@@ -153,7 +153,7 @@ class HomePage extends GetView<HomeController> {
             GridView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: 5,
+                itemCount: 4,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   //crossAxisSpacing: 0,
@@ -161,6 +161,7 @@ class HomePage extends GetView<HomeController> {
                   childAspectRatio: 0.8,
                 ),
                 itemBuilder: (context, index) => const ItemProductWidget()),
+            ItemProduct2Widget(),
           ])),
         ),
       ],
