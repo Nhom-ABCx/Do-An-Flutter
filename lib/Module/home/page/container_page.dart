@@ -2,6 +2,7 @@ import 'package:do_an_flutter/Config/Language/translation_service.dart';
 import 'package:do_an_flutter/Config/strings.dart';
 import 'package:do_an_flutter/Config/theme.dart';
 import 'package:do_an_flutter/Module/home/home_controller.dart';
+import 'package:do_an_flutter/Module/search/search_page.dart';
 import 'package:do_an_flutter/Widget/banner_widget.dart';
 import 'package:do_an_flutter/Widget/item_product_widget.dart';
 import 'package:do_an_flutter/Widget/drawer_widget.dart';

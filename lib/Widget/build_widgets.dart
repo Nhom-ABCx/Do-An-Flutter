@@ -20,7 +20,7 @@ Widget imageNetwork(String imageUrl, {bool useBaseUrl = true, double? width, dou
       imageUrl: useBaseUrl ? Service.defaultBaseUrl + imageUrl : imageUrl,
       width: width,
       height: height,
-      fit: BoxFit.cover,
+      fit: BoxFit.fill,
       placeholder: (context, url) => const Center(
         child: CircularProgressIndicator(),
       ),

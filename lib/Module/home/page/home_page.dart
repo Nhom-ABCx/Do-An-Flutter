@@ -42,7 +42,7 @@ class HomePage extends GetView<HomeController> {
               //width: double.infinity,
               //height: 40,
               child: TextField(
-                //readOnly: true,
+                readOnly: true,
                 decoration: const InputDecoration(
                   border: InputBorder.none,
                   enabledBorder: InputBorder.none,
@@ -50,7 +50,10 @@ class HomePage extends GetView<HomeController> {
                   hintText: 'Search',
                   prefixIcon: Icon(Icons.search),
                 ),
-                onTap: () {},
+                onTap: () async {
+                  final result = await showSearch<String>(context: context, delegate: SearchPage(data: lstString));
+                  print(result);
+                },
               ),
             ),
             actions: [
@@ -61,19 +64,71 @@ class HomePage extends GetView<HomeController> {
             ],
           ),
         ),
-        SliverToBoxAdapter(
-          child: BannerWidget(),
+        const SliverToBoxAdapter(child: BannerWidget()),
+        SliverPadding(
+          padding: const EdgeInsets.fromLTRB(ThemeConfig.defaultPaddingAll, 0, ThemeConfig.defaultPaddingAll, 0),
+          sliver: SliverToBoxAdapter(
+            child: Column(
+              children: [
+                Align(
+                    alignment: Alignment.topLeft,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Category",
+                          style: Get.textTheme.headlineSmall,
+                        ),
+                        TextButton.icon(
+                          onPressed: () {},
+                          label: const Icon(Icons.navigate_next),
+                          icon: const Text("View more"),
+                        )
+                      ],
+                    )),
+                SizedBox(
+                  height: 100,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 10,
+                    itemBuilder: (context, index) => const ItemCategoryWidget(newItemCount: 2),
+                  ),
+                )
+              ],
+            ),
+          ),
         ),
         SliverPadding(
-          padding: const EdgeInsets.fromLTRB(ThemeConfig.defaultPaddingAll, ThemeConfig.defaultPaddingAll, ThemeConfig.defaultPaddingAll, 0),
+          padding: const EdgeInsets.fromLTRB(ThemeConfig.defaultPaddingAll, 0, ThemeConfig.defaultPaddingAll, 0),
           sliver: SliverToBoxAdapter(
-            child: SizedBox(
-              height: 100,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: 10,
-                itemBuilder: (context, index) => ItemCategoryWidget(newItemCount: 2),
-              ),
+            child: Column(
+              children: [
+                Align(
+                    alignment: Alignment.topLeft,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Flash sale",
+                          style: Get.textTheme.headlineSmall,
+                        ),
+                        TextButton.icon(
+                          onPressed: () {},
+                          label: const Icon(Icons.navigate_next),
+                          icon: const Text("View more"),
+                        )
+                      ],
+                    )),
+                SizedBox(
+                  height: 200,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 10,
+                    separatorBuilder: (context, _) => const SizedBox(width: 0),
+                    itemBuilder: (context, index) => const ItemProductWidget(),
+                  ),
+                )
+              ],
             ),
           ),
         ),
@@ -81,6 +136,20 @@ class HomePage extends GetView<HomeController> {
           padding: const EdgeInsets.all(ThemeConfig.defaultPaddingAll),
           sliver: SliverList(
               delegate: SliverChildListDelegate([
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "New product",
+                  style: Get.textTheme.headlineSmall,
+                ),
+                TextButton.icon(
+                  onPressed: () {},
+                  label: const Icon(Icons.navigate_next),
+                  icon: const Text("View more"),
+                )
+              ],
+            ),
             GridView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
