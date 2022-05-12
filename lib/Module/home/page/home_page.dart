@@ -10,7 +10,7 @@ class HomePage extends GetView<HomeController> {
         SliverAppBar(
           //automaticallyImplyLeading: false,
           centerTitle: true,
-          expandedHeight: 200,
+          expandedHeight: 150,
           floating: true, //giuu lau bottom
           pinned: true, //giuu lai bottom
           actions: const [
@@ -28,11 +28,12 @@ class HomePage extends GetView<HomeController> {
               padding: EdgeInsets.only(left: ThemeConfig.defaultPaddingAll),
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: Text('Find your favorite product', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.0)),
+                child: Text('Find your favorite product', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25)),
               ),
             ),
           ),
           bottom: AppBar(
+            automaticallyImplyLeading: false,
             title: Container(
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(10.0)),
@@ -40,81 +41,59 @@ class HomePage extends GetView<HomeController> {
               ),
               //width: double.infinity,
               //height: 40,
-              child: Center(
-                child: TextField(
-                  readOnly: true,
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    enabledBorder: InputBorder.none,
-                    focusedBorder: InputBorder.none,
-                    hintText: 'Tìm kiếm sản phẩm',
-                    prefixIcon: Icon(Icons.search),
-                  ),
-                  onTap: () {},
+              child: TextField(
+                //readOnly: true,
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  hintText: 'Search',
+                  prefixIcon: Icon(Icons.search),
                 ),
+                onTap: () {},
               ),
             ),
             actions: [
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 5),
-                child: Container(
-                    margin: const EdgeInsets.only(right: ThemeConfig.defaultPaddingAll),
-                    padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                    decoration: BoxDecoration(
-                      color: Get.theme.colorScheme.onPrimary,
-                      //shape: BoxShape.circle,
-                      borderRadius: const BorderRadius.all(Radius.circular(7.0)),
-                    ),
-                    child: const Icon(Icons.tune)),
+                padding: const EdgeInsets.fromLTRB(0, 5, ThemeConfig.defaultPaddingAll, 5),
+                child: ElevatedButton(onPressed: () {}, child: const Icon(Icons.tune)),
               )
             ],
           ),
         ),
+        SliverToBoxAdapter(
+          child: BannerWidget(),
+        ),
         SliverPadding(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.fromLTRB(ThemeConfig.defaultPaddingAll, ThemeConfig.defaultPaddingAll, ThemeConfig.defaultPaddingAll, 0),
+          sliver: SliverToBoxAdapter(
+            child: SizedBox(
+              height: 100,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: 10,
+                itemBuilder: (context, index) => ItemCategoryWidget(newItemCount: 2),
+              ),
+            ),
+          ),
+        ),
+        SliverPadding(
+          padding: const EdgeInsets.all(ThemeConfig.defaultPaddingAll),
           sliver: SliverList(
               delegate: SliverChildListDelegate([
-            ListView.builder(
-              shrinkWrap: true, //tranh' loi~ view SingleChildScrollView-column
-              //ngan chan ListView no' cuon xuong' duoc, xai` cho SingleChildScrollView-column
-              physics: const NeverScrollableScrollPhysics(),
-              //scrollDirection: Axis.horizontal,
-              itemCount: 100,
-              itemBuilder: (context, index) {
-                return Container(
-                  height: 100,
-                  child: Card(
-                    color: Colors.green[100],
-                    shadowColor: Colors.blueGrey, //mau` do bong'
-                    elevation: 10, //do noi?
-                    child: Text('data'),
-                  ),
-                );
-              },
-            ),
+            GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: 5,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  //crossAxisSpacing: 0,
+                  //mainAxisSpacing: 10,
+                  childAspectRatio: 0.8,
+                ),
+                itemBuilder: (context, index) => const ItemProductWidget()),
           ])),
         ),
-        // giuu lai de xem
-        // SliverToBoxAdapter(
-        //   child: Container(
-        //     height: 100.0,
-        //     child: ListView.builder(
-        //       scrollDirection: Axis.horizontal,
-        //       itemCount: 10,
-        //       itemBuilder: (context, index) {
-        //         return Container(
-        //           width: 150.0,
-        //           child: Card(
-        //             color: Colors.green[100],
-        //             shadowColor: Colors.blueGrey, //mau` do bong'
-        //             elevation: 10, //do noi?
-        //             child: Text('data'),
-        //           ),
-        //         );
-        //       },
-        //     ),
-        //   ),
-        // ),
       ],
     );
   }
