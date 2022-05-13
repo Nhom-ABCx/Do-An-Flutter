@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class ItemCategoryWidget extends StatelessWidget {
+class CategoryCard1 extends StatelessWidget {
   final int newItemCount;
 
-  const ItemCategoryWidget({Key? key, this.newItemCount = 0}) : super(key: key);
+  const CategoryCard1({Key? key, this.newItemCount = 0}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

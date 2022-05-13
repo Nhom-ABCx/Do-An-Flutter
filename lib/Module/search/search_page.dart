@@ -1,5 +1,5 @@
 import 'package:do_an_flutter/Config/theme.dart';
-import 'package:do_an_flutter/Widget/item_product2_widget.dart';
+import 'package:do_an_flutter/Widget/product_card_3.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -101,7 +101,7 @@ class SearchPage extends SearchDelegate<String> {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: 5,
-            itemBuilder: (BuildContext context, int index) => const ItemProduct2Widget(),
+            itemBuilder: (BuildContext context, int index) => const ProductCard3(),
           ),
         ),
       ],
