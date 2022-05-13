@@ -1,4 +1,7 @@
+import 'package:do_an_flutter/Config/theme.dart';
+import 'package:do_an_flutter/Widget/item_product2_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SearchPage extends SearchDelegate<String> {
   final List<String> data;
@@ -62,22 +65,47 @@ class SearchPage extends SearchDelegate<String> {
     //   suggestions.removeRange(limitSuggest, suggestions.length);
     // }
 
-    return ListView.builder(
-      itemCount: suggestions.length,
-      itemBuilder: (BuildContext context, int index) {
-        return ListTile(
-          title: query.isEmpty
-              ? Text(
-                  suggestions.elementAt(index),
-                )
-              : RichText(
-                  text: TextSpan(
-                      children: _highlightOccurrences(suggestions[index], query), style: TextStyle(color: Theme.of(context).colorScheme.onSurface)),
-                ),
-          onTap: () => query = suggestions.elementAt(index),
-        );
-      },
-    );
+    return SingleChildScrollView(
+        child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+            height: Get.height / 3,
+            child: ListView.builder(
+              //shrinkWrap: true, //tranh' loi~ view SingleChildScrollView-column
+              // //ngan chan ListView no' cuon xuong' duoc, xai` cho SingleChildScrollView-column
+              // physics: const NeverScrollableScrollPhysics(),
+              itemCount: suggestions.length,
+              itemBuilder: (BuildContext context, int index) {
+                return ListTile(
+                  title: query.isEmpty
+                      ? Text(
+                          suggestions.elementAt(index),
+                        )
+                      : RichText(
+                          text: TextSpan(
+                              children: _highlightOccurrences(suggestions[index], query),
+                              style: TextStyle(color: Theme.of(context).colorScheme.onSurface)),
+                        ),
+                  onTap: () => query = suggestions.elementAt(index),
+                );
+              },
+            )),
+        Padding(
+          padding: const EdgeInsets.all(ThemeConfig.defaultPaddingAll),
+          child: Text("Recent search", style: Get.textTheme.titleLarge),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(ThemeConfig.defaultPaddingAll),
+          child: ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: 5,
+            itemBuilder: (BuildContext context, int index) => const ItemProduct2Widget(),
+          ),
+        ),
+      ],
+    ));
   }
 }
 

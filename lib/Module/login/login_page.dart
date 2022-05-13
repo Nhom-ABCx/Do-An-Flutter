@@ -1,52 +1,41 @@
+import 'package:do_an_flutter/Module/login/login_controller.dart';
+import 'package:do_an_flutter/Route/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends GetView<LoginController> {
   const LoginPage({Key? key}) : super(key: key);
-
-  @override
-  _LoginPageState createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
-  bool notShowPassword = true;
-  final txtEmail = TextEditingController(text: "Khach02");
-  final txtPassword = TextEditingController(text: "password123");
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       //huy keyboard khi bam ngoai man hinh
       onTap: () => FocusScope.of(context).unfocus(),
-      child: Theme(
-        data: Theme.of(context).copyWith(
-          textTheme: const TextTheme(
-            subtitle1: TextStyle(color: Colors.white), // nhập text chữ trắng
-          ),
-        ),
-        child: Scaffold(
-          body: Stack(
-            children: [
-              Container(
-                  decoration: const BoxDecoration(
-                // image: DecorationImage(
-                //     fit: BoxFit.cover, image: NetworkImage('https://i.pinimg.com/originals/c2/47/e9/c247e913a0214313045a8a5c39f8522b.jpg')),
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  stops: [0.1, 0.4, 0.8, 0.9],
-                  colors: [
-                    //xin cai nen` tu` google
-                    Color(0xFF3594DD),
-                    Color(0xFF4563DB),
-                    Color(0xFF5036D5),
-                    Color(0xFF5B16D0),
-                  ],
-                ),
-              )),
-              Center(
-                child: SingleChildScrollView(
-                  child: Column(
+      child: Scaffold(
+        body: Stack(
+          children: [
+            Container(
+                decoration: const BoxDecoration(
+              // image: DecorationImage(
+              //     fit: BoxFit.cover, image: NetworkImage('https://i.pinimg.com/originals/c2/47/e9/c247e913a0214313045a8a5c39f8522b.jpg')),
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                stops: [0.1, 0.4, 0.8, 0.9],
+                colors: [
+                  //xin cai nen` tu` google
+                  Color(0xFF3594DD),
+                  Color(0xFF4563DB),
+                  Color(0xFF5036D5),
+                  Color(0xFF5B16D0),
+                ],
+              ),
+            )),
+            Center(
+              child: SingleChildScrollView(
+                child: Obx(
+                  () => Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       // RotationTransition(
@@ -65,22 +54,22 @@ class _LoginPageState extends State<LoginPage> {
                           bottom: 10,
                         ),
                         child: TextField(
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             //border: const OutlineInputBorder(),
-                            enabledBorder: const OutlineInputBorder(
-                              borderSide: const BorderSide(color: Colors.grey),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey),
                             ),
                             labelText: "Email or Username",
                             hintText: "info@example.com",
                             //errorText: snapshot.hasError ? snapshot.error.toString() : null,
-                            prefixIcon: const Icon(
+                            prefixIcon: Icon(
                               Icons.supervisor_account,
                               color: Colors.white,
                             ),
-                            labelStyle: const TextStyle(color: Colors.white),
-                            hintStyle: const TextStyle(color: Colors.grey),
+                            labelStyle: TextStyle(color: Colors.white),
+                            hintStyle: TextStyle(color: Colors.grey),
                           ),
-                          controller: txtEmail, //gan gia tri cua text vao bien'
+                          controller: controller.txtUsername, //gan gia tri cua text vao bien'
                           keyboardType: TextInputType.emailAddress,
                           textInputAction: TextInputAction.next,
                           inputFormatters: <TextInputFormatter>[
@@ -99,22 +88,22 @@ class _LoginPageState extends State<LoginPage> {
                           alignment: AlignmentDirectional.centerEnd,
                           children: [
                             TextField(
-                              obscureText: notShowPassword, //hien * khi nhap text
-                              decoration: InputDecoration(
+                              obscureText: controller.isShowPassword.value, //hien * khi nhap text
+                              decoration: const InputDecoration(
                                 //border: OutlineInputBorder(),
-                                enabledBorder: const OutlineInputBorder(
+                                enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.grey),
                                 ),
                                 labelText: "Password",
                                 //errorText: snapshot.hasError ? snapshot.error.toString() : null,
-                                prefixIcon: const Icon(
+                                prefixIcon: Icon(
                                   Icons.vpn_key,
                                   color: Colors.white,
                                 ),
-                                labelStyle: const TextStyle(color: Colors.white),
-                                hintStyle: const TextStyle(color: Colors.grey),
+                                labelStyle: TextStyle(color: Colors.white),
+                                hintStyle: TextStyle(color: Colors.grey),
                               ),
-                              controller: txtPassword, //gan gia tri cua text vao bien'
+                              controller: controller.txtPassword, //gan gia tri cua text vao bien'
                               textInputAction: TextInputAction.go,
                               inputFormatters: <TextInputFormatter>[
                                 LengthLimitingTextInputFormatter(255), //gioi han do dai`
@@ -123,8 +112,8 @@ class _LoginPageState extends State<LoginPage> {
                             Padding(
                               padding: const EdgeInsets.only(right: 15),
                               child: GestureDetector(
-                                onTap: () => setState(() => notShowPassword = !notShowPassword),
-                                child: notShowPassword
+                                onTap: () => controller.isShowPassword.value = !controller.isShowPassword.value,
+                                child: controller.isShowPassword.value
                                     ? const Icon(
                                         Icons.visibility,
                                         color: Colors.white,
@@ -159,7 +148,7 @@ class _LoginPageState extends State<LoginPage> {
                           "Forgot Password?",
                           style: TextStyle(fontSize: 17, color: Colors.white),
                         ),
-                        onPressed: () => Navigator.pushNamed(context, '/Forgot'),
+                        onPressed: () => {},
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -173,7 +162,7 @@ class _LoginPageState extends State<LoginPage> {
                               "Register Now",
                               style: TextStyle(fontSize: 17, color: Colors.white),
                             ),
-                            onPressed: () => Navigator.pushNamed(context, '/Sign_Up'),
+                            onPressed: () => {},
                           ),
                         ],
                       ),
@@ -182,57 +171,60 @@ class _LoginPageState extends State<LoginPage> {
                           "VIEW AS GUES",
                           style: TextStyle(fontSize: 17, color: Colors.amber),
                         ),
-                        onPressed: () => Navigator.pushReplacementNamed(context, '/Home'),
+                        onPressed: () => Get.offAllNamed(Routes.Home),
                       ),
                       _orDivider(context),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          _SocialIcon(
-                            colors: const [
-                              Color(0xFF102397),
-                              Color(0xFF187adf),
-                              Color(0xFF00eaf8),
-                            ],
-                            iconURL: "assets/icons/facebook.svg",
-                            onPressed: () async {},
-                          ),
-                          _SocialIcon(
-                            colors: const [
-                              Color(0xFF17ead9),
-                              Color(0xFF6078ea),
-                            ],
-                            iconURL: "assets/icons/twitter.svg",
-                            onPressed: () {
-                              print("twitter");
-                            },
-                          ),
-                          _SocialIcon(
-                            colors: const [
-                              Color(0xFFff4f38),
-                              Color(0xFFff355d),
-                            ],
-                            iconURL: "assets/icons/google-plus.svg",
-                            onPressed: () async {},
-                          ),
-                          _SocialIcon(
-                            colors: const [
-                              Color(0xFF00c6fb),
-                              Color(0xFF005bea),
-                            ],
-                            iconURL: "assets/icons/github.svg",
-                            onPressed: () {
-                              print("github");
-                            },
-                          )
-                        ],
+                      SizedBox(
+                        width: Get.width / 2,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            _SocialIcon(
+                              colors: const [
+                                Color(0xFF102397),
+                                Color(0xFF187adf),
+                                Color(0xFF00eaf8),
+                              ],
+                              iconURL: "assets/svgIcons/facebook.svg",
+                              onPressed: () async {},
+                            ),
+                            _SocialIcon(
+                              colors: const [
+                                Color(0xFF17ead9),
+                                Color(0xFF6078ea),
+                              ],
+                              iconURL: "assets/svgIcons/twitter.svg",
+                              onPressed: () {
+                                print("twitter");
+                              },
+                            ),
+                            _SocialIcon(
+                              colors: const [
+                                Color(0xFFff4f38),
+                                Color(0xFFff355d),
+                              ],
+                              iconURL: "assets/svgIcons/google-plus.svg",
+                              onPressed: () async {},
+                            ),
+                            _SocialIcon(
+                              colors: const [
+                                Color(0xFF00c6fb),
+                                Color(0xFF005bea),
+                              ],
+                              iconURL: "assets/svgIcons/github.svg",
+                              onPressed: () {
+                                print("github");
+                              },
+                            )
+                          ],
+                        ),
                       ),
                     ],
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -246,21 +238,18 @@ class _SocialIcon extends StatelessWidget {
   const _SocialIcon({Key? key, required this.colors, required this.iconURL, required this.onPressed}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 14.0),
-      child: Container(
-        width: 40.0,
-        height: 40.0,
-        decoration: BoxDecoration(shape: BoxShape.circle, gradient: LinearGradient(colors: colors, tileMode: TileMode.clamp)),
-        child: RawMaterialButton(
-          shape: const CircleBorder(),
-          onPressed: onPressed,
-          child: SvgPicture.asset(
-            iconURL,
-            height: 25,
-            width: 25,
-            color: Colors.white,
-          ),
+    return Container(
+      width: 40,
+      height: 40,
+      decoration: BoxDecoration(shape: BoxShape.circle, gradient: LinearGradient(colors: colors)),
+      child: RawMaterialButton(
+        shape: const CircleBorder(),
+        onPressed: onPressed,
+        child: SvgPicture.asset(
+          iconURL,
+          height: 25,
+          width: 25,
+          color: Colors.white,
         ),
       ),
     );

@@ -39,10 +39,15 @@ class ItemProductWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const Text("Giá: 123456", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.blueAccent)),
+                  const Text("123,456 đ",
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Colors.blue,
+                        decoration: TextDecoration.lineThrough,
+                      )),
 
                   const Text(
-                    'Còn: 11',
+                    'Giá: 123,456 đ',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.red),
                   ),
                   //rating

@@ -2,9 +2,11 @@
 
 part of 'pages.dart';
 
+//https://github.com/jonataslaw/getx/blob/master/documentation/en_US/route_management.md
 class Routes {
   static const Wellcome = '/';
   static const Intro = '/intro';
-  static const Login = '/Login';
+  static const Login = '/login';
   static const Home = '/home';
+  static const ProductDetail = '/product/:id'; //Get.parameters['id']
 }

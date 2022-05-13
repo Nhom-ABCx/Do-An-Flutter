@@ -16,11 +16,11 @@ Decoration customContainerDeco() => const BoxDecoration(
     borderRadius: BorderRadius.all(Radius.circular(10.0)),
     boxShadow: [BoxShadow(blurRadius: 3, color: Colors.grey, offset: Offset(1, 2))]);
 
-Widget imageNetwork(String imageUrl, {bool useBaseUrl = true, double? width, double? height}) => CachedNetworkImage(
+Widget imageNetwork(String imageUrl, {bool useBaseUrl = true, double? width, double? height, BoxFit? fit}) => CachedNetworkImage(
       imageUrl: useBaseUrl ? Service.defaultBaseUrl + imageUrl : imageUrl,
       width: width,
       height: height,
-      fit: BoxFit.fill,
+      fit: fit,
       placeholder: (context, url) => const Center(
         child: CircularProgressIndicator(),
       ),

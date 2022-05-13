@@ -4,12 +4,14 @@ import 'package:do_an_flutter/Config/theme.dart';
 import 'package:do_an_flutter/Module/home/home_controller.dart';
 import 'package:do_an_flutter/Module/search/search_page.dart';
 import 'package:do_an_flutter/Widget/banner_widget.dart';
+import 'package:do_an_flutter/Widget/build_widgets.dart';
 import 'package:do_an_flutter/Widget/item_product2_widget.dart';
 import 'package:do_an_flutter/Widget/item_product_widget.dart';
 import 'package:do_an_flutter/Widget/drawer_widget.dart';
 import 'package:do_an_flutter/Widget/item_category_widget.dart';
 import 'package:do_an_flutter/app_binding.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 
 part 'home_page.dart';
@@ -49,7 +51,13 @@ class _ContainerPageState extends State<ContainerPage> {
         extendBodyBehindAppBar: true,
 
         drawer: const DrawerWidget(),
-        body: widgetPage.elementAt(currentIndexBottomNav), //Footer
+        body: RefreshIndicator(
+            onRefresh: () async {
+              //reload all widget
+              // ignore: invalid_use_of_protected_member
+              (context as Element).reassemble();
+            },
+            child: widgetPage.elementAt(currentIndexBottomNav)),
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.only(

@@ -10,7 +10,7 @@ class IntroPage extends StatelessWidget {
 
   final introKey = GlobalKey<IntroductionScreenState>();
 
-  void _onIntroEnd() => Get.offAllNamed(Routes.Home);
+  void _onIntroEnd() => Get.offAllNamed(Routes.Login);
 
   @override
   Widget build(BuildContext context) {

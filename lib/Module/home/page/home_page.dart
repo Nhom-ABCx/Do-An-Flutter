@@ -17,7 +17,8 @@ class HomePage extends GetView<HomeController> {
             Padding(
               padding: EdgeInsets.only(right: ThemeConfig.defaultPaddingAll),
               child: CircleAvatar(
-                backgroundImage: NetworkImage("https://randomuser.me/api/portraits/men/3.jpg"),
+                backgroundImage: NetworkImage(
+                    "https://i0.wp.com/www.printmag.com/wp-content/uploads/2021/02/4cbe8d_f1ed2800a49649848102c68fc5a66e53mv2.gif?fit=476%2C280&ssl=1"),
               ),
             ),
           ],
@@ -161,10 +162,76 @@ class HomePage extends GetView<HomeController> {
                   childAspectRatio: 0.8,
                 ),
                 itemBuilder: (context, index) => const ItemProductWidget()),
-            ItemProduct2Widget(),
+            const ItemProduct2Widget(),
+            Row(
+              children: [
+                _buildItem(context),
+              ],
+            ),
           ])),
         ),
       ],
     );
   }
+}
+
+Widget _buildItem(BuildContext context) {
+  return SizedBox(
+    width: 200,
+    child: Stack(
+      children: [
+        Card(
+          elevation: 2,
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: imageNetwork("https://cdn.tgdd.vn/Products/Images/42/247364/samsung-galaxy-m53-nau-thumb-600x600.jpg",
+                      useBaseUrl: false, width: 150),
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("Backless Silver"),
+                      RatingBarIndicator(
+                          rating: 4.5,
+                          itemSize: 20.0,
+                          itemBuilder: (context, index) {
+                            return const Icon(
+                              Icons.star,
+                              color: Colors.amber,
+                            );
+                          }),
+                      const SizedBox(
+                        width: 100,
+                        child: Divider(color: Colors.black),
+                      ),
+                      const Text(
+                        "30",
+                        style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+        Align(
+          alignment: Alignment.topRight,
+          child: IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.favorite_border,
+                color: Colors.red,
+              )),
+        ),
+      ],
+    ),
+  );
 }

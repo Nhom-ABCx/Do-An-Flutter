@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:do_an_flutter/Widget/build_widgets.dart';
 import 'package:flutter/material.dart';
 
 final List<String> imgList = [
@@ -42,7 +43,7 @@ class _BannerWidgetState extends State<BannerWidget> {
                       borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                       child: Stack(
                         children: [
-                          Image.network(item, fit: BoxFit.cover, width: 1000.0),
+                          imageNetwork(item, width: MediaQuery.of(context).size.width, useBaseUrl: false, fit: BoxFit.cover),
                           Positioned(
                             bottom: 0.0,
                             left: 0.0,
