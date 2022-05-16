@@ -1,12 +1,13 @@
+import 'package:do_an_flutter/Model/product.dart';
+import 'package:do_an_flutter/Module/detail/detail_controller.dart';
+import 'package:do_an_flutter/Module/detail/widget/detail_widget_product_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class DetailPage extends StatefulWidget {
-  const DetailPage({Key? key}) : super(key: key);
-  @override
-  State<DetailPage> createState() => _DetailPageState();
-}
+class DetailPage extends GetView<DetailController> {
+  const DetailPage(this.product, {Key? key}) : super(key: key);
+  final Product product;
 
-class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -18,11 +19,35 @@ class _DetailPageState extends State<DetailPage> {
         //drawer: const NavigationDrawer(),
         body: CustomScrollView(
           slivers: [
-            const SliverAppBar(
-              centerTitle: true,
-              title: Text("AAAAAAAa"),
+            SliverAppBar(
+              actions: [
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
+                  margin: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Get.theme.colorScheme.onSurface.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                  child: Row(
+                    children: [
+                      Text("${product.rating}",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            color: Get.theme.colorScheme.onSurface,
+                          )),
+                      const SizedBox(width: 5),
+                      const Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                        size: 14,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-            SliverList(delegate: SliverChildListDelegate([])),
+            DetailWidgetProductImage(product),
           ],
         ),
       ),

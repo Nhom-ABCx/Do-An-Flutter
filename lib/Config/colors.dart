@@ -8,6 +8,7 @@ class ColorConstants {
   static final MaterialColor blue800 = MaterialColor(0xFF07245B, getSwatch(const Color(0xFF07245B)));
 
   static Map<int, Color> getSwatch(Color color) {
+  
     final hslColor = HSLColor.fromColor(color);
     final lightness = hslColor.lightness;
 

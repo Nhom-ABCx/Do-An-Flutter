@@ -10,10 +10,12 @@ class ThemeConfig {
 
       //scaffoldBackgroundColor: const Color(0xFFEEEEEE),
       appBarTheme: AppBarTheme(
-          iconTheme: IconThemeData(color: theme.colorScheme.onSurface),
-          //titleTextStyle: TextStyle(color: theme.colorScheme.onSurface),
-          backgroundColor: theme.colorScheme.onPrimary,
-          elevation: 2),
+        iconTheme: IconThemeData(color: theme.colorScheme.onSurface),
+        //titleTextStyle: TextStyle(color: theme.colorScheme.onSurface),
+        backgroundColor: theme.colorScheme.onPrimary,
+        titleTextStyle: TextStyle(color: theme.colorScheme.onSurface),
+        elevation: 2,
+      ),
       // AppBarTheme(
       //     iconTheme: IconThemeData(color: theme.colorScheme.onPrimary),
       //     titleTextStyle: TextStyle(color: theme.colorScheme.onPrimary, fontWeight: FontWeight.bold),
@@ -39,20 +41,20 @@ class ThemeConfig {
       )),
 
       //textTheme: TextTheme(
-          // displayLarge: TextStyle(color: theme.colorScheme.onSurface),
-          // displayMedium: TextStyle(color: theme.colorScheme.onSurface),
-          // displaySmall: TextStyle(color: theme.colorScheme.onSurface),
-          // headlineMedium: TextStyle(color: theme.colorScheme.onSurface),
-          // headlineSmall: TextStyle(color: theme.colorScheme.onSurface),
-          // titleLarge: TextStyle(color: theme.colorScheme.onSurface),
-          // titleMedium: TextStyle(color: theme.colorScheme.onSurface),
-          // titleSmall: TextStyle(color: theme.colorScheme.onSurface),
-          // bodyLarge: TextStyle(color: theme.colorScheme.onSurface),
-          // bodyMedium: TextStyle(color: theme.colorScheme.onSurface),
-          // bodySmall: TextStyle(color: theme.colorScheme.onSurface),
-          // labelLarge: TextStyle(color: theme.colorScheme.onSurface),
-          // labelSmall: TextStyle(color: theme.colorScheme.onSurface),
-          //),
+      // displayLarge: TextStyle(color: theme.colorScheme.onSurface),
+      // displayMedium: TextStyle(color: theme.colorScheme.onSurface),
+      // displaySmall: TextStyle(color: theme.colorScheme.onSurface),
+      // headlineMedium: TextStyle(color: theme.colorScheme.onSurface),
+      // headlineSmall: TextStyle(color: theme.colorScheme.onSurface),
+      // titleLarge: TextStyle(color: theme.colorScheme.onSurface),
+      // titleMedium: TextStyle(color: theme.colorScheme.onSurface),
+      // titleSmall: TextStyle(color: theme.colorScheme.onSurface),
+      // bodyLarge: TextStyle(color: theme.colorScheme.onSurface),
+      // bodyMedium: TextStyle(color: theme.colorScheme.onSurface),
+      // bodySmall: TextStyle(color: theme.colorScheme.onSurface),
+      // labelLarge: TextStyle(color: theme.colorScheme.onSurface),
+      // labelSmall: TextStyle(color: theme.colorScheme.onSurface),
+      //),
     );
   }
 

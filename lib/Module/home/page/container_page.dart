@@ -1,19 +1,17 @@
 import 'package:do_an_flutter/Config/Language/translation_service.dart';
 import 'package:do_an_flutter/Config/strings.dart';
 import 'package:do_an_flutter/Config/theme.dart';
-import 'package:do_an_flutter/Model/Product.dart';
+import 'package:do_an_flutter/Model/product.dart';
 import 'package:do_an_flutter/Module/home/home_controller.dart';
 import 'package:do_an_flutter/Module/search/search_page.dart';
 import 'package:do_an_flutter/Widget/banner_widget.dart';
-import 'package:do_an_flutter/Widget/build_widgets.dart';
 import 'package:do_an_flutter/Widget/product_card_3.dart';
 import 'package:do_an_flutter/Widget/product_card_2.dart';
+import 'package:do_an_flutter/Widget/product_card_1.dart';
 import 'package:do_an_flutter/Widget/drawer_widget.dart';
 import 'package:do_an_flutter/Widget/category_card_1.dart';
-import 'package:do_an_flutter/Widget/product_card_1.dart';
 import 'package:do_an_flutter/app_binding.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 
 part 'home_page.dart';
