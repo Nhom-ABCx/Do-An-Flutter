@@ -1,6 +1,8 @@
 import 'package:do_an_flutter/Model/product.dart';
 import 'package:do_an_flutter/Module/detail/detail_controller.dart';
+import 'package:do_an_flutter/Module/detail/widget/detail_widget_color_dots.dart';
 import 'package:do_an_flutter/Module/detail/widget/detail_widget_product_image.dart';
+import 'package:do_an_flutter/Widget/top_rounded_container.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -48,6 +50,36 @@ class DetailPage extends GetView<DetailController> {
               ],
             ),
             DetailWidgetProductImage(product),
+            SliverToBoxAdapter(
+                child: TopRoundedContainer(
+              color: Get.theme.cardColor,
+              child: Column(children: [
+                Container(
+                  height: 100,
+                  color: Colors.red,
+                ),
+                TopRoundedContainer(
+                    color: Colors.grey.withOpacity(0.1),
+                    child: Column(
+                      children: [
+                        DetailWidgetColorDots(product.colors),
+                        TopRoundedContainer(
+                          color: Get.theme.cardColor,
+                          child: Container(
+                            width: double.infinity,
+                            height: 40,
+                            padding: const EdgeInsets.symmetric(horizontal: 30),
+                            child: ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                    shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15)))),
+                                child: const Text("Add to cart")),
+                          ),
+                        ),
+                      ],
+                    ))
+              ]),
+            )),
           ],
         ),
       ),

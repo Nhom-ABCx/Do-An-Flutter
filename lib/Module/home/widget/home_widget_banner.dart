@@ -11,14 +11,14 @@ final List<String> imgList = [
   'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
 ];
 
-class BannerWidget extends StatefulWidget {
-  const BannerWidget({Key? key}) : super(key: key);
+class HomeWidgetBanner extends StatefulWidget {
+  const HomeWidgetBanner({Key? key}) : super(key: key);
 
   @override
-  State<BannerWidget> createState() => _BannerWidgetState();
+  State<HomeWidgetBanner> createState() => _HomeWidgetBannerState();
 }
 
-class _BannerWidgetState extends State<BannerWidget> {
+class _HomeWidgetBannerState extends State<HomeWidgetBanner> {
   int _current = 0;
   final CarouselController _controller = CarouselController();
 
@@ -74,20 +74,20 @@ class _BannerWidgetState extends State<BannerWidget> {
       ),
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: imgList.asMap().entries.map((entry) {
-          return GestureDetector(
-            onTap: () => _controller.animateToPage(entry.key),
-            child: Container(
-              width: 12.0,
-              height: 12.0,
-              margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color:
-                      (Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black).withOpacity(_current == entry.key ? 0.9 : 0.4)),
-            ),
-          );
-        }).toList(),
+        children: List.generate(
+            imgList.length,
+            (index) => GestureDetector(
+                  onTap: () => _controller.animateToPage(index),
+                  child: Container(
+                    width: 12.0,
+                    height: 12.0,
+                    margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: (Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black)
+                            .withOpacity(_current == index ? 0.9 : 0.4)),
+                  ),
+                )),
       ),
     ]);
   }

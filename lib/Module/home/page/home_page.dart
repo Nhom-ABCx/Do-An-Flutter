@@ -8,7 +8,7 @@ class HomePage extends GetView<HomeController> {
     return CustomScrollView(
       slivers: [
         _buildAppBar(context),
-        const SliverToBoxAdapter(child: BannerWidget()),
+        const SliverToBoxAdapter(child: HomeWidgetBanner()),
         _buildCategory(),
         _buildFlashSale(),
         _buildRecent(),

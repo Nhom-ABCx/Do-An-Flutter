@@ -4,7 +4,7 @@ import 'package:do_an_flutter/Config/theme.dart';
 import 'package:do_an_flutter/Model/product.dart';
 import 'package:do_an_flutter/Module/home/home_controller.dart';
 import 'package:do_an_flutter/Module/search/search_page.dart';
-import 'package:do_an_flutter/Widget/banner_widget.dart';
+import 'package:do_an_flutter/Module/home/widget/home_widget_banner.dart';
 import 'package:do_an_flutter/Widget/product_card_3.dart';
 import 'package:do_an_flutter/Widget/product_card_2.dart';
 import 'package:do_an_flutter/Widget/product_card_1.dart';
@@ -90,6 +90,6 @@ class _ContainerPageState extends State<ContainerPage> {
 BottomNavigationBarItem _bottomNavBar(String label, IconData iconData) => BottomNavigationBarItem(
     icon: Icon(iconData),
     label: label,
-    activeIcon: Container(
+    activeIcon: DecoratedBox(
         decoration: BoxDecoration(color: Get.theme.colorScheme.secondary, shape: BoxShape.circle),
         child: Padding(padding: const EdgeInsets.all(5), child: Icon(iconData))));
