@@ -54,14 +54,14 @@ class ProductCard1 extends StatelessWidget {
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
-                          color: Color(0xFFFF7643),
+                          color: Colors.red,
                         ),
                       ),
                       Container(
                           height: 30,
                           width: 30,
                           decoration: BoxDecoration(
-                            color: product.isFavourite ? const Color(0xFFFF7643).withOpacity(0.15) : const Color(0xFF979797).withOpacity(0.1),
+                            color: product.isFavourite ? Colors.red.withOpacity(0.1) : Colors.grey.withOpacity(0.1),
                             shape: BoxShape.circle,
                           ),
                           child: RawMaterialButton(

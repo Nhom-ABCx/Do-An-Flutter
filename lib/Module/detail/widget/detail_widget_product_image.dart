@@ -13,20 +13,31 @@ class DetailWidgetProductImage extends StatefulWidget {
 class _DetailWidgetProductImageState extends State<DetailWidgetProductImage> {
   int selectedImage = 0;
   final CarouselController _controller = CarouselController();
-  
+
   @override
   Widget build(BuildContext context) {
     return SliverList(
         delegate: SliverChildListDelegate([
-      SizedBox(
-        height: MediaQuery.of(context).size.height / 3,
-        child: AspectRatio(
-          aspectRatio: 1,
-          child: Hero(
-            tag: widget.product.id.toString(),
-            child: Image.asset(widget.product.images[selectedImage]),
-          ),
+      CarouselSlider(
+        carouselController: _controller,
+        options: CarouselOptions(
+          autoPlay: true, //tu dong chay
+          //reverse: true, //dao? nguoc chay
+          autoPlayInterval: const Duration(seconds: 7), //mac dinh la 4
+          //enlargeCenterPage: true, //lam noi bat trung tam hinh`
+          aspectRatio: 2.3, //height
+          viewportFraction: 1.0, //chi hien thi 1 hinh` anh?
+          onPageChanged: (index, reason) => setState(() => selectedImage = index),
         ),
+        items: widget.product.images
+            .map((item) => Hero(
+                  tag: widget.product.id.toString(),
+                  child: Image.asset(
+                    item,
+                    width: MediaQuery.of(context).size.width,
+                  ),
+                ))
+            .toList(),
       ),
       // SizedBox(height: getProportionateScreenWidth(20)),
       Wrap(
@@ -34,9 +45,8 @@ class _DetailWidgetProductImageState extends State<DetailWidgetProductImage> {
         children: List.generate(
             widget.product.images.length,
             (index) => GestureDetector(
-                  onTap: () => setState(() => selectedImage = index),
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 250),
+                  onTap: () => _controller.animateToPage(index),
+                  child: Container(
                     margin: const EdgeInsets.only(right: 15),
                     padding: const EdgeInsets.all(8),
                     height: MediaQuery.of(context).size.width / 7,

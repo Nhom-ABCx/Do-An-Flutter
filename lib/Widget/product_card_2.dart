@@ -74,12 +74,10 @@ class ProductCard2 extends StatelessWidget {
               RatingBarIndicator(
                   rating: 4.5,
                   itemSize: 20.0,
-                  itemBuilder: (context, index) {
-                    return const Icon(
-                      Icons.star,
-                      color: Colors.amber,
-                    );
-                  }),
+                  itemBuilder: (context, index) => const Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      )),
               //add cart
               InkWell(
                 child: const Icon(Icons.add_circle, color: Colors.green, size: 30),
@@ -106,12 +104,10 @@ class ProductCard2 extends StatelessWidget {
           RatingBarIndicator(
               rating: 4.5,
               itemSize: 20.0,
-              itemBuilder: (context, index) {
-                return const Icon(
-                  Icons.star,
-                  color: Colors.amber,
-                );
-              }),
+              itemBuilder: (context, index) => const Icon(
+                    Icons.star,
+                    color: Colors.amber,
+                  )),
           const SizedBox(
             width: 100,
             child: Divider(color: Colors.black),

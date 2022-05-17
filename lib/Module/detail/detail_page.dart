@@ -1,6 +1,7 @@
 import 'package:do_an_flutter/Model/product.dart';
 import 'package:do_an_flutter/Module/detail/detail_controller.dart';
 import 'package:do_an_flutter/Module/detail/widget/detail_widget_color_dots.dart';
+import 'package:do_an_flutter/Module/detail/widget/detail_widget_product_description.dart';
 import 'package:do_an_flutter/Module/detail/widget/detail_widget_product_image.dart';
 import 'package:do_an_flutter/Widget/top_rounded_container.dart';
 import 'package:flutter/material.dart';
@@ -54,10 +55,7 @@ class DetailPage extends GetView<DetailController> {
                 child: TopRoundedContainer(
               color: Get.theme.cardColor,
               child: Column(children: [
-                Container(
-                  height: 100,
-                  color: Colors.red,
-                ),
+                DetailWidgetProductDescription(product),
                 TopRoundedContainer(
                     color: Colors.grey.withOpacity(0.1),
                     child: Column(
