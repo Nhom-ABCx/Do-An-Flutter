@@ -3,6 +3,7 @@ import 'package:do_an_flutter/Module/detail/detail_controller.dart';
 import 'package:do_an_flutter/Module/detail/widget/detail_widget_color_dots.dart';
 import 'package:do_an_flutter/Module/detail/widget/detail_widget_product_description.dart';
 import 'package:do_an_flutter/Module/detail/widget/detail_widget_product_image.dart';
+import 'package:do_an_flutter/Module/detail/widget/detail_widget_product_title.dart';
 import 'package:do_an_flutter/Widget/top_rounded_container.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,30 +25,7 @@ class DetailPage extends GetView<DetailController> {
           slivers: [
             SliverAppBar(
               actions: [
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
-                  margin: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: Get.theme.colorScheme.onSurface.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(14),
-                  ),
-                  child: Row(
-                    children: [
-                      Text("${product.rating}",
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            color: Get.theme.colorScheme.onSurface,
-                          )),
-                      const SizedBox(width: 5),
-                      const Icon(
-                        Icons.star,
-                        color: Colors.amber,
-                        size: 14,
-                      ),
-                    ],
-                  ),
-                ),
+                IconButton(onPressed: () {}, icon: const Icon(Icons.shopping_cart, color: Colors.amber)),
               ],
             ),
             DetailWidgetProductImage(product),
@@ -55,27 +33,28 @@ class DetailPage extends GetView<DetailController> {
                 child: TopRoundedContainer(
               color: Get.theme.cardColor,
               child: Column(children: [
-                DetailWidgetProductDescription(product),
+                //
+                DetailWidgetProductTitle(product),
                 TopRoundedContainer(
-                    color: Colors.grey.withOpacity(0.1),
+                    color: Theme.of(context).hoverColor,
                     child: Column(
                       children: [
+                        //
                         DetailWidgetColorDots(product.colors),
-                        TopRoundedContainer(
-                          color: Get.theme.cardColor,
-                          child: Container(
-                            width: double.infinity,
-                            height: 40,
-                            padding: const EdgeInsets.symmetric(horizontal: 30),
-                            child: ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                    shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15)))),
-                                child: const Text("Add to cart")),
-                          ),
+                        Container(
+                          width: double.infinity,
+                          height: 40,
+                          padding: const EdgeInsets.symmetric(horizontal: 40),
+                          margin: const EdgeInsets.only(top: 10),
+                          child: ElevatedButton(
+                              onPressed: () {},
+                              style:
+                                  ElevatedButton.styleFrom(shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15)))),
+                              child: const Text("Add to cart")),
                         ),
+                        TopRoundedContainer(color: Get.theme.cardColor, child: DetailWidgetProductDescription(product)),
                       ],
-                    ))
+                    )),
               ]),
             )),
           ],

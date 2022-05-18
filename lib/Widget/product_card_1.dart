@@ -30,7 +30,7 @@ class ProductCard1 extends StatelessWidget {
                     child: Container(
                       padding: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
-                        color: Colors.grey.withOpacity(0.1),
+                        color: Theme.of(context).hoverColor,
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: Hero(
@@ -61,7 +61,7 @@ class ProductCard1 extends StatelessWidget {
                           height: 30,
                           width: 30,
                           decoration: BoxDecoration(
-                            color: product.isFavourite ? Colors.red.withOpacity(0.1) : Colors.grey.withOpacity(0.1),
+                            color: product.isFavourite ? Colors.red.withOpacity(0.1) : Theme.of(context).hoverColor,
                             shape: BoxShape.circle,
                           ),
                           child: RawMaterialButton(

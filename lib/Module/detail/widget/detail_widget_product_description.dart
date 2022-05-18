@@ -1,6 +1,6 @@
+import 'package:do_an_flutter/Config/theme.dart';
 import 'package:do_an_flutter/Model/product.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class DetailWidgetProductDescription extends StatefulWidget {
   const DetailWidgetProductDescription(this.product, {Key? key}) : super(key: key);
@@ -19,48 +19,16 @@ class _DetailWidgetProductDescriptionState extends State<DetailWidgetProductDesc
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        //title
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: (20)),
-          child: Text(
-            widget.product.title,
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
-        ),
-        //rating
-        Row(
-          children: [
-            const SizedBox(width: 15),
-            RatingBarIndicator(
-                rating: 4.5,
-                itemSize: 25.0,
-                itemBuilder: (context, index) => const Icon(
-                      Icons.star,
-                      color: Colors.amber,
-                    )),
-            //khoang cach' can le` cho le :v
-            const Expanded(child: Text("   4.5")),
-            Container(
-              padding: const EdgeInsets.all((15)),
-              //width: 64,
-              decoration: BoxDecoration(
-                color: widget.product.isFavourite ? Colors.red.withOpacity(0.1) : Colors.grey.withOpacity(0.1),
-                borderRadius: const BorderRadius.only(topLeft: Radius.circular(20), bottomLeft: Radius.circular(20)),
-              ),
-              child:
-                  widget.product.isFavourite ? const Icon(Icons.favorite, color: Colors.red) : const Icon(Icons.favorite_outline, color: Colors.red),
-            )
-          ],
-        ),
-        const Center(
-            child: Text(
-          '123,456,789 đ',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.red),
-        )),
-        const Divider(),
         //description
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: (20)),
+          padding: const EdgeInsets.fromLTRB(ThemeConfig.defaultPaddingAll, 0, ThemeConfig.defaultPaddingAll, 10),
+          child: Text(
+            "Description",
+            style: Theme.of(context).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.w500),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: (ThemeConfig.defaultPaddingAll)),
           child: Text(
             widget.product.description,
             maxLines: maxline,
@@ -69,7 +37,7 @@ class _DetailWidgetProductDescriptionState extends State<DetailWidgetProductDesc
         ),
         //see more detail
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: (20), vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: (ThemeConfig.defaultPaddingAll), vertical: 10),
           child: GestureDetector(
             onTap: () => setState(() {
               if (maxline == null && overflow == null) {
@@ -82,7 +50,7 @@ class _DetailWidgetProductDescriptionState extends State<DetailWidgetProductDesc
             child: Row(
               children: [
                 Text(
-                  "See More Detail",
+                  (maxline != null && overflow != null) ? "See More Detail" : "Hide",
                   style: TextStyle(fontWeight: FontWeight.w600, color: Theme.of(context).colorScheme.primary),
                 ),
                 const SizedBox(width: 5),
@@ -94,8 +62,102 @@ class _DetailWidgetProductDescriptionState extends State<DetailWidgetProductDesc
               ],
             ),
           ),
-        )
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: (ThemeConfig.defaultPaddingAll)),
+          child: Text(
+            "Properties",
+            style: Theme.of(context).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.w500),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: (ThemeConfig.defaultPaddingAll)),
+          child: Table(
+            columnWidths: const {
+              //0: FlexColumnWidth(2),
+              0: FlexColumnWidth(),
+              1: FlexColumnWidth(),
+              //0: IntrinsicColumnWidth(),
+            },
+            defaultColumnWidth: const IntrinsicColumnWidth(),
+            defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+            border: const TableBorder(top: BorderSide(), bottom: BorderSide()),
+            children:
+                List.generate(5, (index) => _tableRow("Option $index", "ValueOption $index", index.isOdd ? Theme.of(context).hoverColor : null)),
+          ),
+        ),
+        //------------------------
+        Padding(
+          padding: const EdgeInsets.all(ThemeConfig.defaultPaddingAll),
+          child: Text(
+            "Ratings",
+            style: Theme.of(context).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.w500),
+          ),
+        ),
+        ..._ratingCard(),
+        ..._ratingCard(),
       ],
     );
+  }
+
+  List<Widget> _ratingCard() {
+    return [
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: (ThemeConfig.defaultPaddingAll)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(right: 8),
+                  child: CircleAvatar(
+                    backgroundImage: NetworkImage(
+                        "https://i0.wp.com/www.printmag.com/wp-content/uploads/2021/02/4cbe8d_f1ed2800a49649848102c68fc5a66e53mv2.gif?fit=476%2C280&ssl=1"),
+                  ),
+                ),
+                Text('UserName', style: Theme.of(context).textTheme.bodyLarge),
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                const Text('Overall'),
+                Row(
+                  children: const [
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 4, 0),
+                      child: Text('5'),
+                    ),
+                    Icon(
+                      Icons.star_rounded,
+                      color: Colors.amber,
+                      size: 20,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+      const Padding(
+        padding: EdgeInsets.symmetric(horizontal: (ThemeConfig.defaultPaddingAll)),
+        child: Text('Nice outdoor courts, solid concrete and good hoops for the neighborhood.'),
+      ),
+      const Divider(),
+    ];
+  }
+
+  TableRow _tableRow(String text1, String text2, Color? color) {
+    return TableRow(decoration: BoxDecoration(color: color), children: [
+      TableCell(
+        child: Padding(padding: const EdgeInsets.symmetric(vertical: 5), child: Text(text1)),
+      ),
+      TableCell(
+        child: Text(text2),
+      )
+    ]);
   }
 }
