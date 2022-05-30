@@ -1,10 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:do_an_flutter/Model/product.dart';
+import 'package:do_an_flutter/Model/san_pham.dart';
+import 'package:do_an_flutter/Widget/build_widgets.dart';
 import 'package:flutter/material.dart';
 
 class DetailWidgetProductImage extends StatefulWidget {
-  const DetailWidgetProductImage(this.product, {Key? key}) : super(key: key);
-  final Product product;
+  const DetailWidgetProductImage(this.sanPham, {Key? key}) : super(key: key);
+  final SanPham sanPham;
 
   @override
   State<DetailWidgetProductImage> createState() => _DetailWidgetProductImageState();
@@ -29,21 +30,20 @@ class _DetailWidgetProductImageState extends State<DetailWidgetProductImage> {
           viewportFraction: 1.0, //chi hien thi 1 hinh` anh?
           onPageChanged: (index, reason) => setState(() => selectedImage = index),
         ),
-        items: widget.product.images
+        items: widget.sanPham.hinhAnh!
             .map((item) => Hero(
-                  tag: widget.product.id.toString(),
-                  child: Image.asset(
-                    item,
-                    width: MediaQuery.of(context).size.width,
-                  ),
-                ))
+                tag: widget.sanPham.id.toString(),
+                child: imageNetwork(
+                  item.hinhAnh!,
+                  width: MediaQuery.of(context).size.width,
+                )))
             .toList(),
       ),
       // SizedBox(height: getProportionateScreenWidth(20)),
       Wrap(
         alignment: WrapAlignment.center,
         children: List.generate(
-            widget.product.images.length,
+            widget.sanPham.hinhAnh!.length,
             (index) => GestureDetector(
                   onTap: () => _controller.animateToPage(index),
                   child: Container(
@@ -56,7 +56,7 @@ class _DetailWidgetProductImageState extends State<DetailWidgetProductImage> {
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(color: Theme.of(context).primaryColor.withOpacity(selectedImage == index ? 1 : 0)),
                     ),
-                    child: Image.asset(widget.product.images[index]),
+                    child: imageNetwork(widget.sanPham.hinhAnh![index].hinhAnh!),
                   ),
                 )),
       )

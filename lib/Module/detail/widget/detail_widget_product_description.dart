@@ -1,10 +1,10 @@
 import 'package:do_an_flutter/Config/theme.dart';
-import 'package:do_an_flutter/Model/product.dart';
+import 'package:do_an_flutter/Model/san_pham.dart';
 import 'package:flutter/material.dart';
 
 class DetailWidgetProductDescription extends StatefulWidget {
-  const DetailWidgetProductDescription(this.product, {Key? key}) : super(key: key);
-  final Product product;
+  const DetailWidgetProductDescription(this.sanPham, {Key? key}) : super(key: key);
+  final SanPham sanPham;
 
   @override
   State<DetailWidgetProductDescription> createState() => _DetailWidgetProductDescriptionState();
@@ -30,7 +30,7 @@ class _DetailWidgetProductDescriptionState extends State<DetailWidgetProductDesc
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: (ThemeConfig.defaultPaddingAll)),
           child: Text(
-            widget.product.description,
+            widget.sanPham.moTa!,
             maxLines: maxline,
             overflow: overflow, //...
           ),

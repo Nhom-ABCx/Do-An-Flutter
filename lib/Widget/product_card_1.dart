@@ -1,22 +1,23 @@
-import 'package:do_an_flutter/Model/product.dart';
+import 'package:do_an_flutter/Model/san_pham.dart';
 import 'package:do_an_flutter/Module/detail/detail_page.dart';
+import 'package:do_an_flutter/Widget/build_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ProductCard1 extends StatelessWidget {
   const ProductCard1({
     Key? key,
-    required this.product,
+    required this.sanPham,
   }) : super(key: key);
 
-  final Product product;
+  final SanPham sanPham;
 
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
       aspectRatio: 0.68,
       child: GestureDetector(
-          onTap: () => Get.to(DetailPage(product)),
+          onTap: () => Get.to(DetailPage(sanPham)),
           child: Card(
               elevation: 2,
               shape: const RoundedRectangleBorder(
@@ -34,15 +35,15 @@ class ProductCard1 extends StatelessWidget {
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: Hero(
-                        tag: product.id.toString(),
-                        child: Image.asset(product.images[0]),
+                        tag: sanPham.id.toString(),
+                        child: imageNetwork(sanPham.hinhAnh![0].hinhAnh!),
                       ),
                     ),
                   ),
                   const SizedBox(height: 10),
                   Expanded(
                       child: Text(
-                    product.title,
+                    sanPham.tenSanPham!,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   )),
@@ -50,7 +51,7 @@ class ProductCard1 extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "\$${product.price}",
+                        "\$ 9999999999999999999",
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
@@ -61,13 +62,13 @@ class ProductCard1 extends StatelessWidget {
                           height: 30,
                           width: 30,
                           decoration: BoxDecoration(
-                            color: product.isFavourite ? Colors.red.withOpacity(0.1) : Theme.of(context).hoverColor,
+                            color: true ? Colors.red.withOpacity(0.1) : Theme.of(context).hoverColor,
                             shape: BoxShape.circle,
                           ),
                           child: RawMaterialButton(
                             shape: const CircleBorder(),
                             onPressed: () {},
-                            child: product.isFavourite
+                            child: true
                                 ? const Icon(
                                     Icons.favorite, //border
                                     color: Colors.red,

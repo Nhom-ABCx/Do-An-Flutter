@@ -1,7 +1,6 @@
 part of 'base_getconnect.dart';
 
 extension BaseGetconnectExtension on BaseGetConnect {
-
   FutureOr<Request> requestInterceptor(Request request) async {
     final prefs = Get.find<Service>().sharedPreferences;
 
@@ -45,16 +44,16 @@ extension BaseGetconnectExtension on BaseGetConnect {
         break;
     }
   }
-////////////////////////////
+// ////////////////////////////
 
-  FutureOr<Request> authInterceptor(Request request) {
-    final token =Get.find<Service>().sharedPreferences.getString(StorageConstants.token);
+//   FutureOr<Request> authInterceptor(Request request) {
+//     final token =Get.find<Service>().sharedPreferences.getString(StorageConstants.token);
 
-      if (token != null) {
-        request.headers['Authorization'] = 'Bearer $token';
-        // request.headers['X-Requested-With'] = 'XMLHttpRequest';
-      }
+//       if (token != null) {
+//         request.headers['Authorization'] = 'Bearer $token';
+//         // request.headers['X-Requested-With'] = 'XMLHttpRequest';
+//       }
 
-      return request;
-  }
+//       return request;
+  // }
 }

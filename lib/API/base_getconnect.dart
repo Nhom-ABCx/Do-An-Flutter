@@ -19,7 +19,7 @@ class BaseGetConnect extends GetConnect {
     httpClient.baseUrl = Get.find<Service>().baseUrl;
     httpClient.timeout = const Duration(seconds: 10);
     //
-    httpClient.addAuthenticator(authInterceptor);
+    //httpClient.addAuthenticator(authInterceptor);
     httpClient.addRequestModifier(requestInterceptor);
     httpClient.addResponseModifier(responseInterceptor);
   }
@@ -40,21 +40,21 @@ class BaseGetConnect extends GetConnect {
     return null;
   }
 
-  Future<List<T>> onGetList<T>(BaseModel<T> baseModel, String path) async {
-    try {
-      final res = await get<List>(path).timeout(httpClient.timeout, onTimeout: onTimeout);
-      if (res.statusCode == 200) {
-        final List<T> listResult = res.body!.map((e) => baseModel.fromJson(e)).toList();
+  Future<List<T>?> onGetList<T>(BaseModel<T> baseModel, String path) async {
+    // try {
+    final res = await get<List>(path).timeout(httpClient.timeout, onTimeout: onTimeout);
+    if (res.statusCode == 200) {
+      final List<T> listResult = res.body!.map((e) => baseModel.fromJson(e)).toList();
 
-        return listResult;
-      }
-    } on TimeoutException catch (_) {
-      //CommonWidget.toast(_.message!);
-      //EasyLoading.dismiss();
-      // catch timeout here..
-    } catch (e) {
-      //EasyLoading.dismiss();
+      return listResult;
     }
-    return [];
+    // } on TimeoutException catch (_) {
+    //   //CommonWidget.toast(_.message!);
+    //   //EasyLoading.dismiss();
+    //   // catch timeout here..
+    // } catch (e) {
+    //   //EasyLoading.dismiss();
+    // }
+    return null;
   }
 }

@@ -1,7 +1,7 @@
 import 'package:do_an_flutter/Config/Language/translation_service.dart';
 import 'package:do_an_flutter/Config/strings.dart';
 import 'package:do_an_flutter/Config/theme.dart';
-import 'package:do_an_flutter/Model/product.dart';
+import 'package:do_an_flutter/Model/san_pham.dart';
 import 'package:do_an_flutter/Module/home/home_controller.dart';
 import 'package:do_an_flutter/Module/search/search_page.dart';
 import 'package:do_an_flutter/Module/home/widget/home_widget_banner.dart';

@@ -5,6 +5,7 @@ class HomePage extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
+    final a = controller;
     return CustomScrollView(
       slivers: [
         _buildAppBar(context),
@@ -77,10 +78,26 @@ class HomePage extends GetView<HomeController> {
                 )),
             SizedBox(
               height: 230,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: demoProducts.length,
-                itemBuilder: (context, index) => ProductCard1(product: demoProducts[index]),
+              child: FutureBuilder<List<SanPham>?>(
+                future: controller.getListSanPham(),
+                builder: (context, snapshot) {
+                  {
+                    if (snapshot.hasError) {
+                      print(snapshot.error);
+                    }
+                    return snapshot.hasData
+                        ? (snapshot.data!.isEmpty)
+                            ? const SizedBox() //show emty widget
+                            : ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: snapshot.data!.length,
+                                itemBuilder: (context, index) => ProductCard1(sanPham: snapshot.data![index]),
+                              )
+                        : const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                  }
+                },
               ),
             )
           ],
