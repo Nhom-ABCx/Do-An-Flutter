@@ -1,5 +1,6 @@
 import 'package:do_an_flutter/Model/san_pham.dart';
 import 'package:do_an_flutter/Module/detail/detail_page.dart';
+import 'package:do_an_flutter/Ultis/helper.dart';
 import 'package:do_an_flutter/Widget/build_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -51,7 +52,7 @@ class ProductCard1 extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "\$ 9999999999999999999",
+                        "${Helper.formatNumber(sanPham.cTSanPham!.first.giaBan!)} đ",
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,

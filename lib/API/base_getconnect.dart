@@ -36,25 +36,29 @@ class BaseGetConnect extends GetConnect {
       // catch timeout here..
     } catch (e) {
       //EasyLoading.dismiss();
+      print("has error, request again-----");
+      return await Future.delayed(const Duration(seconds: 3), () => onGetObject(baseModel, path));
     }
     return null;
   }
 
   Future<List<T>?> onGetList<T>(BaseModel<T> baseModel, String path) async {
-    // try {
-    final res = await get<List>(path).timeout(httpClient.timeout, onTimeout: onTimeout);
-    if (res.statusCode == 200) {
-      final List<T> listResult = res.body!.map((e) => baseModel.fromJson(e)).toList();
+    try {
+      final res = await get<List>(path).timeout(httpClient.timeout, onTimeout: onTimeout);
+      if (res.statusCode == 200) {
+        final List<T> listResult = res.body!.map((e) => baseModel.fromJson(e)).toList();
 
-      return listResult;
+        return listResult;
+      }
+    } on TimeoutException catch (_) {
+      //CommonWidget.toast(_.message!);
+      //EasyLoading.dismiss();
+      // catch timeout here..
+    } catch (e) {
+      //EasyLoading.dismiss();
+      print("has error, request again-----");
+      return await Future.delayed(const Duration(seconds: 3), () => onGetList(baseModel, path));
     }
-    // } on TimeoutException catch (_) {
-    //   //CommonWidget.toast(_.message!);
-    //   //EasyLoading.dismiss();
-    //   // catch timeout here..
-    // } catch (e) {
-    //   //EasyLoading.dismiss();
-    // }
     return null;
   }
 }

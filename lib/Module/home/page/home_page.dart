@@ -86,12 +86,12 @@ class HomePage extends GetView<HomeController> {
                       print(snapshot.error);
                     }
                     return snapshot.hasData
-                        ? (snapshot.data!.isEmpty)
+                        ? (controller.listSanPham.isEmpty)
                             ? const SizedBox() //show emty widget
                             : ListView.builder(
                                 scrollDirection: Axis.horizontal,
-                                itemCount: snapshot.data!.length,
-                                itemBuilder: (context, index) => ProductCard1(sanPham: snapshot.data![index]),
+                                itemCount: controller.listSanPham.length,
+                                itemBuilder: (context, index) => ProductCard1(sanPham: controller.listSanPham[index]),
                               )
                         : const Center(
                             child: CircularProgressIndicator(),

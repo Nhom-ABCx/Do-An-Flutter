@@ -9,7 +9,8 @@ extension BaseGetconnectExtension on BaseGetConnect {
       request.headers['Accept'] = 'application/json, text/plain, */*';
     }
 
-    // request.headers['Content-Type'] = 'application/json';
+    request.headers['Content-Type'] = 'application/json;charset=UTF-8';
+    request.headers['Charset'] = 'utf-8';
 
     //EasyLoading.show(status: StringConstant.PleaseWait.tr, maskType: EasyLoadingMaskType.black);
     print("${httpClient.baseUrl}   ------------request");

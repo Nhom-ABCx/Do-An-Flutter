@@ -1,19 +1,13 @@
-import 'dart:html';
-
 import 'package:do_an_flutter/Config/theme.dart';
 import 'package:do_an_flutter/Model/san_pham.dart';
+import 'package:do_an_flutter/Ultis/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-class DetailWidgetProductTitle extends StatefulWidget {
-  const DetailWidgetProductTitle(this.product, {Key? key}) : super(key: key);
-  final SanPham product;
+class DetailWidgetProductTitle extends StatelessWidget {
+  const DetailWidgetProductTitle(this.sanPham, {Key? key}) : super(key: key);
+  final SanPham sanPham;
 
-  @override
-  State<DetailWidgetProductTitle> createState() => _DetailWidgetProductTitleState();
-}
-
-class _DetailWidgetProductTitleState extends State<DetailWidgetProductTitle> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -23,7 +17,7 @@ class _DetailWidgetProductTitleState extends State<DetailWidgetProductTitle> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: ThemeConfig.defaultPaddingAll),
           child: Text(
-            widget.product.tenSanPham!,
+            sanPham.tenSanPham!,
             style: Theme.of(context).textTheme.titleLarge,
           ),
         ),
@@ -32,24 +26,24 @@ class _DetailWidgetProductTitleState extends State<DetailWidgetProductTitle> {
           children: [
             const SizedBox(width: ThemeConfig.defaultPaddingAll / 1.3),
             RatingBarIndicator(
-                rating: 4.5,
+                rating: sanPham.star!,
                 itemSize: 25.0,
                 itemBuilder: (context, index) => const Icon(
                       Icons.star,
                       color: Colors.amber,
                     )),
             //khoang cach' can le` cho le :v
-            const Expanded(child: Text("   4.5")),
+            Expanded(child: Text("   ${sanPham.star!.toStringAsFixed(2)}")),
             Container(
               padding: const EdgeInsets.fromLTRB(15, 15, 5, 15),
               //width: 64,
               decoration: BoxDecoration(
-                color: TrackElement.supported ? Colors.red.withOpacity(0.1) : Theme.of(context).hoverColor,
+                color: true ? Colors.red.withOpacity(0.1) : Theme.of(context).hoverColor,
                 borderRadius: const BorderRadius.only(topLeft: Radius.circular(20), bottomLeft: Radius.circular(20)),
               ),
               child: Row(
                 children: [
-                  TrackElement.supported ? const Icon(Icons.favorite, color: Colors.red) : const Icon(Icons.favorite_outline, color: Colors.red),
+                  true ? const Icon(Icons.favorite, color: Colors.red) : const Icon(Icons.favorite_outline, color: Colors.red),
                   const SizedBox(width: 5),
                   const Icon(Icons.share, color: Colors.grey),
                 ],
@@ -60,13 +54,14 @@ class _DetailWidgetProductTitleState extends State<DetailWidgetProductTitle> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: ThemeConfig.defaultPaddingAll),
           child: Row(
-            children: const [
+            children: [
               Text(
-                '123,456,789 đ',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.red),
+                //chua xu ly'
+                '${Helper.formatNumber(sanPham.cTSanPham!.first.giaBan!)} đ',
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.red),
               ),
-              SizedBox(width: 5),
-              Text("123,456 đ",
+              const SizedBox(width: 5),
+              const Text("123,456 đ",
                   style: TextStyle(
                     fontSize: 13,
                     color: Colors.blue,

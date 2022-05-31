@@ -16,6 +16,7 @@ class _DetailWidgetProductDescriptionState extends State<DetailWidgetProductDesc
 
   @override
   Widget build(BuildContext context) {
+    final lstThuocTinh = widget.sanPham.thuocTinh!.entries;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -82,8 +83,10 @@ class _DetailWidgetProductDescriptionState extends State<DetailWidgetProductDesc
             defaultColumnWidth: const IntrinsicColumnWidth(),
             defaultVerticalAlignment: TableCellVerticalAlignment.middle,
             border: const TableBorder(top: BorderSide(), bottom: BorderSide()),
-            children:
-                List.generate(5, (index) => _tableRow("Option $index", "ValueOption $index", index.isOdd ? Theme.of(context).hoverColor : null)),
+            children: List.generate(widget.sanPham.thuocTinh!.length, (index) {
+              final thuocTinh = lstThuocTinh.elementAt(index);
+              return _tableRow(thuocTinh.key, thuocTinh.value, index.isOdd ? Theme.of(context).hoverColor : null);
+            }),
           ),
         ),
         //------------------------
@@ -152,12 +155,8 @@ class _DetailWidgetProductDescriptionState extends State<DetailWidgetProductDesc
 
   TableRow _tableRow(String text1, String text2, Color? color) {
     return TableRow(decoration: BoxDecoration(color: color), children: [
-      TableCell(
-        child: Padding(padding: const EdgeInsets.symmetric(vertical: 5), child: Text(text1)),
-      ),
-      TableCell(
-        child: Text(text2),
-      )
+      TableCell(child: Text(text1)),
+      TableCell(child: Padding(padding: const EdgeInsets.symmetric(vertical: 5), child: Text(text2))),
     ]);
   }
 }

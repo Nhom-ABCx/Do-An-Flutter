@@ -39,7 +39,7 @@ class _DetailWidgetProductImageState extends State<DetailWidgetProductImage> {
                 )))
             .toList(),
       ),
-      // SizedBox(height: getProportionateScreenWidth(20)),
+      const SizedBox(height: 10),
       Wrap(
         alignment: WrapAlignment.center,
         children: List.generate(

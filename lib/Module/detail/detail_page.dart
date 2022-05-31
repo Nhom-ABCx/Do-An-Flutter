@@ -40,7 +40,7 @@ class DetailPage extends GetView<DetailController> {
                     child: Column(
                       children: [
                         //
-                        // DetailWidgetColorDots(sanPham.colors),
+                        const DetailWidgetColorDots([Colors.red, Colors.green, Colors.blue]),
                         TopRoundedContainer(color: Get.theme.cardColor, child: DetailWidgetProductDescription(sanPham)),
                       ],
                     )),
