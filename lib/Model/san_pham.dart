@@ -43,7 +43,7 @@ class SanPham extends BaseModel<SanPham> {
         trangThai: json['TrangThai'] != 0 ? true : false,
         star: double.parse(json['Star'].toString()),
         cTSanPham: json['c_t__san_pham'] != null ? List<CTSanPham>.from((json['c_t__san_pham'] as List).map((e) => CTSanPham.fromJson(e))) : null,
-        hinhAnh: json['hinh_anh'] != null ? List<HinhAnh>.from((json['hinh_anh'] as List).map((e) => HinhAnh.fromJson(e))) : null,
+        hinhAnh: json['hinh_anh'] != null ? List<HinhAnh>.from((json['hinh_anh'] as List).map((e) => HinhAnh().fromJson(e))) : null,
       );
 
   @override

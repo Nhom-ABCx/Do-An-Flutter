@@ -9,7 +9,24 @@ class HomePage extends GetView<HomeController> {
     return CustomScrollView(
       slivers: [
         _buildAppBar(context),
-        const SliverToBoxAdapter(child: HomeWidgetBanner()),
+        SliverToBoxAdapter(
+            child: FutureBuilder<List<HinhAnh>?>(
+          future: controller.getBanner(),
+          builder: (context, snapshot) {
+            {
+              if (snapshot.hasError) {
+                print(snapshot.error);
+              }
+              return snapshot.hasData
+                  ? (controller.listBanner.isEmpty)
+                      ? const SizedBox() //show emty widget
+                      : HomeWidgetBanner(controller.listBanner)
+                  : const Center(
+                      child: CircularProgressIndicator(),
+                    );
+            }
+          },
+        )),
         _buildCategory(),
         _buildFlashSale(),
         _buildRecent(),

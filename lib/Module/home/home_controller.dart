@@ -1,4 +1,5 @@
 import 'package:do_an_flutter/API/base_getconnect.dart';
+import 'package:do_an_flutter/Model/hinh_anh.dart';
 import 'package:do_an_flutter/Model/san_pham.dart';
 import 'package:get/get.dart';
 
@@ -6,6 +7,7 @@ import 'package:get/get.dart';
 class HomeController extends GetxController {
   final apiCall = Get.find<BaseGetConnect>();
   RxList<SanPham> listSanPham = RxList.empty();
+  RxList<HinhAnh> listBanner = RxList.empty();
 
   @override
   void onInit() {
@@ -14,4 +16,5 @@ class HomeController extends GetxController {
   }
 
   Future<List<SanPham>?> getListSanPham() => apiCall.onGetList(SanPham(), "/search/san-pham").then((value) => listSanPham.value = value!);
+  Future<List<HinhAnh>?> getBanner() => apiCall.onGetList(HinhAnh(), "/banner").then((value) => listBanner.value = value!);
 }
