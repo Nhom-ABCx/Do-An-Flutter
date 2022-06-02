@@ -8,5 +8,5 @@ class Routes {
   static const Intro = '/intro';
   static const Login = '/login';
   static const Home = '/home';
-  //static const ProductDetail = '/product/:id'; //Get.parameters['id']
+  static const ProductDetail = '/product/'; // /product/:id  //Get.parameters['id']
 }

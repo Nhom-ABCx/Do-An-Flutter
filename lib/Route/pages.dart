@@ -1,3 +1,5 @@
+import 'package:do_an_flutter/Module/detail/detail_binding.dart';
+import 'package:do_an_flutter/Module/detail/detail_page.dart';
 import 'package:do_an_flutter/Module/home/page/container_page.dart';
 import 'package:do_an_flutter/Module/home/home_binding.dart';
 import 'package:do_an_flutter/Module/login/login_binding.dart';
@@ -25,10 +27,10 @@ class Pages {
       page: () => const ContainerPage(),
       binding: HomeBinding(),
     ),
-    // GetPage(
-    //   name: Routes.ProductDetail,
-    //   page: () => const DetailsScreen(),
-    //   //binding: HomeBinding(),
-    // ),
+    GetPage(
+      name: "${Routes.ProductDetail}:id",
+      page: () => const DetailPage(),
+      binding: DetailBinding(),
+    ),
   ];
 }

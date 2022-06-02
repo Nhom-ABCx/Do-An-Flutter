@@ -1,5 +1,5 @@
 import 'package:do_an_flutter/Model/san_pham.dart';
-import 'package:do_an_flutter/Module/detail/detail_page.dart';
+import 'package:do_an_flutter/Route/pages.dart';
 import 'package:do_an_flutter/Ultis/helper.dart';
 import 'package:do_an_flutter/Widget/build_widgets.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +18,7 @@ class ProductCard1 extends StatelessWidget {
     return AspectRatio(
       aspectRatio: 0.68,
       child: GestureDetector(
-          onTap: () => Get.to(DetailPage(sanPham)),
+          onTap: () => Get.toNamed("${Routes.ProductDetail}${sanPham.id}", arguments: sanPham),
           child: Card(
               elevation: 2,
               shape: const RoundedRectangleBorder(

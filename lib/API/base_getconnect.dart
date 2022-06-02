@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:do_an_flutter/Config/storage.dart';
 import 'package:do_an_flutter/Model/base_model.dart';
+import 'package:do_an_flutter/Ultis/print.dart';
 import 'package:do_an_flutter/app_binding.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/request/request.dart';
@@ -24,7 +25,7 @@ class BaseGetConnect extends GetConnect {
     httpClient.addResponseModifier(responseInterceptor);
   }
 
-  Future<T?> onGetObject<T>(BaseModel<T> baseModel, String path) async {
+  Future<T?> onGetObject<T>(String path, BaseModel<T> baseModel) async {
     try {
       final res = await get(path).timeout(httpClient.timeout, onTimeout: onTimeout);
       if (res.statusCode == 200) {
@@ -36,15 +37,18 @@ class BaseGetConnect extends GetConnect {
       // catch timeout here..
     } catch (e) {
       //EasyLoading.dismiss();
-      print("has error, request again-----");
-      return await Future.delayed(const Duration(seconds: 3), () => onGetObject(baseModel, path));
+      print("has error, request again after 3s-----");
+      return await Future.delayed(const Duration(seconds: 3), () => onGetObject(path, baseModel));
     }
     return null;
   }
 
-  Future<List<T>?> onGetList<T>(BaseModel<T> baseModel, String path) async {
+  Future<List<T>?> onGetList<T>(String path, BaseModel<T> baseModel, {Map<String, dynamic>? queryParam}) async {
     try {
-      final res = await get<List>(path).timeout(httpClient.timeout, onTimeout: onTimeout);
+      final res = await get<List>(
+        path,
+        query: queryParam?.map((key, value) => MapEntry(key, value.toString())), //{"a": 1}  =>{"a": "1"}  tranh' loi~
+      ).timeout(httpClient.timeout, onTimeout: onTimeout);
       if (res.statusCode == 200) {
         final List<T> listResult = res.body!.map((e) => baseModel.fromJson(e)).toList();
 
@@ -56,8 +60,8 @@ class BaseGetConnect extends GetConnect {
       // catch timeout here..
     } catch (e) {
       //EasyLoading.dismiss();
-      print("has error, request again-----");
-      return await Future.delayed(const Duration(seconds: 3), () => onGetList(baseModel, path));
+      print("has error, request again after 3s ----- \x1B[31m${e.toString()}\x1B[0m");
+      return await Future.delayed(const Duration(seconds: 3), () => onGetList(path, baseModel, queryParam: queryParam));
     }
     return null;
   }

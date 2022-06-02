@@ -93,6 +93,14 @@ class HomePage extends GetView<HomeController> {
                     )
                   ],
                 )),
+            // SizedBox(
+            //   height: 230,
+            //   child: controller.obx((state) => ListView.builder(
+            //         scrollDirection: Axis.horizontal,
+            //         itemCount: state.length,
+            //         itemBuilder: (context, index) => ProductCard1(sanPham: state[index]),
+            //       )),
+            // )
             SizedBox(
               height: 230,
               child: FutureBuilder<List<SanPham>?>(
@@ -116,7 +124,7 @@ class HomePage extends GetView<HomeController> {
                   }
                 },
               ),
-            )
+            ),
           ],
         ),
       ),

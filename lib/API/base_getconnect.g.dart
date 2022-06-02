@@ -13,7 +13,7 @@ extension BaseGetconnectExtension on BaseGetConnect {
     request.headers['Charset'] = 'utf-8';
 
     //EasyLoading.show(status: StringConstant.PleaseWait.tr, maskType: EasyLoadingMaskType.black);
-    print("${httpClient.baseUrl}   ------------request");
+    Printt.yellow("${request.method}:  ${request.url.toString()}                           ------------request");
     return request;
   }
 
