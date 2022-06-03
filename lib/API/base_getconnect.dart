@@ -37,7 +37,7 @@ class BaseGetConnect extends GetConnect {
       // catch timeout here..
     } catch (e) {
       //EasyLoading.dismiss();
-      print("has error, request again after 3s-----");
+      print("has error, request again after 3s ----- \x1B[31m${e.toString()}\x1B[0m");
       return await Future.delayed(const Duration(seconds: 3), () => onGetObject(path, baseModel));
     }
     return null;

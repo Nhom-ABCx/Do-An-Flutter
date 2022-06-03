@@ -53,8 +53,36 @@ class DetailPage extends GetView<DetailController> {
                     )),
               ]),
             )),
+            const SliverToBoxAdapter(child: SizedBox(height: 50)),
           ],
         ),
+        bottomSheet: BottomSheet(
+            onClosing: () {},
+            builder: (context) => Container(
+                  color: Theme.of(context).secondaryHeaderColor,
+                  // width: MediaQuery.of(context).size.width,
+                  height: 50,
+                  child: Center(
+                      child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.85,
+                    child: ElevatedButton.icon(
+                      onPressed: () {},
+                      style: ButtonStyle(
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          //side: const BorderSide(color: Colors.pink)
+                        )),
+                        backgroundColor: MaterialStateProperty.all(Colors.amber.shade200),
+                      ),
+                      icon: const Icon(Icons.shopping_cart),
+                      label: Text(
+                        "Mua ngay !",
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  )),
+                )),
       ),
     ));
   }
