@@ -1,5 +1,6 @@
 import 'package:do_an_flutter/API/base_getconnect.dart';
 import 'package:do_an_flutter/Model/hinh_anh.dart';
+import 'package:do_an_flutter/Model/loai_san_pham.dart';
 import 'package:do_an_flutter/Model/san_pham.dart';
 import 'package:get/get.dart';
 
@@ -9,6 +10,7 @@ class HomeController extends GetxController {
   final apiCall = Get.find<BaseGetConnect>();
   RxList<SanPham> listSanPham = RxList.empty();
   RxList<HinhAnh> listBanner = RxList.empty();
+  RxList<LoaiSanPham> listLoaiSanPham = RxList.empty();
 
   @override
   void onInit() {
@@ -32,4 +34,5 @@ class HomeController extends GetxController {
   // }
   Future<List<SanPham>?> getListSanPham() => apiCall.onGetList("/search/san-pham", SanPham()).then((value) => listSanPham.value = value!);
   Future<List<HinhAnh>?> getBanner() => apiCall.onGetList("/banner", HinhAnh()).then((value) => listBanner.value = value!);
+  Future<List<LoaiSanPham>?> getistLoaiSanPham() => apiCall.onGetList("/search/loai-san-pham", LoaiSanPham()).then((value) => listLoaiSanPham.value = value!);
 }

@@ -1,9 +1,11 @@
+import 'package:do_an_flutter/Model/loai_san_pham.dart';
 import 'package:flutter/material.dart';
 
 class CategoryCard1 extends StatelessWidget {
   final int newItemCount;
+  final LoaiSanPham loaiSanPham;
 
-  const CategoryCard1({Key? key, this.newItemCount = 0}) : super(key: key);
+  const CategoryCard1(this.loaiSanPham, {Key? key, this.newItemCount = 0}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,13 +19,13 @@ class CategoryCard1 extends StatelessWidget {
               elevation: 2,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(
+                children: [
+                  const Icon(
                     Icons.event_seat,
                     size: 40,
                   ),
                   Text(
-                    "Category",
+                    loaiSanPham.tenLoai!,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
                   ),
