@@ -1,6 +1,7 @@
 import 'package:do_an_flutter/Model/san_pham.dart';
 import 'package:do_an_flutter/Module/detail/detail_controller.dart';
 import 'package:do_an_flutter/Module/detail/widget/detail_widget_color_dots.dart';
+import 'package:do_an_flutter/Module/detail/widget/detail_widget_playvideo.dart';
 import 'package:do_an_flutter/Module/detail/widget/detail_widget_product_comment.dart';
 import 'package:do_an_flutter/Module/detail/widget/detail_widget_product_description.dart';
 import 'package:do_an_flutter/Module/detail/widget/detail_widget_product_image.dart';
@@ -47,6 +48,26 @@ class DetailPage extends GetView<DetailController> {
                             child: Column(children: [
                               //
                               DetailWidgetProductDescription(sanPham),
+                              const PlayVideoWidget("https://www.youtube.com/watch?v=ZPEDIqYJyM4"),
+                              //video
+                              // FutureBuilder(
+                              //   future: controller.initializeVideoPlayerFuture,
+                              //   builder: (context, snapshot) {
+                              //     if (snapshot.connectionState == ConnectionState.done) {
+                              //       return Center(
+                              //         child: AspectRatio(
+                              //           aspectRatio: controller.controllerVideo.value.aspectRatio,
+                              //           child: VideoPlayer(controller.controllerVideo),
+                              //         ),
+                              //       );
+                              //     } else {
+                              //       return Center(
+                              //         child: CircularProgressIndicator(),
+                              //       );
+                              //     }
+                              //   },
+                              // ),
+                              //
                               TopRoundedContainer(color: Theme.of(context).hoverColor, child: const DetailWidgetProductComment()),
                             ])),
                       ],

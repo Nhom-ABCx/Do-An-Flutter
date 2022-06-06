@@ -205,7 +205,10 @@ class HomePage extends GetView<HomeController> {
                             : ListView.builder(
                                 scrollDirection: Axis.horizontal,
                                 itemCount: controller.listLoaiSanPham.length,
-                                itemBuilder: (context, index) => CategoryCard1(controller.listLoaiSanPham[index], newItemCount: 2),
+                                itemBuilder: (context, index) => CategoryCard1(
+                                  controller.listLoaiSanPham[index],
+                                  newItemCount: index.isOdd ? 2 : null,
+                                ),
                               )
                         : const Center(
                             child: CircularProgressIndicator(),
