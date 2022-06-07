@@ -1,21 +1,12 @@
-import 'package:do_an_flutter/Config/theme.dart';
-import 'package:do_an_flutter/Model/san_pham.dart';
-import 'package:flutter/material.dart';
+part of '../detail_page.dart';
 
-class DetailWidgetColorDots extends StatefulWidget {
-  const DetailWidgetColorDots(this.sanPham, this.ctSanPhamIndex, {Key? key}) : super(key: key);
-  final SanPham sanPham;
-  final int ctSanPhamIndex;
+class DetailWidgetColorDots extends GetView<DetailController> {
+  const DetailWidgetColorDots({Key? key}) : super(key: key);
 
-  @override
-  State<DetailWidgetColorDots> createState() => _DetailWidgetColorDotsState();
-}
-
-class _DetailWidgetColorDotsState extends State<DetailWidgetColorDots> {
-  // Now this is fixed and only for demo
-  int selectedColor = 0;
   @override
   Widget build(BuildContext context) {
+    // Now this is fixed and only for demo
+    //int selectedColor = 0;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: ThemeConfig.defaultPaddingAll),
       child: Column(
@@ -63,28 +54,30 @@ class _DetailWidgetColorDotsState extends State<DetailWidgetColorDots> {
           ),
           const SizedBox(height: 10),
 
-          Wrap(
-            alignment: WrapAlignment.center,
-            spacing: 10,
-            children: List.generate(
-                widget.sanPham.thuocTinhToHop!.length,
-                (index) => SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.46,
-                      child: ListTile(
-                        title: Text(widget.sanPham.thuocTinhToHop![index]),
-                        subtitle: DropdownButton<String>(
-                            isExpanded: true,
-                            value: widget.sanPham.lstThuocTinhValue![index].first,
-                            onChanged: (String? value) {},
-                            items: widget.sanPham.lstThuocTinhValue![index]
-                                .map((element) => DropdownMenuItem<String>(
-                                      value: element,
-                                      child: Text(element),
-                                    ))
-                                .toList()),
-                      ),
-                    )),
-          ),
+          Obx(() => Wrap(
+                alignment: WrapAlignment.center,
+                spacing: 10,
+                children: List.generate(controller.sanPham.thuocTinhToHop!.length, (index) {
+                  (controller.lstToHop.length <= index) ? controller.lstToHop.add(controller.sanPham.lstThuocTinhValue![index].first) : null;
+
+                  return SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.46,
+                    child: ListTile(
+                      title: Text(controller.sanPham.thuocTinhToHop![index]),
+                      subtitle: DropdownButton<String>(
+                          isExpanded: true,
+                          value: controller.lstToHop[index],
+                          onChanged: (String? value) =>controller.onChangDropDownThuocTinh(value, index),
+                          items: controller.sanPham.lstThuocTinhValue![index]
+                              .map((element) => DropdownMenuItem<String>(
+                                    value: element,
+                                    child: Text(element),
+                                  ))
+                              .toList()),
+                    ),
+                  );
+                }),
+              )),
           // Row(
           //   children: [
           //     ...List.generate(

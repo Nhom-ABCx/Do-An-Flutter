@@ -38,8 +38,7 @@ class _ContainerPageState extends State<ContainerPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: GestureDetector(
+    return GestureDetector(
       onTap: () {
         //huy keyboard khi bam ngoai man hinh va` catch drawer
         //https://github.com/flutter/flutter/issues/54277
@@ -53,13 +52,15 @@ class _ContainerPageState extends State<ContainerPage> {
         extendBodyBehindAppBar: true,
 
         drawer: const DrawerWidget(),
-        body: RefreshIndicator(
-            onRefresh: () async {
-              //reload all widget
-              // ignore: invalid_use_of_protected_member
-              (context as Element).reassemble();
-            },
-            child: widgetPage.elementAt(currentIndexBottomNav)),
+        body: SafeArea(
+          child: RefreshIndicator(
+              onRefresh: () async {
+                //reload all widget
+                // ignore: invalid_use_of_protected_member
+                (context as Element).reassemble();
+              },
+              child: widgetPage.elementAt(currentIndexBottomNav)),
+        ),
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.only(
@@ -85,7 +86,7 @@ class _ContainerPageState extends State<ContainerPage> {
               )),
         ),
       ),
-    ));
+    );
   }
 }
 

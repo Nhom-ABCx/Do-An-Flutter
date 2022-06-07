@@ -52,7 +52,7 @@ class ProductCard1 extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "${Helper.formatNumber(sanPham.cTSanPham!.first.giaBan!)} đ",
+                        "${Helper.formatNumber(sanPham.cTSanPham!.first.giaBan! - sanPham.cTSanPham!.first.giamGia!)} đ",
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,

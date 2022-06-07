@@ -1,10 +1,7 @@
-import 'package:do_an_flutter/Config/theme.dart';
-import 'package:do_an_flutter/Model/san_pham.dart';
-import 'package:flutter/material.dart';
+part of '../detail_page.dart';
 
 class DetailWidgetProductDescription extends StatefulWidget {
-  const DetailWidgetProductDescription(this.sanPham, {Key? key}) : super(key: key);
-  final SanPham sanPham;
+  const DetailWidgetProductDescription({Key? key}) : super(key: key);
 
   @override
   State<DetailWidgetProductDescription> createState() => _DetailWidgetProductDescriptionState();
@@ -14,9 +11,10 @@ class _DetailWidgetProductDescriptionState extends State<DetailWidgetProductDesc
   int? maxline = 3;
   TextOverflow? overflow = TextOverflow.ellipsis;
 
+  final sanPham = Get.find<DetailController>().sanPham;
   @override
   Widget build(BuildContext context) {
-    final lstThuocTinh = widget.sanPham.thuocTinh!.entries;
+    final lstThuocTinh = sanPham.thuocTinh!.entries;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -31,7 +29,7 @@ class _DetailWidgetProductDescriptionState extends State<DetailWidgetProductDesc
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: (ThemeConfig.defaultPaddingAll)),
           child: Text(
-            widget.sanPham.moTa!,
+            sanPham.moTa!,
             maxLines: maxline,
             overflow: overflow, //...
           ),
@@ -83,7 +81,7 @@ class _DetailWidgetProductDescriptionState extends State<DetailWidgetProductDesc
             defaultColumnWidth: const IntrinsicColumnWidth(),
             defaultVerticalAlignment: TableCellVerticalAlignment.middle,
             border: const TableBorder(top: BorderSide(), bottom: BorderSide()),
-            children: List.generate(widget.sanPham.thuocTinh!.length, (index) {
+            children: List.generate(sanPham.thuocTinh!.length, (index) {
               final thuocTinh = lstThuocTinh.elementAt(index);
               return _tableRow(thuocTinh.key, thuocTinh.value, index.isOdd ? Theme.of(context).hoverColor : null);
             }),

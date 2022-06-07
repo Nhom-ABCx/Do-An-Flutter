@@ -9,23 +9,24 @@ class LayOutPage extends StatefulWidget {
 class _LayOutPageState extends State<LayOutPage> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: GestureDetector(
+    return GestureDetector(
       //huy keyboard khi bam ngoai man hinh
       onTap: () => FocusScope.of(context).unfocus(),
-      child: Scaffold(
-        //Hide
-        //drawer: const NavigationDrawer(),
-        body: CustomScrollView(
-          slivers: [
-            const SliverAppBar(
-              centerTitle: true,
-              title: Text("AAAAAAAa"),
-            ),
-            SliverList(delegate: SliverChildListDelegate([])),
-          ],
+      child: SafeArea(
+        child: Scaffold(
+          //Hide
+          //drawer: const NavigationDrawer(),
+          body: CustomScrollView(
+            slivers: [
+              const SliverAppBar(
+                centerTitle: true,
+                title: Text("AAAAAAAa"),
+              ),
+              SliverList(delegate: SliverChildListDelegate([])),
+            ],
+          ),
         ),
       ),
-    ));
+    );
   }
 }
