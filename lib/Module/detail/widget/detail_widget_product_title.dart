@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class DetailWidgetProductTitle extends StatelessWidget {
-  const DetailWidgetProductTitle(this.sanPham, {Key? key}) : super(key: key);
+  const DetailWidgetProductTitle(this.sanPham, this.ctSanPhamIndex, {Key? key}) : super(key: key);
   final SanPham sanPham;
+  final int ctSanPhamIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +58,7 @@ class DetailWidgetProductTitle extends StatelessWidget {
             children: [
               Text(
                 //chua xu ly'
-                '${Helper.formatNumber(sanPham.cTSanPham!.first.giaBan!)} đ',
+                '${Helper.formatNumber(sanPham.cTSanPham![ctSanPhamIndex].giaBan!)} đ',
                 style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.red),
               ),
               const SizedBox(width: 5),

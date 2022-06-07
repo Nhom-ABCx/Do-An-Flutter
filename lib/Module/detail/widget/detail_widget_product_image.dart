@@ -1,11 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:do_an_flutter/Model/san_pham.dart';
+import 'package:do_an_flutter/Model/hinh_anh.dart';
 import 'package:do_an_flutter/Widget/build_widgets.dart';
 import 'package:flutter/material.dart';
 
 class DetailWidgetProductImage extends StatefulWidget {
-  const DetailWidgetProductImage(this.sanPham, {Key? key}) : super(key: key);
-  final SanPham sanPham;
+  const DetailWidgetProductImage(this.hinhAnhs, {Key? key}) : super(key: key);
+  final List<HinhAnh> hinhAnhs;
 
   @override
   State<DetailWidgetProductImage> createState() => _DetailWidgetProductImageState();
@@ -30,9 +30,9 @@ class _DetailWidgetProductImageState extends State<DetailWidgetProductImage> {
           viewportFraction: 1.0, //chi hien thi 1 hinh` anh?
           onPageChanged: (index, reason) => setState(() => selectedImage = index),
         ),
-        items: widget.sanPham.hinhAnh!
+        items: widget.hinhAnhs
             .map((item) => Hero(
-                tag: widget.sanPham.id.toString(),
+                tag: item.sanPhamId.toString(),
                 child: imageNetwork(
                   item.hinhAnh!,
                   width: MediaQuery.of(context).size.width,
@@ -43,7 +43,7 @@ class _DetailWidgetProductImageState extends State<DetailWidgetProductImage> {
       Wrap(
         alignment: WrapAlignment.center,
         children: List.generate(
-            widget.sanPham.hinhAnh!.length,
+            widget.hinhAnhs.length,
             (index) => GestureDetector(
                   onTap: () => _controller.animateToPage(index),
                   child: Container(
@@ -56,7 +56,7 @@ class _DetailWidgetProductImageState extends State<DetailWidgetProductImage> {
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(color: Theme.of(context).primaryColor.withOpacity(selectedImage == index ? 1 : 0)),
                     ),
-                    child: imageNetwork(widget.sanPham.hinhAnh![index].hinhAnh!),
+                    child: imageNetwork(widget.hinhAnhs[index].hinhAnh!),
                   ),
                 )),
       )

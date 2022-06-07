@@ -16,6 +16,7 @@ class DetailPage extends GetView<DetailController> {
   @override
   Widget build(BuildContext context) {
     final sanPham = Get.arguments as SanPham;
+    final int selectedIndexCTSanPham = 0;
     return SafeArea(
         child: GestureDetector(
       //huy keyboard khi bam ngoai man hinh
@@ -30,44 +31,26 @@ class DetailPage extends GetView<DetailController> {
                 IconButton(onPressed: () {}, icon: const Icon(Icons.shopping_cart, color: Colors.amber)),
               ],
             ),
-            DetailWidgetProductImage(sanPham),
+            DetailWidgetProductImage(sanPham.hinhAnh!),
             SliverToBoxAdapter(
                 child: TopRoundedContainer(
               color: Get.theme.cardColor,
               child: Column(children: [
                 //
-                DetailWidgetProductTitle(sanPham),
+                DetailWidgetProductTitle(sanPham, selectedIndexCTSanPham),
                 TopRoundedContainer(
                     color: Theme.of(context).hoverColor,
                     child: Column(
                       children: [
                         //
-                        const DetailWidgetColorDots([Colors.red, Colors.green, Colors.blue]),
+                        DetailWidgetColorDots(sanPham,selectedIndexCTSanPham),
                         TopRoundedContainer(
                             color: Get.theme.cardColor,
                             child: Column(children: [
                               //
                               DetailWidgetProductDescription(sanPham),
-                              const PlayVideoWidget("https://www.youtube.com/watch?v=ZPEDIqYJyM4"),
                               //video
-                              // FutureBuilder(
-                              //   future: controller.initializeVideoPlayerFuture,
-                              //   builder: (context, snapshot) {
-                              //     if (snapshot.connectionState == ConnectionState.done) {
-                              //       return Center(
-                              //         child: AspectRatio(
-                              //           aspectRatio: controller.controllerVideo.value.aspectRatio,
-                              //           child: VideoPlayer(controller.controllerVideo),
-                              //         ),
-                              //       );
-                              //     } else {
-                              //       return Center(
-                              //         child: CircularProgressIndicator(),
-                              //       );
-                              //     }
-                              //   },
-                              // ),
-                              //
+                              const PlayVideoWidget("https://www.youtube.com/watch?v=ZPEDIqYJyM4"),
                               TopRoundedContainer(color: Theme.of(context).hoverColor, child: const DetailWidgetProductComment()),
                             ])),
                       ],

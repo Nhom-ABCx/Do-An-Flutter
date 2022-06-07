@@ -13,6 +13,7 @@ class SanPham extends BaseModel<SanPham> {
   List<String>? thuocTinhToHop;
   bool? trangThai;
   double? star;
+  List<List<String>>? lstThuocTinhValue;
   List<CTSanPham>? cTSanPham;
   List<HinhAnh>? hinhAnh;
 
@@ -27,6 +28,7 @@ class SanPham extends BaseModel<SanPham> {
       this.thuocTinhToHop,
       this.trangThai,
       this.star,
+      this.lstThuocTinhValue,
       this.cTSanPham,
       this.hinhAnh});
 
@@ -42,6 +44,7 @@ class SanPham extends BaseModel<SanPham> {
         thuocTinhToHop: json['ThuocTinhToHop'] != null ? List<String>.from((json['ThuocTinhToHop'] as List).map((e) => e)) : null,
         trangThai: json['TrangThai'] != 0 ? true : false,
         star: double.parse(json['Star'].toString()),
+        lstThuocTinhValue: json['lstThuocTinhValue'] != null ? List.from((json['lstThuocTinhValue'] as List).map((e) => List<String>.from(e))) : null,
         cTSanPham: json['c_t__san_pham'] != null ? List<CTSanPham>.from((json['c_t__san_pham'] as List).map((e) => CTSanPham.fromJson(e))) : null,
         hinhAnh: json['hinh_anh'] != null ? List<HinhAnh>.from((json['hinh_anh'] as List).map((e) => HinhAnh().fromJson(e))) : null,
       );
