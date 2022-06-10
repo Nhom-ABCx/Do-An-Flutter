@@ -6,10 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ProductCard1 extends StatelessWidget {
-  const ProductCard1({
-    Key? key,
-    required this.sanPham,
-  }) : super(key: key);
+  const ProductCard1(this.sanPham, {Key? key}) : super(key: key);
 
   final SanPham sanPham;
 
@@ -36,8 +33,8 @@ class ProductCard1 extends StatelessWidget {
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: Hero(
-                        tag: sanPham.id.toString(),
-                        child: imageNetwork(sanPham.hinhAnh![0].hinhAnh!),
+                        tag: "${sanPham.id}",
+                        child: imageNetwork(sanPham.hinhAnh!.first.hinhAnh!),
                       ),
                     ),
                   ),

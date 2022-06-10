@@ -1,10 +1,14 @@
+import 'package:do_an_flutter/Model/san_pham.dart';
+import 'package:do_an_flutter/Ultis/helper.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:do_an_flutter/Widget/build_widgets.dart';
 import 'package:flutter/material.dart';
 
 class ProductCard2 extends StatelessWidget {
   final bool useStyle2;
-  const ProductCard2({Key? key, this.useStyle2 = false}) : super(key: key);
+  final SanPham sanPham;
+  const ProductCard2(this.sanPham, {Key? key, this.useStyle2 = false}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
@@ -40,39 +44,41 @@ class ProductCard2 extends StatelessWidget {
           Center(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: imageNetwork("https://cdn.tgdd.vn/Products/Images/42/247364/samsung-galaxy-m53-nau-thumb-600x600.jpg",
-                  useBaseUrl: false, height: 100),
-            ),
-          ),
-          //ten san pham
-          const Expanded(
-            child: Padding(
-              padding: EdgeInsets.only(top: 10),
-              child: Text(
-                "widget.sanPham.sanPhamsanPhamsanPhamsanPhamsanPhamsanPhamsanPhamsanPhamsanPham",
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              child: Hero(
+                tag: "${sanPham.id}",
+                child: imageNetwork(sanPham.hinhAnh!.first.hinhAnh!, height: 100),
               ),
             ),
           ),
-          const Text("123,456 đ",
-              style: TextStyle(
+          //ten san pham
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Text(
+                sanPham.tenSanPham!,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+          Text("${Helper.formatNumber(sanPham.cTSanPham!.first.giaBan! - sanPham.cTSanPham!.first.giamGia!)} đ",
+              style: const TextStyle(
                 fontSize: 13,
                 color: Colors.blue,
                 decoration: TextDecoration.lineThrough,
               )),
 
-          const Text(
-            'Giá: 123,456 đ',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.red),
+          Text(
+            "${Helper.formatNumber(sanPham.cTSanPham!.first.giaBan! - sanPham.cTSanPham!.first.giamGia!)} đ",
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.red),
           ),
           //rating
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               RatingBarIndicator(
-                  rating: 4.5,
+                  rating: sanPham.star!,
                   itemSize: 20.0,
                   itemBuilder: (context, index) => const Icon(
                         Icons.star,
@@ -91,18 +97,20 @@ class ProductCard2 extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
-            child: imageNetwork("https://cdn.tgdd.vn/Products/Images/42/247364/samsung-galaxy-m53-nau-thumb-600x600.jpg",
-                useBaseUrl: false, height: 100),
+            child: Hero(
+              tag: "${sanPham.id}",
+              child: imageNetwork(sanPham.hinhAnh!.first.hinhAnh!, height: 100),
+            ),
           ),
-          const Expanded(
+          Expanded(
             child: Text(
-              "widget.sanPham.sanPhamsanPhamsanPhamsanPhamsanPhamsanPhamsanPhamsanPhamsanPhamaaaaaaaaaaaaaaaa",
+              sanPham.tenSanPham!,
               maxLines: 4,
               overflow: TextOverflow.ellipsis,
             ),
           ),
           RatingBarIndicator(
-              rating: 4.5,
+              rating: sanPham.star!,
               itemSize: 20.0,
               itemBuilder: (context, index) => const Icon(
                     Icons.star,

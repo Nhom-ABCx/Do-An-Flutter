@@ -1,3 +1,4 @@
+import 'package:do_an_flutter/API/api_url.dart';
 import 'package:do_an_flutter/API/base_getconnect.dart';
 import 'package:do_an_flutter/Model/hinh_anh.dart';
 import 'package:do_an_flutter/Model/loai_san_pham.dart';
@@ -8,15 +9,20 @@ import 'package:get/get.dart';
 //https://stackoverflow.com/questions/69842190/how-to-make-flutter-with-getx-wait-until-data-is-loaded
 class HomeController extends GetxController {
   final apiCall = Get.find<BaseGetConnect>();
-  RxList<SanPham> listSanPham = RxList.empty();
-  RxList<HinhAnh> listBanner = RxList.empty();
-  RxList<LoaiSanPham> listLoaiSanPham = RxList.empty();
+  late Future<List<SanPham>?> listSanPham;
+  late Future<List<HinhAnh>?> listBanner;
+  late Future<List<LoaiSanPham>?> listLoaiSanPham;
+  late Future<List<SanPham>?> listSanPhamKhuyenMai;
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
     // getListSanPhamm();
+    listSanPham = getListSanPham();
+    listBanner = getBanner();
+    listLoaiSanPham = getistLoaiSanPham();
+    listSanPhamKhuyenMai = getListSanPhamKhuyenMai();
   }
 
   // Future<void> getListSanPhamm() async {
@@ -32,7 +38,20 @@ class HomeController extends GetxController {
   //     change(null, status: RxStatus.error(e.toString()));
   //   }
   // }
-  Future<List<SanPham>?> getListSanPham() => apiCall.onGetList("/search/san-pham", SanPham()).then((value) => listSanPham.value = value!);
-  Future<List<HinhAnh>?> getBanner() => apiCall.onGetList("/banner", HinhAnh()).then((value) => listBanner.value = value!);
-  Future<List<LoaiSanPham>?> getistLoaiSanPham() => apiCall.onGetList("/search/loai-san-pham", LoaiSanPham()).then((value) => listLoaiSanPham.value = value!);
+
+  //limitShowList
+  void limitShowList(List list) {
+    const int limit = 5;
+//
+    if (list.length > limit) {
+      list.removeRange(limit, list.length);
+    }
+  }
+
+  //
+  Future<List<SanPham>?> getListSanPham() => apiCall.onGetList(ApiUrl.get_search("san-pham"), SanPham());
+  Future<List<HinhAnh>?> getBanner() => apiCall.onGetList(ApiUrl.get_banner, HinhAnh());
+  Future<List<LoaiSanPham>?> getistLoaiSanPham() => apiCall.onGetList(ApiUrl.get_search("loai-san-pham"), LoaiSanPham());
+  Future<List<SanPham>?> getListSanPhamKhuyenMai() =>
+      apiCall.onGetList(ApiUrl.get_search("san-pham"), SanPham(), queryParam: {"isKhuyenMai": 1}); //true/false
 }
