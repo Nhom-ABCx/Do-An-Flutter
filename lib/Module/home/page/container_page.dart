@@ -15,8 +15,11 @@ import 'package:do_an_flutter/app_binding.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../detail/detail_my_order/detail_my_order.dart';
+
 part 'home_page.dart';
 part 'setting_page.dart';
+part 'my_order.dart';
 
 class ContainerPage extends StatefulWidget {
   const ContainerPage({Key? key}) : super(key: key);
@@ -28,7 +31,7 @@ class ContainerPage extends StatefulWidget {
 class _ContainerPageState extends State<ContainerPage> {
   List<Widget> widgetPage = [
     const HomePage(),
-    const Center(child: Text("Sản phẩm page")),
+    const MyOrder(),
     const Center(child: Text("Sản phẩm page")),
     const SettingPage(),
   ];

@@ -203,7 +203,7 @@ class HomePage extends GetView<HomeController> {
       ),
     );
   }
-
+//cái hình nền user
   SliverAppBar _buildAppBar(BuildContext context) {
     return SliverAppBar(
       //automaticallyImplyLeading: false,

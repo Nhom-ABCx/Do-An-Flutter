@@ -40,4 +40,12 @@ Map<String, String> en_US = {
   //
   StringConstant.Skip: "Skip",
   StringConstant.Done: "Done",
+  //my_order_page
+  StringConstant.HistoryOrder: "Track My Order",
+  StringConstant.AllOrder: "All",
+  StringConstant.Pending: "Pending",
+  StringConstant.ToReceive: "To Receive",
+  StringConstant.ToReview: "To Review",
+  StringConstant.Canceled: "Canceled",
+  
 };

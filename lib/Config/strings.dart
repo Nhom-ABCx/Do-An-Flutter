@@ -37,6 +37,14 @@ class StringConstant {
   //
   static const String Skip = "Skip";
   static const String Done = "Done";
+  //my_order_page
+  static const String HistoryOrder = "HistoryOrder";
+  static const String AllOrder = "AllOrder";
+  static const String Pending = "Pending";
+  static const String ToReceive = "ToReceive";
+  static const String ToReview = "ToReview";
+  static const String Canceled = "Canceled";
+
 }
 
 extension StringExtension on String {

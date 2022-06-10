@@ -5,6 +5,7 @@ import 'package:do_an_flutter/Module/detail/widget/detail_widget_product_comment
 import 'package:do_an_flutter/Module/detail/widget/detail_widget_product_description.dart';
 import 'package:do_an_flutter/Module/detail/widget/detail_widget_product_image.dart';
 import 'package:do_an_flutter/Module/detail/widget/detail_widget_product_title.dart';
+import 'package:do_an_flutter/Module/home/page/cart.dart';
 import 'package:do_an_flutter/Widget/top_rounded_container.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,7 +27,7 @@ class DetailPage extends GetView<DetailController> {
           slivers: [
             SliverAppBar(
               actions: [
-                IconButton(onPressed: () {}, icon: const Icon(Icons.shopping_cart, color: Colors.amber)),
+                IconButton(onPressed: () =>Get.to(CartPage()), icon: const Icon(Icons.shopping_cart, color: Colors.amber)),
               ],
             ),
             DetailWidgetProductImage(sanPham),
