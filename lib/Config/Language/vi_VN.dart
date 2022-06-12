@@ -29,12 +29,12 @@ Map<String, String> vi_VN = {
   StringConstant.Skip: "Bỏ qua",
   StringConstant.Done: "Xong",
   //my_order_page
-  StringConstant.HistoryOrder:"Đơn hàng của tôi",
-  StringConstant.AllOrder:"Tất cả ",
-  StringConstant.Pending:"Chờ duyệt",
-  StringConstant.ToReceive:"Đã giao",
-  StringConstant.ToReview:"Chờ đánh giá",
-  StringConstant.Canceled:"Đã huỷ",
-    
-    
+  StringConstant.HistoryOrder: "Đơn hàng của tôi",
+  StringConstant.AllOrder: "Tất cả ",
+  StringConstant.Pending: "Chờ duyệt",
+  StringConstant.ToReceive: "Đã giao",
+  StringConstant.ToReview: "Chờ đánh giá",
+  StringConstant.Canceled: "Đã huỷ",
+  //cart_page
+  StringConstant.Cart: "Giỏ hàng",
 };

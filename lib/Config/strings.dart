@@ -44,6 +44,9 @@ class StringConstant {
   static const String ToReceive = "ToReceive";
   static const String ToReview = "ToReview";
   static const String Canceled = "Canceled";
+  //cart_page
+  static const String Cart = "Cart";
+
 
 }
 

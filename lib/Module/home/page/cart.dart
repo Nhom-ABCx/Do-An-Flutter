@@ -1,5 +1,6 @@
 // import 'package:get/get.dart';
-import 'package:flutter/material.dart';
+
+part of 'container_page.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({Key? key}) : super(key: key);
@@ -187,7 +188,7 @@ class _CartPageState extends State<CartPage> {
                 centerTitle: true,
                 elevation: 0,
                 title: Text(
-                  'Giỏ hàng',
+                  StringConstant.Cart.tr,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 flexibleSpace: Container(
@@ -196,7 +197,7 @@ class _CartPageState extends State<CartPage> {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       // stops: [0, 3],
-                      colors: [Color(0xFFEEEEEE), Color(0xFFEEEEEE)],
+                      colors: [Color.fromARGB(148, 203, 171, 95), Color.fromARGB(255, 9, 169, 89)],
                     ),
                   ),
                 ),
@@ -213,19 +214,7 @@ class _CartPageState extends State<CartPage> {
             ],
             body: SingleChildScrollView(
               child: Column(
-                children: [
-                  buildProductCart(),
-                  buildProductCart(),
-                  buildProductCart(),
-                  buildProductCart(),
-                  buildProductCart(),
-                  buildProductCart(),
-                  buildProductCart(),
-                  buildProductCart(),
-                  buildProductCart(),
-                  buildProductCart(),
-                  buildProductCart(),
-                ],
+                children: [],
               ),
             ),
           ),

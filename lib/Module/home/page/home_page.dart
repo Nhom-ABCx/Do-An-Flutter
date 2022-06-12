@@ -248,7 +248,8 @@ class HomePage extends GetView<HomeController> {
       ),
     );
   }
- //cái hình nền user
+
+  //cái hình nền user
   SliverAppBar _buildAppBar(BuildContext context) {
     return SliverAppBar(
       //automaticallyImplyLeading: false,
@@ -256,14 +257,10 @@ class HomePage extends GetView<HomeController> {
       expandedHeight: 150,
       floating: true, //giuu lau bottom
       pinned: true, //giuu lai bottom
-      actions: const [
+      actions: [
         Padding(
-          padding: EdgeInsets.only(right: ThemeConfig.defaultPaddingAll),
-          child: CircleAvatar(
-            backgroundImage: NetworkImage(
-                "https://i0.wp.com/www.printmag.com/wp-content/uploads/2021/02/4cbe8d_f1ed2800a49649848102c68fc5a66e53mv2.gif?fit=476%2C280&ssl=1"),
-          ),
-        ),
+            padding: const EdgeInsets.only(right: ThemeConfig.defaultPaddingAll),
+            child: IconButton(onPressed: () => Get.to(CartPage()), icon: const Icon(Icons.shopping_cart, color: Colors.amber))),
       ],
       flexibleSpace: const FlexibleSpaceBar(
         centerTitle: true,

@@ -47,5 +47,6 @@ Map<String, String> en_US = {
   StringConstant.ToReceive: "To Receive",
   StringConstant.ToReview: "To Review",
   StringConstant.Canceled: "Canceled",
-  
+  //cart_page
+  StringConstant.Cart: "Cart",
 };

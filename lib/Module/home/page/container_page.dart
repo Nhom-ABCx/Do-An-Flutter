@@ -5,11 +5,12 @@ import 'package:do_an_flutter/Model/hinh_anh.dart';
 import 'package:do_an_flutter/Model/loai_san_pham.dart';
 import 'package:do_an_flutter/Model/san_pham.dart';
 import 'package:do_an_flutter/Module/home/home_controller.dart';
+
 import 'package:do_an_flutter/Module/search/search_page.dart';
 import 'package:do_an_flutter/Module/home/widget/home_widget_banner.dart';
 import 'package:do_an_flutter/Ultis/helper.dart';
 import 'package:do_an_flutter/Ultis/info_page.dart';
-import 'package:do_an_flutter/Widget/product_card_3.dart';
+
 import 'package:do_an_flutter/Widget/product_card_2.dart';
 import 'package:do_an_flutter/Widget/product_card_1.dart';
 import 'package:do_an_flutter/Widget/drawer_widget.dart';
@@ -18,11 +19,14 @@ import 'package:do_an_flutter/app_binding.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../Widget/build_widgets.dart';
+
 
 
 part 'home_page.dart';
 part 'setting_page.dart';
 part 'my_order.dart';
+part 'cart.dart';
 
 
 class ContainerPage extends StatefulWidget {

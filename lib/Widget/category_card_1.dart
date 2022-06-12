@@ -28,7 +28,7 @@ class CategoryCard1 extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Icon(
-                    Icons.event_seat,
+                    Icons.category_outlined,
                     size: 40,
                   ),
                   Text(
