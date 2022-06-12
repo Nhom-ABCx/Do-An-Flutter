@@ -13,6 +13,7 @@ class HomeController extends GetxController {
   late Future<List<HinhAnh>?> listBanner;
   late Future<List<LoaiSanPham>?> listLoaiSanPham;
   late Future<List<SanPham>?> listSanPhamKhuyenMai;
+  late Future<List<SanPham>?> listPrdToType;
 
   @override
   void onInit() {
@@ -23,6 +24,7 @@ class HomeController extends GetxController {
     listBanner = getBanner();
     listLoaiSanPham = getistLoaiSanPham();
     listSanPhamKhuyenMai = getListSanPhamKhuyenMai();
+    listPrdToType = getListPrdtoType();
   }
 
   // Future<void> getListSanPhamm() async {
@@ -45,4 +47,5 @@ class HomeController extends GetxController {
   Future<List<LoaiSanPham>?> getistLoaiSanPham() => apiCall.onGetList(ApiUrl.get_search("loai-san-pham"), LoaiSanPham());
   Future<List<SanPham>?> getListSanPhamKhuyenMai() =>
       apiCall.onGetList(ApiUrl.get_search("san-pham"), SanPham(), queryParam: {"isKhuyenMai": 1}); //true/false
+  Future<List<SanPham>?> getListPrdtoType()=>apiCall.onGetList(ApiUrl.get_search("san-pham"),SanPham(),queryParam: {"LoaiSanPhamId":1});
 }
