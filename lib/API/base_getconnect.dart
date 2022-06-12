@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:do_an_flutter/Config/storage.dart';
 import 'package:do_an_flutter/Model/base_model.dart';
 import 'package:do_an_flutter/Ultis/print.dart';
@@ -64,5 +65,15 @@ class BaseGetConnect extends GetConnect {
       return await Future.delayed(const Duration(seconds: 3), () => onGetList(path, baseModel, queryParam: queryParam));
     }
     return null;
+  }
+
+  //ghi de` lai phuong thuc post
+  @override
+  Future<Response<T>> post<T>(String? url, body,
+      {String? contentType, Map<String, String>? headers, Map<String, dynamic>? query, Decoder<T>? decoder, Progress? uploadProgress}) {
+    //xuat' cai da~ gui~ len sv
+    Printt.green(jsonEncode(body));
+    //
+    return super.post(url, body, contentType: contentType, headers: headers, query: query, decoder: decoder, uploadProgress: uploadProgress);
   }
 }

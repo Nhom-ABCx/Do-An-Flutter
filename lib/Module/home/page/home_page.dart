@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 part of 'container_page.dart';
 
 class HomePage extends GetView<HomeController> {
@@ -11,16 +13,16 @@ class HomePage extends GetView<HomeController> {
         _buildAppBar(context),
         SliverToBoxAdapter(
             child: FutureBuilder<List<HinhAnh>?>(
-          future: controller.getBanner(),
+          future: controller.listBanner,
           builder: (context, snapshot) {
             {
               if (snapshot.hasError) {
                 print(snapshot.error);
               }
               return snapshot.hasData
-                  ? (controller.listBanner.isEmpty)
-                      ? const SizedBox() //show emty widget
-                      : HomeWidgetBanner(controller.listBanner)
+                  ? (snapshot.data!.isEmpty)
+                      ? const SizedBox.shrink() //show emty widget
+                      : HomeWidgetBanner(snapshot.data!)
                   : const Center(
                       child: CircularProgressIndicator(),
                     );
@@ -28,7 +30,7 @@ class HomePage extends GetView<HomeController> {
           },
         )),
         _buildCategory(),
-        _buildFlashSale(),
+        _buildSale(),
         _buildRecent(),
         _buildNewProduct(),
       ],
@@ -54,19 +56,19 @@ class HomePage extends GetView<HomeController> {
             )
           ],
         ),
-        GridView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: 4,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              //crossAxisSpacing: 0,
-              //mainAxisSpacing: 10,
-              childAspectRatio: 0.8,
-            ),
-            itemBuilder: (context, index) => const ProductCard2()),
+        // GridView.builder(
+        //     shrinkWrap: true,
+        //     physics: const NeverScrollableScrollPhysics(),
+        //     itemCount: 4,
+        //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        //       crossAxisCount: 2,
+        //       //crossAxisSpacing: 0,
+        //       //mainAxisSpacing: 10,
+        //       childAspectRatio: 0.8,
+        //     ),
+        //     itemBuilder: (context, index) => const ProductCard2()),
         const ProductCard3(),
-        const ProductCard2(useStyle2: true),
+        // const ProductCard2(useStyle2: true),
       ])),
     );
   }
@@ -104,23 +106,24 @@ class HomePage extends GetView<HomeController> {
             SizedBox(
               height: 230,
               child: FutureBuilder<List<SanPham>?>(
-                future: controller.getListSanPham(),
+                future: controller.listSanPham,
                 builder: (context, snapshot) {
                   {
                     if (snapshot.hasError) {
                       print(snapshot.error);
                     }
-                    return snapshot.hasData
-                        ? (controller.listSanPham.isEmpty)
-                            ? const SizedBox() //show emty widget
-                            : ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: controller.listSanPham.length,
-                                itemBuilder: (context, index) => ProductCard1(sanPham: controller.listSanPham[index]),
-                              )
-                        : const Center(
-                            child: CircularProgressIndicator(),
-                          );
+                    if (snapshot.hasData) {
+                      if (snapshot.data!.isEmpty) return const SizedBox.shrink(); //show emty widget
+                      controller.limitShowList(snapshot.data!);
+                      return ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (context, index) => ProductCard1(snapshot.data![index]),
+                      );
+                    }
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
                   }
                 },
               ),
@@ -131,7 +134,7 @@ class HomePage extends GetView<HomeController> {
     );
   }
 
-  SliverPadding _buildFlashSale() {
+  SliverPadding _buildSale() {
     return SliverPadding(
       padding: const EdgeInsets.fromLTRB(ThemeConfig.defaultPaddingAll, 0, ThemeConfig.defaultPaddingAll, 0),
       sliver: SliverToBoxAdapter(
@@ -143,7 +146,7 @@ class HomePage extends GetView<HomeController> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Flash sale",
+                      "Sale",
                       style: Get.textTheme.headlineSmall,
                     ),
                     TextButton.icon(
@@ -155,11 +158,28 @@ class HomePage extends GetView<HomeController> {
                 )),
             SizedBox(
               height: 200,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                itemCount: 10,
-                separatorBuilder: (context, _) => const SizedBox(width: 0),
-                itemBuilder: (context, index) => const ProductCard2(),
+              child: FutureBuilder<List<SanPham>?>(
+                future: controller.listSanPhamKhuyenMai,
+                builder: (context, snapshot) {
+                  {
+                    if (snapshot.hasError) {
+                      print(snapshot.error);
+                    }
+                    if (snapshot.hasData) {
+                      if (snapshot.data!.isEmpty) return const SizedBox.shrink(); //show emty widget
+                      controller.limitShowList(snapshot.data!);
+                      return ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: snapshot.data!.length,
+                        separatorBuilder: (context, _) => const SizedBox(width: 0),
+                        itemBuilder: (context, index) => ProductCard2(snapshot.data![index]),
+                      );
+                    }
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                },
               ),
             )
           ],
@@ -193,20 +213,20 @@ class HomePage extends GetView<HomeController> {
             SizedBox(
               height: 100,
               child: FutureBuilder<List<LoaiSanPham>?>(
-                future: controller.getistLoaiSanPham(),
+                future: controller.listLoaiSanPham,
                 builder: (context, snapshot) {
                   {
                     if (snapshot.hasError) {
                       print(snapshot.error);
                     }
                     return snapshot.hasData
-                        ? (controller.listLoaiSanPham.isEmpty)
-                            ? const SizedBox() //show emty widget
+                        ? (snapshot.data!.isEmpty)
+                            ? const SizedBox.shrink() //show emty widget
                             : ListView.builder(
                                 scrollDirection: Axis.horizontal,
-                                itemCount: controller.listLoaiSanPham.length,
+                                itemCount: snapshot.data!.length,
                                 itemBuilder: (context, index) => CategoryCard1(
-                                  controller.listLoaiSanPham[index],
+                                  snapshot.data![index],
                                   newItemCount: index.isOdd ? 2 : null,
                                 ),
                               )
