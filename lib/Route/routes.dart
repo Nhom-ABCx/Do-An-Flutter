@@ -9,4 +9,5 @@ class Routes {
   static const Login = '/login';
   static const Home = '/home';
   static const ProductDetail = '/product/'; // /product/:id  //Get.parameters['id']
+  static const ViewMore = '/view-more';
 }

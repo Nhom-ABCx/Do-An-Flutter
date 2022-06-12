@@ -67,7 +67,7 @@ class HomePage extends GetView<HomeController> {
         //       childAspectRatio: 0.8,
         //     ),
         //     itemBuilder: (context, index) => const ProductCard2()),
-        const ProductCard3(),
+        // const ProductCard3(),
         // const ProductCard2(useStyle2: true),
       ])),
     );
@@ -89,7 +89,7 @@ class HomePage extends GetView<HomeController> {
                       style: Get.textTheme.headlineSmall,
                     ),
                     TextButton.icon(
-                      onPressed: () {},
+                      onPressed: () => controller.redirectToViewMore(InforPage.viewMoreRecent),
                       label: const Icon(Icons.navigate_next),
                       icon: const Text("View more"),
                     )
@@ -114,11 +114,14 @@ class HomePage extends GetView<HomeController> {
                     }
                     if (snapshot.hasData) {
                       if (snapshot.data!.isEmpty) return const SizedBox.shrink(); //show emty widget
-                      Helper.limitShowList(snapshot.data!);
+                      //khoi tao 1 list moi' de? xoa' ko bi anh huong?
+                      final List list = [];
+                      list.addAll(snapshot.data!);
+                      Helper.limitShowList(list);
                       return ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: (context, index) => ProductCard1(snapshot.data![index]),
+                        itemCount: list.length,
+                        itemBuilder: (context, index) => ProductCard1(list[index]),
                       );
                     }
                     return const Center(
@@ -150,7 +153,7 @@ class HomePage extends GetView<HomeController> {
                       style: Get.textTheme.headlineSmall,
                     ),
                     TextButton.icon(
-                      onPressed: () {},
+                      onPressed: () => controller.redirectToViewMore(InforPage.viewMoreSale),
                       label: const Icon(Icons.navigate_next),
                       icon: const Text("View more"),
                     )
@@ -167,12 +170,15 @@ class HomePage extends GetView<HomeController> {
                     }
                     if (snapshot.hasData) {
                       if (snapshot.data!.isEmpty) return const SizedBox.shrink(); //show emty widget
-                      Helper.limitShowList(snapshot.data!);
+                      //khoi tao 1 list moi' de? xoa' ko bi anh huong?
+                      final List list = [];
+                      list.addAll(snapshot.data!);
+                      Helper.limitShowList(list);
                       return ListView.separated(
                         scrollDirection: Axis.horizontal,
-                        itemCount: snapshot.data!.length,
+                        itemCount: list.length,
                         separatorBuilder: (context, _) => const SizedBox(width: 0),
-                        itemBuilder: (context, index) => ProductCard2(snapshot.data![index]),
+                        itemBuilder: (context, index) => ProductCard2(list[index]),
                       );
                     }
                     return const Center(
