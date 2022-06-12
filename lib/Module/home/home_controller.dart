@@ -3,7 +3,6 @@ import 'package:do_an_flutter/API/base_getconnect.dart';
 import 'package:do_an_flutter/Model/hinh_anh.dart';
 import 'package:do_an_flutter/Model/loai_san_pham.dart';
 import 'package:do_an_flutter/Model/san_pham.dart';
-import 'package:do_an_flutter/Ultis/info_page.dart';
 import 'package:get/get.dart';
 
 //StateMixin dung` de loadding
@@ -15,7 +14,6 @@ class HomeController extends GetxController {
   late Future<List<LoaiSanPham>?> listLoaiSanPham;
   late Future<List<SanPham>?> listSanPhamKhuyenMai;
 
-
   @override
   void onInit() {
     // TODO: implement onInit
@@ -25,7 +23,6 @@ class HomeController extends GetxController {
     listBanner = getBanner();
     listLoaiSanPham = getistLoaiSanPham();
     listSanPhamKhuyenMai = getListSanPhamKhuyenMai();
-    
   }
 
   // Future<void> getListSanPhamm() async {
@@ -41,20 +38,6 @@ class HomeController extends GetxController {
   //     change(null, status: RxStatus.error(e.toString()));
   //   }
   // }
-  Future<void> redirectToViewMore(String viewMorePage) async {
-    Map<String, dynamic> data = {};
-
-    switch (viewMorePage) {
-      case InforPage.viewMoreSale:
-        data = InforPage.filterPage(viewMorePage, await listSanPhamKhuyenMai);
-        break;
-      case InforPage.viewMoreRecent:
-        data = InforPage.filterPage(viewMorePage, await listSanPham);
-        break;
-    }
-
-    Get.toNamed(data['screen'], arguments: data);
-  }
 
   //
   Future<List<SanPham>?> getListSanPham() => apiCall.onGetList(ApiUrl.get_search("san-pham"), SanPham());
@@ -62,5 +45,5 @@ class HomeController extends GetxController {
   Future<List<LoaiSanPham>?> getistLoaiSanPham() => apiCall.onGetList(ApiUrl.get_search("loai-san-pham"), LoaiSanPham());
   Future<List<SanPham>?> getListSanPhamKhuyenMai() =>
       apiCall.onGetList(ApiUrl.get_search("san-pham"), SanPham(), queryParam: {"isKhuyenMai": 1}); //true/false
-  
+
 }

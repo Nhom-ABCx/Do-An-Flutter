@@ -6,4 +6,5 @@ class ApiUrl {
   static String get get_banner => "/banner";
   //method post
   static String post_aaa(String type) => "/aaa/$type";
+  static String get post_login=>"/login";
 }

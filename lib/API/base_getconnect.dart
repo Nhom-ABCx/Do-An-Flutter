@@ -76,4 +76,21 @@ class BaseGetConnect extends GetConnect {
     //
     return super.post(url, body, contentType: contentType, headers: headers, query: query, decoder: decoder, uploadProgress: uploadProgress);
   }
+  Future<T?> onPostObject<T>(String path, BaseModel<T> baseModel,{required Map<String,dynamic> body}) async {
+    try {
+      final res = await post(path,body).timeout(httpClient.timeout, onTimeout: onTimeout);
+      if (res.statusCode == 200) {
+        return baseModel.fromJson(res.body);
+      }
+    } on TimeoutException catch (_) {
+      //CommonWidget.toast(_.message!);
+      //EasyLoading.dismiss();
+      // catch timeout here..
+    } catch (e) {
+      //EasyLoading.dismiss();
+      print("has error, request again after 3s ----- \x1B[31m${e.toString()}\x1B[0m");
+      return await Future.delayed(const Duration(seconds: 3), () => onGetObject(path, baseModel));
+    }
+    return null;
+  }
 }
