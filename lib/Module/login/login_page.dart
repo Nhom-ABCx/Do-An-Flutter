@@ -13,218 +13,220 @@ class LoginPage extends GetView<LoginController> {
       //huy keyboard khi bam ngoai man hinh
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        body: Stack(
-          children: [
-            Container(
-                decoration: const BoxDecoration(
-              // image: DecorationImage(
-              //     fit: BoxFit.cover, image: NetworkImage('https://i.pinimg.com/originals/c2/47/e9/c247e913a0214313045a8a5c39f8522b.jpg')),
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                stops: [0.1, 0.4, 0.8, 0.9],
-                colors: [
-                  //xin cai nen` tu` google
-                  Color(0xFF3594DD),
-                  Color(0xFF4563DB),
-                  Color(0xFF5036D5),
-                  Color(0xFF5B16D0),
-                ],
-              ),
-            )),
-            Center(
-              child: SingleChildScrollView(
-                child: Obx(
-                  () => Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // RotationTransition(
-                      //   turns: animation_rotation,
-                      //   child: Stack(
-                      //     children: [
-                      //       Image.asset('images/logo/logo-white.png'),
-                      //     ],
-                      //   ),
-                      // ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          left: 20,
-                          top: 30,
-                          right: 20,
-                          bottom: 10,
-                        ),
-                        child: TextField(
-                          decoration: const InputDecoration(
-                            //border: const OutlineInputBorder(),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey),
-                            ),
-                            labelText: "Email or Username",
-                            hintText: "info@example.com",
-                            //errorText: snapshot.hasError ? snapshot.error.toString() : null,
-                            prefixIcon: Icon(
-                              Icons.supervisor_account,
-                              color: Colors.white,
-                            ),
-                            labelStyle: TextStyle(color: Colors.white),
-                            hintStyle: TextStyle(color: Colors.grey),
+        body: SafeArea(
+          child: Stack(
+            children: [
+              Container(
+                  decoration: const BoxDecoration(
+                // image: DecorationImage(
+                //     fit: BoxFit.cover, image: NetworkImage('https://i.pinimg.com/originals/c2/47/e9/c247e913a0214313045a8a5c39f8522b.jpg')),
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  stops: [0.1, 0.4, 0.8, 0.9],
+                  colors: [
+                    //xin cai nen` tu` google
+                    Color(0xFF3594DD),
+                    Color(0xFF4563DB),
+                    Color(0xFF5036D5),
+                    Color(0xFF5B16D0),
+                  ],
+                ),
+              )),
+              Center(
+                child: SingleChildScrollView(
+                  child: Obx(
+                    () => Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        // RotationTransition(
+                        //   turns: animation_rotation,
+                        //   child: Stack(
+                        //     children: [
+                        //       Image.asset('images/logo/logo-white.png'),
+                        //     ],
+                        //   ),
+                        // ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            left: 20,
+                            top: 30,
+                            right: 20,
+                            bottom: 10,
                           ),
-                          controller: controller.txtUsername, //gan gia tri cua text vao bien'
-                          keyboardType: TextInputType.emailAddress,
-                          textInputAction: TextInputAction.next,
-                          inputFormatters: <TextInputFormatter>[
-                            LengthLimitingTextInputFormatter(255), //gioi han do dai`
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          left: 20,
-                          top: 10,
-                          right: 20,
-                          bottom: 10,
-                        ),
-                        child: Stack(
-                          alignment: AlignmentDirectional.centerEnd,
-                          children: [
-                            TextField(
-                              obscureText: controller.isShowPassword.value, //hien * khi nhap text
-                              decoration: const InputDecoration(
-                                //border: OutlineInputBorder(),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.grey),
-                                ),
-                                labelText: "Password",
-                                //errorText: snapshot.hasError ? snapshot.error.toString() : null,
-                                prefixIcon: Icon(
-                                  Icons.vpn_key,
-                                  color: Colors.white,
-                                ),
-                                labelStyle: TextStyle(color: Colors.white),
-                                hintStyle: TextStyle(color: Colors.grey),
+                          child: TextField(
+                            decoration: const InputDecoration(
+                              //border: const OutlineInputBorder(),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey),
                               ),
-                              controller: controller.txtPassword, //gan gia tri cua text vao bien'
-                              textInputAction: TextInputAction.go,
-                              inputFormatters: <TextInputFormatter>[
-                                LengthLimitingTextInputFormatter(255), //gioi han do dai`
-                              ],
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 15),
-                              child: GestureDetector(
-                                onTap: () => controller.isShowPassword.value = !controller.isShowPassword.value,
-                                child: controller.isShowPassword.value
-                                    ? const Icon(
-                                        Icons.visibility,
-                                        color: Colors.white,
-                                      )
-                                    : const Icon(
-                                        Icons.visibility_off,
-                                        color: Colors.white,
-                                      ),
+                              labelText: "Email or Username",
+                              hintText: "info@example.com",
+                              //errorText: snapshot.hasError ? snapshot.error.toString() : null,
+                              prefixIcon: Icon(
+                                Icons.supervisor_account,
+                                color: Colors.white,
                               ),
+                              labelStyle: TextStyle(color: Colors.white),
+                              hintStyle: TextStyle(color: Colors.grey),
                             ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(
-                          top: 10,
-                          bottom: 10,
-                        ),
-                        decoration: const BoxDecoration(
-                          color: Colors.green,
-                          shape: BoxShape.rectangle,
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                        ),
-                        width: 300,
-                        child: TextButton(
-                          child: const Text('Log In', style: TextStyle(fontSize: 20, color: Colors.white)),
-                          onPressed: () async {},
-                        ),
-                      ),
-                      TextButton(
-                        child: const Text(
-                          "Forgot Password?",
-                          style: TextStyle(fontSize: 17, color: Colors.white),
-                        ),
-                        onPressed: () => {},
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Didn't have an account?",
-                            style: TextStyle(fontSize: 15, color: Colors.grey[300]),
+                            controller: controller.txtUsername, //gan gia tri cua text vao bien'
+                            keyboardType: TextInputType.emailAddress,
+                            textInputAction: TextInputAction.next,
+                            inputFormatters: <TextInputFormatter>[
+                              LengthLimitingTextInputFormatter(255), //gioi han do dai`
+                            ],
                           ),
-                          TextButton(
-                            child: const Text(
-                              "Register Now",
-                              style: TextStyle(fontSize: 17, color: Colors.white),
-                            ),
-                            onPressed: () => {},
-                          ),
-                        ],
-                      ),
-                      TextButton(
-                        child: const Text(
-                          "VIEW AS GUES",
-                          style: TextStyle(fontSize: 17, color: Colors.amber),
                         ),
-                        onPressed: () => Get.offAllNamed(Routes.Home),
-                      ),
-                      _orDivider(context),
-                      SizedBox(
-                        width: Get.width / 2,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            left: 20,
+                            top: 10,
+                            right: 20,
+                            bottom: 10,
+                          ),
+                          child: Stack(
+                            alignment: AlignmentDirectional.centerEnd,
+                            children: [
+                              TextField(
+                                obscureText: controller.isShowPassword.value, //hien * khi nhap text
+                                decoration: const InputDecoration(
+                                  //border: OutlineInputBorder(),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.grey),
+                                  ),
+                                  labelText: "Password",
+                                  //errorText: snapshot.hasError ? snapshot.error.toString() : null,
+                                  prefixIcon: Icon(
+                                    Icons.vpn_key,
+                                    color: Colors.white,
+                                  ),
+                                  labelStyle: TextStyle(color: Colors.white),
+                                  hintStyle: TextStyle(color: Colors.grey),
+                                ),
+                                controller: controller.txtPassword, //gan gia tri cua text vao bien'
+                                textInputAction: TextInputAction.go,
+                                inputFormatters: <TextInputFormatter>[
+                                  LengthLimitingTextInputFormatter(255), //gioi han do dai`
+                                ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 15),
+                                child: GestureDetector(
+                                  onTap: () => controller.isShowPassword.value = !controller.isShowPassword.value,
+                                  child: controller.isShowPassword.value
+                                      ? const Icon(
+                                          Icons.visibility,
+                                          color: Colors.white,
+                                        )
+                                      : const Icon(
+                                          Icons.visibility_off,
+                                          color: Colors.white,
+                                        ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(
+                            top: 10,
+                            bottom: 10,
+                          ),
+                          decoration: const BoxDecoration(
+                            color: Colors.green,
+                            shape: BoxShape.rectangle,
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                          ),
+                          width: 300,
+                          child: TextButton(
+                            child: const Text('Log In', style: TextStyle(fontSize: 20, color: Colors.white)),
+                            onPressed: () async {},
+                          ),
+                        ),
+                        TextButton(
+                          child: const Text(
+                            "Forgot Password?",
+                            style: TextStyle(fontSize: 17, color: Colors.white),
+                          ),
+                          onPressed: () => {},
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            _SocialIcon(
-                              colors: const [
-                                Color(0xFF102397),
-                                Color(0xFF187adf),
-                                Color(0xFF00eaf8),
-                              ],
-                              iconURL: "assets/svgIcons/facebook.svg",
-                              onPressed: () async {},
+                            Text(
+                              "Didn't have an account?",
+                              style: TextStyle(fontSize: 15, color: Colors.grey[300]),
                             ),
-                            _SocialIcon(
-                              colors: const [
-                                Color(0xFF17ead9),
-                                Color(0xFF6078ea),
-                              ],
-                              iconURL: "assets/svgIcons/twitter.svg",
-                              onPressed: () {
-                                print("twitter");
-                              },
+                            TextButton(
+                              child: const Text(
+                                "Register Now",
+                                style: TextStyle(fontSize: 17, color: Colors.white),
+                              ),
+                              onPressed: () => {},
                             ),
-                            _SocialIcon(
-                              colors: const [
-                                Color(0xFFff4f38),
-                                Color(0xFFff355d),
-                              ],
-                              iconURL: "assets/svgIcons/google-plus.svg",
-                              onPressed: () async {},
-                            ),
-                            _SocialIcon(
-                              colors: const [
-                                Color(0xFF00c6fb),
-                                Color(0xFF005bea),
-                              ],
-                              iconURL: "assets/svgIcons/github.svg",
-                              onPressed: () {
-                                print("github");
-                              },
-                            )
                           ],
                         ),
-                      ),
-                    ],
+                        TextButton(
+                          child: const Text(
+                            "VIEW AS GUES",
+                            style: TextStyle(fontSize: 17, color: Colors.amber),
+                          ),
+                          onPressed: () => Get.offAllNamed(Routes.Home),
+                        ),
+                        _orDivider(context),
+                        SizedBox(
+                          width: Get.width / 2,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              _SocialIcon(
+                                colors: const [
+                                  Color(0xFF102397),
+                                  Color(0xFF187adf),
+                                  Color(0xFF00eaf8),
+                                ],
+                                iconURL: "assets/svgIcons/facebook.svg",
+                                onPressed: () async {},
+                              ),
+                              _SocialIcon(
+                                colors: const [
+                                  Color(0xFF17ead9),
+                                  Color(0xFF6078ea),
+                                ],
+                                iconURL: "assets/svgIcons/twitter.svg",
+                                onPressed: () {
+                                  print("twitter");
+                                },
+                              ),
+                              _SocialIcon(
+                                colors: const [
+                                  Color(0xFFff4f38),
+                                  Color(0xFFff355d),
+                                ],
+                                iconURL: "assets/svgIcons/google-plus.svg",
+                                onPressed: () async {},
+                              ),
+                              _SocialIcon(
+                                colors: const [
+                                  Color(0xFF00c6fb),
+                                  Color(0xFF005bea),
+                                ],
+                                iconURL: "assets/svgIcons/github.svg",
+                                onPressed: () {
+                                  print("github");
+                                },
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

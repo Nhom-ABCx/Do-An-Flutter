@@ -192,10 +192,29 @@ class HomePage extends GetView<HomeController> {
                 )),
             SizedBox(
               height: 100,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: 10,
-                itemBuilder: (context, index) => const CategoryCard1(newItemCount: 2),
+              child: FutureBuilder<List<LoaiSanPham>?>(
+                future: controller.getistLoaiSanPham(),
+                builder: (context, snapshot) {
+                  {
+                    if (snapshot.hasError) {
+                      print(snapshot.error);
+                    }
+                    return snapshot.hasData
+                        ? (controller.listLoaiSanPham.isEmpty)
+                            ? const SizedBox() //show emty widget
+                            : ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: controller.listLoaiSanPham.length,
+                                itemBuilder: (context, index) => CategoryCard1(
+                                  controller.listLoaiSanPham[index],
+                                  newItemCount: index.isOdd ? 2 : null,
+                                ),
+                              )
+                        : const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                  }
+                },
               ),
             )
           ],

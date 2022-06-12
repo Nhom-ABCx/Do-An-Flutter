@@ -27,25 +27,26 @@ class _WellcomePageState extends State<WellcomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
+    return Scaffold(
       backgroundColor: Get.theme.colorScheme.primary,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            imageNetwork("/storage/assets/images/logo/logo-web1.png", width: 200),
-            Text(StringConstant.titleWellcome.tr, style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white)),
-            Container(
-              margin: const EdgeInsets.only(top: 10),
-              child: Text(
-                StringConstant.subTitleWellcome.tr,
-                style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Colors.white),
-              ),
-            )
-          ],
+      body: SafeArea(
+        child: Center(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          imageNetwork("/storage/assets/images/logo/logo-web1.png", width: 200),
+          Text(StringConstant.titleWellcome.tr, style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white)),
+          Container(
+            margin: const EdgeInsets.only(top: 10),
+            child: Text(
+              StringConstant.subTitleWellcome.tr,
+              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Colors.white),
+            ),
+          )
+        ],
+          ),
         ),
       ),
-    ));
+    );
   }
 }

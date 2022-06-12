@@ -2,6 +2,7 @@ import 'package:do_an_flutter/Config/Language/translation_service.dart';
 import 'package:do_an_flutter/Config/strings.dart';
 import 'package:do_an_flutter/Config/theme.dart';
 import 'package:do_an_flutter/Model/hinh_anh.dart';
+import 'package:do_an_flutter/Model/loai_san_pham.dart';
 import 'package:do_an_flutter/Model/san_pham.dart';
 import 'package:do_an_flutter/Module/home/home_controller.dart';
 import 'package:do_an_flutter/Module/search/search_page.dart';
@@ -40,8 +41,7 @@ class _ContainerPageState extends State<ContainerPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: GestureDetector(
+    return GestureDetector(
       onTap: () {
         //huy keyboard khi bam ngoai man hinh va` catch drawer
         //https://github.com/flutter/flutter/issues/54277
@@ -55,13 +55,15 @@ class _ContainerPageState extends State<ContainerPage> {
         extendBodyBehindAppBar: true,
 
         drawer: const DrawerWidget(),
-        body: RefreshIndicator(
-            onRefresh: () async {
-              //reload all widget
-              // ignore: invalid_use_of_protected_member
-              (context as Element).reassemble();
-            },
-            child: widgetPage.elementAt(currentIndexBottomNav)),
+        body: SafeArea(
+          child: RefreshIndicator(
+              onRefresh: () async {
+                //reload all widget
+                // ignore: invalid_use_of_protected_member
+                (context as Element).reassemble();
+              },
+              child: widgetPage.elementAt(currentIndexBottomNav)),
+        ),
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.only(
@@ -87,7 +89,7 @@ class _ContainerPageState extends State<ContainerPage> {
               )),
         ),
       ),
-    ));
+    );
   }
 }
 

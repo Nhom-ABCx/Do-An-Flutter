@@ -79,9 +79,7 @@ class SearchPage extends SearchDelegate<String> {
               itemBuilder: (BuildContext context, int index) {
                 return ListTile(
                   title: query.isEmpty
-                      ? Text(
-                          suggestions.elementAt(index),
-                        )
+                      ? Text(suggestions.elementAt(index))
                       : RichText(
                           text: TextSpan(
                               children: _highlightOccurrences(suggestions[index], query),
