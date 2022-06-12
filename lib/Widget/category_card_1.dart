@@ -1,8 +1,10 @@
+import 'package:do_an_flutter/API/api_url.dart';
+import 'package:do_an_flutter/API/base_getconnect.dart';
 import 'package:do_an_flutter/Model/loai_san_pham.dart';
+import 'package:do_an_flutter/Model/san_pham.dart';
+import 'package:do_an_flutter/Module/view_more/view_more_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../Module/detail/detail_category/detail_caterogy_page.dart';
 
 class CategoryCard1 extends StatelessWidget {
   final int? newItemCount;
@@ -17,11 +19,13 @@ class CategoryCard1 extends StatelessWidget {
         SizedBox(
           width: 100,
           child: InkWell(
-            onTap: () => Get.to(
-              DetailCaterogy(
-                typeProduct: loaiSanPham,
-              ),
-            ),
+            onTap: () async {
+              //chi co thang` nay` xai` cho nen viet' chung vay` luon
+              final apiCall = Get.find<BaseGetConnect>();
+
+              final listCategory = apiCall.onGetList(ApiUrl.get_search("san-pham"), SanPham(), queryParam: {"LoaiSanPhamId": loaiSanPham.id});
+              Get.to(ViewMorePage(title: loaiSanPham.tenLoai!, listSanPham: listCategory));
+            },
             child: Card(
               elevation: 2,
               child: Column(

@@ -89,7 +89,12 @@ class HomePage extends GetView<HomeController> {
                       style: Get.textTheme.headlineSmall,
                     ),
                     TextButton.icon(
-                      onPressed: () => controller.redirectToViewMore(InforPage.viewMoreRecent),
+                      onPressed: () async {
+                        Get.to(ViewMorePage(
+                          title: "Recent",
+                          listSanPham: controller.listSanPham,
+                        ));
+                      },
                       label: const Icon(Icons.navigate_next),
                       icon: const Text("View more"),
                     )
@@ -153,7 +158,12 @@ class HomePage extends GetView<HomeController> {
                       style: Get.textTheme.headlineSmall,
                     ),
                     TextButton.icon(
-                      onPressed: () => controller.redirectToViewMore(InforPage.viewMoreSale),
+                      onPressed: () async {
+                        Get.to(ViewMorePage(
+                          title: "Sale",
+                          listSanPham: controller.listSanPhamKhuyenMai,
+                        ));
+                      },
                       label: const Icon(Icons.navigate_next),
                       icon: const Text("View more"),
                     )
@@ -248,7 +258,8 @@ class HomePage extends GetView<HomeController> {
       ),
     );
   }
- //cái hình nền user
+
+  //cái hình nền user
   SliverAppBar _buildAppBar(BuildContext context) {
     return SliverAppBar(
       //automaticallyImplyLeading: false,
