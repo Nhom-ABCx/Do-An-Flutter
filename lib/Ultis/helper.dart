@@ -20,4 +20,7 @@ class Helper {
     }
     return "";
   }
+
+  //limitShowList
+  static void limitShowList(List list, [int limit = 5]) => (list.length > limit) ? list.removeRange(limit, list.length) : null;
 }

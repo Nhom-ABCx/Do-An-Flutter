@@ -39,15 +39,6 @@ class HomeController extends GetxController {
   //   }
   // }
 
-  //limitShowList
-  void limitShowList(List list) {
-    const int limit = 5;
-//
-    if (list.length > limit) {
-      list.removeRange(limit, list.length);
-    }
-  }
-
   //
   Future<List<SanPham>?> getListSanPham() => apiCall.onGetList(ApiUrl.get_search("san-pham"), SanPham());
   Future<List<HinhAnh>?> getBanner() => apiCall.onGetList(ApiUrl.get_banner, HinhAnh());
