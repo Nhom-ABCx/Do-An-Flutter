@@ -114,7 +114,7 @@ class HomePage extends GetView<HomeController> {
                     }
                     if (snapshot.hasData) {
                       if (snapshot.data!.isEmpty) return const SizedBox.shrink(); //show emty widget
-                      controller.limitShowList(snapshot.data!);
+                      Helper.limitShowList(snapshot.data!);
                       return ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: snapshot.data!.length,
@@ -167,7 +167,7 @@ class HomePage extends GetView<HomeController> {
                     }
                     if (snapshot.hasData) {
                       if (snapshot.data!.isEmpty) return const SizedBox.shrink(); //show emty widget
-                      controller.limitShowList(snapshot.data!);
+                      Helper.limitShowList(snapshot.data!);
                       return ListView.separated(
                         scrollDirection: Axis.horizontal,
                         itemCount: snapshot.data!.length,

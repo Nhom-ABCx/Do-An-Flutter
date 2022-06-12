@@ -1,4 +1,5 @@
 import 'package:do_an_flutter/Config/theme.dart';
+import 'package:do_an_flutter/Ultis/helper.dart';
 import 'package:do_an_flutter/Widget/product_card_3.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -60,10 +61,7 @@ class SearchPage extends SearchDelegate<String> {
     }).toList();
 
     //limit suggest
-    // const int limitSuggest = 5;
-    // if (suggestions.length > limitSuggest) {
-    //   suggestions.removeRange(limitSuggest, suggestions.length);
-    // }
+    //Helper.limitShowList(suggestions, 5);
 
     return SingleChildScrollView(
         child: Column(
