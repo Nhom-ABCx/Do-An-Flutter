@@ -2,7 +2,7 @@ import 'package:do_an_flutter/Model/loai_san_pham.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../Module/detail/detail_category/detail_caterogy.dart';
+import '../Module/detail/detail_category/detail_caterogy_page.dart';
 
 class CategoryCard1 extends StatelessWidget {
   final int? newItemCount;
@@ -19,8 +19,7 @@ class CategoryCard1 extends StatelessWidget {
           child: InkWell(
             onTap: () => Get.to(
               DetailCaterogy(
-                titlePage: loaiSanPham.tenLoai,
-                TypeProduct: loaiSanPham,
+                typeProduct: loaiSanPham,
               ),
             ),
             child: Card(

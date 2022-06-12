@@ -4,6 +4,8 @@ import 'package:do_an_flutter/Module/home/page/container_page.dart';
 import 'package:do_an_flutter/Module/home/home_binding.dart';
 import 'package:do_an_flutter/Module/login/login_binding.dart';
 import 'package:do_an_flutter/Module/login/login_page.dart';
+import 'package:do_an_flutter/Module/view_more/view_more_binding.dart';
+import 'package:do_an_flutter/Module/view_more/view_more_page.dart';
 import 'package:do_an_flutter/Module/wellcome/intro_page.dart';
 import 'package:do_an_flutter/Module/wellcome/wellcome_page.dart';
 import 'package:get/get.dart';
@@ -31,6 +33,11 @@ class Pages {
       name: "${Routes.ProductDetail}:id",
       page: () => const DetailPage(),
       binding: DetailBinding(),
+    ),
+    GetPage(
+      name: Routes.ViewMore,
+      page: () => const ViewMorePage(),
+      binding: ViewMoreBinding(),
     ),
   ];
 }

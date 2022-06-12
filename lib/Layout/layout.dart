@@ -12,11 +12,11 @@ class _LayOutPageState extends State<LayOutPage> {
     return GestureDetector(
       //huy keyboard khi bam ngoai man hinh
       onTap: () => FocusScope.of(context).unfocus(),
-      child: SafeArea(
-        child: Scaffold(
-          //Hide
-          //drawer: const NavigationDrawer(),
-          body: CustomScrollView(
+      child: Scaffold(
+        //Hide
+        //drawer: const NavigationDrawer(),
+        body: SafeArea(
+          child: CustomScrollView(
             slivers: [
               const SliverAppBar(
                 centerTitle: true,

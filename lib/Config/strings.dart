@@ -22,17 +22,17 @@ class StringConstant {
   static const String Favorite = "Favorite";
   static const String Setting = "Setting";
   //setting_page
-  static String Language = 'Language';
-  static String English = 'English';
-  static String Vietnamese = 'Vietnamese';
-  static String Japanese = 'Japanese';
-  static String Notify = 'Notify';
-  static String UserManual = 'UserManual';
-  static String FrequentlyAskedQuestions = 'FrequentlyAskedQuestions';
-  static String Juridical = 'Juridical';
-  static String GeneralAssessment = 'GeneralAssessment';
-  static String DarkMode = 'DarkMode';
-  static String Logout = 'Logout';
+  static const String Language = 'Language';
+  static const String English = 'English';
+  static const String Vietnamese = 'Vietnamese';
+  static const String Japanese = 'Japanese';
+  static const String Notify = 'Notify';
+  static const String UserManual = 'UserManual';
+  static const String FrequentlyAskedQuestions = 'FrequentlyAskedQuestions';
+  static const String Juridical = 'Juridical';
+  static const String GeneralAssessment = 'GeneralAssessment';
+  static const String DarkMode = 'DarkMode';
+  static const String Logout = 'Logout';
 
   //
   static const String Skip = "Skip";

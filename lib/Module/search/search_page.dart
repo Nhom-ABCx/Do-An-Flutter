@@ -91,15 +91,15 @@ class SearchPage extends SearchDelegate<String> {
           padding: const EdgeInsets.all(ThemeConfig.defaultPaddingAll),
           child: Text("Recent search", style: Get.textTheme.titleLarge),
         ),
-        Padding(
-          padding: const EdgeInsets.all(ThemeConfig.defaultPaddingAll),
-          child: ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: 5,
-            itemBuilder: (BuildContext context, int index) => const ProductCard3(),
-          ),
-        ),
+        // Padding(
+        //   padding: const EdgeInsets.all(ThemeConfig.defaultPaddingAll),
+        //   child: ListView.builder(
+        //     shrinkWrap: true,
+        //     physics: const NeverScrollableScrollPhysics(),
+        //     itemCount: 5,
+        //     itemBuilder: (BuildContext context, int index) => const ProductCard3(),
+        //   ),
+        // ),
       ],
     ));
   }
