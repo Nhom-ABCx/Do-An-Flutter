@@ -7,9 +7,12 @@ import 'package:do_an_flutter/app_binding.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/request/request.dart';
 
-part 'base_getconnect.g.dart';
+part 'base_getconnect_request.dart';
+part 'base_getconnect_response.dart';
 
 class BaseGetConnect extends GetConnect {
+  int get requestAgainSecond => 3;
+
   FutureOr<T> onTimeout<T>() {
     throw TimeoutException('Can\'t connect in ${httpClient.timeout.inSeconds} seconds. Please try again');
   }
@@ -26,47 +29,6 @@ class BaseGetConnect extends GetConnect {
     httpClient.addResponseModifier(responseInterceptor);
   }
 
-  Future<T?> onGetObject<T>(String path, BaseModel<T> baseModel) async {
-    try {
-      final res = await get(path).timeout(httpClient.timeout, onTimeout: onTimeout);
-      if (res.statusCode == 200) {
-        return baseModel.fromJson(res.body);
-      }
-    } on TimeoutException catch (_) {
-      //CommonWidget.toast(_.message!);
-      //EasyLoading.dismiss();
-      // catch timeout here..
-    } catch (e) {
-      //EasyLoading.dismiss();
-      print("has error, request again after 3s ----- \x1B[31m${e.toString()}\x1B[0m");
-      return await Future.delayed(const Duration(seconds: 3), () => onGetObject(path, baseModel));
-    }
-    return null;
-  }
-
-  Future<List<T>?> onGetList<T>(String path, BaseModel<T> baseModel, {Map<String, dynamic>? queryParam}) async {
-    try {
-      final res = await get<List>(
-        path,
-        query: queryParam?.map((key, value) => MapEntry(key, value.toString())), //{"a": 1}  =>{"a": "1"}  tranh' loi~
-      ).timeout(httpClient.timeout, onTimeout: onTimeout);
-      if (res.statusCode == 200) {
-        final List<T> listResult = res.body!.map((e) => baseModel.fromJson(e)).toList();
-
-        return listResult;
-      }
-    } on TimeoutException catch (_) {
-      //CommonWidget.toast(_.message!);
-      //EasyLoading.dismiss();
-      // catch timeout here..
-    } catch (e) {
-      //EasyLoading.dismiss();
-      print("has error, request again after 3s ----- \x1B[31m${e.toString()}\x1B[0m");
-      return await Future.delayed(const Duration(seconds: 3), () => onGetList(path, baseModel, queryParam: queryParam));
-    }
-    return null;
-  }
-
   //ghi de` lai phuong thuc post
   @override
   Future<Response<T>> post<T>(String? url, body,
@@ -75,22 +37,5 @@ class BaseGetConnect extends GetConnect {
     Printt.green(jsonEncode(body));
     //
     return super.post(url, body, contentType: contentType, headers: headers, query: query, decoder: decoder, uploadProgress: uploadProgress);
-  }
-  Future<T?> onPostObject<T>(String path, BaseModel<T> baseModel,{required Map<String,dynamic> body}) async {
-    try {
-      final res = await post(path,body).timeout(httpClient.timeout, onTimeout: onTimeout);
-      if (res.statusCode == 200) {
-        return baseModel.fromJson(res.body);
-      }
-    } on TimeoutException catch (_) {
-      //CommonWidget.toast(_.message!);
-      //EasyLoading.dismiss();
-      // catch timeout here..
-    } catch (e) {
-      //EasyLoading.dismiss();
-      print("has error, request again after 3s ----- \x1B[31m${e.toString()}\x1B[0m");
-      return await Future.delayed(const Duration(seconds: 3), () => onGetObject(path, baseModel));
-    }
-    return null;
   }
 }

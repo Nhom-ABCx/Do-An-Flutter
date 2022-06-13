@@ -1,6 +1,6 @@
 part of 'base_getconnect.dart';
 
-extension BaseGetconnectExtension on BaseGetConnect {
+extension BaseGetconnectExtensionRequest on BaseGetConnect {
   FutureOr<Request> requestInterceptor(Request request) async {
     final prefs = Get.find<Service>().sharedPreferences;
 

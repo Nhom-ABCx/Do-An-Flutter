@@ -40,10 +40,10 @@ class HomeController extends GetxController {
   // }
 
   //
-  Future<List<SanPham>?> getListSanPham() => apiCall.onGetList(ApiUrl.get_search("san-pham"), SanPham());
-  Future<List<HinhAnh>?> getBanner() => apiCall.onGetList(ApiUrl.get_banner, HinhAnh());
-  Future<List<LoaiSanPham>?> getistLoaiSanPham() => apiCall.onGetList(ApiUrl.get_search("loai-san-pham"), LoaiSanPham());
+  Future<List<SanPham>?> getListSanPham() => apiCall.onGetList(path: ApiUrl.get_search("san-pham"), baseModel: SanPham());
+  Future<List<HinhAnh>?> getBanner() => apiCall.onGetList(path: ApiUrl.get_banner, baseModel: HinhAnh());
+  Future<List<LoaiSanPham>?> getistLoaiSanPham() => apiCall.onGetList(path: ApiUrl.get_search("loai-san-pham"), baseModel: LoaiSanPham());
   Future<List<SanPham>?> getListSanPhamKhuyenMai() =>
-      apiCall.onGetList(ApiUrl.get_search("san-pham"), SanPham(), queryParam: {"isKhuyenMai": 1}); //true/false
+      apiCall.onGetList(path: ApiUrl.get_search("san-pham"), baseModel: SanPham(), queryParam: {"isKhuyenMai": 1}); //true/false
 
 }

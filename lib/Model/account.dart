@@ -8,14 +8,14 @@ class Account extends BaseModel<Account> {
   Account({this.message, this.token, this.user});
 
   @override
-  Account fromJson(Map<String, dynamic> json) =>Account(
-    message : json['message'],
-    token :json['token'],
-    user : json['user'] != null ?  User.fromJson(json['user']) : null,
-  );
+  Account fromJson(Map<String, dynamic> json) => Account(
+        message: json['message'],
+        token: json['token'],
+        user: json['user'] != null ? User.fromJson(json['user']) : null,
+      );
   @override
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data =  <String, dynamic>{};
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['message'] = message;
     data['token'] = token;
     if (user != null) {
@@ -37,19 +37,18 @@ class User {
   String? diaChi;
   String? hinhAnh;
 
-
-  User(
-      {this.id,
-      this.loaiTaiKhoanId,
-      this.username,
-      this.email,
-      this.phone,
-      this.hoTen,
-      this.ngaySinh,
-      this.gioiTinh,
-      this.diaChi,
-      this.hinhAnh,
-   });
+  User({
+    this.id,
+    this.loaiTaiKhoanId,
+    this.username,
+    this.email,
+    this.phone,
+    this.hoTen,
+    this.ngaySinh,
+    this.gioiTinh,
+    this.diaChi,
+    this.hinhAnh,
+  });
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -62,22 +61,21 @@ class User {
     gioiTinh = json['GioiTinh'];
     diaChi = json['DiaChi'];
     hinhAnh = json['HinhAnh'];
-   
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data =  <String, dynamic>{};
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['LoaiTaiKhoanId'] = loaiTaiKhoanId;
     data['Username'] = username;
     data['Email'] = email;
     data['Phone'] = phone;
-    data['HoTen'] =hoTen;
+    data['HoTen'] = hoTen;
     data['NgaySinh'] = ngaySinh;
     data['GioiTinh'] = gioiTinh;
     data['DiaChi'] = diaChi;
     data['HinhAnh'] = hinhAnh;
-   
+
     return data;
   }
 }

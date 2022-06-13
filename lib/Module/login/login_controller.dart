@@ -1,6 +1,5 @@
 import 'package:do_an_flutter/API/api_url.dart';
 import 'package:do_an_flutter/Model/account.dart';
-import 'package:do_an_flutter/Model/san_pham.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,11 +13,6 @@ class LoginController extends GetxController {
   //
   final apiCall = Get.find<BaseGetConnect>();
 
-  
-  Future<Account?> loginApp(String userName,String passWord) =>apiCall.onPostObject(ApiUrl.post_login, Account(),body: {
-    "Username":userName,
-    "MatKhau":passWord
-});
-
-
+  Future<Account?> loginApp(String userName, String passWord) =>
+      apiCall.onPostObject(path: ApiUrl.post_login, baseModel: Account(), body: {"Username": userName, "MatKhau": passWord});
 }

@@ -23,7 +23,8 @@ class CategoryCard1 extends StatelessWidget {
               //chi co thang` nay` xai` cho nen viet' chung vay` luon
               final apiCall = Get.find<BaseGetConnect>();
 
-              final listCategory = apiCall.onGetList(ApiUrl.get_search("san-pham"), SanPham(), queryParam: {"LoaiSanPhamId": loaiSanPham.id});
+              final listCategory =
+                  apiCall.onGetList(path: ApiUrl.get_search("san-pham"), baseModel: SanPham(), queryParam: {"LoaiSanPhamId": loaiSanPham.id});
               Get.to(ViewMorePage(title: loaiSanPham.tenLoai!, listSanPham: listCategory));
             },
             child: Card(
