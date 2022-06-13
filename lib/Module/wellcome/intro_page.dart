@@ -1,4 +1,4 @@
-import 'package:do_an_flutter/Config/strings.dart';
+import 'package:do_an_flutter/Config/Language/base_translation.dart';
 import 'package:do_an_flutter/Route/pages.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -39,26 +39,26 @@ class IntroPage extends StatelessWidget {
 
       pages: [
         PageViewModel(
-          title: StringConstant.introTitle1.tr,
-          body: StringConstant.introBody1.tr,
+          title: BaseTranslation.introTitle1.tr,
+          body: BaseTranslation.introBody1.tr,
           image: Image.asset("assets/images/intro_app/1.webp"),
           decoration: pageDecoration,
         ),
         PageViewModel(
-          title: StringConstant.introTitle2.tr,
-          body: StringConstant.introBody2.tr,
+          title: BaseTranslation.introTitle2.tr,
+          body: BaseTranslation.introBody2.tr,
           image: Image.asset("assets/images/intro_app/3.webp"),
           decoration: pageDecoration,
         ),
         PageViewModel(
-          title: StringConstant.introTitle3.tr,
-          body: StringConstant.introBody3.tr,
+          title: BaseTranslation.introTitle3.tr,
+          body: BaseTranslation.introBody3.tr,
           image: Image.asset("assets/images/intro_app/2.jpg"),
           decoration: pageDecoration,
         ),
         PageViewModel(
-          title: StringConstant.introTitle4.tr,
-          body: StringConstant.introBody4.tr,
+          title: BaseTranslation.introTitle4.tr,
+          body: BaseTranslation.introBody4.tr,
           image: Image.asset(
             "assets/images/intro_app/fullscreen.jpg",
             width: double.infinity,
@@ -73,8 +73,8 @@ class IntroPage extends StatelessWidget {
           ),
         ),
         PageViewModel(
-          title: StringConstant.lastTitleIntro.tr,
-          body: StringConstant.lastBodyIntro.tr,
+          title: BaseTranslation.lastTitleIntro.tr,
+          body: BaseTranslation.lastBodyIntro.tr,
           decoration: pageDecoration.copyWith(
             bodyFlex: 2,
             imageFlex: 4,
@@ -93,9 +93,9 @@ class IntroPage extends StatelessWidget {
       showBackButton: false, //skip and back 1 true 1 false
       //rtl: true, // Display as right-to-left
       back: const Icon(Icons.arrow_back),
-      skip: Text(StringConstant.Skip.tr, style: const TextStyle(fontWeight: FontWeight.w600)),
+      skip: Text(BaseTranslation.Skip.tr, style: const TextStyle(fontWeight: FontWeight.w600)),
       next: const Icon(Icons.arrow_forward),
-      done: Text(StringConstant.Done.tr, style: const TextStyle(fontWeight: FontWeight.w600)),
+      done: Text(BaseTranslation.Done.tr, style: const TextStyle(fontWeight: FontWeight.w600)),
       curve: Curves.fastLinearToSlowEaseIn,
       controlsMargin: const EdgeInsets.all(16),
       controlsPadding: kIsWeb ? const EdgeInsets.all(12.0) : const EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 4.0),

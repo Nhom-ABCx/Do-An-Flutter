@@ -188,7 +188,7 @@ class _CartPageState extends State<CartPage> {
                 centerTitle: true,
                 elevation: 0,
                 title: Text(
-                  StringConstant.Cart.tr,
+                  BaseTranslation.Cart.tr,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 flexibleSpace: Container(

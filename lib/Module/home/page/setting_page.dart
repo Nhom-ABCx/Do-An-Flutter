@@ -25,7 +25,7 @@ class _SettingScreenState extends State<SettingPage> {
                 ),
                 child: ExpansionTile(
                   leading: const Icon(Icons.notifications_none_outlined, size: 32),
-                  title: Text(StringConstant.Notify.tr),
+                  title: Text(BaseTranslation.Notify.tr),
                   children: [
                     SwitchListTile(
                       value: true,
@@ -49,7 +49,7 @@ class _SettingScreenState extends State<SettingPage> {
                 ),
                 child: ExpansionTile(
                   leading: const Icon(Icons.subject_outlined, size: 32),
-                  title: Text(StringConstant.UserManual.tr),
+                  title: Text(BaseTranslation.UserManual.tr),
                   children: [
                     SwitchListTile(
                       value: true,
@@ -72,7 +72,7 @@ class _SettingScreenState extends State<SettingPage> {
                     Icons.help,
                     size: 32,
                   ),
-                  title: Text(StringConstant.FrequentlyAskedQuestions.tr),
+                  title: Text(BaseTranslation.FrequentlyAskedQuestions.tr),
                   trailing: const Icon(Icons.arrow_forward),
                   onTap: () {},
                 ),
@@ -86,19 +86,19 @@ class _SettingScreenState extends State<SettingPage> {
                 ),
                 child: ExpansionTile(
                   leading: const Icon(Icons.translate_outlined, size: 32),
-                  title: Text(StringConstant.Language.tr),
+                  title: Text(BaseTranslation.Language.tr),
                   children: [
                     MyRadioListTile<Locale?>(
                       value: TranslationService.locales[0],
                       groupValue: TranslationService.locale.value,
                       onChanged: (Locale? value) => TranslationService.changeLocale(value!),
-                      title: Text(StringConstant.English.tr),
+                      title: Text(BaseTranslation.English.tr),
                     ),
                     MyRadioListTile<Locale?>(
                       value: TranslationService.locales[1],
                       groupValue: TranslationService.locale.value,
                       onChanged: (Locale? value) => TranslationService.changeLocale(value!),
-                      title: Text(StringConstant.Vietnamese.tr),
+                      title: Text(BaseTranslation.Vietnamese.tr),
                     ),
                     // MyRadioListTile<Locale?>(
                     //   value: TranslationService.locales[2],
@@ -119,7 +119,7 @@ class _SettingScreenState extends State<SettingPage> {
                 ),
                 child: ExpansionTile(
                   leading: const Icon(Icons.shield_outlined, size: 32),
-                  title: Text(StringConstant.Juridical.tr),
+                  title: Text(BaseTranslation.Juridical.tr),
                   children: const [
                     ListTile(title: Text('ABCXYZ')),
                   ],
@@ -137,7 +137,7 @@ class _SettingScreenState extends State<SettingPage> {
                     Icons.edit_outlined,
                     size: 32,
                   ),
-                  title: Text(StringConstant.GeneralAssessment.tr),
+                  title: Text(BaseTranslation.GeneralAssessment.tr),
                   trailing: const Icon(Icons.arrow_forward),
                   onTap: () {},
                 ),
@@ -155,7 +155,7 @@ class _SettingScreenState extends State<SettingPage> {
                     value ? Get.changeThemeMode(ThemeMode.dark) : Get.changeThemeMode(ThemeMode.light);
                     Service.themeDarkMode.value = value;
                   },
-                  title: Text(StringConstant.DarkMode.tr),
+                  title: Text(BaseTranslation.DarkMode.tr),
                 ),
               ),
               SizedBox(
@@ -164,7 +164,7 @@ class _SettingScreenState extends State<SettingPage> {
                 child: ElevatedButton(
                   onPressed: () {}, //=> LoginController.logout(),
                   child: Text(
-                    StringConstant.Logout.tr,
+                    BaseTranslation.Logout.tr,
                     style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
                   ),
                 ),

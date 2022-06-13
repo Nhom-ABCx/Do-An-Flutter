@@ -1,5 +1,5 @@
+import 'package:do_an_flutter/Config/Language/base_translation.dart';
 import 'package:do_an_flutter/Config/Language/translation_service.dart';
-import 'package:do_an_flutter/Config/strings.dart';
 import 'package:do_an_flutter/Config/theme.dart';
 import 'package:do_an_flutter/Model/hinh_anh.dart';
 import 'package:do_an_flutter/Model/loai_san_pham.dart';
@@ -11,7 +11,6 @@ import 'package:do_an_flutter/Module/home/widget/home_widget_banner.dart';
 import 'package:do_an_flutter/Module/view_more/view_more_page.dart';
 import 'package:do_an_flutter/Ultis/helper.dart';
 
-
 import 'package:do_an_flutter/Widget/product_card_2.dart';
 import 'package:do_an_flutter/Widget/product_card_1.dart';
 import 'package:do_an_flutter/Widget/drawer_widget.dart';
@@ -20,14 +19,10 @@ import 'package:do_an_flutter/app_binding.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
-
-
 part 'home_page.dart';
 part 'setting_page.dart';
 part 'my_order.dart';
 part 'cart.dart';
-
 
 class ContainerPage extends StatefulWidget {
   const ContainerPage({Key? key}) : super(key: key);
@@ -88,10 +83,10 @@ class _ContainerPageState extends State<ContainerPage> {
                 currentIndex: currentIndexBottomNav,
                 onTap: (index) => setState(() => currentIndexBottomNav = index),
                 items: [
-                  _bottomNavBar(StringConstant.Home.tr, Icons.home),
-                  _bottomNavBar(StringConstant.Myorder.tr, Icons.library_books),
-                  _bottomNavBar(StringConstant.Favorite.tr, Icons.favorite),
-                  _bottomNavBar(StringConstant.Setting.tr, Icons.settings),
+                  _bottomNavBar(BaseTranslation.Home.tr, Icons.home),
+                  _bottomNavBar(BaseTranslation.Myorder.tr, Icons.library_books),
+                  _bottomNavBar(BaseTranslation.Favorite.tr, Icons.favorite),
+                  _bottomNavBar(BaseTranslation.Setting.tr, Icons.settings),
                 ],
               )),
         ),

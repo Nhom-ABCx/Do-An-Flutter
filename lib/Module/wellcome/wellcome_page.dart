@@ -1,4 +1,4 @@
-import 'package:do_an_flutter/Config/strings.dart';
+import 'package:do_an_flutter/Config/Language/base_translation.dart';
 import 'package:do_an_flutter/Route/pages.dart';
 import 'package:do_an_flutter/Widget/build_widgets.dart';
 import 'package:flutter/material.dart';
@@ -32,18 +32,18 @@ class _WellcomePageState extends State<WellcomePage> {
       body: SafeArea(
         child: Center(
           child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          imageNetwork("/storage/assets/images/logo/logo-web1.png", width: 200),
-          Text(StringConstant.titleWellcome.tr, style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white)),
-          Container(
-            margin: const EdgeInsets.only(top: 10),
-            child: Text(
-              StringConstant.subTitleWellcome.tr,
-              style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Colors.white),
-            ),
-          )
-        ],
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              imageNetwork("/storage/assets/images/logo/logo-web1.png", width: 200),
+              Text(BaseTranslation.titleWellcome.tr, style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white)),
+              Container(
+                margin: const EdgeInsets.only(top: 10),
+                child: Text(
+                  BaseTranslation.subTitleWellcome.tr,
+                  style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Colors.white),
+                ),
+              )
+            ],
           ),
         ),
       ),

@@ -1,52 +1,53 @@
 //viet dinh lien` Key de luc' bo? len google dich no' ko tu dich may' cai' Key
 //https://saimana.com/list-of-country-locale-code/
-import 'package:do_an_flutter/Config/strings.dart';
+
+import 'package:do_an_flutter/Config/Language/base_translation.dart';
 
 // ignore: non_constant_identifier_names
 Map<String, String> en_US = {
   //wellcomez
-  StringConstant.titleWellcome: "Welcome to Shop",
-  StringConstant.subTitleWellcome: "Your shopping solution",
-  StringConstant.Login: "Login",
+  BaseTranslation.titleWellcome: "Welcome to Shop",
+  BaseTranslation.subTitleWellcome: "Your shopping solution",
+  BaseTranslation.Login: "Login",
   //intro_page
-  StringConstant.introTitle1: "Fractional Shares",
-  StringConstant.introBody1: "Instead of having to buy an entire share, invest any amount you want.",
-  StringConstant.introTitle2: "Biggest Sell At Your Fingerprint",
-  StringConstant.introBody2: "Find your belt products from popular shape without any delay.",
-  StringConstant.introTitle3: "Pay Secure Payment Gateway",
-  StringConstant.introBody3: "Kids and teens can track their stocks 24/7 and place trades that you approve.",
-  StringConstant.introTitle4: "Full Screen Page",
-  StringConstant.introBody4:
+  BaseTranslation.introTitle1: "Fractional Shares",
+  BaseTranslation.introBody1: "Instead of having to buy an entire share, invest any amount you want.",
+  BaseTranslation.introTitle2: "Biggest Sell At Your Fingerprint",
+  BaseTranslation.introBody2: "Find your belt products from popular shape without any delay.",
+  BaseTranslation.introTitle3: "Pay Secure Payment Gateway",
+  BaseTranslation.introBody3: "Kids and teens can track their stocks 24/7 and place trades that you approve.",
+  BaseTranslation.introTitle4: "Full Screen Page",
+  BaseTranslation.introBody4:
       "Pages can be full screen as well.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc id euismod lectus, non tempor felis. Nam rutrum rhoncus est ac venenatis.",
-  StringConstant.lastTitleIntro: "Let's go !",
-  StringConstant.lastBodyIntro: "Try using app now.",
+  BaseTranslation.lastTitleIntro: "Let's go !",
+  BaseTranslation.lastBodyIntro: "Try using app now.",
   //bottom_Appbar
-  StringConstant.Home: "Home",
-  StringConstant.Myorder: "Myorder",
-  StringConstant.Favorite: "Favorite",
-  StringConstant.Setting: "Setting",
+  BaseTranslation.Home: "Home",
+  BaseTranslation.Myorder: "Myorder",
+  BaseTranslation.Favorite: "Favorite",
+  BaseTranslation.Setting: "Setting",
   //setting_page
-  StringConstant.Language: 'Language',
-  StringConstant.English: 'English',
-  StringConstant.Vietnamese: 'Vietnamese',
-  StringConstant.Japanese: 'Japanese',
-  StringConstant.Notify: 'Notify',
-  StringConstant.UserManual: 'User Manual',
-  StringConstant.FrequentlyAskedQuestions: 'Frequently Asked Questions',
-  StringConstant.Juridical: 'Juridical',
-  StringConstant.GeneralAssessment: 'General Assessment',
-  StringConstant.DarkMode: 'Theme dark mode',
-  StringConstant.Logout: 'Logout',
+  BaseTranslation.Language: 'Language',
+  BaseTranslation.English: 'English',
+  BaseTranslation.Vietnamese: 'Vietnamese',
+  BaseTranslation.Japanese: 'Japanese',
+  BaseTranslation.Notify: 'Notify',
+  BaseTranslation.UserManual: 'User Manual',
+  BaseTranslation.FrequentlyAskedQuestions: 'Frequently Asked Questions',
+  BaseTranslation.Juridical: 'Juridical',
+  BaseTranslation.GeneralAssessment: 'General Assessment',
+  BaseTranslation.DarkMode: 'Theme dark mode',
+  BaseTranslation.Logout: 'Logout',
   //
-  StringConstant.Skip: "Skip",
-  StringConstant.Done: "Done",
+  BaseTranslation.Skip: "Skip",
+  BaseTranslation.Done: "Done",
   //my_order_page
-  StringConstant.HistoryOrder: "Track My Order",
-  StringConstant.AllOrder: "All",
-  StringConstant.Pending: "Pending",
-  StringConstant.ToReceive: "To Receive",
-  StringConstant.ToReview: "To Review",
-  StringConstant.Canceled: "Canceled",
+  BaseTranslation.HistoryOrder: "Track My Order",
+  BaseTranslation.AllOrder: "All",
+  BaseTranslation.Pending: "Pending",
+  BaseTranslation.ToReceive: "To Receive",
+  BaseTranslation.ToReview: "To Review",
+  BaseTranslation.Canceled: "Canceled",
   //cart_page
-  StringConstant.Cart: "Cart",
+  BaseTranslation.Cart: "Cart",
 };
