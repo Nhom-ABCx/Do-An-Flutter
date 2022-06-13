@@ -54,6 +54,8 @@ dependencies:
   youtube_player_flutter:
   #xu ly mang?
   collection:
+  #show toast thong bao' nhanh
+  fluttertoast:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

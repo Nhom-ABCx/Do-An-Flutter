@@ -1,10 +1,10 @@
-
 import 'package:do_an_flutter/Module/login/login_controller.dart';
 import 'package:do_an_flutter/Route/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+
 class LoginPage extends GetView<LoginController> {
   const LoginPage({Key? key}) : super(key: key);
   @override
@@ -145,8 +145,6 @@ class LoginPage extends GetView<LoginController> {
                               final result = await controller.loginApp(controller.txtUsername.text, controller.txtPassword.text);
                               print(result!.token.toString());
                               if (result.token == "") {
-                             
-                                
                               } else {
                                 Get.offAllNamed(Routes.Home);
                               }

@@ -18,12 +18,12 @@ extension BaseGetconnectExtensionRequest on BaseGetConnect {
   }
 
 ///////////////////////
-  FutureOr<dynamic> responseInterceptor(Request request, Response response) async {
+  FutureOr<dynamic> responseInterceptor(Request request, Response response) {
     //EasyLoading.dismiss();
 
     if (response.statusCode != 200 && response.statusCode != 201) {
       handleErrorStatus(response);
-      return;
+      return response;
     }
 
     return response;
@@ -32,14 +32,14 @@ extension BaseGetconnectExtensionRequest on BaseGetConnect {
   void handleErrorStatus(Response response) {
     switch (response.statusCode) {
       case 400:
-      case 404:
-      case 500:
-        // final message = ErrorResponse.fromJson(response.body);
-        // CommonWidget.toast(message.message);
-        break;
       case 401:
-        Get.find<Service>().sharedPreferences.setString(StorageConstants.token, '');
-        // Get.toNamed(Routes.LOGIN);
+      case 500:
+        final String message = response.body['message'];
+        HelperWidget.showToast(message);
+        break;
+      // Get.find<Service>().sharedPreferences.setString(StorageConstants.token, '');
+      // Get.toNamed(Routes.LOGIN);
+      case 404:
         break;
       default:
         break;

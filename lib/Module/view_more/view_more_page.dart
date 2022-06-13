@@ -29,7 +29,7 @@ class ViewMorePage extends StatelessWidget {
                 slivers: [
                   SliverAppBar(
                     centerTitle: true,
-                    title: Text(title),
+                    title: Text(title, style: Theme.of(context).textTheme.titleLarge),
                   ),
                   SliverPadding(
                     padding: const EdgeInsets.all(ThemeConfig.defaultPaddingAll),
@@ -41,6 +41,7 @@ class ViewMorePage extends StatelessWidget {
                             if (snapshot.hasError) {
                               print(snapshot.error);
                             }
+                            if (snapshot.data == null) return const SizedBox.shrink(); //show emty widget
                             if (snapshot.hasData) {
                               if (snapshot.data!.isEmpty) return const SizedBox.shrink(); //show emty widget
                               //else

@@ -7,7 +7,7 @@ class AppBinding extends Bindings {
   @override
   void dependencies() async {
     Get.putAsync<Service>(() => Service().init(), permanent: true);
-    Get.lazyPut<BaseGetConnect>(() => BaseGetConnect());
+    Get.lazyPut<BaseGetConnect>(() => BaseGetConnect(), fenix: true);
   }
 }
 
