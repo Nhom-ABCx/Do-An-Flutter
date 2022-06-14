@@ -2,7 +2,7 @@ import 'package:do_an_flutter/API/api_url.dart';
 import 'package:do_an_flutter/API/base_getconnect.dart';
 import 'package:do_an_flutter/Model/loai_san_pham.dart';
 import 'package:do_an_flutter/Model/san_pham.dart';
-import 'package:do_an_flutter/Module/view_more/view_more_page.dart';
+import 'package:do_an_flutter/Module/search/view_more_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

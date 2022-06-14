@@ -1,5 +1,6 @@
 import 'package:do_an_flutter/Config/theme.dart';
 import 'package:do_an_flutter/Model/san_pham.dart';
+import 'package:do_an_flutter/Widget/build_widgets.dart';
 import 'package:do_an_flutter/Widget/product_card_2.dart';
 import 'package:do_an_flutter/Widget/product_card_3.dart';
 import 'package:flutter/material.dart';
@@ -41,9 +42,8 @@ class ViewMorePage extends StatelessWidget {
                             if (snapshot.hasError) {
                               print(snapshot.error);
                             }
-                            if (snapshot.data == null) return const SizedBox.shrink(); //show emty widget
                             if (snapshot.hasData) {
-                              if (snapshot.data!.isEmpty) return const SizedBox.shrink(); //show emty widget
+                              if (snapshot.data!.isEmpty) return khongCoGiHet(); //show emty widget
                               //else
                               RxBool defaultViewItem = true.obs;
                               return Obx(() => Column(

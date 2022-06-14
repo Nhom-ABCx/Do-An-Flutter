@@ -40,6 +40,7 @@ extension BaseGetconnectExtensionRequest on BaseGetConnect {
       // Get.find<Service>().sharedPreferences.setString(StorageConstants.token, '');
       // Get.toNamed(Routes.LOGIN);
       case 404:
+        HelperWidget.showToast("${response.statusCode} ${response.statusText}");
         break;
       default:
         break;

@@ -1,7 +1,7 @@
 import 'package:do_an_flutter/Route/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-  
+
 class DrawerWidget extends StatelessWidget {
   final padding = const EdgeInsets.symmetric(horizontal: 5);
 
@@ -41,12 +41,7 @@ class DrawerWidget extends StatelessWidget {
               _buildListTitleDrawer(text: 'My Profile', icon: Icons.account_circle, onTap: () {}),
               _buildListTitleDrawer(text: 'Notifications', icon: Icons.notifications, onTap: () {}),
               _buildListTitleDrawer(text: 'ChangePass', icon: Icons.lock, onTap: () {}),
-              _buildListTitleDrawer(
-                  text: 'Sign Out',
-                  icon: Icons.logout,
-                  onTap: () {
-                    Get.offAllNamed(Routes.Login);
-                  }),
+              _buildListTitleDrawer(text: 'Sign Out', icon: Icons.logout, onTap: () => Get.offAllNamed(Routes.Login)),
             ],
           ],
         ),

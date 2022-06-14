@@ -8,7 +8,7 @@ import 'package:do_an_flutter/Module/home/home_controller.dart';
 
 import 'package:do_an_flutter/Module/search/search_page.dart';
 import 'package:do_an_flutter/Module/home/widget/home_widget_banner.dart';
-import 'package:do_an_flutter/Module/view_more/view_more_page.dart';
+import 'package:do_an_flutter/Module/search/view_more_page.dart';
 import 'package:do_an_flutter/Ultis/helper.dart';
 
 import 'package:do_an_flutter/Widget/product_card_2.dart';

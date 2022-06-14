@@ -24,18 +24,15 @@ class ProductCard1 extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  AspectRatio(
-                    aspectRatio: 1,
-                    child: Container(
-                      padding: const EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).hoverColor,
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: Hero(
-                        tag: "${sanPham.id}",
-                        child: imageNetwork(sanPham.hinhAnh!.first.hinhAnh!),
-                      ),
+                  Container(
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).hoverColor,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Hero(
+                      tag: "${sanPham.id}",
+                      child: imageNetwork(sanPham.hinhAnh!.first.hinhAnh!),
                     ),
                   ),
                   const SizedBox(height: 10),
