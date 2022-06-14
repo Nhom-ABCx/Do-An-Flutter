@@ -12,7 +12,8 @@ class HelperWidget {
       textColor: Colors.black,
       fontSize: 16.0);
   //show input
-  void showDialogInput({
+
+  static void showDialogInput({
     required BuildContext context,
     required ValueSetter<String> whenSubmit,
     String? title,
@@ -54,8 +55,7 @@ class HelperWidget {
                       if (value!.isEmpty) {
                         return "Not empty !";
                       }
-                      validator != null ? validator(value) : null;
-                      return null;
+                      return validator != null ? validator(value) : null;
                     },
                   )),
               actions: [

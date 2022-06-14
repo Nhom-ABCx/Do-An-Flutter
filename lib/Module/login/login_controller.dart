@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import '../../API/base_getconnect.dart';
 
 class LoginController extends GetxController {
-  RxBool isShowPassword = true.obs;
+  final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   final txtUsername = TextEditingController(text: "Khach02");
   final txtPassword = TextEditingController(text: "password123");
 
