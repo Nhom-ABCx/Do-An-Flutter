@@ -62,12 +62,9 @@ class SanPham extends BaseModel<SanPham> {
     data['ThuocTinhToHop'] = thuocTinhToHop;
     data['TrangThai'] = trangThai;
     data['Star'] = star;
-    if (cTSanPham != null) {
-      data['c_t__san_pham'] = cTSanPham!.map((v) => v.toJson()).toList();
-    }
-    if (hinhAnh != null) {
-      data['hinh_anh'] = hinhAnh!.map((v) => v.toJson()).toList();
-    }
+    data['c_t__san_pham'] = cTSanPham != null ? cTSanPham!.map((v) => v.toJson()).toList() : null;
+    data['hinh_anh'] = hinhAnh != null ? hinhAnh!.map((v) => v.toJson()).toList() : null;
+
     return data;
   }
 }

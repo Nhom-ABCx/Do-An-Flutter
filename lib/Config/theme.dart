@@ -30,11 +30,11 @@ class ThemeConfig {
       ),
 
       elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ButtonStyle(
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(const RoundedRectangleBorder(
+          style: ElevatedButton.styleFrom(
+        shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(10.0)),
           //side: const BorderSide(color: Colors.pink)
-        )),
+        ),
         //shadowColor: MaterialStateProperty.all<Color>(Colors.red),
         //elevation: MaterialStateProperty.all<double>(0),
         //backgroundColor: MaterialStateProperty.all(ColorConstants.blue800),
@@ -62,6 +62,13 @@ class ThemeConfig {
     final theme = ThemeData.dark();
     return theme.copyWith(
       colorScheme: const ColorScheme.highContrastDark(),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        //backgroundColor: ColorConstants.blue800,
+        //type: BottomNavigationBarType.fixed, //ko cho no thu nho? mat chu~
+        //selectedIconTheme: const IconThemeData(size: 30),
+        selectedItemColor: theme.colorScheme.primary,
+        unselectedItemColor: theme.colorScheme.primary,
+      ),
     );
   }
 }

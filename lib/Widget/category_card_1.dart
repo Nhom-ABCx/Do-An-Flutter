@@ -32,8 +32,10 @@ class CategoryCard1 extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(
-                    Icons.category_outlined,
+                  Icon(
+                    loaiSanPham.icon != null
+                        ? IconData(int.parse(loaiSanPham.icon!.iconCode!), fontFamily: 'MaterialIcons')
+                        : Icons.category_outlined,
                     size: 40,
                   ),
                   Text(

@@ -1,8 +1,10 @@
 import 'package:do_an_flutter/Model/san_pham.dart';
+import 'package:do_an_flutter/Route/pages.dart';
 import 'package:do_an_flutter/Ultis/helper.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:do_an_flutter/Widget/build_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ProductCard2 extends StatelessWidget {
   final bool useStyle2;
@@ -13,27 +15,30 @@ class ProductCard2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return AspectRatio(
       aspectRatio: 1,
-      child: Stack(
-        children: [
-          Card(
-            elevation: 2,
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: useStyle2 ? _style2() : _style1(),
-            ),
-          ),
-          //yeu tich
-          Align(
-            alignment: Alignment.topRight,
-            child: IconButton(
-              onPressed: () async {},
-              icon: const Icon(
-                Icons.favorite, //border
-                color: Colors.red,
+      child: GestureDetector(
+        onTap: () => Get.toNamed("${Routes.ProductDetail}${sanPham.id}", arguments: sanPham),
+        child: Stack(
+          children: [
+            Card(
+              elevation: 2,
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: useStyle2 ? _style2() : _style1(),
               ),
             ),
-          ),
-        ],
+            //yeu tich
+            Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
+                onPressed: () async {},
+                icon: const Icon(
+                  Icons.favorite, //border
+                  color: Colors.red,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
